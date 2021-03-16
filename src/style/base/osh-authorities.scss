@@ -1,0 +1,196 @@
+.block--filter--wrapper{
+  margin: 2rem 0 0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10; 
+  .filter--dropdown--wrapper{
+    position: relative;
+    flex-basis:30%;
+    //align-self: flex-end;
+    > label{
+      min-height:5rem;
+      &:empty{
+        display:none;
+      }
+    }
+    .filter--dropdown--list{
+      position: absolute;
+      height: 4rem;
+      border: 1px solid $aquamarine;
+      background: $white;
+      border-radius: 6px;
+      overflow: hidden;
+      width: 100%;
+      .option-title{
+        padding: 0.8rem;
+        margin: 0;
+        font-size: 1.6rem;
+        cursor:pointer;
+        color:$aquamarine;
+        position: relative;
+        &:after{
+          content: "\f107";
+          display: inline-block;
+          font-size:2.5rem !important;
+          font-family:'FontAwesome';
+          font-size: inherit;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          position: absolute;
+          right: 0.7rem;
+          top: 0.2rem;
+          color: $aquamarine;
+        }
+      }
+      .filter--dropdown--options{      
+        list-style-type: none;
+        padding: 1rem;
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: normal;
+        max-height: 20rem;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+            width: 8px;
+        }       
+        &::-webkit-scrollbar-track {
+            border-radius: 4px;
+        }       
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background: #CCC;
+        }
+        li{
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.8rem;
+          label{
+            font-weight: normal;
+            padding-left: 0.8rem;
+            margin-bottom: 0;
+            max-width: 90%;
+          }
+          input{
+            margin: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+      }    
+    }
+    &.viewOptions{
+      .filter--dropdown--list{
+        overflow: visible;
+        display: block;
+        height: auto;
+        .option-title{
+          &:after{
+            content: "\f106";
+          }
+        }
+      }
+    }      
+  }
+
+  .filter-text{
+    flex-basis:33.3%;
+    position: relative;
+    top: 0px;
+    //align-self: flex-end;
+    #search-input{
+      padding: 0.8rem 4rem 1rem 1rem;
+      font-size: 1.6rem;
+      margin: 0;
+      border: 1px solid $aquamarine;
+      background: $white;
+      border-radius: 6px;
+      width: 100%;
+      box-shadow: none;
+      display:block;
+      &::-webkit-input-placeholder {
+        //display: none;
+      }
+      &:-moz-placeholder {
+        /* Firefox 18- */
+        //display: none;
+      }
+      &::-moz-placeholder {
+        /* Firefox 19+ */
+        //display: none;
+      }
+      &:-ms-input-placeholder {
+        //display: none;
+      }
+    }
+    button{
+      background: none;
+      border: 0px;
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      color: $aquamarine;
+    } 
+  }
+}  
+
+.matrix--elements--wrapper{
+  margin-top:2rem; 
+  .matrix--element{
+    background:$gray-lighter;
+    border-radius: 50px 0 50px 0;
+    padding: 2rem 5rem; 
+    margin: 0 1.5rem 1.5rem 2rem;
+    min-height: auto;
+    .matrix--header--elements{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      .flags--wrapper{
+        margin-right: 1.8rem;
+      }
+      .title-section{
+        margin: 1rem 0;
+      }
+    }
+    .matrix--content--elements{
+      h3{
+        margin-bottom: 0.6rem; 
+      }
+      .institution-name{
+        font-family:$font-body-bold;
+        font-size: 1.6rem;
+        margin:1rem 0;
+      }
+      samp{
+        font-family: "OpenSans";
+        font-size:$font-size-body;
+        line-height: 1.42857;
+      }
+      .btn--card {
+        margin-top: 1rem;
+        display: inline-block;
+        &:hover{
+          color:$orange;
+        }
+      }
+    }
+  }
+}
+
+.osh-authority{
+  .modal-dialog{
+    width: 70%;
+    height: 90%;
+    .modal-content{
+      width: 100%;
+      height: 100%;
+      .modal-title{
+        font-family: "Oswald", sans-serif;
+        font-size: 2.6rem;
+      }
+    }
+  }
+}

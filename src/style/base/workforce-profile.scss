@@ -1,0 +1,252 @@
+.gradient-chart{
+	background: #daebec; /* Old browsers */
+	background: -moz-linear-gradient(left, #daebec 0%, #519ea1 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #daebec 0%,#519ea1 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #daebec 0%,#519ea1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#daebec', endColorstr='#519ea1',GradientType=1 );	
+
+	margin: 1rem auto;
+	width: 750px;
+}
+.workforce--page #filter3 {
+    display: none;
+}
+.survey--map--block{
+	position: relative;
+	.map--block{
+		position: relative;
+		h2{
+	    font-family: "OpenSans-bold", sans-serif;
+	    margin-top: 2rem;
+	    margin-bottom: 2rem;
+	    color: $aquamarine;
+	    text-transform: uppercase;
+	    font-size: 1.8rem;
+	    font-size: 1.6rem;
+		}
+		.data-degraded{
+	    position: absolute;
+	    z-index: 9;
+	    padding: 0 0 0 3rem;
+	    right: 11rem;
+	    top: 6rem;
+	    min-height: 27.5rem;
+	    list-style-type: none;
+	    width: 10rem;
+	    text-align: left;
+	    background: url(../style/img/background-degraded.png) no-repeat left top;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	    li{
+		    font-size: 1.4rem;
+		    font-family: Opensans-bold;
+	    }
+		}
+		.non-eu{
+	    position: absolute;
+	    z-index: 9;
+	    left: 25rem;
+	    top: 6rem;
+	    background: url(../style/img/stripes.png) no-repeat left top;
+			background-size: 2rem 2rem;
+			padding: 0 0 0 2.5rem;
+	    font-size: 1.4rem;
+	    font-family: Opensans-bold;
+		}
+	}
+	&.fixed{
+		padding-top: 26.4rem;
+		.sticky--wraper{
+			position: fixed;
+			width: 100%;
+			z-index: 10;
+			top: 0;
+		}
+	}
+	.legend--block{
+		background:$white;
+		border-bottom: 2px solid $gray;
+		&.eu{
+			border-bottom: 2px solid $eu;
+		}
+	}
+  .help-text{
+    text-align: center;
+    //width: 100%;
+		background: #FFF;
+    padding: 3.6rem;
+    margin: 0 auto;
+    .exclamation{
+	    color: #FFF;
+	    display: inline-block;
+	    vertical-align: middle;
+	    font-size: 3.6rem;
+	    background: #f6a400;
+	    border-radius: 6rem;
+	    width: 4rem;
+	    height: 4rem;
+	    margin-left: 1.5rem;
+	    &:before{
+		    width: 0;
+		    height: 0;
+		    border-top: 5px solid transparent;
+		    border-bottom: 5px solid transparent;
+		    border-right: 10px solid $orange;
+		    content: '';
+		    font-size: 0px;
+		    left: -18px;
+		    top: -18px;
+		    position: relative;
+	    }
+	    &:after{
+	    	content:"!";
+	    	position: relative;
+	    	top: -0.7rem;
+	    	left: -0.4rem;
+	    }
+    }
+  }
+	.map--legend--block{
+    background: $white;
+    //width: 100%;
+    padding: 1rem 2rem;
+    position: relative;
+    top: 0;
+    border-radius:0;
+    right: 0%;
+    text-align: left;
+    display: flex;
+    .matrix--header--elements{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+			width: 12rem;
+			img{
+				border: 1px solid #B1B3B4;
+				width: 7rem;
+				text-align: center;
+				margin: auto;
+			}
+			.title-section{
+				font-family: 'Oswald-bold';				
+				font-size: 1.6rem;
+				margin: 0.5rem 1rem;
+				text-align: center;
+			}
+    }
+	  .matrix--elements--data{
+			list-style-type: none;
+			display: flex;
+			flex-wrap: nowrap;
+			padding: 0 2rem;
+			margin: 1rem 0 0;
+			flex: 1 1 auto;
+	  	li{
+	  		//width: 100%;
+	  		padding: 0 3rem;
+	  		display: flex;
+		    flex-direction: column;
+		    flex-wrap: wrap;
+		    text-align: center;
+		    @media only screen and (max-width: 1200px) {
+  				padding: 0 2rem;
+				}
+		    > div{
+		    	margin-top: auto;
+		    }
+	  		label{							
+					font-size: 1.6rem;
+					display: inline-block;
+					padding: 0;
+					font-weight: normal;
+					font-family: 'Oswald';
+	  		}
+	  		.data{
+					display: inline-block;
+				  font-family: 'Oswald-bold';
+				  font-size: 2.4rem;
+	  		}
+	  		.data-text{
+					font-family: 'Oswald';
+					display: inline-block;
+					font-size: 2.4rem;
+	  		}
+	  	}
+	  }
+	}
+	.map--eu--legend{    
+	  .matrix--header--elements{
+			img{
+			}
+			.title-section{
+				color: $eu;
+			}
+	  }
+	  .matrix--elements--data{
+	  	li{
+	  		label{							
+					color: $gray;
+					font-size: 1.6rem;
+	  		}
+	  		.data{
+	  			color: $eu;
+	  		}
+	  		.data-text{
+	  			color: $eu;
+	  		}
+	  	}
+	  }
+	}
+	.map--countries--legend{		
+		position: relative;
+	  .matrix--header--elements{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+			img{
+				//height: 2.5rem;
+			}
+			.title-section{
+				color: $aquamarine;
+			}
+	  }
+	  .matrix--elements--data{
+	  	li{
+	  		label{							
+					color: $gray;
+					font-size: 1.6rem;
+	  		}
+	  		.data{
+	  			color: $aquamarine;
+	  		}
+	  		.data-text{
+	  			color: $aquamarine;
+	  		}
+	  	}
+	  }
+	  .close-legend{
+	    border: 0;
+	    position: absolute;
+	    right: 0;
+	    top: 35%;
+	    padding: 0.5rem;
+	    background:$gray-lighter;
+	    border-radius: 0.4rem;
+	    cursor: pointer;
+	    &:hover{
+	    	color:$white;
+	    	background: $aquamarine;
+	    }
+	  }
+	}
+	path.active{
+		fill: $orange;
+	}
+	path:hover{
+		opacity: 0.9;
+	}
+	tspan:hover{
+		cursor: pointer;
+	}
+}

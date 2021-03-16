@@ -1,0 +1,738 @@
+	@mixin scale-svg($w, $h) {
+	  -ms-transform: scale($w, $h);
+	  -webkit-transform: scale($w, $h);
+	  -moz-transform: scale($w, $h);
+	  transform: scale($w, $h);
+	}
+
+
+@media print {
+	.menu-tools-top, 
+	.bar-main-menu, 
+	.icon--card, 
+	.btn--block, .btn--card, .btn-default, 
+	.block--filter--wrapper, 
+	.see-more, .see-less, 
+	.social--network--nav, .footer-social-network, 
+	.footer-nav-accessibility,
+	.chart--submenu, 
+	#popUpMessage, 
+	.download-pdf, 
+	#cookiesConsent, 
+	#widthDisclaimer, 
+	.partial-text {
+	  display: none !important;
+	}
+	.complete-text{
+		display: block !important;
+	}
+	a[href]:after {
+	  content: "";
+	}
+	.matrix--content--elements{
+		 samp{
+			display: inline !important;
+		}
+		.text-part{
+			display: block !important;
+			page-break-before: auto;
+		}	
+	}
+	.pagination--wrapper{
+		page-break-before: auto;
+	}
+
+
+	@page {
+	  size: auto;
+	  margin:2.5cm; 
+
+	}
+	html{
+		font-size: 8px !important;	
+	}
+	body{
+		padding: 0 !important;
+	}
+	h2{
+		font-size: 2.8rem !important;
+		margin: 0 0 1.5rem 0;
+	}
+	h3{
+		font-size: 2.2rem !important;
+		margin: 1.2rem 0 1.2rem 0;
+		color: $gray !important;
+	}
+	.container{
+		padding: 0;
+	}
+
+  /** WIDTH CARDS  **/
+      .card--block, .card--block--rounded, .card--block--chart{
+				-webkit-column-break-inside: avoid!important;
+        page-break-inside: avoid!important;
+        break-inside: avoid!important;
+				page-break-after: avoid  !important;
+      }
+    .w2, .w3, .w4, .w4{
+      .card--block, .card--block--rounded, .card--block--chart{
+        width:100%;
+        text-align: left;
+        padding: 0rem;
+        margin: 0;
+        page-break-inside : avoid !important;
+        page-break-after: avoid  !important;
+      }
+      .card--block--rounded{
+        width:100%;
+        text-align: left;
+        padding: 0rem;
+        margin: 0;
+        page-break-inside : avoid !important;
+        page-break-after: avoid  !important;
+      }
+      .card--block--chart{
+        width:100%;
+        text-align: left;
+        padding: 0rem;
+        margin: 0;
+        page-break-inside : avoid !important;
+        page-break-after: avoid  !important;
+      }
+    }
+  /** END WIDTH CARDS  **/
+	.bar-header{
+		display: block;
+		position: relative !important;
+    height: auto;
+    margin-top: 2rem;
+		&.hide-header{
+			top: 0rem !important;
+		}
+		.header--top{
+			display: flex;
+			.eu-osha-logo{
+				img{
+					width: 5cm !important;
+					height: auto !important;
+				}
+			}
+			.osh-barometer-legend{
+				padding-left: 0rem;
+			}
+		}
+	}
+	h1{
+		font-size: 3rem;
+	}
+	.home-cover{
+		border-top: 0px;
+		height: auto;
+		min-height: auto !important;
+		.main-title{
+			padding: 0 !important;
+			margin: 0 !important;		
+		} 
+		.lead-title {
+			padding-left: 0 !important;
+			padding-top: 1rem !important;
+		}
+	}
+	.breadcrumbs--social--network{
+		padding-left: 0rem;
+	}
+	.advice--block{
+		top: 0;
+		&.advice--block-not-home{
+  		padding: 2rem 1.5rem;
+		}
+		.title--section{
+			font-size: 2.4rem;
+			font-family: 'Oswald-light';
+			margin: 2rem 0;
+			padding: 2rem 8rem;
+		  border-top: 1px solid $gray-light;
+		  border-bottom: 1px solid $gray-light;
+			&:before{
+				content:'"';
+			}
+			&:after{
+				content:'"';
+			}
+		}
+		.lead-title {
+			padding-left: 0 !important;
+			padding-top: 1rem !important;
+			margin: 2rem 0;
+		}
+	}
+
+	.title-section{
+		margin: 1.5rem 0;
+	}
+	.section--page {
+		padding: 0;
+	}
+	.selected--tags-wrapper{
+		.selected-tag{
+			border: 1px solid #666;
+		}
+	}
+	.matrix--elements--wrapper{
+		.matrix--element {
+			padding: 1rem !important;
+			margin: 1rem 0 !important;
+		}
+	} 
+	.economic--sector--profile{
+		.card--grid{
+			display: block !important;
+			justify-content: unset;
+			flex-wrap: initial;
+			.card--block--chart {
+		  	width: 100% !important;
+		  	margin: 4rem 0 0 !important;
+		  	page-break-inside: avoid  !important;
+		  	page-break-after: avoid  !important;
+		  	display: block !important;
+		  	.select-filter-chart-wrapper{
+					width: auto !important;
+					top: 0rem !important;
+					position: relative !important;
+					.select-filter-chart{
+						select{
+							width: auto !important;
+					    text-align-last: left !important;
+					    text-align: left !important;
+						}
+						&:after{
+							content:none !important;
+						}
+					} 
+		  	}
+		  	.with-filter{
+		  		top: 0 !important;
+		  	}
+				.title--card {
+					min-height: auto !important;
+				}
+				.chart--wrapper{
+				  padding: 0 !important;
+				  vertical-align: top  !important;
+				  width:100% !important;
+		  		div[id^=dvt_bar_chart]{
+						display: block !important;
+					}
+				  svg{				    
+				    //zoom: 0.75 !important;
+				    width: 21cm !important;
+				    width: 100% !important;
+				  }
+				}
+			}
+		}
+		.compare--block{
+			.compare--list{
+				display: block;
+				li{
+					width: auto;
+					display: inline-block;
+					font-size: 1.6rem !important;
+					label{
+						width: auto;
+						font-size: 1.4rem !important;
+					}
+					select{
+						width: auto;
+						font-size: 1.6rem !important;
+					}
+				}
+			}
+		}
+	}
+
+	.country--profile--page, .regulation {
+		.btn--block-full{
+			display: none;
+		}
+		.compare--block{
+			.compare--list{
+				justify-content: space-evenly  !important;
+				li{
+					width:auto;
+					display: inline-block;
+					font-size: 1.6rem !important;
+					label{
+						width: auto;
+						font-size: 1.4rem !important;
+					}
+					select{
+						width: auto;
+						font-size: 1.6rem !important;
+					}
+				}
+			}
+		}
+		.column--grid--block{
+			flex-wrap: wrap !important;
+			page-break-inside: avoid  !important;
+			page-break-after: avoid  !important;
+			.column--item {
+			  border-right: 0 !important;
+			  padding: 1rem 0 2rem !important;
+			  width: 100% !important;
+			  > h2{
+			  	border-bottom: 1px dashed  $gray-light;
+			  }
+			  .flags--wrapper{
+			  	outline:none !important;
+				  width: 1cm !important;
+				  float: left !important;
+				  margin-right: 1rem !important;
+			  }
+			  .complete-text{
+			  	display: block !important;
+			  }
+			  .download-report, .partial-text{
+			  	display: none;
+			  }
+			}
+			.card--block--chart{
+				padding: 0 !important;
+				h2{
+					color: $gray !important;
+				}
+			}
+		} 
+	}
+
+  .flags--wrapper{
+  	outline: 1px solid #CCC !important;
+	  width: 1cm !important;
+	  float: left !important;
+	  margin-right: 1rem !important;
+  }
+
+	.home{
+		.column--grid--block{
+			display: block;
+			.column--item{
+				width: 100%;
+				padding: 0;
+			}
+		}
+		.btn--block-full {
+		  padding: 1.4rem 0rem;
+		  display: none;
+		}
+		.preferences-home{
+			.preferences--lock{
+				margin: 2rem 0;
+				form{
+					.country-selected-wrapper{
+						width: 50% !important;
+					}
+				}
+			}	
+		}
+		.print{
+		  display: block;
+		  overflow: auto;
+    	margin: 2rem 0 4rem;
+    	.item{
+    		> div{
+    			width: 100% !important;
+    		}
+    	}
+		}
+		.carousel-control-group{
+			display: none;
+		}
+		.carousel-showmanymoveone{
+			display: none;
+			.carousel-inner{
+				padding: 0;
+				> .item{
+					display: none;
+					&.active{
+						display: block;
+					}
+					> div{
+						display: block;
+						border: 0;
+						min-height: auto;
+						width: 100%;
+						.content{
+							padding: 1rem;
+							min-height: initial;
+						}
+						.btn--card--carousel{
+							display: none;
+						}
+					}
+				}
+			}			
+		}
+		.help-text .exclamation {
+	    display: none;
+		}
+		.section--our--methodology{
+			padding:1.5rem;
+			display: block;
+			.agencies--logos--block{
+				width: 100%;
+				padding:0;
+				ul{
+			    list-style: none;
+			    display: flex;
+			    width: 100%;
+			    flex-wrap: nowrap;
+			    flex-direction: row;
+			    justify-content: center;
+			    padding: 0;
+			    li{
+						border-radius: 0;
+						overflow: hidden;
+						margin: 0;
+						text-align: left;
+						a{
+							padding: 0;
+							margin: 0.5rem;
+							height: auto;
+							img{
+								width: 60%;
+							}
+						}
+			    }
+				}
+			}
+			.content-methodology{
+				width: 100%;
+				padding:0;
+			}
+		} 
+	}
+	.workforce--page{
+		.filter--indicator--block{
+			display: none;
+			.indicators--group{
+
+			}
+		}
+		.survey--map--block{
+			display: none;
+		}
+		.survey--map--block-mobile{
+			display: block;
+			.matrix--elements--wrapper{
+			  margin: 1rem 0;
+			 	.matrix--element{
+  				padding: 1rem;
+  				margin: 0;
+					border-radius: 0;
+					page-break-inside: avoid  !important;
+					page-break-after: avoid  !important;
+					&.no-print{
+						display: none;
+					}
+					&.active{
+						display: block;
+					}
+					.matrix--header--elements{
+						.flags--wrapper{
+							width: 1.5cm;
+						}
+					}
+				  .matrix--elements--data{
+						padding: 0;
+						margin: 1rem 0;
+						display: block;
+						min-height: 3cm;
+						li{
+							display: inline-block;
+							width: 32%;
+							vertical-align: top;
+							margin-bottom: 1.6rem;
+							label{
+								min-height: auto;
+							}
+						}
+				  }
+			  }
+			}
+		} 
+	}
+	.note p {
+	  text-align: center;
+	  margin: 1rem 0rem;
+	}
+
+	.filter--letter--section {
+		display: none;
+	}
+	.alphabetic--card--section{		
+		.alphabetic--card--block{
+			.alphabetic--card--items{
+				.alphabetic-card-item{
+					border-radius: 0 !important;
+					padding: 0 1rem !important;
+					margin: 0 !important;
+					width: 20% !important;
+					page-break-inside: avoid  !important;
+					page-break-after: avoid  !important;
+					.additional-img{
+						img{
+							border:1px solid #CCC !important;
+							width: 6rem !important;
+						}						
+					}
+					.btn--block-full{
+						display: none;
+					}
+				}
+			}
+		}
+	}   
+	.highlited--data--section{
+		&.affix{
+  		position: initial !important; 
+		}
+	}
+	.social-dialogue{
+    .highlited--data--section{
+			border-bottom: 2px solid #003399 !important;
+    }
+	  .card--grid{
+	    .card--block--chart{
+	    	margin: 0 !important; 
+	      .chart--block{
+					page-break-inside: avoid  !important;
+					page-break-after: avoid  !important;
+	        header{
+	        	.flags--wrapper{
+	        		outline: 0 !important;
+		          img{
+		          	border: 0px solid #ccc !important;
+		          	width: 6rem !important;
+		          }	        		
+	        	}
+	          h2{
+	          }      
+	        }
+	        .highlited-data-list{
+	        	justify-content: flex-start !important;	        	
+	          li{
+	            width: 25% !important;
+	            text-align: left !important;
+	            padding: 0 2rem 0 0 !important;
+	            span{
+	              &.country-data{
+	                font-size: 3.8rem !important;
+	              }
+	              &.data-text{
+									font-size: 1.8rem !important;
+	              }
+	            } 
+	            label{
+								font-family: OpenSans !important;
+								padding-bottom: 0 1rem !important;
+								font-size: 1.6rem !important;
+	            }               
+	          }
+	        }
+	      }
+	    }
+	  } 
+	  .block--filter--wrapper {
+	  }
+	}
+
+
+	.work-accidents{
+		.card--grid{
+			display: block !important;
+			.card--block--chart{
+			  display: block !important;
+			  width: 100% !important;
+			  page-break-inside: avoid  !important;
+				page-break-after: avoid  !important;
+				margin-bottom: 5rem  !important;
+				.title--card{
+					min-height: auto !important;
+				}
+				.chart--block{
+					div [id$="protovis"]{
+						width: 100% !important;						
+						svg{
+							//width: 100% !important;
+							//zoom:0.55;
+						}
+					}
+				}
+			}
+		}
+		div [id$="protovis"]{
+			width: 100% !important;
+			page-break-inside: avoid  !important;
+			page-break-after: avoid  !important;
+			svg{
+				//width: 21cm !important;
+			}
+		}
+		div[query="getFatalAccidentsData"]{
+			zoom:0.7;
+		}
+		.compare--block{
+			.compare--list{
+				display: block;
+				li{
+					width: auto;
+					display: inline-block;
+					font-size: 1.6rem !important;
+					label{
+						width: auto;
+						font-size: 1.4rem !important;
+					}
+					select{
+						width: auto;
+						font-size: 1.6rem !important;
+					}
+				}
+			}
+		}
+	}
+	.health-perception-workers{
+		.card--grid{
+			.card--block--chart{
+				.chart--block{
+					header{
+				   min-height: auto !important;
+				   display: block !important;
+					}
+				}
+			}
+		}
+	}
+	.overall-opinion, 
+	.osh-culture, 
+	.prevention-companies, 
+	.mental-risk, 
+	.physical-risk, 
+	.worker-involvement, 
+	.work-accidents{
+		div[id^=dvt_bar_chart]{
+			zoom:0.9;
+		}
+		.compare--block{
+			.compare--list{
+				display: block;
+				li{
+					width: 49%;
+					display: inline-flex;
+					font-size: 1.6rem !important;
+					label{
+						width: auto;
+						font-size: 1.4rem !important;
+						&:after{
+							padding: 1rem;
+						}
+					}
+					dvt-select{
+						border: 0 !important;
+						width: auto;
+					}
+					select{
+						width: auto;
+						font-size: 1.6rem !important;
+					}
+					&:after{
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	.overall-opinion, 
+	.mental-risk, 
+	.physical-risk, 
+	.osh-culture, 
+	.prevention-companies{
+		.chart--block, .chart--wrapper{
+			.title--card{
+				min-height: auto;
+			}
+			svg{
+				zoom:0.8;
+			}
+		}
+	}
+	.worker-involvement, 
+	.overall-opinion, 
+	.mental-risk, 
+	.physical-risk, 
+	.osh-culture, 
+	.prevention-companies{
+		.card--grid{
+		 	.card--block--chart{
+		 		.select-filter-chart{
+			    right: initial  !important;
+			    top: -23px  !important;
+			    width: 88%  !important;
+			    select{
+			    	border:none  !important;
+			    	padding: 0 !important;
+			    }
+			    &:after{
+			    	display: none;
+			    }
+		 		}
+		 	}
+		}
+	}
+
+	.about-tool{
+		.indicators--list--wrapper{
+			flex-wrap: nowrap !important;
+			display: flex !important;
+			margin: 3rem 0 3rem !important;
+			.indicators-item{
+		    height: auto!important;
+		    margin-bottom: 0 !important;
+		    width: auto !important;
+				a{
+					height: auto !important;
+					font-size: 2.2rem !important;
+					position: relative !important;
+					padding: 1rem !important;
+			    font-family: 'Oswald-light' !important;
+			    font-weight: normal !important;
+				}
+				&.active{					
+					a{
+						font-family: 'Oswald' !important;
+						font-weight: bold !important;
+					}
+				}
+			}
+		}
+		.indicators--submenu--wrapper{
+	    height: auto !important;
+	    max-height: initial !important;
+			&:after {
+		    content: "";
+			}
+		}
+	}
+	.section--methodology{
+		h3.accordion-title:after{
+			display:none;
+		}
+		.accordion-content{
+			display: block;
+			max-height: fit-content;
+			overflow: visible;
+		}
+	}
+	
+}
+
