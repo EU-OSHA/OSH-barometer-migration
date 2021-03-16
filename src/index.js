@@ -33,11 +33,14 @@ import WorkAccidents from './components/osh-outcomes-working-conditions/WorkAcci
 import WorkerInvolvement from './components/osh-outcomes-working-conditions/WorkerInvolvement';
 import WorkingConditions from './components/osh-outcomes-working-conditions/WorkingConditions';
 
-
 // OSH Infrastructure
 import EnforcementCapacity from './components/osh-infrastructure/EnforcementCapacity';
 import OSHStatistics from './components/osh-infrastructure/OSHStatistics';
 
+// About Tool
+import GeneralInformation from './components/about-tool/GeneralInformation';
+import CountryReport from './components/about-tool/CountryReport';
+import CountryReportHome from './components/about-tool/CountryReportHome';
 
 // Footer
 import Accesibility from './components/footer-pages/Accesibility';
@@ -68,8 +71,6 @@ ReactDOM.render(
 				<Route exact path="/osh-steering/regulation" render={() => <App><Regulation literals={literals}/></App>} />
 				<Route exact path="/osh-steering/social-dialogue" render={() => <App><SocialDialogue literals={literals}/></App>} />
 
-
-
 				<Route exact path="/osh-outcomes-working-conditions/health-perception" render={() => <App><HealthPerception literals={literals}/></App>} />
 				<Route exact path="/osh-outcomes-working-conditions/mental-risk" render={() => <App><MentalRisk literals={literals}/></App>} />
 				<Route exact path="/osh-outcomes-working-conditions/osh-culture" render={() => <App><OSHCulture literals={literals}/></App>} />
@@ -80,10 +81,12 @@ ReactDOM.render(
 				<Route exact path="/osh-outcomes-working-conditionsosh-steering/worker-involvement" render={() => <App><WorkerInvolvement literals={literals}/></App>} />
 				<Route exact path="/osh-outcomes-working-conditions/working-conditions" render={() => <App><WorkingConditions literals={literals}/></App>} />
 
-
 				<Route exact path="/osh-infrastructure/enforcement-capacity" render={() => <App><EnforcementCapacity literals={literals}/></App>} />
 				<Route exact path="/osh-infrastructure/osh-statistics" render={() => <App><OSHStatistics literals={literals}/></App>} />
 
+				<Route exact path="/about-the-system" render={() => <App><GeneralInformation literals={literals}/></App>} />
+				<Route exact path="/about-the-system/methodology" render={() => <App><CountryReport literals={literals}/></App>} />
+				<Route exact path="/country-report" render={() => <App><CountryReportHome literals={literals}/></App>} />
 
 				<Route exact path="/accesibility" render={() => <App><Accesibility literals={literals}/></App>} />
 				<Route exact path="/legal-notice" render={() => <App><LegalNotice literals={literals}/></App>} />

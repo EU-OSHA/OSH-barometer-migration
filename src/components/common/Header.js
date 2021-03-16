@@ -1,8 +1,73 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import $ from "jquery";
 
 class Header extends Component
 {
+
+	zoomSmall() {
+		$('html').css('font-size','8px');
+		$('body').removeClass('plus').addClass('minor');
+	  }
+	  zoomMedium(){
+		$('html').css('font-size','10px');
+		$('body').removeClass('plus');
+		$('body').removeClass('minor');
+	}
+	zoomBig(){
+		$('html').css('font-size','12px');
+		$('body').removeClass('minor');
+		$('body').addClass('plus');
+		console.log('zoomBig');
+	}
+	print(){
+		window.print();
+	}
+
+	componentDidMount(){
+
+		$(window).onscroll = function() {
+			console.log('onscroll');
+			var currentScrollPos = $window.pageYOffset;
+			// currentScrollPos should be greater than 90 to solved a iphone 6 issue
+			if( currentScrollPos > 90 ){
+				if (prevScrollpos > currentScrollPos) {
+					$(".bar-header").addClass('show-header');
+					$(".affix").addClass('show-header');
+					$(".affix").removeClass('hide-header');
+					$(".bar-header").removeClass('hide-header');
+				} else {
+					$(".bar-header").addClass('hide-header');
+					$(".affix").addClass('hide-header');
+					$(".affix").removeClass('show-header');
+					$(".bar-header").removeClass('show-header');
+				}
+
+				prevScrollpos = currentScrollPos;
+
+				if( $('.advice--block-not-home').length > 0 ){
+					if( prevScrollpos <= $('.advice--icon--block').offset().top + $('.advice--icon--block')[0].clientHeight){
+						$(".compare--block.regulation-page").removeClass('show-header');
+					}
+				}                                
+			}
+			var gotopVisible = $(window).height() + $(window).height()/2;
+			if( resolution <= 1024 ){
+				if( currentScrollPos > gotopVisible )
+				{
+					$('.go-to').css('display','block');
+				}
+				else
+				{
+					$('.go-to').css('display','none');
+				}
+			} else {
+				$('.go-to').css('display','none');
+			}
+		} 
+	}
+
+
 	render()
 	{
 		return(
@@ -29,8 +94,11 @@ class Header extends Component
 									<div className="form-group has-feedback"><label htmlFor="search" className="sr-only ng-binding" data-ng-bind="i18n_literals.L378">Search</label> <input type="text" className="form-control" name="search" id="search" placeholder="Search" /> <i className="fa fa-search form-control-feedback" aria-hidden="true"></i></div>
 									</form>
 								</li>
-								<li className="zoom--text"><span className="a_small"><a onClick="zoomSmall()" title="Smaller text">a</a></span> <span className="a_medium"><a onClick="zoomMedium()" title="Optimised defaults">a</a></span> <span className="a_big"><a onClick="zoomBig()" title="Bigger text">a</a></span></li>
-								<li className="print--block"><a href="javascript:" title="Print page" onClick="window.print()"><i className="fa fa-print" aria-hidden="true"></i><label htmlFor="search" className="sr-only ng-binding" data-ng-bind="i18n_literals.L364">Print page</label></a></li>
+								<li className="zoom--text">
+									<span className="a_small"><a onClick={this.zoomSmall} title="Smaller text">a&nbsp;</a></span> 
+									<span className="a_medium"><a onClick={ this.zoomMedium } title="Optimised defaults">a&nbsp;</a></span> 
+									<span className="a_big"><a onClick={ this.zoomBig } title="Bigger text">a&nbsp;</a></span></li>
+								<li className="print--block"><a title="Print page" onClick={ this.print }><i className="fa fa-print" aria-hidden="true"></i><label htmlFor="search" className="sr-only ng-binding" data-ng-bind="i18n_literals.L364">Print page</label></a></li>
 								<li id="google_translate_element_wrapper">
 								</li>
 								</ul>
