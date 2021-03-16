@@ -20,7 +20,7 @@ class EconomicSectorProfile extends Component
 							<h1 className="main-color left-text ng-binding" data-ng-bind="i18nLiterals.L22003">Economic and sector profile</h1>
 							<p data-ng-bind-html="i18nLiterals.L22028" className="ng-binding">
 							<p>The indicator ‘Economic and sector profile’ displays relevant data on the economy and sectoral structure of the EU and its Member States, e.g. percentages of company size, employment per sector and information on gross domestic product. Note: Not all data is available for every country.</p>
-							</p><span data-ng-bind="(i18nLiterals.L20696)+(' ')+(i18nLiterals.L20704)" className="ng-binding">Source: EUROSTAT. For further information refer to</span> <span><a data-ng-bind="i18nLiterals.L20705" ui-sref="about-tool-detail-page({pSection: 'generic-information', pSubsection: 'economic_sector_profile', pIndicator: '31'})" class="ng-binding" href="#!/about-the-system/methodology">Methodology</a></span>
+							</p><span data-ng-bind="(i18nLiterals.L20696)+(' ')+(i18nLiterals.L20704)" className="ng-binding">Source: EUROSTAT. For further information refer to</span> <span><a data-ng-bind="i18nLiterals.L20705" ui-sref="about-tool-detail-page({pSection: 'generic-information', pSubsection: 'economic_sector_profile', pIndicator: '31'})" class="ng-binding" href="/about-the-system/methodology">Methodology</a></span>
 						</div>
 						<div className="icon--advice economic-chart-icon hide-mobile col-sm-4 col-md-4"></div>
 					</div>
@@ -261,7 +261,7 @@ class EconomicSectorProfile extends Component
 								<div className="content-related-item">
 								<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Workforce profile</h3>
 								<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator includes a few key data on ageing workers and the workforce:<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="workforce-profile" href="#!/generic-information/workforce-profile/median-age/ageing-workers">See more</a></p>
+								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="workforce-profile" href="/generic-information/workforce-profile/median-age/ageing-workers">See more</a></p>
 								</div>
 							</div>
 							{/* end ngRepeat: item in items */}
@@ -270,7 +270,7 @@ class EconomicSectorProfile extends Component
 								<div className="content-related-item">
 								<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Prevention in companies</h3>
 								<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator visualises data on how OSH is implemented on company/enterprise<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="prevention-companies" href="#!/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a></p>
+								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="prevention-companies" href="/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a></p>
 								</div>
 							</div>
 							{/*  end ngRepeat: item in items */}

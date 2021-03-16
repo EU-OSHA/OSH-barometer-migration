@@ -9,8 +9,8 @@ class Sitemap extends Component
 	{
 		return(
 			<div>
-				<h1 class="title-section second-color ng-binding text-center">{this.props.literals.L356}</h1>
-				<section class="container site--map--block" >
+				<h1 className="title-section second-color ng-binding text-center">{this.props.literals.L356}</h1>
+				<section className="container site--map--block" >
 					<ul>
 						<li ng-repeat="level0 in structure">
 							<a role="button" ng-if="!level0.levels && level0.id != 'home'" ui-sref='{{ level0.sref }}({pLanguage: pLanguage})' data-ng-bind-html="i18n_literals[level0.name]"></a> 

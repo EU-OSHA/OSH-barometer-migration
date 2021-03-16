@@ -75,7 +75,7 @@ class Methodology extends Component
 							</div>
 							</Accordion>
 						</div>
-						<p className="btn--wrapper text-center"><a ui-sref="about-tool-detail-page({pSection: father, pSubsection: section.toLowerCase(), pIndicator: pIndicatorID})" className="btn-default btn-main-color text-center " data-ng-bind="i18nLiterals.L22102" href="#!/about-the-system/methodology">Discover all the Methodology</a></p>
+						<p className="btn--wrapper text-center"><a ui-sref="about-tool-detail-page({pSection: father, pSubsection: section.toLowerCase(), pIndicator: pIndicatorID})" className="btn-default btn-main-color text-center " data-ng-bind="i18nLiterals.L22102" href="/about-the-system/methodology">Discover all the Methodology</a></p>
 					</div>
 					</Accordion>
 				</section>

@@ -5,7 +5,7 @@ class CountryReport extends Component
 	render()
 	{
 		return(
-			<div>
+			<div class="about-tool">
 			</div>
 		)
 	}
