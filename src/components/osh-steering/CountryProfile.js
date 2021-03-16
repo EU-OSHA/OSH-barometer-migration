@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
-import Methodology from '../common/Methodology';
+import ReactHtmlParser from 'react-html-parser';
+
+const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
 class CountryProfile extends Component
 {
+	constructor(props){
+		super(props);
+		this.state = {countryProfileData1: {}, countryProfileData2: {}, openListClass: "", countriesSelect1: [], 
+			countriesSelect2: [], indicators: [], maxCharacters: 200};
+	}
 	render()
 	{
 		return(
