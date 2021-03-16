@@ -26,7 +26,7 @@ class Chart extends Component
 				},
 				colors: this.props.colors,
 				chart: {
-						type: 'bar',
+						type: this.props.type,
 						backgroundColor: '#F0F0F0'
 				},
 				exporting: {
