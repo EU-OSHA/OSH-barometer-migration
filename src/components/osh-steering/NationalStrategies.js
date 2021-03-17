@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
+import images from '../../style/img/flag/images';
 
 const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
@@ -126,7 +127,7 @@ class NationalStrategies extends Component
 								<div className="card--block--rounded national--card--item" key={index}>
 									<div className="resources-item">
 										<p className="nopadding additional-img text-center">
-											<img className="flags--wrapper" src={require('../../style/img/flag/at.png')} alt={country.name} />
+											<img className="flags--wrapper" src={`${images[country.code.toLowerCase()]}`} alt={country.name} />
 											{/* <img className="flags--wrapper" src={require(`../../style/img/flag/${country.code.toLowerCase()}.png`)} alt={country.name} /> */}
 											{/* <img className="flags--wrapper" ng-src="../../style/img/flag/{{::country.country_code.toLowerCase()}}.png" /> */}
 										</p>
