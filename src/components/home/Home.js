@@ -128,60 +128,62 @@ class Home extends Component
 						</div>
 					</div>
 				</section>
-				<div className="container preferences--lock">
-					<h2 className="title-section main-color text-center ng-binding">{this.props.literals.L22111}</h2>
-					<div className="preferences-text ng-binding">
-						{ReactHtmlParser(this.props.literals.L22112)}
-					</div>
-					<form className="ng-pristine ng-valid">
-						<div className="country-selected-wrapper">
-							<select data-ng-model="pCountry1" data-ng-change="changeCountry()" data-ng-disabled="selectDisabled" className="ng-pristine ng-untouched ng-valid">
-								<option value="0" disabled="disabled" className="">{this.props.literals.L22113}</option>
-								<option value="AT">(AT) Austria</option>
-								<option value="BE">(BE) Belgium</option>
-								<option value="BG">(BG) Bulgaria</option>
-								<option value="CH">(CH) Switzerland</option>
-								<option value="CY">(CY) Cyprus</option>
-								<option value="CZ">(CZ) Czechia</option>
-								<option value="DE">(DE) Germany</option>
-								<option value="DK">(DK) Denmark</option>
-								<option value="EE">(EE) Estonia</option>
-								<option value="EL">(EL) Greece</option>
-								<option value="ES">(ES) Spain</option>
-								<option value="FI">(FI) Finland</option>
-								<option value="FR">(FR) France</option>
-								<option value="HR">(HR) Croatia</option>
-								<option value="HU">(HU) Hungary</option>
-								<option value="IE">(IE) Ireland</option>
-								<option value="IS">(IS) Iceland</option>
-								<option value="IT">(IT) Italy</option>
-								<option value="LT">(LT) Lithuania</option>
-								<option value="LU">(LU) Luxembourg</option>
-								<option value="LV">(LV) Latvia</option>
-								<option value="MT">(MT) Malta</option>
-								<option value="NL">(NL) Netherlands</option>
-								<option value="NO">(NO) Norway</option>
-								<option value="PL">(PL) Poland</option>
-								<option value="PT">(PT) Portugal</option>
-								<option value="RO">(RO) Romania</option>
-								<option value="SE">(SE) Sweden</option>
-								<option value="SI">(SI) Slovenia</option>
-								<option value="SK">(SK) Slovakia</option>
-							</select>
-							<label className="country-unlock disabled" data-ng-className="{disabled: pCountry1=='0'}" ng-click="pCountry1=='0' || saveCountry($event)" data-ng-disabled="true" disabled="disabled">
-								<i className="fa" aria-hidden="true"></i>
-								<i className="fas fa-lock-open"></i>
+				<section className="preferences-home container-fluid section--page">
+					<div className="container preferences--lock">
+						<h2 className="title-section main-color text-center ng-binding">{this.props.literals.L22111}</h2>
+						<div className="preferences-text ng-binding">
+							{ReactHtmlParser(this.props.literals.L22112)}
+						</div>
+						<form className="ng-pristine ng-valid">
+							<div className="country-selected-wrapper">
+								<select data-ng-model="pCountry1" data-ng-change="changeCountry()" data-ng-disabled="selectDisabled" className="ng-pristine ng-untouched ng-valid">
+									<option value="0" disabled="disabled" className="">{this.props.literals.L22113}</option>
+									<option value="AT">(AT) Austria</option>
+									<option value="BE">(BE) Belgium</option>
+									<option value="BG">(BG) Bulgaria</option>
+									<option value="CH">(CH) Switzerland</option>
+									<option value="CY">(CY) Cyprus</option>
+									<option value="CZ">(CZ) Czechia</option>
+									<option value="DE">(DE) Germany</option>
+									<option value="DK">(DK) Denmark</option>
+									<option value="EE">(EE) Estonia</option>
+									<option value="EL">(EL) Greece</option>
+									<option value="ES">(ES) Spain</option>
+									<option value="FI">(FI) Finland</option>
+									<option value="FR">(FR) France</option>
+									<option value="HR">(HR) Croatia</option>
+									<option value="HU">(HU) Hungary</option>
+									<option value="IE">(IE) Ireland</option>
+									<option value="IS">(IS) Iceland</option>
+									<option value="IT">(IT) Italy</option>
+									<option value="LT">(LT) Lithuania</option>
+									<option value="LU">(LU) Luxembourg</option>
+									<option value="LV">(LV) Latvia</option>
+									<option value="MT">(MT) Malta</option>
+									<option value="NL">(NL) Netherlands</option>
+									<option value="NO">(NO) Norway</option>
+									<option value="PL">(PL) Poland</option>
+									<option value="PT">(PT) Portugal</option>
+									<option value="RO">(RO) Romania</option>
+									<option value="SE">(SE) Sweden</option>
+									<option value="SI">(SI) Slovenia</option>
+									<option value="SK">(SK) Slovakia</option>
+								</select>
+								<label className="country-unlock disabled" data-ng-className="{disabled: pCountry1=='0'}" ng-click="pCountry1=='0' || saveCountry($event)" data-ng-disabled="true" disabled="disabled">
+									<i className="fa" aria-hidden="true"></i>
+									<i className="fas fa-lock-open"></i>
+									</label>
+							</div>
+							<div className="country-selected">
+								<label data-ng-show="selectDisabled" className="ng-hide">
+									&nbsp; <i className="fa fa-check" aria-hidden="true"></i> 
+									<span className="">{this.props.literals.L22186}
+									</span>
 								</label>
-						</div>
-						<div className="country-selected">
-							<label data-ng-show="selectDisabled" className="ng-hide">
-								&nbsp; <i className="fa fa-check" aria-hidden="true"></i> 
-								<span className="">{this.props.literals.L22186}
-								</span>
-							</label>
-						</div>
-					</form>
-				</div>
+							</div>
+						</form>
+					</div>
+				</section>
 
 				{/* CARROUSEL HOME */}
 				<section className=" section--page carrousel-items background-main-lighter">

@@ -185,7 +185,7 @@ class OSHAuthorities extends Component
 	render() {
 		return(
 			<div>
-				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
+				{/* <section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
 					<div className="container horizontal-nopadding">
 						<div className="left-text col-md-8 col-sm-8 col-xs-12">
 							<h1 className="main-color left-text">{this.props.literals.L22002}</h1>
@@ -195,7 +195,8 @@ class OSHAuthorities extends Component
 						</div>
 						<div className="icon--advice forum-icon hide-mobile col-sm-4 col-md-4"></div>
 					</div>
-				</section>
+				</section> */}
+				<AdviceSection />
 
 				<section className="container">
 				{/* FILTERS */}{/* SEARCH FILTER */}
