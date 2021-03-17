@@ -34,7 +34,6 @@ class Header extends Component
 			var currentScrollPos = window.pageYOffset;
 			var resolution = screen.width;
 			//console.log(prevScrollpos +'----------------'+ currentScrollPos);
-
 			if (prevScrollpos > currentScrollPos) {
 				$(".bar-header").addClass('show-header');
 				$(".affix").addClass('show-header');
@@ -59,8 +58,7 @@ class Header extends Component
 
 			$('.go-to').css('display','none');
 
-		  }
-		  
+		  }		  
 		}
 	}
 
