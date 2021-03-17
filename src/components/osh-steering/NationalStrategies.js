@@ -128,8 +128,6 @@ class NationalStrategies extends Component
 									<div className="resources-item">
 										<p className="nopadding additional-img text-center">
 											<img className="flags--wrapper" src={`${images[country.code.toLowerCase()]}`} alt={country.name} />
-											{/* <img className="flags--wrapper" src={require(`../../style/img/flag/${country.code.toLowerCase()}.png`)} alt={country.name} /> */}
-											{/* <img className="flags--wrapper" ng-src="../../style/img/flag/{{::country.country_code.toLowerCase()}}.png" /> */}
 										</p>
 										<h2 className="text-center">{country.name}</h2>
 										<p className="btn--block-full left-text">

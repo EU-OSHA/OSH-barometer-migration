@@ -25,46 +25,43 @@ class Header extends Component
 	}
 
 	componentDidMount(){
+		window.onscroll = function() {myFunction()};
+		var prevScrollpos = window.pageYOffset;
 
-		$(window).onscroll = function() {
-			console.log('onscroll');
-			var currentScrollPos = $window.pageYOffset;
-			// currentScrollPos should be greater than 90 to solved a iphone 6 issue
-			if( currentScrollPos > 90 ){
-				if (prevScrollpos > currentScrollPos) {
-					$(".bar-header").addClass('show-header');
-					$(".affix").addClass('show-header');
-					$(".affix").removeClass('hide-header');
-					$(".bar-header").removeClass('hide-header');
-				} else {
-					$(".bar-header").addClass('hide-header');
-					$(".affix").addClass('hide-header');
-					$(".affix").removeClass('show-header');
-					$(".bar-header").removeClass('show-header');
-				}
+		function myFunction() {
+		  if (document.body.scrollTop > 90 || document.documentElement.scrollTop > 90) {
+			var gotopVisible = window.height + window.height/2;
+			var currentScrollPos = window.pageYOffset;
+			var resolution = screen.width;
+			//console.log(prevScrollpos +'----------------'+ currentScrollPos);
 
-				prevScrollpos = currentScrollPos;
-
-				if( $('.advice--block-not-home').length > 0 ){
-					if( prevScrollpos <= $('.advice--icon--block').offset().top + $('.advice--icon--block')[0].clientHeight){
-						$(".compare--block.regulation-page").removeClass('show-header');
-					}
-				}                                
-			}
-			var gotopVisible = $(window).height() + $(window).height()/2;
-			if( resolution <= 1024 ){
-				if( currentScrollPos > gotopVisible )
-				{
-					$('.go-to').css('display','block');
-				}
-				else
-				{
-					$('.go-to').css('display','none');
-				}
+			if (prevScrollpos > currentScrollPos) {
+				$(".bar-header").addClass('show-header');
+				$(".affix").addClass('show-header');
+				$(".affix").removeClass('hide-header');
+				$(".bar-header").removeClass('hide-header');
 			} else {
-				$('.go-to').css('display','none');
+				$(".bar-header").addClass('hide-header');
+				$(".affix").addClass('hide-header');
+				$(".affix").removeClass('show-header');
+				$(".bar-header").removeClass('show-header');
 			}
-		} 
+			prevScrollpos = currentScrollPos;
+
+			$('.go-to').css('display','block');			
+
+		  } else {		
+
+			$(".bar-header").addClass('show-header');
+			$(".affix").addClass('show-header');
+			$(".affix").removeClass('hide-header');
+			$(".bar-header").removeClass('hide-header');
+
+			$('.go-to').css('display','none');
+
+		  }
+		  
+		}
 	}
 
 
