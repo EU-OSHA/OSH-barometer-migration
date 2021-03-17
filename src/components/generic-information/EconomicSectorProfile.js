@@ -11,7 +11,6 @@ import Chart from '../common/models/Chart'
 const EconomicSectorProfile = (props)=>{
 
 	
-	
 		return(
 			
 			<div>
