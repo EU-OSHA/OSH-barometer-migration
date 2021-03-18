@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+// TODO: Move WB Url to ENV or Create .
+const BASEURL = 'http://89.0.4.28:8080/barometer-data-server/';
+
 // GET OSH Countries for the Selectors
 export function getOSHCountries(dataPage, countries) {
-    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/countries/getCountriesMatrixPage';
+    const URL = `${BASEURL}api/countries/getCountriesMatrixPage`;
 
     const response = axios.get(URL, {
         params: {
@@ -30,7 +33,7 @@ export function getOSHCountries(dataPage, countries) {
 
 // GET OSH data for components OSH-Authorities, OSH-Statistics
 export function getOSHData(dataPage, filters) {
-    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData';
+    const URL = `${BASEURL}api/qualitative/getMatrixPageData`;
 
     const response = axios.get(URL, {
         params: {

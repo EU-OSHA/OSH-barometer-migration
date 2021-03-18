@@ -4612,7 +4612,9 @@ button.close {
 
 .carousel {
   position: relative; }
-
+  .carousel-control-prev, .carousel-control-next{
+    width: 2rem;
+  }
 .carousel-inner {
   position: relative;
   overflow: hidden;
@@ -4738,6 +4740,7 @@ button.close {
     content: '\203a'; }
 
 .carousel-indicators {
+  display: none;
   position: absolute;
   bottom: 10px;
   /*left: 50%;*/

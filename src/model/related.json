@@ -1,0 +1,345 @@
+{
+    "generic-information":{
+        "economic-sector-profile":[
+            {
+                "title": "L22004",
+                "text": "L22030",
+                "link": "/generic-information/workforce-profile",
+                "icon": "people-group"
+            },{
+                "title": "L22014",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            }
+        ]
+    },
+    "osh-infrastructure":{
+        "enforcement-capacity":{
+            "establishments-inspected":[{
+                "title": "L310",
+                "text": "L22050",
+                "link": "/osh-outcomes-working-conditions/work-accidents",
+                "icon": "work-accidents"
+            },{
+                "title": "L311",
+                "text": "L22050",
+                "link": "/osh-outcomes-working-conditions/work-accidents/fatal-work-accidents",
+                "icon": "work-accidents"
+            },{
+                "title": "L20679",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            }],
+            "authority":[{
+                "title": "L22002",
+                "text": "L22025",
+                "link": "/generic-information/osh-authorities",
+                "icon": "forum"
+            }],
+            "scope-of-the-labor-inspection":[{
+                "title": "L22002",
+                "text":"L22025",
+                "link": "/generic-information/osh-authorities",
+                "icon": "forum"
+            },{
+                "title": "L22018",
+                "text":"L22065",
+                "link": "/osh-infrastructure/osh-statistics",
+                "icon": "statistics"
+            }],
+            "inspector-powers":[{
+                "title": "L22002",
+                "text":"L22025",
+                "link": "/generic-information/osh-authorities",
+                "icon": "forum"
+            },{
+                "title": "L22007",
+                "text":"L22038",
+                "link": "/osh-steering/national-strategies",
+                "icon": "national"
+            }],
+            "strategy-plan":[{
+                "title": "L22007",
+                "text":"L22038",
+                "link": "/osh-steering/national-strategies",
+                "icon": "national"
+            }]
+        }
+    },
+    "osh-outcomes-working-conditions":{
+        "work-accidents":{
+            "non-fatal-work-accidents":[{
+                "title": "L20669",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/mental-risk/time-pressure/esener",
+                "icon": "mental-risk"
+            },{
+                "title": "L20711",
+                "text": "L20579",
+                "link": "physical-risk-vibrations-loud-noise-and-temperature({pCountry1:'$scope.pCountry1',pCountry2:'$scope.pCountry2'})",
+                "icon": "physical-risk"
+            },{
+                "title": "L20692",
+                "text": "L22063",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "icon": "enforcement"
+            }],
+            "fatal-work-accidents":[{
+                "title": "L20672",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/mental-risk/fear-of-job-loss/esener",
+                "icon": "mental-risk"
+            },{
+                "title": "L20692",
+                "text": "L22063",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "icon": "enforcement"
+            }]
+        },
+        "osh-culture":{
+            "health-and-safety-discussed":[{
+                "title": "L20679",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            },{
+                "title": "L22015",
+                "text": "L22060",
+                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/esener",
+                "icon": "workers"
+            }],
+            "action-plan-to-prevent-stress":[{
+                "title": "L321",
+                "text": "L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/information-about-risks",
+                "icon": "culture"
+            },{
+                "title": "L20681",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            }],
+            "procedure-against-bullying":[{
+                "title": "L20675",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/mental-risk/discrimination/esener",
+                "icon": "mental-risk"
+            },{
+                "title": "L322",
+                "text": "L20577",
+                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "icon": "overall-opinion"
+            }],
+            "procedures-to-deal-with-threats":[{
+                "title": "L20675",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/discrimination/time-pressure/esener",
+                "icon": "mental-risk"
+            },{
+                "title": "L20673",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/difficult-clients/time-pressure/esener",
+                "icon": "mental-risk"
+            }],
+            "measures-to-reduce-work-pressure":[{
+                "title": "L20669",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/mental-risk/time-pressure/esener",
+                "icon": "mental-risk"
+            },{
+                "title": "L20674",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/working-hours/time-pressure/esener",
+                "icon": "mental-risk"
+            }],
+            "use-of-personal-protective-equipment":[{
+                "title": "L20656",
+                "text": "L20579",
+                "link": "physical-risk-risks-involved-with-work({pCountry1:'$scope.pCountry1',pCountry2:'$scope.pCountry2',pFilter:'ewcs'})",
+                "icon": "physical-risk"
+            },{
+                "title": "L20664",
+                "text": "L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/health-and-safety-discussed",
+                "icon": "culture"
+            }],
+            "information-about-risks":[{
+                "title": "L20679",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            },{
+                "title": "L22015",
+                "text": "L22060",
+                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/esener",
+                "icon": "workers"
+            }]
+        },
+        "overall-opinion":{
+            "job-satisfaction":[{
+                "title": "L22011",
+                "text": "L22052",
+                "link": "/osh-outcomes-working-conditions/health-perception-of-workers",
+                "icon": "health"
+            },{
+                "title": "L20672",
+                "text": "L20578",
+                "link": "/osh-outcomes-working-conditions/mental-risk/fear-of-job-loss/ewcs",
+                "icon": "mental-risk"
+            }],
+            "health-at-risk":[{
+                "title": "L22011",
+                "text": "L22052",
+                "link": "/osh-outcomes-working-conditions/health-perception-of-workers",
+                "icon": "health"
+            },{
+                "title": "L22008",
+                "text": "L22041",
+                "link": "/osh-steering/social-dialogue",
+                "icon": "dialogue"
+            },{
+                "title": "L20679",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector",
+                "icon": "prevention"
+            }]
+        },
+        "mental-risk":{
+            "time-pressure":[],
+            "poor-communication":[],
+            "influence":[{
+                "title": "L22015",
+                "text":"L22060",
+                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/ewcs",
+                "icon": "workers"
+            },{
+                "title": "L322",
+                "text":"L20577",
+                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "icon": "overall-opinion"
+            }],
+            "fear-of-job-loss":[{
+                "title": "L22008",
+                "text":"L22041",
+                "link": "/osh-steering/social-dialogue",
+                "icon": "mental-risk"
+            },{
+                "title": "L322",
+                "text":"L20577",
+                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "icon": "overall-opinion"
+            }],
+            "difficult-clients":[{
+                "title": "L20667",
+                "text":"L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/procedures-to-deal-with-threats",
+                "icon": "culture"
+            },{
+                "title": "L20709",
+                "text":"L20577",
+                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "icon": "overall-opinion"
+            }],
+            "working-hours":[{
+                "title": "L20665",
+                "text":"L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/action-plan-to-prevent-stress",
+                "icon": "culture"
+            },{
+                "title": "L22003",
+                "text":"L22028",
+                "link": "/generic-information/economic-sector-profile",
+                "icon": "economic-chart"
+            }],
+            "discrimination":[{
+                "title": "L20666",
+                "text":"L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/procedure-against-bullying",
+                "icon": "culture"
+            },{
+                "title": "L20667",
+                "text":"L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/procedures-to-deal-with-threats",
+                "icon": "culture"
+            },{
+                "title": "L22004",
+                "text":"L22030",
+                "link": "/generic-information/workforce-profile/median-age/ageing-workers",
+                "icon": "people-group"
+            }]
+        },
+        "physical-risk":{
+            "exposure-to-dangerous-substances":[{
+                "title": "L320",
+                "text": "L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/use-of-personal-protective-equipment",
+                "icon": "culture"
+            }]
+        },
+        "prevention-companies":{
+            "risk-assessment":[{
+                "title": "L20692",
+                "text": "L22063",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "icon": "enforcement"
+            },{
+                "title": "L20681",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/evaluated-aspects-in-risk-assessments/sector",
+                "icon": "prevention"
+            }],
+            "internal-or-external-ra":[{
+                "title": "L20692",
+                "text": "L22063",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "icon": "enforcement"
+            },{
+                "title": "L20681",
+                "text": "L22058",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/evaluated-aspects-in-risk-assessments/sector",
+                "icon": "prevention"
+            }],
+            "evaluated-aspects-in-risk-assessments":[{
+                "title": "L20692",
+                "text": "L22063",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "icon": "enforcement"
+            }],
+            "training-in-osh":[{
+                "title": "L22012",
+                "text":"L22054",
+                "link": "/osh-outcomes-working-conditions/osh-culture/health-and-safety-discussed",
+                "icon": "culture"
+            },{
+                "title": "L22008",
+                "text":"L22041",
+                "link": "/osh-steering/social-dialogue",
+                "icon": "dialogue"
+            }],
+            "employees-participation-in-prevention":[{
+                "title": "L22015",
+                "text":"L22060",
+                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/esener",
+                "icon": "workers"
+            },{
+                "title": "L22011",
+                "text":"L22052",
+                "link": "/osh-outcomes-working-conditions/health-perception-of-workers",
+                "icon": "enforcement"
+            }]
+        },
+        "worker-involvement":[{
+            "title": "L22008",
+            "text": "L22041",
+            "link": "/osh-steering/social-dialogue",
+            "icon": "dialogue"
+        },{
+            "title": "L20683",
+            "text": "L22058",
+            "link": "/osh-outcomes-working-conditions/prevention-companies/employees-participation-in-prevention/sector",
+            "icon": "prevention"
+        }]
+    }
+}
