@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ReactHtmlParser from 'react-html-parser';
 
-import images from '../../style/img/flag/images';
+import images from '../../../style/img/flag/images';
 
 class Cards extends Component {
     constructor(props) {
@@ -35,8 +35,14 @@ class Cards extends Component {
     
     // function to trim the passed text
 	truncateText = (str, limitNumber) => {
+		let maxCharacters = limitNumber;
+
+		if (str.match('<a') || str.match('<p')) {
+			maxCharacters += 150;
+		}
+
 		if (str.length > limitNumber) {
-			return `${str.substring(0, 300).split(" ").slice(0, -1).join(" ")} <span class="dots" >...</span>`
+			return `${str.substring(0, maxCharacters).split(" ").slice(0, -1).join(" ")} <span class="dots" >...</span>`
 		} else {
 			return str
 		}
@@ -61,18 +67,35 @@ class Cards extends Component {
 						)]}
                     </h3>
 					<p className="institution-name">{`${this.props.literals[`L${countryData.text1}`]}`}</p>
-					{ReactHtmlParser(this.props.literals[`L${countryData.text2}`])}
-					<div className={this.state.toggleShowMore ? 'complete-text' : 'partial-text'}>
-					    {this.state.selectedId == countryID ? ReactHtmlParser(this.props.literals[`L${countryData.text3}`]) : ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text3}`], 300))}				
-					</div>
-					{this.props.literals[`L${countryData.text3}`].length > 300 && (                            
-					<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)} >
-						<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color' }>{ this.state.toggleShowMore  ? this.props.literals.L481 : this.props.literals.L480 }</a>
-					</p>
+					{countryData.text3 && (
+						ReactHtmlParser(this.props.literals[`L${countryData.text2}`])
 					)}
-						<div className="">
-							<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color"><strong>Download the country data</strong></a></p>
+
+					{!countryData.text3 && 
+						this.state.selectedId == countryID ? 
+							ReactHtmlParser(this.props.literals[`L${countryData.text2}`]) 
+							:
+							ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text2}`], 320)) 
+					} 
+					 
+					<div className={'partial-text'}>
+						{countryData.text3 && (
+							this.state.selectedId == countryID ? 
+								ReactHtmlParser(this.props.literals[`L${countryData.text3}`])
+								: 
+								ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text3}`], 300))
+						)}
 					</div>
+					{(countryData.text3 && this.props.literals[`L${countryData.text3}`].length > 300 || this.props.literals[`L${countryData.text2}`].length > 320) && (
+						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
+							<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
+						</p>
+					)}
+					{countryData.text3 && (
+						<div className="">
+							<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
+						</div>
+					)}
 				</div>
 			</div>
 		);
