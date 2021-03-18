@@ -205,7 +205,7 @@ class Header extends Component
 												<a ng-if="level1.sref" ui-sref="enforcement-capacity({pIndicator: 'establishments-inspected'})" id="enforcement-capacity" accessKey="4" className="ng-scope" href="osh-infrastructure/enforcement-capacity/establishments-inspected"><span data-ng-bind-html="i18n_literals[level1.name]" className="ng-binding">Enforcement capacity</span></a>
 											</li>
 											<li ng-repeat="level1 in level0.levels" ng-className="isCurrentStateMenu('osh-statistics')" className="ng-scope">
-												<a ng-if="level1.sref" ui-sref="osh-statistics" id="osh-statistics" accessKey="" className="ng-scope" href="osh-infrastructure/osh-statistics/"><span data-ng-bind-html="i18n_literals[level1.name]" className="ng-binding">OSH statistics, surveys and research</span></a>
+												<NavLink className="header-link" accessKey="2" to="/osh-infrastructure/osh-statistics/">OSH statistics, surveys and research</NavLink>
 											</li>
 										</ul>
 									</li>							
