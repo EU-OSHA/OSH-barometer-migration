@@ -1,16 +1,26 @@
 import axios from 'axios';
 
 // GET OSH Countries for the Selectors
-export function getOSHCountries(countries) {
-    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/countries/getCountriesMatrixPage?page=MATRIX_AUTHORITY';
+export function getOSHCountries(dataPage, countries) {
+    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/countries/getCountriesMatrixPage';
 
     const response = axios.get(URL, {
         params: {
+            page: dataPage,
             country: countries
         },
         paramsSerializer: params => {
-            //Deserialize the array - deleting the Brackets and repeating the same query with the data received
-            return params.country.map((data) => `country=${data}`).join('&'); 
+            let urlWithParams = new URLSearchParams()
+
+            if(params.page) {
+                urlWithParams.append('page', params.page);
+            }
+
+            if (params.country) {
+                params.country.map((country) => urlWithParams.append('country', country));
+            }
+
+            return urlWithParams
         }
     })
     .then((res) => res.data);
@@ -18,27 +28,40 @@ export function getOSHCountries(countries) {
     return response
 }
 
-export function getOSHStatistic(filters) {
-    // baseURL = 'http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData' -> ?page=(INSIDE_HERE_IS_WHAT_CHANGES)
-    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData?page=MATRIX_STATISTICS';
+// GET OSH data for components OSH-Authorities, OSH-Statistics
+export function getOSHData(dataPage, filters) {
+    const URL = 'http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData';
 
     const response = axios.get(URL, {
         params: {
+            page: dataPage,
             country: filters?.countries,
-            checks: filters?.checks
+            checks: filters?.checks,
+            searchBar: filters?.searchBar
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.page) {
+                urlWithParams.append('page', params.page)
+            }
+
+            if (params.country) {
+                params.country.map((country) => urlWithParams.append('country', country));
+            }
+
+            if (params.checks) {
+                params.checks.map((check) => urlWithParams.append(`check${check.id}`, check.check))
+            }
+
+            if (params.searchBar) {
+                urlWithParams.append('search', params.searchBar)
+            }
+
+            return urlWithParams
         }
     })
-    .then((response) => {
-        console.log(response)
-        return response.data
-    })
+    .then((response) => response.data);
 
-    
     return response
 }
-
-
-
-
-
-// http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData?page=MATRIX_STATISTICS
