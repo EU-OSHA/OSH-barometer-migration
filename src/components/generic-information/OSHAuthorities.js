@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import Methodology from '../common/Methodology';
-import Cards from '../cards/Cards';
-import Pagination from '../pagination/Pagination';
 import AdviceSection from '../common/AdviceSection';
+import Cards from '../common/cards/Cards';
+import Pagination from '../common/pagination/Pagination';
+import SelectFilters from '../common/select-filters/SelectFilters';
+import { getOSHCountries, getOSHData } from '../../api';
 
 const literals = require('../../model/Literals.json');
 class OSHAuthorities extends Component
@@ -16,76 +18,63 @@ class OSHAuthorities extends Component
 			countries: [],
 			matrixPageData: [],
 			pageOfItems: [],
-			institutionTypes: [
-				{id: '1', literal: '20614'},
-				{id: '2', literal: '20611'},
-				{id: '3', literal: '20612'},
-				{id: '4', literal: '20613'}
-			],
-			countryDropdownRef: React.createRef(),
-			institutionDropdownRef: React.createRef(),
-			isCountryDropdown: false,
-			isInstitutionDropdown: false,
 			searchBarText: '',
 			isFetching: false,
 			filters: {
 					countries: [],
-					checks: [
-						{id: '1', boolean: false},
-						{id: '2', boolean: false},
-						{id: '3', boolean: false},
-						{id: '4', boolean: false},
-					],
+					checks: [],
 					searchBar: ''
 			},
 		}
 	}
 
-	// Handle dropdown when clicked outside of their container
-	onHandleDropdown = e => {
-		if (this.state.countryDropdownRef.current && !this.state.countryDropdownRef.current.contains(e.target)) {
-			this.setState({ isCountryDropdown: false });
-		}
-
-		if(this.state.institutionDropdownRef.current && !this.state.institutionDropdownRef.current.contains(e.target)) {
-			this.setState({ isInstitutionDropdown: false });
+	handleCallbackCountry = (countryCallback) => {
+		const countryFilter = this.state.filters.countries;
+		if (countryCallback != this.state.filters.countries.find((code) => code == countryCallback)) {
+			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]}});
+		} else {
+			const index = this.state.filters.countries.findIndex((code) => code == countryCallback);
+			const newCountryFilters = this.state.filters.countries;
+			newCountryFilters.splice(index, 1);
+			this.setState({filters: {...this.state.filters, countries: newCountryFilters}});
 		}
 	}
 
-	// Dropdown for country selector
-	onClickCountryDropdown = () => {
-		this.setState({ isCountryDropdown: !this.state.isCountryDropdown });
+	handleCallbackInstitution = (institutionCallback) => {
+		const checkFilter = this.state.filters.checks.find((data) => data.id == institutionCallback.id);
+		const checks = this.state.filters.checks;
+		if (!checkFilter) {
+			this.setState({ filters: {...this.state.filters, checks: [...checks, { ...institutionCallback, check: true }]}});
+		} else {
+			const index = this.state.filters.checks.findIndex((data) => data.id == institutionCallback.id);
+			const newArray = this.state.filters.checks;
+			newArray.splice(index, 1);
+			this.setState({ filters: { ...this.state.filters, checks: newArray } });
+		}
 	}
 
-	// Dropdown for institution selector
-	onClickInstitutionDropdown = () => {
-			this.setState({ isInstitutionDropdown: !this.state.isInstitutionDropdown });
+	// Handles callback for the search bar on filters component
+	handleCallbackSearch = (searchCallback) => {
+		this.setState({ filters: { ...this.state.filters, searchBar: searchCallback } })
 	}
 
 	//when country is selected
-	onSelectedCountry = (country) => {
+	onSelectCountryTag = (country) => {
 		return () => {
-			const countryState = this.state.filters.countries;
-			if (country != this.state.filters.countries.find((code) => code == country )) {
-				this.setState({filters: {...this.state.filters, countries: [...countryState, country]}});
-			} else {
-				const index = this.state.filters.countries.findIndex((code) => code == country);
-				const newArray = this.state.filters.countries;
-				newArray.splice(index, 1);
-				this.setState({filters: {...this.state.filters, countries: newArray}});
-			}
+			const countryIndex = this.state.filters.countries.findIndex((code) => code == country);
+			const newArray = this.state.filters.countries;
+			newArray.splice(countryIndex, 1);
+			this.setState({filters: {...this.state.filters, countries: newArray}});
 		}
 	}
 
 	//whe institution is selected
-	onSelectedInstitution = (institutionId) => {
+	onSelectInstitutionTag = (institutionId) => {
 		return () => {
 			const institutionIndex = this.state.filters.checks.findIndex((institution) => institution.id == institutionId);
-			const newArray = this.state.filters.checks[institutionIndex];
-			newArray.boolean = !newArray.boolean;
-			if (institutionIndex >= 0) {
-				this.setState({ filters: {...this.state.filters, checks: [...this.state.filters.checks]} })
-			}
+			const newArray = this.state.filters.checks;
+			newArray.splice(institutionIndex, 1);
+			this.setState({ filters: { ...this.state.filters, checks: newArray } })
 		}
 	}
 
@@ -94,91 +83,39 @@ class OSHAuthorities extends Component
 		this.setState({ pageOfItems });
 	}
 
-	//handles change event of search bar
-	onHandleChange = (e) => {
-		this.setState({ searchBarText: e.target.value });
-	}
-
-	// handles on click on search bar either on icon or by enter keydown
-	onSearchClick = (e, text) => {
-		if (e.keyCode == 13) {
-			e.preventDefault();
-			this.setState({ filters: { ...this.state.filters, searchBar: text } });
-		}
-
-		if (e.type == 'click') {
-			this.setState({ filters: { ...this.state.filters, searchBar: text } });
-		}
-	}
-
-	// 	TODO: possible change to API folder with fetch code - here goes the function call only / Calls for matrix Data
-	getMatrixPageData(filters = null) {
-		const urlWithParams = new URL('http://89.0.4.28:8080/barometer-data-server/api/qualitative/getMatrixPageData?page=MATRIX_AUTHORITY');
-
-		if (filters != null) {
-			// Checks for Countries array to add to the query params
-			if (filters.countries) {
-				filters.countries.map((country) => urlWithParams.searchParams.append('country', country));
-			}
-
-			// Checks if any of the check filters are true and adds them to the query params
-			if (filters.checks != null) {
-				if (filters.checks.map((array) => {
-					if (array.boolean) {
-						urlWithParams.searchParams.append(`check${array.id}`, array.boolean);
-					}
-				})) {
-				}
-			}
-
-			if (filters.searchBar != null) {
-				urlWithParams.searchParams.append('search', filters.searchBar);
-			}
-		}
-
-		return urlWithParams.href
-	}
-
 	 componentDidMount() {
 		//  TODO: possible change to API folder with fetch code - here goes the function call only / Calls for countries
 		this.setState({ ...this.state, isFetching: true });
-		fetch(`http://89.0.4.28:8080/barometer-data-server/api/countries/getCountriesMatrixPage?page=MATRIX_AUTHORITY&country=UK`)
-			.then(response => response.json())
-			.then(result => {
-				this.setState({ countries: result.resultset, isFetching: false });
-			})
-			.catch((err) => {
-				console.log(err);
-				this.setState({ ...this.state, isFetching: false });
-			})
+		try {
+			getOSHCountries('MATRIX_AUTHORITY', ['UK'])
+				.then((res) => {
+					this.setState({ countries: res.resultset });
+				})
+			getOSHData('MATRIX_AUTHORITY')
+				.then((res) => {
+					this.setState({ matrixPageData: res.resultset })
+				})
+		} catch (error) {
+			console.log('Error fetching selector countries:', error)
+		} finally {
+			this.setState({ ...this.state, isFetching: false })
+		}
 
-			// TODO: Move to api base folder when it gets created - first LoadPage
-		this.setState({ ...this.state, isFetching: true });
-		fetch(this.getMatrixPageData())
-			.then(response => response.json())
-			.then(result => {
-				this.setState({ matrixPageData: result.resultset, isFetching: false });
-			})
-			.catch((err) => {
-				console.log(err)
-				this.setState({ ...this.state, isFetching: false })
-			});
-
-			// Listen for and mousedown event on body page to close any of the dropdowns
-			document.addEventListener('mousedown', this.onHandleDropdown);
 	 }
 	 componentDidUpdate(prevProps, prevState) {
 		 // If any modification happens to the filter state, it updates with the new values
 		if (prevState.filters != this.state.filters) {
-			fetch(this.getMatrixPageData(this.state.filters))
-				.then((response) => response.json())
-				.then((result) => {
-					this.setState({ matrixPageData: result.resultset, isFetching: false })
-				})
-				.catch((err) => {
-					console.log(err)
-					this.setState({ ...this.state, isFetching: false})
-				})
+			this.setState({ ...this.state, isFetching: true })
+			try {
+				getOSHData('MATRIX_AUTHORITY', this.state.filters)
+					.then((res) => {
+						this.setState({ matrixPageData: res.resultset })
+					})
+			} catch (error) {
+				console.log('Error fetching data', error)
+			} finally {
+				this.setState({ ...this.state, isFetching: false })
+			}
 		}
 	 }
 
@@ -197,56 +134,27 @@ class OSHAuthorities extends Component
 					</div>
 				</section>
 
+				{/* FILTERS COMPONENT */}
 				<section className="container">
-				{/* FILTERS */}{/* SEARCH FILTER */}
-				<form className="row block--filter--wrapper ">
-					{/* COUNTRY FILTER */}
-					<div id="filter2" className={`filter--dropdown--wrapper ${this.state.isCountryDropdown ? 'viewOptions' : null}`} tabIndex="9">
-						<div className="filter--dropdown--list" ref={this.state.countryDropdownRef}>
-							<p className="option-title " onClick={this.onClickCountryDropdown}  >{this.props.literals.L20630}</p>
-							<ul className="filter--dropdown--options ">
-							{this.state.countries.map((country) => (
-								<li key={country.code} onClick={this.onSelectedCountry(country.code)} >
-									<input type="checkbox" checked={this.state.filters.countries.includes(country.code)} readOnly />
-									<label >{country.name == 'EU28' ? '' : `(${country.code})`} {country.name}</label>
-								</li>
-							))}
-							</ul>
-						</div>
-					</div>
-					{/* INSTITUTION TYPE FILTER */}
-					<div id="filter1" className={`filter--dropdown--wrapper ${this.state.isInstitutionDropdown ? 'viewOptions' : null}`} tabIndex="8">
-						<div className="filter--dropdown--list" ref={this.state.institutionDropdownRef}>
-							<p className="option-title" onClick={this.onClickInstitutionDropdown} >Institution type</p>
-							<ul className="filter--dropdown--options">
-								{this.state.institutionTypes.map((institution) => (
-									<li key={institution.id} onClick={this.onSelectedInstitution(institution.id)}>
-										<input type="checkbox" checked={this.state.filters.checks.find((array) => array.id == institution.id).boolean} readOnly tabIndex="-1" />
-										<label className="" >{this.props.literals[`L${institution.literal}`]}</label>
-									</li>)
-								)}
-							</ul>
-						</div>
-					</div>
-					{/* SEARCH FILTER */}
-					<div className="filter-text">
-						<input onKeyDown={(e) => this.onSearchClick(e, this.state.searchBarText)} onChange={this.onHandleChange} id="search-input" type="text" tabIndex="7" className="" placeholder={this.props.literals.L378} />
-						<button onClick={(e) => this.onSearchClick(e, this.state.searchBarText)} id="policy-search" type="button">
-							<i className="fa fa-search" aria-hidden="true"></i>
-						</button>
-					</div>
-				</form>
+				
+				<SelectFilters 
+					selectCountries={this.state.countries} 
+					literals={literals} 
+					onClickCountry={this.handleCallbackCountry}
+					onClickInstitution={this.handleCallbackInstitution}
+					onSearchbarClick={this.handleCallbackSearch}
+					selectedFilters={this.state.filters}
+					filterCategory={'institution'}
+				/>
+
 				<div className="container">
 					<div className="selected--tags-wrapper">
 						{this.state.filters && (
 							<div>
-								{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectedCountry(country)}>{country}</span>)}
+								{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectCountryTag(country)}>{country}</span>)}
 								{this.state.filters.checks.map((array) => {
-									if (array.boolean) {
-										const institutionIndex = this.state.institutionTypes.findIndex((institution) => array.id == institution.id);
-										if (institutionIndex >= 0) {
-											return <span key={`id-${institutionIndex}`} className="selected-tag" onClick={this.onSelectedInstitution(array.id)}>{this.props.literals[`L${this.state.institutionTypes[institutionIndex].literal}`]}</span>
-										}
+									if (array.check) {
+										return <span key={array.id} className="selected-tag" onClick={this.onSelectInstitutionTag(array.id)} > {this.props.literals[`L${array.literal}`]} </span>
 									}
 								} )}
 							</div>
