@@ -60,29 +60,54 @@ ReactDOM.render(
 				<Route exact path="/" render={() => <App><Home literals={literals}/></App>} />
 				<Route exact path="/generic-information/osh-authorities" render={() => <App><OSHAuthorities literals={literals}/></App>} />
 				<Route 
-					path="/generic-information/economic-sector-profile/:country1/:country2?" 
+					path="/generic-information/economic-sector-profile/:country1?/:country2?" 
 					render={routeParams => <App><EconomicSectorProfile country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} 
 				/>
-				<Route exact path="/generic-information/workforce-profile" render={() => <App><WorkforceProfile literals={literals}/></App>} />
+				<Route
+					path="/generic-information/workforce-profile/:indicator/:subIndicator" 
+					render={routeParams => <App><WorkforceProfile literals={literals} indicator={routeParams.match.params.indicator} subindicator={routeParams.match.params.subIndicator}/></App>} 
+				/>
 
 				<Route exact path="/osh-steering/country-profile" render={() => <App><CountryProfile literals={literals}/></App>} />
-				<Route exact path="/osh-steering/eu-Challenges-response" render={() => <App><EUChallengesResponse literals={literals}/></App>} />
+				<Route exact path="/osh-steering/eu-challenges-response" render={() => <App><EUChallengesResponse literals={literals}/></App>} />
 				<Route exact path="/osh-steering/national-strategies" render={() => <App><NationalStrategies literals={literals}/></App>} />
 				<Route exact path="/osh-steering/regulation" render={() => <App><Regulation literals={literals}/></App>} />
 				<Route exact path="/osh-steering/social-dialogue" render={() => <App><SocialDialogue literals={literals}/></App>} />
 
 				<Route exact path="/osh-outcomes-working-conditions/health-perception" render={() => <App><HealthPerception literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditions/mental-risk" render={() => <App><MentalRisk literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditions/osh-culture" render={() => <App><OSHCulture literals={literals}/></App>} />
+				<Route 
+					path="/osh-outcomes-working-conditions/mental-risk/:indicator/:dataset" 
+					render={routeParams => <App><MentalRisk literals={literals} indicator={routeParams.match.params.indicator} dataset={routeParams.match.params.dataset}/></App>} 
+				/>
+				<Route
+					path="/osh-outcomes-working-conditions/osh-culture/:indicator" 
+					render={routeParams => <App><OSHCulture literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
+				/>
 				<Route exact path="/osh-outcomes-working-conditions/overall-opinion" render={() => <App><OverallOpinion literals={literals}/></App>} />
 				<Route exact path="/osh-outcomes-working-conditions/physical-risk" render={() => <App><PhysicalRisk literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditions/prevention-companies" render={() => <App><PreventionCompanies literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditions/work-accidents" render={() => <App><WorkAccidents literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditionsosh-steering/worker-involvement" render={() => <App><WorkerInvolvement literals={literals}/></App>} />
+				<Route 
+					path="/osh-outcomes-working-conditions/prevention-companies/:indicator/:split/:country1?/:country2?" 
+					render={routeParams => <App><PreventionCompanies literals={literals} indicator={routeParams.match.params.indicator} 
+											split={routeParams.match.params.split} country1={routeParams.match.params.country1 } country2={routeParams.match.params.country2} /></App>} 
+				/>
+				<Route 
+					path="/osh-outcomes-working-conditions/work-accidents/:indicator?" 
+					render={routeParams => <App><WorkAccidents literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
+				/>
+				<Route
+					path="/osh-outcomes-working-conditionsosh-steering/worker-involvement/:split/:country1?/:country2?" 
+					render={routeParams => <App><WorkerInvolvement literals={literals} split={routeParams.match.params.split} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2}/></App>} 
+				/>
 				<Route exact path="/osh-outcomes-working-conditions/working-conditions" render={() => <App><WorkingConditions literals={literals}/></App>} />
 
-				<Route exact path="/osh-infrastructure/enforcement-capacity" render={() => <App><EnforcementCapacity literals={literals}/></App>} />
-				<Route exact path="/osh-infrastructure/osh-statistics" render={() => <App><OSHStatistics literals={literals}/></App>} />
+				<Route
+					path="/osh-infrastructure/enforcement-capacity/:indicator/:country1?/:country2?" 
+					render={routeParams => <App><EnforcementCapacity literals={literals} indicator={routeParams.match.params.indicator} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} /></App>} 
+				/>
+				<Route 
+					path="/osh-infrastructure/osh-statistics/:country?" 
+					render={routeParams => <App><OSHStatistics literals={literals} country={routeParams.match.params.country} /></App>} 
+				/>
 
 				<Route exact path="/about-the-system" render={() => <App><GeneralInformation literals={literals}/></App>} />
 				<Route exact path="/about-the-system/methodology" render={() => <App><CountryReport literals={literals}/></App>} />
