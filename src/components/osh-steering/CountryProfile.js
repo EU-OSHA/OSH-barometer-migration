@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import AdviceSection from '../common/AdviceSection';
+import Methodology from '../common/Methodology';
 
 const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
@@ -15,19 +17,7 @@ class CountryProfile extends Component
 	{
 		return(
 			<div>
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12  nopadding">
-						<h1 className="main-color left-text">{this.props.literals.L20378}</h1>
-						<p>{this.props.literals.L22038}</p>
-							<span data-ng-bind="i18nLiterals.L20704"> </span> 
-							<span>
-								<Link to="about-tool-detail-page({pSection: 'osh-steering', pSubsection: 'structure_strategy', pIndicator: '46'})">{this.props.literals.L20705}</Link>
-							</span>
-						</div>
-						<div className="icon--advice national-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
 
 				<div className="container">
 					<p className="btn--block-full left-text">

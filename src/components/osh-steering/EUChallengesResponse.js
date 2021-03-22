@@ -10,7 +10,7 @@ class EUChallengesResponse extends Component
 	{
 		return(
 			<div>
-				<AdviceSection />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","eu-challenges-response"]} />
 
 				<Methodology />
 			</div>
