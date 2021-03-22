@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import {FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon} from 'react-share';
 import $ from "jquery";
+
+function setTitleShare (props) {
+	console.log(props);
+     return 'OSH Barometer | Data Visualisation';
+}
 
 class Header extends Component
 {
@@ -245,9 +251,21 @@ class Header extends Component
 						<div className="social--network--nav" id="osha-menu-social">
 							<label data-ng-bind="i18n_literals.L369" >Share this on:</label>
 							<ul>
-							<li><a className="main-color" target="_blank" title="Twitter" socialshare-text="Home - OSH Barometer | Data Visualisation" href="https://twitter.com/intent/tweet?url=https://visualisation.osha.europa.eu/osh-barometer"><i className="fa fa-lg fa-twitter" aria-hidden="true"></i><span className="sr-only ng-binding" data-ng-bind="(i18n_literals.L369) + (i18n_literals.L370)">Share this on:Twitter</span></a></li>
-							<li><a className="main-color" target="_blank" socialshare="" socialshare-provider="facebook" title="Facebook" socialshare-url="https://visualisation.osha.europa.eu/osh-barometer"><i className="fa fa-lg fa-facebook" aria-hidden="true"></i><span className="sr-only ng-binding" data-ng-bind="(i18n_literals.L369) + (i18n_literals.L371)">Share this on:Facebook</span></a></li>
-							<li><a className="main-color" target="_blank" socialshare="" socialshare-provider="linkedin" title="LinkedIn" socialshare-url="https://visualisation.osha.europa.eu/osh-barometer"><i className="fa fa-lg fa-linkedin" aria-hidden="true"></i><span className="sr-only ng-binding" data-ng-bind="(i18n_literals.L369) + (i18n_literals.L372)">Share this on:LinkedIn</span></a></li>
+								<li title={this.props.literals.L370}>
+									<TwitterShareButton url={window.location.href} title={setTitleShare(this.props)}>
+										<TwitterIcon size={40} bgStyle={{fill: 'transparent'}} iconFillColor={'#529FA2'} />
+									</TwitterShareButton>
+								</li>
+								<li title={this.props.literals.L371}>
+									<FacebookShareButton url={window.location.href} quote={setTitleShare(this.props)} >
+										<FacebookIcon size={40} bgStyle={{fill: 'transparent'}} iconFillColor={'#529FA2'} />
+									</FacebookShareButton>
+								</li>
+								<li title={this.props.literals.L372}>
+									<LinkedinShareButton url={window.location.href} title={setTitleShare(this.props)} >
+										<LinkedinIcon size={40} bgStyle={{fill: 'transparent'}} iconFillColor={'#529FA2'} />
+									</LinkedinShareButton>
+								</li>
 							</ul>
 						</div>
 					</section>

@@ -10,7 +10,7 @@ const App = ({children}) =>
 {
 	return(
 		<div>
-			<Header />
+			<Header literals={children.props.literals} />
 			
 			{children}
 
