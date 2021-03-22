@@ -1,30 +1,17 @@
 import React, { Component } from 'react';
-
+import ReactHtmlParser from 'react-html-parser';
+import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
 
 class EconomicSectorProfile extends Component
 {
-	constructor(props)
-	{
-		super(props);
-		console.log('props', props);
-	}
 
 	render()
 	{
 		return(
 			<div>
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
-							<h1 className="main-color left-text ng-binding" data-ng-bind="i18nLiterals.L22003">Economic and sector profile</h1>
-							<p data-ng-bind-html="i18nLiterals.L22028" className="ng-binding">
-							<p>The indicator ‘Economic and sector profile’ displays relevant data on the economy and sectoral structure of the EU and its Member States, e.g. percentages of company size, employment per sector and information on gross domestic product. Note: Not all data is available for every country.</p>
-							</p><span data-ng-bind="(i18nLiterals.L20696)+(' ')+(i18nLiterals.L20704)" className="ng-binding">Source: EUROSTAT. For further information refer to</span> <span><a data-ng-bind="i18nLiterals.L20705" ui-sref="about-tool-detail-page({pSection: 'generic-information', pSubsection: 'economic_sector_profile', pIndicator: '31'})" class="ng-binding" href="/about-the-system/methodology">Methodology</a></span>
-						</div>
-						<div className="icon--advice economic-chart-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+
+				<AdviceSection literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 
 				<div className="compare--block container">
 					{/* FILTERS */}
@@ -115,11 +102,19 @@ class EconomicSectorProfile extends Component
 								stories[0].color3, stories[0].color4, stories[0].color5]" chart-title="Company size" id="1" base-axis-label-visible="true" css-className="company-size" axis-label-font="12px 'OpenSans-bold'" base-axis-label-text-baseline="center" base-axis-band-size-ratio="0.9" label-text-align="stories[0].labelTextAlign" values-visible="true" values-overflow="show" values-font="14px 'OpenSans-bold'" values-mask="{value}" dimensions="stories[0].dimensions" base-axis-size="60" legend="true" legend-align="center" plots="stories[0].plots" multiple-label-colors="true" leaf-content-overflow="visible" datasource-and-dates="[datasetEurostat,31]">
 
 								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><a href=""><label className="sr-only">Download</label></a></li>
+									<li>
+										<a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a>
+									</li>
+									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										<a href=""><label className="sr-only">Download</label></a>
+									</li>
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a></li>
-										<li><a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a></li>
+										<li>
+											<a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a>
+										</li>
+										<li>
+											<a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a>
+										</li>
 									</ul>
 								</ul>
 
@@ -259,18 +254,22 @@ class EconomicSectorProfile extends Component
 							<div className="related-content-item ng-scope" data-ng-repeat="item in items">
 								<div className="icon-related-item hide-mobile people-group-icon" data-ng-classname="indicatorIcons(item)"></div>
 								<div className="content-related-item">
-								<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Workforce profile</h3>
-								<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator includes a few key data on ageing workers and the workforce:<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="workforce-profile" href="/generic-information/workforce-profile/median-age/ageing-workers">See more</a></p>
+									<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Workforce profile</h3>
+									<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator includes a few key data on ageing workers and the workforce:<span className="dots">...</span></p>
+									<p className="button-related-item btn--block-full left-text">
+										<a className="btn-default btn-main-color" data-ui-sref="workforce-profile" href="/generic-information/workforce-profile/median-age/ageing-workers">See more</a>
+									</p>
 								</div>
 							</div>
 							{/* end ngRepeat: item in items */}
 							<div className="related-content-item ng-scope" data-ng-repeat="item in items">
 								<div className="icon-related-item hide-mobile prevention-icon" data-ng-classname="indicatorIcons(item)"></div>
 								<div className="content-related-item">
-								<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Prevention in companies</h3>
-								<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator visualises data on how OSH is implemented on company/enterprise<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" data-ui-sref="prevention-companies" href="/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a></p>
+									<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Prevention in companies</h3>
+									<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator visualises data on how OSH is implemented on company/enterprise<span className="dots">...</span></p>
+									<p className="button-related-item btn--block-full left-text">
+										<a className="btn-default btn-main-color" data-ui-sref="prevention-companies" href="/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a>
+									</p>
 								</div>
 							</div>
 							{/*  end ngRepeat: item in items */}

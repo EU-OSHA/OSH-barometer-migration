@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import AdviceSection from '../common/AdviceSection';
 
 class WorkerInvolvement extends Component
 {
@@ -6,6 +8,7 @@ class WorkerInvolvement extends Component
 	{
 		return(
 			<div>
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","worker-involvement"]} />
 			</div>
 		)
 	}

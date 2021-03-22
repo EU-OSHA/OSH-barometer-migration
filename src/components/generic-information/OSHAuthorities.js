@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
+
 import Cards from '../common/cards/Cards';
 import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
+
 
 const literals = require('../../model/Literals.json');
 class OSHAuthorities extends Component
@@ -122,18 +124,7 @@ class OSHAuthorities extends Component
 	render() {
 		return(
 			<div>
-				{/* <section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12">
-							<h1 className="main-color left-text">{this.props.literals.L22002}</h1>
-							<p className="">{this.props.literals.L22025}</p>
-							<span className="">{this.props.literals.L20704}</span>&nbsp;
-							<span><Link ui-sref="about-tool-detail-page({pSection: 'generic-information', pSubsection: 'osh_authorities', pIndicator: '27'})" className="" to="/about-the-system/methodology">{this.props.literals.L20705}</Link></span>
-						</div>
-						<div className="icon--advice forum-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section> */}
-				<AdviceSection />
+				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} />
 
 				{/* FILTERS COMPONENT */}
 				<section className="container">

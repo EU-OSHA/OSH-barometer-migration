@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
+import AdviceSection from '../common/AdviceSection';
 
 class SocialDialogue extends Component
 {
@@ -8,21 +9,7 @@ class SocialDialogue extends Component
 	{
 		return(
 			<div className="social-dialogue">
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12 ">
-						<h1 className="main-color left-text">{this.props.literals.L22008}</h1>
-						<p data-ng-bind="i18nLiterals.L22041">{this.props.literals.L22041}</p>
-						<span>{this.props.literals.L20704} </span> 
-						<span>
-							<Link to="/about-tool-detail-page({pSection: 'osh-steering', pSubsection: 'social_dialogue', pIndicator: '354'})">
-								{this.props.literals.L20705}
-							</Link>
-						</span>
-						</div>
-						<div className="icon--advice dialogue-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} />
 
 				<div className="highlited--data--section">
 					<div className="highlited--data--block container">

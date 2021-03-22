@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
+import AdviceSection from '../common/AdviceSection';
 
 class WorkforceProfile extends Component
 {
@@ -8,16 +10,8 @@ class WorkforceProfile extends Component
 	{
 		return(
 			<div className="workforce--page">
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
-							<h1 className="main-color left-text ng-binding" data-ng-bind="i18nLiterals.L22004">Workforce profile</h1>
-							<p data-ng-bind="i18nLiterals.L22030" className="ng-binding">This indicator includes a few key data on ageing workers and the workforce: median age, employment rate of different age groups, total and sex.</p>
-							<span data-ng-bind="(i18nLiterals.L20696)+(' ')+(i18nLiterals.L20704)" className="">Source: EUROSTAT. For further information refer to</span> <span><a data-ng-bind="i18nLiterals.L20705" ui-sref="about-tool-detail-page({pSection: 'generic-information', pSubsection: 'workforce_profile', pIndicator: '37'})" className="" href="/about-the-system/methodology">Methodology</a></span>
-						</div>
-						<div className="icon--advice people-group-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+
+				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} />
 
 				<div className="filter--indicator--block container">
 					<ul className="indicators--group xs-row">

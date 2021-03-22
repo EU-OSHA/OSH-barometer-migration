@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 import images from '../../style/img/flag/images';
-
+import AdviceSection from '../common/AdviceSection';
 const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
 class NationalStrategies extends Component
@@ -86,21 +86,7 @@ class NationalStrategies extends Component
 	{
 		return(
 			<div>
-				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="text-advice left-text col-md-8 col-sm-8 col-xs-12  nopadding">
-						<h1 className="main-color left-text">{this.props.literals.L22007}</h1>
-						<p>{this.props.literals.L22038}</p>
-						<span>{this.props.literals.L20704} </span> 
-						<span>
-							<Link to="about-tool-detail-page({pSection: 'osh-steering', pSubsection: 'structure_strategy', pIndicator: '46'})">
-							{this.props.literals.L20705}
-							</Link>
-						</span>
-						</div>
-						<div className="icon--advice national-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} />
 
 				<section className="filter--letter--section container">
 					<ul className="filter--letter--list">
