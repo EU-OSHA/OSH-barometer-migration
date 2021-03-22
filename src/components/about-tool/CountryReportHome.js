@@ -8,7 +8,7 @@ class CountryReportHome extends Component
 	{
 		return(
 			<div>
-				<AdviceSection />
+				<AdviceSection literals={this.props.literals} section={["about-tool","country-report"]} />
 
 				<section className="filter--letter--section container">
 					<ul className="filter--letter--list">

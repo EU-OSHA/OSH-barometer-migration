@@ -197,4 +197,16 @@
             }
         ]
     },
+    "about-tool":{
+        "country-report":[
+            {
+                "title": "L22190",
+                "text": "L22193",
+                "source":"",
+                "further": "",
+                "link": "/about-the-system/methodology",
+                "icon": "country-report-icon"
+            }
+        ]
+    }
 }
