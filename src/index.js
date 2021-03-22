@@ -68,8 +68,8 @@ ReactDOM.render(
 					render={routeParams => <App><WorkforceProfile literals={literals} indicator={routeParams.match.params.indicator} subindicator={routeParams.match.params.subIndicator}/></App>} 
 				/>
 
-				<Route exact path="/osh-steering/country-profile" render={() => <App><CountryProfile literals={literals}/></App>} />
-				<Route exact path="/osh-steering/eu-challenges-response" render={() => <App><EUChallengesResponse literals={literals}/></App>} />
+				<Route exact path="/osh-steering/country-profile/:indicator/:country1/:country2?" render={routeParams => <App><CountryProfile indicator={routeParams.match.params.indicator} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} />
+				<Route exact path="/osh-steering/eu-Challenges-response" render={() => <App><EUChallengesResponse literals={literals}/></App>} />
 				<Route exact path="/osh-steering/national-strategies" render={() => <App><NationalStrategies literals={literals}/></App>} />
 				<Route exact path="/osh-steering/regulation" render={() => <App><Regulation literals={literals}/></App>} />
 				<Route exact path="/osh-steering/social-dialogue" render={() => <App><SocialDialogue literals={literals}/></App>} />
@@ -95,7 +95,7 @@ ReactDOM.render(
 					render={routeParams => <App><WorkAccidents literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
 				/>
 				<Route
-					path="/osh-outcomes-working-conditionsosh-steering/worker-involvement/:split/:country1?/:country2?" 
+					path="/osh-outcomes-working-conditions/worker-involvement/:split/:country1?/:country2?" 
 					render={routeParams => <App><WorkerInvolvement literals={literals} split={routeParams.match.params.split} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2}/></App>} 
 				/>
 				<Route exact path="/osh-outcomes-working-conditions/working-conditions" render={() => <App><WorkingConditions literals={literals}/></App>} />

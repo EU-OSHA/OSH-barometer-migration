@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
+import CountrySelect from '../common/CountrySelect';
+import CountryProfileTextTab from '../common/CountryProfileTextTab';
 
 const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
@@ -10,30 +12,244 @@ class CountryProfile extends Component
 {
 	constructor(props){
 		super(props);
-		this.state = {countryProfileData1: {}, countryProfileData2: {}, openListClass: "", countriesSelect1: [], 
-			countriesSelect2: [], indicators: [], maxCharacters: 200};
+		this.state = {
+			countryProfileData1: {}, 
+			countryProfileData2: {}, 
+			openListClass: "", 
+			countriesSelect1: [], 
+			countriesSelect2: [], 
+			indicators: [],
+			country1: this.props.country1,
+			country2: this.props.country2,
+			// indicator: "basic-information"
+			indicator: this.props.indicator
+		};
 	}
+
+	retrieveCountryProfileData = () => {
+		Promise.all([
+			fetch(`${API_ADDRESS}/qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country1}`),
+			fetch(`${API_ADDRESS}/qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country2}`),
+			fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY`),
+			fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY&country=${this.state.country1}`),
+			fetch(`${API_ADDRESS}/qualitative/getStrategiesPageIndicators?page=STRATEGY`)
+		])
+		.then(([countryDataResponse1,countryDataResponse2,countrySelectResponse1,countrySelectResponse2, indicatorsResponse]) => 
+			Promise.all([countryDataResponse1.json(),countryDataResponse2.json(),countrySelectResponse1.json(),countrySelectResponse2.json(), indicatorsResponse.json()]))
+		.then(([countryData1,countryData2,countrySelect1,countrySelect2,indicatorData]) => {
+			console.log('this.props.country2',this.props.country2);
+			this.setState({
+				countryProfileData1: countryData1.resultset[0],
+				countryProfileData2: countryData2.resultset[0],
+				countriesSelect1: countrySelect1.resultset,
+				countriesSelect2: countrySelect2.resultset,
+				indicators: indicatorData.resultset
+			});
+			// console.log('this.state', this.state);
+		})
+		.catch(error => console.log(error.message));
+	}
+
+	componentDidMount(){
+		this.retrieveCountryProfileData();
+	}
+
+	componentDidUpdate(prevProps, prevState){
+		// console.log('componentDidUpdate');
+		// console.log('prevState',prevState);
+		if(prevState.country1 != this.state.country1 || prevState.country2 != this.state.country2
+			|| prevState.indicator != this.state.indicator){
+				// console.log('Updating state in componentDidUpdate');
+				this.retrieveCountryProfileData();
+		}
+	}
+
+	openIndicatorsList = (event) => {
+		if( window.innerWidth < 1090 ){
+			if(event.target.nodeName == "A"){
+			  var parentTag = event.target.offsetParent.nextSibling.parentNode.className;
+			} else if( event.target.nodeName == "LI" ){
+			  var parentTag = event.target.parentNode.className;
+			} 
+
+			if(parentTag.indexOf('open-list') < 0 ){
+				this.setState({openListClass: "open-list"});
+			} else {
+				this.setState({openListClass: ""});
+			}
+		}
+	}
+
+	isActiveIndicator = (indicator) => {
+		const anchor = this.props.literals['L'+indicator].toLowerCase().replace(/ /g, '-');		
+		if(this.state.indicator === anchor){
+			return "active";
+		}else{
+			return "";
+		}
+	}
+
+	isOneCountrySelected = () => {
+		if(this.state.country2 !== undefined && this.state.country2 !== null
+			&& this.state.country2 !== ""){
+			return "no-full";
+		}else{
+			return "full";
+		}
+	}
+
+	countryChange = event => {
+		// console.log('countryChange');
+		if(event.target.id === "datafor"){
+			this.setState({country1: event.target.value});
+		}else{
+			this.setState({country2: event.target.value});
+		}
+	}
+
+	changeIndicator = indicatorSelected => () => {
+		this.setState({indicator: indicatorSelected});
+	}
+
 	render()
 	{
+		var indicatorTabs = "";
+		var selectedTabContent = "";
+
+		if(this.state.indicator === "basic-information"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text1} country2Text={this.state.countryProfileData2.text1}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab1"} tabName={"L303"} />
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text1}
+						country1={this.state.countryProfileData1.country} tab={"tab1"} tabName={"L303"} />
+				)
+			}
+			
+		}else if(this.state.indicator === "background"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text2} country2Text={this.state.countryProfileData2.text2}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab2"} tabName={"L304"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text2}
+						country1={this.state.countryProfileData1.country} tab={"tab2"} tabName={"L304"}/>
+				)
+			}
+			
+		}else if(this.state.indicator === "characteristics-and-objectives"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text3} country2Text={this.state.countryProfileData2.text3}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab3"} tabName={"L305"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text3}
+						country1={this.state.countryProfileData1.country} tab={"tab3"} tabName={"L305"}/>
+				)
+			}
+		}else if(this.state.indicator === "details-and-activity"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text4} country2Text={this.state.countryProfileData2.text4}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab4"} tabName={"L306"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text4}
+						country1={this.state.countryProfileData1.country} tab={"tab4"} tabName={"L306"}/>
+				)
+			}
+		}else if(this.state.indicator === "actors-and-stakeholders"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text5} country2Text={this.state.countryProfileData2.text5}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab5"} tabName={"L307"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text5}
+						country1={this.state.countryProfileData1.country} tab={"tab5"} tabName={"L307"}/>
+				)
+			}
+		}else if(this.state.indicator === "resources-and-timeframe"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text6} country2Text={this.state.countryProfileData2.text6}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab6"} tabName={"L20251"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text6}
+						country1={this.state.countryProfileData1.country} tab={"tab6"} tabName={"L20251"}/>
+				)
+			}
+			
+		}else if(this.state.indicator === "evaluation"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text7} country2Text={this.state.countryProfileData2.text7}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab7"} tabName={"L308"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text7}
+						country1={this.state.countryProfileData1.country} tab={"tab7"} tabName={"L308"}/>
+				)
+			}
+		}else if(this.state.indicator === "relationship-to-eu-strategic-framework"){
+			if(this.props.country2 != undefined && this.state.countryProfileData2 != undefined){
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text8} country2Text={this.state.countryProfileData2.text8}
+						country1={this.state.countryProfileData1.country} country2={this.state.countryProfileData2.country} tab={"tab8"} tabName={"L20253"}/>
+				)
+			}else{
+				selectedTabContent = (
+					<CountryProfileTextTab literals={this.props.literals} country1Text={this.state.countryProfileData1.text8}
+						country1={this.state.countryProfileData1.country} tab={"tab8"} tabName={"L20253"}/>
+				)
+			}
+			
+		}
+
+		if(this.state.indicators.length > 0){
+			indicatorTabs = (
+				<ul className={"submenu--items--wrapper "+this.state.openListClass}>
+					{
+						this.state.indicators.map((indicator, index) => (
+							<li key={index} onClick={this.openIndicatorsList()} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
+								<Link to={"/osh-steering/country-profile/"+this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-')+"/"
+									+this.state.country1+"/"+(this.state.country2 != undefined ? this.state.country2 : "" )} 
+									onClick={this.changeIndicator(this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-'))}
+									// data-ng-click="changeIndicator($event,indicator.anchor)" 
+									className={this.isActiveIndicator(indicator.literalID)}>{this.props.literals['L'+indicator.literalID]}</Link>
+							</li>
+						))
+					}
+				</ul>	
+			)
+		}
+
 		return(
 			<div>
 				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
 
 				<div className="container">
 					<p className="btn--block-full left-text">
-						<Link to="EU-challenges-response" className="btn-default btn-main-color" title="{this.props.literals.L20625}">{this.props.literals.L20625}</Link>
+						<Link to="EU-challenges-response({pCountry:'0'})" className="btn-default btn-main-color" title={this.props.literals.L20625}>{this.props.literals.L20625}</Link>
 					</p>
 				</div>
 
 				<div className="compare--block regulation-page">
 					<div className="submenu--block container">
-						<label className="submenu-indicator" >Select the indicator</label>
-						<ul className="submenu--items--wrapper">
-							{/* INDICATORS */}
-							<li data-ng-repeat="indicator in indicators" data-ng-click ="openIndicatorsList($event)" data-ng-class="{'active' : indicator.anchor == pIndicator }" className="submenu--item">
-							<Link to="/" data-ng-click="changeIndicator($event,indicator.anchor)" data-ng-bind="i18nLiterals['L'+indicator.text]" data-ng-class="{'active' : indicator.anchor == pIndicator }" >Basic information</Link>
-							</li>
-						</ul>
+						{/* <label className="submenu-indicator" >Select the indicator</label> */}
+						{indicatorTabs}
 					</div>
 					
 					<div className="line background-main-light"></div>
@@ -44,17 +260,21 @@ class CountryProfile extends Component
 							{/*  1ST COUNTRY FILTER  */}
 							<li>
 								<label htmlFor="datafor">{this.props.literals.L20609}</label>
-								<select id="datafor" data-ng-cloak ng-model="pCountry1" parameter="pCountry1" params="[['pCountry', pCountry2]]"
+								<CountrySelect id="datafor" countries={this.state.countriesSelect1} country={this.state.country1} 
+									handler ={this.countryChange} currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"}/>
+								{/* <select id="datafor" data-ng-cloak ng-model="pCountry1" parameter="pCountry1" params="[['pCountry', pCountry2]]"
 									listen-to="['pCountry2']" query="getStrategiesCountriesSelect" cda="{::cdaGenericInformation }" placeholder="0" data-ng-change="countryChange()">
-								</select>  
+								</select>   */}
 							</li>
 							{/* 2ND COUNTRY FILTER  */}
 							<li>
 								<label htmlFor="comparewith">{this.props.literals.L20610}</label>
-								<select id="comparewith" data-ng-cloak ng-model="pCountry2" parameter="pCountry2" params="[['pCountry', pCountry1]]"
+								<CountrySelect id="comparewith" countries={this.state.countriesSelect2} country={this.state.country2} handler ={this.countryChange}
+									currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"+this.state.country1+"/"}/>
+								{/* <select id="comparewith" data-ng-cloak ng-model="pCountry2" parameter="pCountry2" params="[['pCountry', pCountry1]]"
 									listen-to="['pCountry1']" query="getStrategiesCountriesSelect" cda="{::cdaGenericInformation }" 
 									placeholder="{pCountry2=='0'?1:0}" data-ng-change="countryChange()">
-								</select> 
+								</select>  */}
 							</li>
 						</ul>
 					</form>
@@ -63,337 +283,8 @@ class CountryProfile extends Component
 				</div>
 
 				<section className="container section--page full-tablet">
-					{ /*  Basic Information */}
-					<div className="column--grid--block" id="tab1" data-ng-if="pIndicator == 'basic-information'">
-					<div className="column--item first"  ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]" >
-						<div className="">
-							<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L303}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text1], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text1]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text1].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L303}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text1], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text1].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Background */}
-					<div className="column--grid--block" id="tab2" data-ng-if="pIndicator == 'background'">
-					<div className="column--item first"  ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L304}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text2], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text2]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text2].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L304}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text2], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text2]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text2].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Characteristics and objectives */}
-					<div className="column--grid--block" id="tab3" data-ng-if="pIndicator == 'characteristics-and-objectives'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L305}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text3], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text3]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text3].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L305}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text3], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text3]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text3].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-						
-					</div>
-					</div>
-
-					{ /*  Details and activity */}
-					<div className="column--grid--block" id="tab4" data-ng-if="pIndicator == 'details-and-activity'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L306}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text4], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text4]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text4].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L306}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text4], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text4]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text4].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Actors and stakeholders */}
-					<div className="column--grid--block" id="tab6" data-ng-if="pIndicator == 'actors-and-stakeholders'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L307}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text5], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text5]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text5].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>       
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L307}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text5],maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text5]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text5].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Resources and Timeframe */}
-					<div className="column--grid--block" id="tab5" data-ng-if="pIndicator == 'resources-and-timeframe'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L20251}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text6], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text6]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text6].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>       
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L20251}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text6],maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text6]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text6].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Evaluation */}
-					<div className="column--grid--block" id="tab7" data-ng-if="pIndicator == 'evaluation'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L308}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text7], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text7]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text7].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L308}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text7],maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text7]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text7].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
-
-					{ /*  Relationship to EU Strategic Framework */}
-					<div className="column--grid--block" id="tab8" data-ng-if="pIndicator == 'relationship-to-eu-strategic-framework'">
-					<div className="column--item first" ng-class="{true: 'full', false: 'no-full'}[pCountry2 == 0]">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country1Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L20253}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country1Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country1Data.text8], maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country1Data.text8]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country1Data.text8].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-
-					<div className="column--item second" data-ng-if="pCountry2 != 0">
-						<div className="">
-						<img  className="flags--wrapper" ng-src="../../style/img/flag/{::country2Data.country_code.toLowerCase()}.png" />
-						</div>
-						<h2>{this.props.literals.L20253}</h2>
-						<div className="columm--item--content">
-						{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-						<p className="download-report">
-							<Link to="/osh-steering/country-profile/pdf/National-Strategies-Mapping_{i18nLiterals['L'+country2Data.country_name]}.pdf" className="download-pdf" data-ng-bind-html="i18nLiterals.L20640" target="_blank"></Link>
-						</p>
-						<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+country2Data.text8],maxCharacters)"></div>
-						<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text8]"></div>
-						<p className="see-more" data-ng-if="i18nLiterals['L'+country2Data.text8].length > maxCharacters">
-							<Link to="/" ng-click='toggleText($event)' className="see-more">{this.props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-							<Link to="/" ng-click='toggleText($event)' className="see-less" style={{display:'none'}}>{this.props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-						</p>
-						</div>
-					</div>
-					</div>
+					{selectedTabContent}					
 				</section>
-
-				<Methodology />
 			</div>
 		)
 	}
