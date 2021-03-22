@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 
 const defaultProps = {
-    initialPage: 1
+    initialPage: 1,
+    pageSize: 5
 }
 
 class Pagination extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { pager: {} }; 
+        this.state = { pager: {}, pageSize:  defaultProps.pageSize}; 
     }
 
     componentDidMount() {
         // setPage if items array isnt empty
+        if(this.props.pageSize){
+            this.setState({pageSize: this.props.pageSize});
+        }
         if (this.props.items && this.props.items.length) {
             this.setPage(this.props.initialPage);
         }
@@ -46,7 +50,8 @@ class Pagination extends Component {
     getPager(totalItems, currentPage, pageSize) {
         currentPage = currentPage || 1;
 
-        pageSize = pageSize || 5;
+        // pageSize = pageSize || 5;
+        pageSize = pageSize || this.state.pageSize;
 
         // calculate total pages
         let totalPages = Math.ceil(totalItems / pageSize);
@@ -101,7 +106,7 @@ class Pagination extends Component {
                         <ul className="main-color">
                             <li role="button" className={`arrow firstpage ${this.state.pager.currentPage > 1 ? '' : 'invisible'}`} onClick={() => this.setPage(this.setPage(1))}><span><i className="fa fa-angle-double-left" aria-hidden="true"></i></span></li>
                             <li role="button" className={`arrow previouspage ${this.state.pager.currentPage > 1 ? '' : 'invisible'}`} onClick={() => this.setPage(this.state.pager.currentPage - 1)} ><span><i className="fa fa-angle-left" aria-hidden="true"></i></span></li>
-                            <li><span className="">{`${this.state.pager.currentPage}/${Math.ceil(this.props.items.length / 5)}`}</span></li>
+                            <li><span className="">{`${this.state.pager.currentPage}/${this.state.pager.totalPages}`}</span></li>
                             <li role="button" className={`arrow nextpage ${this.state.pager.currentPage == this.state.pager.totalPages ? 'invisible' : ''}`} onClick={() => this.setPage(this.state.pager.currentPage + 1)} ><span><i className="fa fa-angle-right" aria-hidden="true"></i></span></li>
                             <li role="button" className={`arrow lastpage ${this.state.pager.currentPage == this.state.pager.totalPages ? 'invisible' : ''}`} onClick={() => this.setPage(this.state.pager.totalPages)} ><span><i className="fa fa-angle-double-right" aria-hidden="true"></i></span></li>
                         </ul>
