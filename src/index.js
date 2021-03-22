@@ -69,7 +69,7 @@ ReactDOM.render(
 				/>
 
 				<Route exact path="/osh-steering/country-profile/:indicator/:country1/:country2?" render={routeParams => <App><CountryProfile indicator={routeParams.match.params.indicator} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} />
-				<Route exact path="/osh-steering/eu-Challenges-response" render={() => <App><EUChallengesResponse literals={literals}/></App>} />
+				<Route exact path="/osh-steering/eu-Challenges-response/:country" render={(props) => <App><EUChallengesResponse {...props} literals={literals}  /></App>} />
 				<Route exact path="/osh-steering/national-strategies" render={() => <App><NationalStrategies literals={literals}/></App>} />
 				<Route exact path="/osh-steering/regulation" render={() => <App><Regulation literals={literals}/></App>} />
 				<Route exact path="/osh-steering/social-dialogue" render={() => <App><SocialDialogue literals={literals}/></App>} />
