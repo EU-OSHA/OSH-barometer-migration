@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ReactHtmlParser from 'react-html-parser';
+import { Link } from 'react-router-dom';
 
 import images from '../../../style/img/flag/images';
 
@@ -57,48 +58,52 @@ class Cards extends Component {
 					<img className="flags--wrapper" src={`${images[countryData.country.code.toLowerCase()]}`} />
 					<h2 className="country  title-section main-color" >{` ${this.props.literals[`L${countryData.country.literalID}`]} `}</h2>
 				</div>
-				<div className="matrix--content--elements">
-					<h3 className="" >
-					{this.props.literals[
+				<h3 className="" > {this.props.literals[
 					(countryData.check1 && 'L20614' 
 					    || countryData.check2 && 'L20611' 
 						|| countryData.check3 && 'L20612' 
 						|| countryData.check && 'L20613'
 						)]}
-                    </h3>
-					<p className="institution-name">{`${this.props.literals[`L${countryData.text1}`]}`}</p>
-					{countryData.text3 && (
-						ReactHtmlParser(this.props.literals[`L${countryData.text2}`])
-					)}
+                </h3>
 
-					{!countryData.text3 && 
-						this.state.selectedId == countryID ? 
-							ReactHtmlParser(this.props.literals[`L${countryData.text2}`]) 
-							:
-							ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text2}`], 320)) 
-					} 
-					 
-					<div className={'partial-text'}>
-						{countryData.text3 && (
-							this.state.selectedId == countryID ? 
-								ReactHtmlParser(this.props.literals[`L${countryData.text3}`])
-								: 
-								ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text3}`], 300))
-						)}
-					</div>
-					{(countryData.text3 && this.props.literals[`L${countryData.text3}`].length > 300 || this.props.literals[`L${countryData.text2}`].length > 320) && (
-						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
-							<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
-						</p>
-					)}
+				<p className="institution-name">{ReactHtmlParser(this.props.literals[`L${countryData.text1}`])}</p>
+				{ countryData.text2 && countryData.text3 && (
+					ReactHtmlParser(this.props.literals[`L${countryData.text2}`])
+				)}
+
+				{!countryData.text3 && 
+					this.state.selectedId == countryID ? 
+						countryData.text2 && ReactHtmlParser(this.props.literals[`L${countryData.text2}`]) 
+					   :
+					   countryData.text2 && ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text2}`], 320)) 
+			   }
+
+			   <div className={'partial-text'}>
 					{countryData.text3 && (
-						<div className="">
-							<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
-						</div>
+						this.state.selectedId == countryID ? 
+							ReactHtmlParser(this.props.literals[`L${countryData.text3}`])
+							: 
+							ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text3}`], 300))
 					)}
 				</div>
+
+				{countryData.text3 && this.props.literals[`L${countryData.text3}`].length > 300 || countryData.text2 && this.props.literals[`L${countryData.text2}`].length > 320 && (
+					<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
+						<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
+					</p>
+				)}
+
+				{countryData.text3 && (
+					<div className="">
+						<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
+					</div>
+				)}
+
+				{this.props.categoryType == 'challenges' && <div>
+					<p><Link className="btn--card main-color" to={{pathname: `/osh-steering/country-profile/basic-information/${this.props.countryData.country.code}`}} >{this.props.literals.L20626}</Link></p>
+				</div>}
 			</div>
-		);
+		)
     }
 }
 

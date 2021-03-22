@@ -113,7 +113,7 @@ class SelectFilters extends Component {
                 {/* INSTITUTION TYPE FILTER || CATEGORY TYPE FILTER || CHALLENGES TYPE FILTER */}
                 <div id="filter1" className={`filter--dropdown--wrapper ${this.state.isInstitutionDropdown ? 'viewOptions' : null}`} tabIndex="8">
                     <div className="filter--dropdown--list" ref={this.state.institutionDropdownRef}>
-                        <p className="option-title" onClick={this.onClickInstitutionDropdown} >Institution type</p>
+                        <p className="option-title" onClick={this.onClickInstitutionDropdown} > {this.props.filterCategory == 'institution' && 'Institution Type'} {this.props.filterCategory == 'category' && this.props.literals.L20651} {this.props.filterCategory == 'challenges' && this.props.literals.L20629} </p>
                         <ul className="filter--dropdown--options">
                         
                         {this.props.filterCategory == 'institution' && (
@@ -127,6 +127,15 @@ class SelectFilters extends Component {
 
                         {this.props.filterCategory == 'category' && (
                             this.state.categoryTypes.map((category) => (
+                                <li key={category.id} onClick={this.onClickInstitution({id: category.id, literal: category.literal})} >
+                                    <input type="checkbox" checked={this.props.selectedFilters.checks.find((array) => array.id == category.id) ? true : false}  readOnly tabIndex="-1" />
+                                    <label className="" >{this.props.literals[`L${category.literal}`]}</label>
+                                </li>)
+                            )
+                        )}
+
+                        {this.props.filterCategory == 'challenges' && (
+                            this.state.challengesTypes.map((category) => (
                                 <li key={category.id} onClick={this.onClickInstitution({id: category.id, literal: category.literal})} >
                                     <input type="checkbox" checked={this.props.selectedFilters.checks.find((array) => array.id == category.id) ? true : false}  readOnly tabIndex="-1" />
                                     <label className="" >{this.props.literals[`L${category.literal}`]}</label>
