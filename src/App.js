@@ -15,7 +15,7 @@ const App = (props) =>
 
 			{props.children}
 
-			<Footer literals={children.props.literals} />
+			<Footer literals={props.literals} />
 		</div>
 	)
 }
