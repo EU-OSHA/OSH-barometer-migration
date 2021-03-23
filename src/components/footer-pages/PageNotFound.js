@@ -10,5 +10,5 @@ class PageNotFound extends Component
 		)
 	}
 }
-
+PageNotFound.displayName = 'PageNotFound';
 export default PageNotFound;

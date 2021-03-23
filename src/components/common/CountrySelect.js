@@ -19,8 +19,7 @@ const CountrySelect = props => {
     }
 
     return (
-        <div id={"dvt_select_"+props.id}>
-            <div className="select2-container select2-dropdown-open">
+
                 <select id={props.id} onChange={countryChange} className="select2-container select2-offscreen" tabIndex="-1"
                     value={props.country}>
                         {countryOption}
@@ -30,8 +29,7 @@ const CountrySelect = props => {
                         ))
                     }
                 </select>
-            </div>
-        </div>
+
     )
 }
 

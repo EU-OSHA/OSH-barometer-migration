@@ -68,3 +68,24 @@ export function getOSHData(dataPage, filters) {
 
     return response
 }
+
+export function getSocialDialogueData(filters){
+    const URL = `${BASEURL}api/quantitative/getCountryCardData?chart=20090`;
+    const response = axios.get(URL, {
+        params: {
+            country: filters?.countries
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.country) {
+                params.country.map((country) => urlWithParams.append('country', country));
+            }
+
+            return urlWithParams
+        }
+    })
+    .then((response) => response.data);
+
+    return response
+}

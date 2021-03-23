@@ -135,5 +135,5 @@ class NationalStrategies extends Component
 		)
 	}
 }
-
+NationalStrategies.displayName = 'NationalStrategies';
 export default NationalStrategies;

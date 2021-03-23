@@ -12,5 +12,5 @@ class PhysicalRisk extends Component
 		)
 	}
 }
-
+PhysicalRisk.displayName = 'PhysicalRisk';
 export default PhysicalRisk;

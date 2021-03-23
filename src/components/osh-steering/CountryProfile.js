@@ -242,7 +242,8 @@ class CountryProfile extends Component
 
 				<div className="container">
 					<p className="btn--block-full left-text">
-						<Link to="EU-challenges-response({pCountry:'0'})" className="btn-default btn-main-color" title={this.props.literals.L20625}>{this.props.literals.L20625}</Link>
+						<Link to={"/osh-steering/eu-challenges-response/"+this.state.country1} className="btn-default btn-main-color" 
+							title={this.props.literals.L20625}>{this.props.literals.L20625}</Link>
 					</p>
 				</div>
 
@@ -289,5 +290,5 @@ class CountryProfile extends Component
 		)
 	}
 }
-
+CountryProfile.displayName = 'CountryProfile';
 export default CountryProfile;

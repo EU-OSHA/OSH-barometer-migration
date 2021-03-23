@@ -12,5 +12,5 @@ class OverallOpinion extends Component
 		)
 	}
 }
-
+OverallOpinion.displayName = 'OverallOpinion';
 export default OverallOpinion;

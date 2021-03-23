@@ -180,5 +180,5 @@ class EUChallengesResponse extends Component
 		)
 	}
 }
-
+EUChallengesResponse.displayName = 'EUChallengesResponse';
 export default EUChallengesResponse;

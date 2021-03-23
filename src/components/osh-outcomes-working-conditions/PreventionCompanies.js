@@ -12,5 +12,5 @@ class PreventionCompanies extends Component
 		)
 	}
 }
-
+PreventionCompanies.displayName = 'PreventionCompanies';
 export default PreventionCompanies;

@@ -77,5 +77,5 @@ class PrivacyPolicy extends Component
 		)
 	}
 }
-
+PrivacyPolicy.displayName = 'PrivacyPolicy';
 export default PrivacyPolicy;

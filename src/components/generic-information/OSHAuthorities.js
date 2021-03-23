@@ -187,5 +187,5 @@ class OSHAuthorities extends Component
 		)
 	}
 }
-
+OSHAuthorities.displayName = 'OSHAuthorities';
 export default OSHAuthorities;
