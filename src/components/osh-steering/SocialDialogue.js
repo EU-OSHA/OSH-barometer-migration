@@ -1,158 +1,167 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import { Link } from 'react-router-dom';
 import AdviceSection from '../common/AdviceSection';
+import EUCountryCard from '../common/cards/EUCountryCard';
+import CountryCards from '../common/cards/CountryCards';
+import Pagination from '../common/pagination/Pagination';
+import { getSocialDialogueData } from '../../api';
+
+const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
 
 class SocialDialogue extends Component
 {
+	constructor(props){
+		super(props);
+		this.state = {
+			euData: {},
+			countriesData: [],
+			countryList: [],
+			pageOfItems: [],
+			pageSize: 15,
+			countryDropdownRef: React.createRef(),
+			filters: {
+				countries: []
+			}
+		}
+	}
+
+	sortArray(countriesData){
+		var sortedArray = []
+
+		countriesData.resultset.filter(country => country.countryCode != "EU27_2020").map(filteredCountry => {
+			sortedArray.push(filteredCountry);
+		})
+		
+		sortedArray.sort(function (a, b) {
+			if (a.countryCode < b.countryCode) return -1;
+			else if (a.countryCode > b.countryCode) return 1;
+			return 0;
+		});
+
+		this.setState({
+			countriesData: sortedArray
+		})
+	}
+
+	componentDidMount(){
+		// Open a listener for and mousedown event on body page to close any of the dropdowns
+		document.addEventListener('mousedown', this.onHandleDropdown);
+        Promise.all([
+			fetch(`${API_ADDRESS}/quantitative/getCountryCardData?chart=20090`),
+			fetch(`${API_ADDRESS}/countries/getIndicatorCountries?chart=20090`)
+		])
+		.then(([countriesDataResponse,countryListResponse]) => 
+			Promise.all([countriesDataResponse.json(),countryListResponse.json()]))
+		.then(([countriesData,countryList]) => {
+			countriesData.resultset.filter(country => country.countryCode === 'EU27_2020').map(filteredCountry => {
+				this.setState({euData: filteredCountry});
+			});
+
+			this.sortArray(countriesData);
+			
+			this.setState({
+				countryList: countryList.resultset
+			});
+			
+			// console.log('this.state', this.state);
+		})
+		.catch(error => console.log(error.message));
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		// If any modification happens to the filter state, it updates with the new values
+		if (prevState.filters != this.state.filters) {
+			getSocialDialogueData(this.state.filters)
+				.then((res) => {
+					this.sortArray(res);
+				})
+		}
+	}
+
+	// Handle dropdown when clicked outside of their container
+	onHandleDropdown = e => {
+		if (this.state.countryDropdownRef.current && !this.state.countryDropdownRef.current.contains(e.target)) {
+			this.setState({ isCountryDropdown: false });
+		}
+	}
+	
+	// Dropdown for country selector
+	onClickCountryDropdown = () => {
+		this.setState({ isCountryDropdown: !this.state.isCountryDropdown });
+	}
+
+	onClickCountry = (countryCallback) => () => {
+		const countryFilter = this.state.filters.countries;
+		if (countryCallback != this.state.filters.countries.find((code) => code == countryCallback)) {
+			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]}});
+		} else {
+			const index = this.state.filters.countries.findIndex((code) => code == countryCallback);
+			const newCountryFilters = this.state.filters.countries;
+			newCountryFilters.splice(index, 1);
+			this.setState({filters: {...this.state.filters, countries: newCountryFilters}});
+		}
+	}
+
+	//when country is selected
+	onSelectCountryTag = (country) => {
+		return () => {
+			const countryIndex = this.state.filters.countries.findIndex((code) => code == country);
+			const newArray = this.state.filters.countries;
+			newArray.splice(countryIndex, 1);
+			this.setState({filters: {...this.state.filters, countries: newArray}});
+		}
+	}
+
+	// Handles change of page when clicked on the next or prev
+	onChangePage = (pageOfItems) => {
+		this.setState({ pageOfItems });
+	}
+
 	render()
 	{
 		return(
 			<div className="social-dialogue">
 				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} />
 
-				<div className="highlited--data--section">
-					<div className="highlited--data--block container">
-					<div className="highlited-data-item">
-						<div className="flags--wrapper">
-						<img src={require("../../style/img/flag/eu28.png")} width="94px" />
-						</div>
-						<div className="eu-data">
-							<h2 className="country title-section main-color" data-ng-bind="i18nLiterals['L'+EUData.country_name]">EU27_2020</h2>
-							<p className="download-report" >
-								<Link href="./osh-steering/social-dialogue/pdf/Social_Dialogue_{{EUData.country_code}}.pdf" className="download-pdf" target="_blank">
-									{ReactHtmlParser(this.props.literals.L20637)}
-								</Link>
-							</p>
-						</div>
-					</div>
-					<div className="highlited-data-item">
-						<ul className="highlited-data-list">
-						<li>
-							<div className="group-data">                
-							<span className="country-data" data-ng-bind="EUData.joint_consultative"></span>
-							<span className="data-text">%</span>
-							</div>
-							<label>{this.props.literals.L20659}</label>
-						</li>
-						<li>
-							<div className="group-data">                
-							<span className="country-data" data-ng-bind="EUData.trade_union"> </span>
-							<span className="data-text">%</span>
-							</div>
-							<label>{this.props.literals.L20660}</label>
-						</li>
-						<li>
-							<div className="group-data">                
-							<span className="country-data" data-ng-bind="EUData.health_representative"></span>
-							<span className="data-text">%</span>
-							</div>
-							<label>{this.props.literals.L20661}</label>
-						</li>
-						<li>
-							<div className="group-data">                
-							<span className="country-data" data-ng-bind="EUData.health_committee"></span>
-							<span className="data-text">%</span>
-							</div>
-							<label>{this.props.literals.L20662}</label>
-						</li>
-						</ul>
-					</div>
-					</div>
-				</div>
+				<EUCountryCard literals={this.props.literals} euData={this.state.euData} page={'socialDialogue'}/>
 
 				<section className="container ">
 					{/*  FILTERS */}
 					<form className="row block--filter--wrapper">
-					{/*  COUNTRY FILTER */}
-					<div id="filter1"className="filter--dropdown--wrapper">
-						{/* <label className="main-color  dropdwon-open" data-ng-bind="i18nLiterals.L20630"></label> */}
-						<div className="filter--dropdown--list">
-						<p className="option-title" data-ng-bind="i18nLiterals.L20630" ng-click="openSelect($event)"></p>
-						<ul className="filter--dropdown--options">
-							<li data-ng-repeat='country in countries'>
-							<input id='country-filter-{{::country.country}}' ng-checked="!!country.param && country.param ==country.country_code"
-								data-ng-click="toggleCountryClick($event, $index)" type="checkbox" value="{{::country}}" tabindex="-1" />
-							<label for="country-filter-{{::country.country}}" data-ng-bind="('(')+(country.country_code)+(') ')+(i18nLiterals['L'+country.country])"></label>
-							</li>
-						</ul>
-						{/* <p className="btn--block-filter" data-ng-click="openSelect($event)"><a className="btn-main-color btn-full" ng-click="confirmCountrySelection($event)" data-ng-bind="i18nLiterals.L20636"></a></p> */}
+						{/*  COUNTRY FILTER */}
+						<div id="filter1" className={`filter--dropdown--wrapper ${this.state.isCountryDropdown ? 'viewOptions' : null}`} tabIndex="-1">
+							<div className="filter--dropdown--list" ref={this.state.countryDropdownRef}>
+								<p className="option-title " onClick={this.onClickCountryDropdown}>{this.props.literals.L20630}</p>
+								<ul className="filter--dropdown--options ">
+									{this.state.countryList.map((country) => (
+										<li key={country.code} onClick={this.onClickCountry(country.code)} >
+											<input type="checkbox" checked={this.state.filters.countries.includes(country.code)} readOnly />
+											<label >{country.name == 'EU28' ? '' : `(${country.code})`} {country.name}</label>
+										</li>
+									))}
+								</ul>
+							</div>
 						</div>
-					</div>  
 					</form>
 
 					<div className="container">
-						{/*  CONTENT */}
-						<div className="selected--tags-wrapper"></div>
-						<div className="card--grid xxs-w1 xs-w2 w3 center-text">
-							<div className="card--block--chart" data-ng-repeat="matrix in amatrix | limitTo:pageSize:elementsStart">
-								<div className="chart--block">
-									<header>
-										<div className="flags--wrapper" >
-											<img  ng-src="../../style/img/flag/{{::matrix.country_code.toLowerCase()}}.png" />
-										</div>
-										<div className="country-wrapper">
-											<h2 className="country ng-binding title-section main-color" data-ng-bind="i18nLiterals['L'+matrix.country_name]"></h2>
-											<p className="download-report" ng-if="matrix.country_code != 'IS' && matrix.country_code != 'NO' && matrix.country_code != 'CH'">
-											<Link href="/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/modules/vertical/osh-steering/social-dialogue/pdf/Social_Dialogue_{{i18nLiterals['L'+matrix.country_name]}}.pdf" className="download-pdf" target="_blank">
-											{ReactHtmlParser(this.props.literals.L20637)}
-											</Link>
-											</p>
-											<p ng-if="matrix.country_code == 'IS' || matrix.country_code == 'NO' || matrix.country_code == 'CH'"></p>
-										</div>
-									</header>
-									<ul className="highlited-data-list">
-										<li>                
-											<span className="country-data" data-ng-bind="matrix.joint_consultative != null ? (matrix.joint_consultative) : '-'"></span>
-											<span data-ng-if="matrix.joint_consultative != null" className="data-text">%</span>
-											<label>{this.props.literals.L20659}</label>
-										</li>
-										<li>                
-											<span className="country-data" data-ng-bind="matrix.trade_union != null ? (matrix.trade_union) : matrix.country_code == 'AT'?'20':'-'"> %</span>
-											<span data-ng-if="matrix.trade_union != null || matrix.country_code=='AT'" className="data-text">%</span>
-											<label>{this.props.literals.L20660}</label>
-										</li>
-										<li>                
-											<span className="country-data" data-ng-bind="matrix.health_representative != null ? (matrix.health_representative) : '-'"></span>
-											<span data-ng-if="matrix.health_representative != null" className="data-text">%</span>
-											<label>{this.props.literals.L20661}</label>
-										</li>
-										<li>                
-											<span className="country-data" data-ng-bind="matrix.health_committee != null ? (matrix.health_committee) : '-'"></span>
-											<span data-ng-if="matrix.health_committee != null" className="data-text">%</span>
-											<label>{this.props.literals.L20662}</label>
-										</li>
-									</ul>
+						<div className="selected--tags-wrapper">
+							{this.state.filters && (
+								<div>
+									{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectCountryTag(country)}>{country}</span>)}
 								</div>
-							</div>
+							)}
+						</div>
+						<div className="card--grid xxs-w1 xs-w2 w3 center-text">
+							{
+								this.state.pageOfItems.map((countryData) => (
+									<div className="card--block--chart" key={countryData.countryCode}>
+										<CountryCards literals={this.props.literals} countryData={countryData} page={'socialDialogue'}/>
+									</div>
+								))
+							}
 						</div>
 
-						{/*  PAGINATION */}
-						<div className="pagination--wrapper" data-ng-if="!!amatrix.length" >
-							<div className="pagination--elements">
-								<ul className="main-color">
-									<li role="button" className="arrow firstpage" data-ng-click="firstPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==1 || currentPage+1==1)?'invisible':''">
-									<span aria-hidden="currentPage == 0"><i className="fa fa-angle-double-left" aria-hidden="true"></i></span>
-									</li>
-									<li role="button" className="arrow previouspage" data-ng-click="previousPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==1 || currentPage+1==1)?'invisible':''">
-									<span aria-hidden="currentPage == 0"><i className="fa fa-angle-left" aria-hidden="true"></i></span>
-									</li>
-									<li>
-									<span>currentPage+1/numberOfPages()</span>
-									</li>
-									<li role="button" className="arrow nextpage" data-ng-click="nextPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==numberOfPages())?'invisible':''">
-									<span aria-hidden="currentPage >= results.length/pageSize - 1"><i className="fa fa-angle-right" aria-hidden="true"></i></span>
-									</li>
-									<li role="button" className="arrow lastpage" data-ng-click="lastPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==numberOfPages())?'invisible':''">
-									<span><i className="fa fa-angle-double-right" aria-hidden="true"></i></span>
-									</li>
-								</ul>
-								{/*  PAGINATION TEXT */}
-								<div className="pag-numbers" data-ng-if="!!amatrix.length">
-									<span data-ng-bind="paginationText"></span>
-								</div>
-							</div>
-						</div>
+						<Pagination items={this.state.countriesData} onChangePage={this.onChangePage} pageSize={this.state.pageSize}/>
 					</div>
 				</section>
 
