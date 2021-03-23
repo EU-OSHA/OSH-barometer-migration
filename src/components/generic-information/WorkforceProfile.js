@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
+import Related from '../common/Related';
 
 class WorkforceProfile extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		console.log('props', props);
+	}
+
 	render()
 	{
 		return(
@@ -16,34 +23,34 @@ class WorkforceProfile extends Component
 				<div className="filter--indicator--block container">
 					<ul className="indicators--group xs-row">
 						<li id="filter1">
-							<label htmlFor="indicatorSelect" data-ng-bind="i18nLiterals.L20623" className="ng-binding">SELECT THE INDICATOR</label> 
+							<label htmlFor="indicatorSelect">{this.props.literals.L20623}</label> 
 							<select id="indicatorSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-model="selectedIndicator" data-ng-change="selectChange()">
-								<option value="median-age" data-ng-bind="i18nLiterals.L294" className="ng-binding">Median age of population</option>
-								<option value="employment-rate" data-ng-bind="i18nLiterals.L20621" className="ng-binding">Employment rate</option>
-								<option value="unemployment-rate" data-ng-bind="i18nLiterals.L291" className="ng-binding">Unemployment rate</option>
+								<option value="median-age">{this.props.literals.L294}</option>
+								<option value="employment-rate">{this.props.literals.L20621}</option>
+								<option value="unemployment-rate">{this.props.literals.L291}</option>
 							</select>
 						</li>
 						<li id="filter2" data-ng-className="{'disabled':selectedIndicator == 'median-age' || selectedIndicator == 'unemployment-rate'}" className="disabled">
-							<label htmlFor="employeeGroupSelect" data-ng-bind="i18nLiterals.L20622" className="ng-binding">EMPLOYEE GROUP</label> 
+							<label htmlFor="employeeGroupSelect" data-ng-bind="i18nLiterals.L20622">{this.props.literals.L20622}</label> 
 							<select id="employeeGroupSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-disabled="selectedIndicator == 'median-age' || selectedIndicator== 'unemployment-rate'" data-ng-model="selectedSubIndicator" data-ng-change="selectChange()" disabled="disabled">
-								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers" className="ng-binding">Ageing workers</option>
-								<option data-ng-repeat="gender in genders" value="Female" data-ng-bind="i18nLiterals['L'+gender.gender_name]" className="ng-binding ">Female</option>
-								<option data-ng-repeat="gender in genders" value="Male" data-ng-bind="i18nLiterals['L'+gender.gender_name]" className="ng-binding ">Male</option>
-								<option data-ng-repeat="gender in genders" value="Total" data-ng-bind="i18nLiterals['L'+gender.gender_name]" className="ng-binding ">Total</option>
+								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers">{this.props.literals.L295}</option>
+								<option value="Female">{this.props.literals.L444}</option>
+								<option value="Male">{this.props.literals.L443}</option>
+								<option value="Total">{this.props.literals.L442}</option>
 							</select>
 
-							<label data-ng-if="selectedIndicator == 'median-age'" className="alert-disabled " data-ng-bind="i18nLiterals.L20694">Not applied to Median Age</label>
+							<label data-ng-if="selectedIndicator == 'median-age'" className="alert-disabled ">{this.props.literals.L20694}</label>
 						</li>
 						{/* COUNTRY FILTER JUST IN < 1024 PX */}
 						<li id="filter3" className="filter--dropdown--wrapper">
-							<label htmlFor="countrySelect">Country:</label>
+							<label htmlFor="countrySelect">{this.props.literals.L20630}:</label>
 							{/*<label className="main-color  dropdwon-open" onClick="openSelect($event)"></label>*/}
 							<div className="filter--dropdown--list">
-								<p className="option-title" data-ng-bind="i18nLiterals.L20630" ng-click="openSelect($event)">Country</p>
+								<p className="option-title" ng-click="openSelect($event)">{this.props.literals.L20630}</p>
 								<ul className="filter--dropdown--options">
 								<li data-ng-repeat="country in countries" className="">
 									<input id="country-filter-822" defaultChecked="!!country.param &amp;&amp; country.param ==country.country_code" ng-click="toggleCountryClick($event, $index)" type="checkbox" value="{&quot;country_code&quot;:&quot;EU27_2020&quot;,&quot;country_name&quot;:822}" /> 
-									<label data-ng-if="country.country_code == 'EU27_2020'" htmlFor="country-filter-822" data-ng-bind="i18nLiterals['L'+country.country_name]" className="ng-binding ">EU27_2020</label>
+									<label data-ng-if="country.country_code == 'EU27_2020'" htmlFor="country-filter-822" data-ng-bind="i18nLiterals['L'+country.country_name]">EU27_2020</label>
 								</li>
 								</ul>
 							</div>
@@ -59,16 +66,16 @@ class WorkforceProfile extends Component
 								<div className="map--legend--block map--eu--legend container">
 								<div className="matrix--header--elements">
 									<img className="flags--wrapper" src={require("../../style/img/flag/eu28.png")} />
-									<h2 className="country ng-binding title-section main-color">EU27_2020</h2>
+									<h2 className="country title-section main-color">{this.props.literals.L822}</h2>
 								</div>
 								<ul className="matrix--elements--data">
 									<li>
-										<label data-ng-bind="i18nLiterals['L20615']" className="ng-binding">Median age of population:</label>
-										<div><span className="data ng-binding" data-ng-bind="data.medianAge['EU27_2020'].value">43.7</span> <span className="data-text ng-binding" data-ng-bind="i18nLiterals['L20620']">years</span></div>
+										<label data-ng-bind="i18nLiterals['L20615']">{this.props.literals.L20615}</label>
+										<div><span className="data" data-ng-bind="data.medianAge['EU27_2020'].value">43.7</span> <span className="data-text" data-ng-bind="i18nLiterals['L20620']">years</span></div>
 									</li>
 									<li>
 										<label data-ng-bind="i18nLiterals['L20616']" className="ng-binding">Employment rate (55 - 64):</label>
-										<div><span className="data ng-binding" data-ng-bind="data.ageingWorkers['EU27_2020'].value">59.1</span> <span className="data-text">%</span></div>
+										<div><span className="data" data-ng-bind="data.ageingWorkers['EU27_2020'].value">59.1</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
 										<label data-ng-bind="i18nLiterals['L20619']" className="ng-binding">Employment rate (female):</label>
@@ -159,6 +166,8 @@ class WorkforceProfile extends Component
 				</section>
 
 				<Methodology />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents","non-fatal-work-accidents"]} />
+				
 			</div>
 		)
 	}

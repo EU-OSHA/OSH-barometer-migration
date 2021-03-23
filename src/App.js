@@ -6,13 +6,14 @@ import Footer from './components/common/Footer';
 
 import './style/App.scss';
 
-const App = ({children}) => 
+const App = (props) => 
 {
+	// props.children.type.name will contain the name of the component that will be painted between the Header and the Footer
 	return(
 		<div>
-			<Header literals={children.props.literals} />
-			
-			{children}
+			<Header literals={props.literals} child={props.children.type.name}/>
+
+			{props.children}
 
 			<Footer literals={children.props.literals} />
 		</div>
