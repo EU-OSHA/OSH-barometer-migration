@@ -102,8 +102,8 @@ class SelectFilters extends Component {
                         <p className="option-title " onClick={this.onClickCountryDropdown}  >{this.props.literals.L20630}</p>
                         <ul className="filter--dropdown--options ">
                             {this.props.selectCountries.map((country) => (
-                                <li key={country.code} onClick={this.onClickCountry(country.code)} >
-                                    <input type="checkbox" checked={this.props.selectedFilters.countries.includes(country.code)} readOnly />
+                                <li key={country.code} onClick={this.onClickCountry(country)} >
+                                    <input type="checkbox" checked={this.props.selectedFilters.countries.find((countryFilter) => countryFilter.code == country.code) ? true : false} readOnly />
                                     <label >{country.name == 'EU28' ? '' : `(${country.code})`} {country.name}</label>
                                 </li>
                             ))}
