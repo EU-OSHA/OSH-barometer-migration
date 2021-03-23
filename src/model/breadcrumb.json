@@ -91,11 +91,11 @@
     },
     "EnforcementCapacity":{
         "text":"Enforcement capacity",
-        "tree":["Home","osh-infrstructure"]
+        "tree":["Home","osh-infrastructure"]
     },
     "OSHStatistics":{
         "text":"OSH statistics, surveys and research",
-        "tree":["Home","osh-infrstructure"]
+        "tree":["Home","osh-infrastructure"]
     },
     "about-tool":{
         "text":"About the system",
