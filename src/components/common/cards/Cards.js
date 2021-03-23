@@ -36,72 +36,84 @@ class Cards extends Component {
     
     // function to trim the passed text
 	truncateText = (str, limitNumber) => {
-		let maxCharacters = limitNumber;
+		const replacedText = str.replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img)
 
-		if (str.match('<a') || str.match('<p')) {
-			maxCharacters += 150;
-		}
-
-		if (str.length > limitNumber) {
-			return `${str.substring(0, maxCharacters).split(" ").slice(0, -1).join(" ")} <span class="dots" >...</span>`
+		if (replacedText.length > limitNumber) {
+			return `${str.substring(0, limitNumber).split(" ").slice(0, -1).join(" ")} <span class="dots" >...</span>`
 		} else {
 			return str
 		}
 	}
-    
+
     render() {
-		const countryData = this.props.countryData;
+		const { literals, countryData, cardType } = this.props
         const countryID = `id-${countryData.country.code}`;
+		const replacedText = countryData.text2 && literals[`L${countryData.text2}`].replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img);
         return (
 			<div className="matrix--element clearfix" >
-				<div className="matrix--header--elements">
-					<img className="flags--wrapper" src={`${images[countryData.country.code.toLowerCase()]}`} />
-					<h2 className="country  title-section main-color" >{` ${this.props.literals[`L${countryData.country.literalID}`]} `}</h2>
+				<div className="matrix--header-elements">
+					<img className="flags--wrapper" src={images[countryData.country.code.toLowerCase()]} />
+					<h2 className="country title-section main-color">{literals[`L${countryData.country.literalID}`] }</h2>
 				</div>
-				<h3 className="" > {this.props.literals[
-					(countryData.check1 && 'L20614' 
-					    || countryData.check2 && 'L20611' 
-						|| countryData.check3 && 'L20612' 
-						|| countryData.check && 'L20613'
-						)]}
-                </h3>
+				<h3 className="">
+					{cardType == 'institution' && (
+						literals[countryData.check1 && 'L20614' || countryData.check2 && 'L20611' || countryData.check3 && 'L20612' || countryData.check4 && 'L20613']
+					)}
+					{cardType == 'statistics' && (
+						literals[countryData.check1 && 'L20714' || countryData.check2 && 'L20715' || countryData.check3 && 'L20716']
+					)}
+					{cardType == 'challenges' && (
+						literals[countryData.check1 && 'L20631' || countryData.check2 && 'L20632' || countryData.check3 && 'L20633']
+					)}
+				</h3>
 
-				<p className="institution-name">{ReactHtmlParser(this.props.literals[`L${countryData.text1}`])}</p>
-				{ countryData.text2 && countryData.text3 && (
-					ReactHtmlParser(this.props.literals[`L${countryData.text2}`])
-				)}
+				<div className="">
+					{cardType == 'institution' && (
+						<React.Fragment>
+							<p className="institution-name">{literals[`L${countryData.text1 && countryData.text1}`]}</p>
+							{countryData.text2 && ReactHtmlParser(literals[`L${countryData.text2}`])}
+							<div className="partial-text" >
+								{this.state.selectedId == countryID ? (
+									countryData.text3 && ReactHtmlParser(literals[`L${countryData.text3}`])
+								) : (
+									countryData.text3 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text3}`], 300))
+								)}
+							</div>
+						</React.Fragment>
+					)}
 
-				{!countryData.text3 && 
-					this.state.selectedId == countryID ? 
-						countryData.text2 && ReactHtmlParser(this.props.literals[`L${countryData.text2}`]) 
-					   :
-					   countryData.text2 && ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text2}`], 320)) 
-			   }
+					{(cardType == 'statistics' || cardType == 'challenges') && (
+						<React.Fragment>
+							{ReactHtmlParser(literals[`L${countryData.text1}`])}
+							{this.state.selectedId == countryID ? (
+								ReactHtmlParser(literals[`L${countryData.text2}`])
+							) : (
+								countryData.text2 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text2}`], 350))
+							)}
+						</React.Fragment>
+					)}
+					
+					{(countryData.text3 && literals[`L${countryData.text3}`].length > 300 || replacedText.length > 350) && (
+						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
+							<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
+						</p>
+					)}
 
-			   <div className={'partial-text'}>
-					{countryData.text3 && (
-						this.state.selectedId == countryID ? 
-							ReactHtmlParser(this.props.literals[`L${countryData.text3}`])
-							: 
-							ReactHtmlParser(this.truncateText(this.props.literals[`L${countryData.text3}`], 300))
+					{cardType == 'institution' && (
+						<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
 					)}
 				</div>
 
-				{countryData.text3 && this.props.literals[`L${countryData.text3}`].length > 300 || countryData.text2 && this.props.literals[`L${countryData.text2}`].length > 320 && (
-					<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
-						<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
-					</p>
-				)}
-
-				{countryData.text3 && (
-					<div className="">
-						<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
+				{cardType == 'challenges' && (
+					<div>
+						<p>
+							<Link className="btn--card main-color" 
+								to={{pathname: `/osh-steering/country-profile/basic-information/${this.props.countryData.country.code}`}} >{this.props.literals.L20626}</Link>
+						</p>
 					</div>
-				)}
 
-				{this.props.categoryType == 'challenges' && <div>
-					<p><Link className="btn--card main-color" to={{pathname: `/osh-steering/country-profile/basic-information/${this.props.countryData.country.code}`}} >{this.props.literals.L20626}</Link></p>
-				</div>}
+				)}
+				
 			</div>
 		)
     }
