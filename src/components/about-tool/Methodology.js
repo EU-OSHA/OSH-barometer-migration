@@ -75,14 +75,11 @@ class Methodology extends Component {
 							<p data-ng-bind-html="i18nLiterals['L'+data.additional_comments]" data-ng-if="i18nLiterals['L'+data.additional_comments] != 'null'">{ReactHtmlParser(this.props.literals.L356)}</p>
 						</section>
 					</div>
-				
 				</div>
-			</div>
-
-
-            
+			</div>            
         );
     }
 }
 
+Methodology.displayName='Methodology';
 export default Methodology;

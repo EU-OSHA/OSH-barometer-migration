@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // TODO: Move WB Url to ENV or Create .
-const BASEURL = 'http://89.0.4.28:8080/barometer-data-server/';
+const BASEURL = 'http://89.0.4.28/api/';
 
 // GET OSH Countries for the Selectors
 export function getOSHCountries(dataPage, countries) {
-    const URL = `${BASEURL}api/countries/getCountriesMatrixPage`;
+    const URL = `${BASEURL}countries/getCountriesMatrixPage`;
 
     const response = axios.get(URL, {
         params: {
@@ -33,7 +33,7 @@ export function getOSHCountries(dataPage, countries) {
 
 // GET OSH data for components OSH-Authorities, OSH-Statistics
 export function getOSHData(dataPage, filters) {
-    const URL = `${BASEURL}api/qualitative/getMatrixPageData`;
+    const URL = `${BASEURL}qualitative/getMatrixPageData`;
 
     const response = axios.get(URL, {
         params: {
@@ -71,7 +71,7 @@ export function getOSHData(dataPage, filters) {
 
 //Get countries available for social dialogue select
 export function getSocialDialogueCountries() {
-    const URL = `${BASEURL}api/countries/getIndicatorCountries?chart=20090`;
+    const URL = `${BASEURL}countries/getIndicatorCountries?chart=20090`;
 
     const response = axios.get(URL)
     .then((res) => res.data);
@@ -81,7 +81,7 @@ export function getSocialDialogueCountries() {
 
 //Get social dialogue data for each available country including EU27
 export function getSocialDialogueData(filters){
-    const URL = `${BASEURL}api/quantitative/getCountryCardData?chart=20090`;
+    const URL = `${BASEURL}quantitative/getCountryCardData?chart=20090`;
     const response = axios.get(URL, {
         params: {
             country: filters?.countries
@@ -103,7 +103,7 @@ export function getSocialDialogueData(filters){
 
 //Get countries available for health perception select
 export function getHealthPerceptionCountries() {
-    const URL = `${BASEURL}api/countries/getIndicatorCountries?chart=20026`;
+    const URL = `${BASEURL}countries/getIndicatorCountries?chart=20026`;
 
     const response = axios.get(URL)
     .then((res) => res.data);
@@ -113,7 +113,7 @@ export function getHealthPerceptionCountries() {
 
 //Get health perception data for each available country including EU27
 export function getHealthPerceptionData(filters){
-    const URL = `${BASEURL}api/quantitative/getCountryCardData?chart=20026`;
+    const URL = `${BASEURL}quantitative/getCountryCardData?chart=20026`;
     const response = axios.get(URL, {
         params: {
             country: filters?.countries
