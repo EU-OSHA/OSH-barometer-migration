@@ -69,8 +69,51 @@ export function getOSHData(dataPage, filters) {
     return response
 }
 
+//Get countries available for social dialogue select
+export function getSocialDialogueCountries() {
+    const URL = `${BASEURL}api/countries/getIndicatorCountries?chart=20090`;
+
+    const response = axios.get(URL)
+    .then((res) => res.data);
+
+    return response
+}
+
+//Get social dialogue data for each available country including EU27
 export function getSocialDialogueData(filters){
     const URL = `${BASEURL}api/quantitative/getCountryCardData?chart=20090`;
+    const response = axios.get(URL, {
+        params: {
+            country: filters?.countries
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.country) {
+                params.country.map((country) => urlWithParams.append('country', country));
+            }
+
+            return urlWithParams
+        }
+    })
+    .then((response) => response.data);
+
+    return response
+}
+
+//Get countries available for health perception select
+export function getHealthPerceptionCountries() {
+    const URL = `${BASEURL}api/countries/getIndicatorCountries?chart=20026`;
+
+    const response = axios.get(URL)
+    .then((res) => res.data);
+
+    return response
+}
+
+//Get health perception data for each available country including EU27
+export function getHealthPerceptionData(filters){
+    const URL = `${BASEURL}api/quantitative/getCountryCardData?chart=20026`;
     const response = axios.get(URL, {
         params: {
             country: filters?.countries
