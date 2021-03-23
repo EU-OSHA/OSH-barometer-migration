@@ -30,7 +30,7 @@ class Pagination extends Component {
     }
     
     setPage(page) {
-        let items = this.props.items;
+        let items = this.props.items || [];
         let pager = this.state.pager;
 
         // get new paper object for specified page
@@ -101,7 +101,7 @@ class Pagination extends Component {
     render() {
         return (
             <div className="pagination--wrapper" >
-                {this.props.items.length > 0 && (
+                {this.props.items && this.props.items.length > 0 && (
                     <div className="pagination--elements">
                         <ul className="main-color">
                             <li role="button" className={`arrow firstpage ${this.state.pager.currentPage > 1 ? '' : 'invisible'}`} onClick={() => this.setPage(this.setPage(1))}><span><i className="fa fa-angle-double-left" aria-hidden="true"></i></span></li>
