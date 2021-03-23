@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// TODO: Move WB Url to ENV or Create .
-const BASEURL = 'http://89.0.4.28/api/';
+const BASEURL = process.env.BASE_URL;
 
 // GET OSH Countries for the Selectors
 export function getOSHCountries(dataPage, countries) {
