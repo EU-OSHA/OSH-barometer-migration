@@ -93,7 +93,7 @@ class Cards extends Component {
 						</React.Fragment>
 					)}
 					
-					{(countryData.text3 && literals[`L${countryData.text3}`].length > 300 || replacedText.length > 350) && (
+					{(countryData.text3 && literals[`L${countryData.text3}`].length > 300 || countryData.text2 && replacedText.length > 350) && (
 						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
 							<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
 						</p>
@@ -111,7 +111,6 @@ class Cards extends Component {
 								to={{pathname: `/osh-steering/country-profile/basic-information/${this.props.countryData.country.code}`}} >{this.props.literals.L20626}</Link>
 						</p>
 					</div>
-
 				)}
 				
 			</div>
