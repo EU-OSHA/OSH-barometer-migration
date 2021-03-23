@@ -163,7 +163,7 @@ class EUChallengesResponse extends Component
 											key={id} 
 											countryData={data} 
 											literals={literals} 
-											cardType={'challenges'} 
+											categoryType={'challenges'} 
 										/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
