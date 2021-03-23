@@ -1,20 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import ReactHtmlParser from 'react-html-parser'
+import ReactHtmlParser from 'react-html-parser';
+import UserContext from './context/UserContext';
+import UserReducer from './context/UserReducer';
+
 
 
 
 //import axios from 'axios'
 
 
- const SelectEconomic = ()=> {
+ const SelectEconomic = (props)=> {
 //------  Url Del servidor
   const url="http://89.0.4.28:8080/barometer-data-server/api/countries/getIndicatorCountries?chart=20089&chart=20010&chart=20011&chart=20013&chart=20087&chart=20014&chart=20088"
   const url1 = "http://89.0.4.28:8080/barometer-data-server/api/countries/getIndicatorCountries?chart=20089&chart=20010&chart=20011&chart=20013&chart=20087&chart=20014&chart=20088&country=AT"
- 
+  const { handleSearch } = props
+  const { handleSearch2 } = props
   const [countri, setCountri]= useState([]);
   const [countrip, setCountrip]= useState([]);
   const [selectedClient,setSelectedClient]= useState("");
   const [selectedClient2,setSelectedClient2]= useState("");
+
+  const initialState = {
+    pais1: [],
+    pais2: [],
+    selecteUser: null,
+  }
+  //redux para dispara el estado
+  // const [state, dispatch] = useReducer(UserReducer, initialState)
   
 
 ////-----  En caso de utilizar axios ----///
@@ -51,16 +63,16 @@ import ReactHtmlParser from 'react-html-parser'
     //console.log(url1)
    }
 
-   const fetchData3 = (id) =>{
-    fetch(`${url}&country=${id}`)
+   const fetchData3 = (pais1) =>{
+    fetch(`${url}&country=${pais1}`)
     .then(response => response.json())
     .then(data => setCountrip(data.resultset)); 
       // console.log(id)
       // console.log(`${url}&country=${id}`)
      }
 
-     const fetchData4 = (id) =>{
-      fetch(`${url}&country=${id}`)
+     const fetchData4 = (pais2) =>{
+      fetch(`${url}&country=${pais2}`)
       .then(response => response.json())
       .then(data => setCountri(data.resultset)); 
         // console.log(id)
@@ -72,18 +84,23 @@ import ReactHtmlParser from 'react-html-parser'
 function handleSelectChange(event) {
   setSelectedClient(event.target.value);
   // id guardara el valor pais para cargar los datos del nuevo select
-  const id = (event.target.value)
-  fetchData3(id)
-  // console.log(id)
-  // console.log(event.target.value);
+  const pais1 = (event.target.value)
+  fetchData3(pais1)
+   //console.log()
+  // console.log(`Dentro del handleSelect1`,event.target.value);
 
-  
+  handleSearch(pais1);
+  //console.log(`despues del handleSearch`,event.target.value)
+   
 }
 
 function handleSelectChange2(event) {
   setSelectedClient2(event.target.value);
-  const id = (event.target.value)
-  fetchData4(id)
+  const pais2 = (event.target.value)
+  fetchData4(pais2)
+  //handleSearch2()
+  handleSearch2(pais2);
+  console.log(`en el handleSearch2 ${pais2}`)
   
   // console.log(id)
   // console.log(event.target.value);
@@ -91,8 +108,17 @@ function handleSelectChange2(event) {
 
 
   return (
-    <>
+    <UserContext.Provider
+    value={{
+      // pais1: state.users,
+      // pais2: state.users,
+      // selecteUser: state.selecteUser,
+      handleSelectChange,
+      handleSelectChange2,
+
+    }}>
     <div>
+
 
     <div className="compare--block container">
 					{/* FILTERS */}
@@ -125,24 +151,17 @@ function handleSelectChange2(event) {
         <option key={id} value={pais.code}>
                 ({pais.code}) {pais.name.toUpperCase()}
                 </option>
-      ))
-          }
+                ))
+              }
         </select> 
         </li>
       </ul>
         </form>
         </div>
     </div>
-    <div>
-    {/* <CompanySize selectedClient={selectedClient} selectedClient2={selectedClient2}/>  */}
-
-    {/* ref={element => {
-            employmentPerSector = element;
-          }}  */}
-    {/* <EmploymentPerSector selectedClient={selectedClient} selectedClient2={selectedClient2} /> */}
-    </div>
     
-    </>
+    {props.children}
+    </UserContext.Provider>
   );
 }
 export default SelectEconomic;

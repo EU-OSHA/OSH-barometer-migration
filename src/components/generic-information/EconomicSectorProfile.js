@@ -1,22 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, useState,useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser'
 
 import Methodology from '../common/Methodology';
 import EmploymentPerSector from './EmploymentPerSector'
 import SelectEconomic from '../common/models/SelectEconomic';
 import Chart from '../common/models/Chart'
+import EmploymentRate from './EmploymentRate';
+
 
 
 
 const EconomicSectorProfile = (props)=>{
 
-	
+const [pais1,setPais1]=useState("");
+const [pais2,stePais2]=useState("")
+
+
+useEffect(()=>{
+	//console.log(pais1)
+},[pais1,pais2])
+
+	const handleSearch = (pais1)=>{
+		setPais1(pais1);
+		loadData();
+		//stePais2(pais2)
+	//console.log(`este es id1 ${pais1}`)
+	//console.log(`este es id2 ${pais2}`)
+}
+
+const handleSearch2 = (pais2)=>{
+	//setPais1(pais1);
+	stePais2(pais2)
+//console.log(`este es id2 ${pais2}`)
+}
+
 		return(
 			
 			<div>
 					
 					
-
 				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
 					<div className="container horizontal-nopadding">
 						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
@@ -39,7 +61,7 @@ const EconomicSectorProfile = (props)=>{
 						
 						<ul className="compare--list">
 
-							<SelectEconomic/>
+							<SelectEconomic  handleSearch={handleSearch} handleSearch2={handleSearch2}/>
 
 						</ul>
 					</form>
@@ -78,6 +100,8 @@ const EconomicSectorProfile = (props)=>{
 								tick={20}
 								percentage={true}
 								type='bar'
+								pais1={pais1}
+								pais2={pais2}
 									/>
 									<div className="legend-text-block">
 									</div>
@@ -100,17 +124,18 @@ const EconomicSectorProfile = (props)=>{
 									</ul>  */}
 								</ul>
 
-								<h2 className="title--card  ">Employment per sector</h2>
+								{/* <h2 className="title--card  ">Employment per sector</h2> */}
 
 								<div className="chart--wrapper">
 									<EmploymentPerSector
-									// title='Company Size'
+									 title='Employment Per Sector'
 									type='bar'
 							   		colors={['orange','blue','yellow','green','grey']}
 									showDataLabel={true}
 							   		tick={20}
 							   		percentage={true}
-							   		
+							   		pais1={pais1}
+									   pais2={pais2}
 								  		 />
 									<div className="legend-text-block">
 									</div>
@@ -132,17 +157,20 @@ const EconomicSectorProfile = (props)=>{
 									</ul> */}
 								</ul>
 
-								<h2 className="title--card  ">Employment rate</h2>
+								{/* <h2 className="title--card  ">Employment Rate</h2> */}
 
 								<div className="chart--wrapper">
 
-								<Chart
-								// title='Company Size'
+								<EmploymentRate
+								title='Employment Rate '
 							   colors={['orange','red','yellow','green','grey']}
 							   showDataLabel={true}
 							   tick={20}
 							   percentage={true}
 							   type='bar'
+							   pais1={pais1}
+							   pais2={pais2
+							}
 								   />
 									<div className="legend-text-block">
 									</div>
@@ -208,10 +236,10 @@ const EconomicSectorProfile = (props)=>{
 									</ul> */}
 								</ul>
 
-								<h2 className="title--card  ">Income per capita</h2>
+								{/* <h2 className="title--card  ">Income per capita</h2> */}
 								<div className="chart--wrapper">
 								<Chart
-									// title='Company Size'
+									 title='Income Per Capita'
 							   		colors={['blue','red','yellow','green','grey']}
 									showDataLabel={true}
 							   		tick={20}
