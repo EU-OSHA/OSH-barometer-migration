@@ -75,9 +75,9 @@ class HealthPerception extends Component
 	// }
 
 	//when country is selected
-	onSelectCountryTag = (country) => {
+	onSelectCountryTag = (countryCode) => {
 		return () => {
-			const countryIndex = this.state.filters.countries.findIndex((code) => code == country);
+			const countryIndex = this.state.filters.countries.findIndex((country) => country.code == countryCode);
 			const newArray = this.state.filters.countries;
 			newArray.splice(countryIndex, 1);
 			this.setState({filters: {...this.state.filters, countries: newArray}});
@@ -108,10 +108,11 @@ class HealthPerception extends Component
 
 	handleCallbackCountry = (countryCallback) => {
 		const countryFilter = this.state.filters.countries;
-		if (countryCallback != this.state.filters.countries.find((code) => code == countryCallback)) {
-			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]}});
+		const countryCode = this.state.filters.countries.find((country) => country.code == countryCallback.code)
+		if (countryCallback.code != countryCode?.code) {
+            this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]} })
 		} else {
-			const index = this.state.filters.countries.findIndex((code) => code == countryCallback);
+			const index = this.state.filters.countries.findIndex((country) => country.code == countryCallback.code);
 			const newCountryFilters = this.state.filters.countries;
 			newCountryFilters.splice(index, 1);
 			this.setState({filters: {...this.state.filters, countries: newCountryFilters}});
@@ -151,7 +152,9 @@ class HealthPerception extends Component
 						<div className="selected--tags-wrapper">
 							{this.state.filters && (
 								<div>
-									{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectCountryTag(country)}>{country}</span>)}
+									{this.state.filters.countries.map((country) => (
+										<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>
+									))}
 								</div>
 							)}
 						</div>

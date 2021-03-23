@@ -90,7 +90,7 @@ export function getSocialDialogueData(filters){
             let urlWithParams = new URLSearchParams();
 
             if (params.country) {
-                params.country.map((country) => urlWithParams.append('country', country));
+                params.country.map((country) => urlWithParams.append('country', country.code));
             }
 
             return urlWithParams
@@ -122,7 +122,7 @@ export function getHealthPerceptionData(filters){
             let urlWithParams = new URLSearchParams();
 
             if (params.country) {
-                params.country.map((country) => urlWithParams.append('country', country));
+                params.country.map((country) => urlWithParams.append('country', country.code));
             }
 
             return urlWithParams
