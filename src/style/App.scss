@@ -16,6 +16,17 @@
 @import './base/regulation.scss';
 @import './base/social-dialogue.scss';
 
+/****** OSH outcomes and working conditions ******/
+@import './base/health-perception-of-workers.scss';
+@import './base/mental-risk.scss';
+@import './base/osh-culture.scss';
+@import './base/overall-opinion.scss';
+@import './base/physical-risk.scss';
+@import './base/prevention-companies.scss';
+@import './base/work-accidents.scss';
+@import './base/worker-involvement.scss';
+@import './base/working-conditions.scss';
+
 /****** ABOUT THE SYSTEM ******/
 @import './base/about-tool.scss';
 @import './base/country-report.scss';
@@ -743,9 +754,10 @@ and (orientation : portrait){
             }
           }
           &:after{
-            content: '   |';
-            display: inline;
+            content: "|";
+            display: inline-block;
             font-weight: normal;
+            padding: 0 0.4rem 0 0.4rem;
           }
           &:last-child{
            &:after {
