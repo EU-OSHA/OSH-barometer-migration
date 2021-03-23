@@ -363,34 +363,34 @@ and (max-width : 1200px)  {
 	  padding-top:9rem;
 	}
 	.dvt-modal {
-    width: 98%;
-    height: 98%;
-    .modal-wrapper{
-    	.modal-body{
-    		.card--block--chart--wrapper{
-    			.title--card{
-    				margin: 0;
-    			}
-    			.chart--wrapper{
-						width: 100%;
-    			}
-    		}
-    	}
-    }
-  }
+		width: 98%;
+		height: 98%;
+		.modal-wrapper{
+			.modal-body{
+				.card--block--chart--wrapper{
+					.title--card{
+						margin: 0;
+					}
+					.chart--wrapper{
+							width: 100%;
+					}
+				}
+			}
+		}
+	}
 
 	.tablet-show{
 		display: block;
 	}
-  .affix {
-    top:88px;
-  }
+	.affix {
+		top:88px;
+	}
 	.bar-header{
-	  //position: relative;
-	  display: flex;
-	  justify-content: flex-end;
-	  flex-direction: row;
-	  height: 90px;
+		//position: relative;
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: row;
+		height: 90px;
 		.bar-main-menu {
 	    .navbar-header {
 	        float: none;
@@ -405,7 +405,20 @@ and (max-width : 1200px)  {
 	        //border-top: 1px solid transparent;
 	        //box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
 	        border-top: 0;
-  				box-shadow: none;
+			box-shadow: none;
+			&.exposed{
+				display: block !important;
+				background: #FFF;
+				height: auto !important;
+				width: 100vw;
+				top: 9rem;
+				left: 0;
+				right: initial;
+				transition: all 1.6s;
+				position: absolute;
+				border-top: 1px solid #F0F0F0;
+				border-bottom: 4px solid #529FA2;
+			}
 	    }
 	    .navbar-fixed-top {
 	        top: 0;
@@ -518,7 +531,7 @@ and (max-width : 1200px)  {
 		  display: block;
 		  width: auto;
 		  padding: 1.5rem 0;
-	    margin: 0;
+	    	margin: 0;
 			.navbar-nav{
 			  box-shadow: 0 6px 0 0px #f6a400;
 				> li{
@@ -739,32 +752,32 @@ and (max-width : 1024px)  {
 		margin: 10px 0px 0em 0;
 	}
 	/** pop up */
-  #popUpMessage{
-    background: rgba(0,0,0,0.6);
-    position: fixed;
-    width: 100vw;
-    height:100vh;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    .popUpMessage--text--block{
-			background: #FFF;
-			width: 90vw;
-			height: 90vh;
-			top: 0;
-			margin: 5vh 5vw;
-			padding:5vh 5vw;
-			position: relative;
-      .close-popup{
-        bottom: 5vh;
-        position: absolute;
-        right: 5vw;
-      }
-    }
-  }
-  .full-tablet{
-    width: 100% !important;
-  }
+	#popUpMessage{
+		background: rgba(0,0,0,0.6);
+		position: fixed;
+		width: 100vw;
+		height:100vh;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		.popUpMessage--text--block{
+				background: #FFF;
+				width: 90vw;
+				height: 90vh;
+				top: 0;
+				margin: 5vh 5vw;
+				padding:5vh 5vw;
+				position: relative;
+		.close-popup{
+			bottom: 5vh;
+			position: absolute;
+			right: 5vw;
+		}
+		}
+	}
+	.full-tablet{
+		width: 100% !important;
+	}
 	/** WIDTH CARDS  **/
 		.card--grid{
 		  justify-content: flex-start;
@@ -1417,6 +1430,13 @@ and (max-width :767px)  {
 			}
 		}
 	}
+	footer{
+		.footer-elements{
+			.copyright {
+				line-height: 2.2rem;
+			}
+		}
+	}
 }
 
 
@@ -1461,10 +1481,10 @@ and (max-width :767px)  {
   }
 	.bar-header{
 		position: fixed;
-    background: $white;
-  	box-shadow: 0 0px 2px #ccc;
-    width: 100%;
-    z-index: 1000;
+		background: $white;
+		box-shadow: 0 0px 2px #ccc;
+		width: 100%;
+		z-index: 1000;
   	.header--top{
 			.eu-osha-logo {
 

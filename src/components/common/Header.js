@@ -76,6 +76,11 @@ class Header extends Component
 				$('.go-to').css('display','none');
 		  	}		  
 		}
+
+		$("button.navbar-toggle").click(function() {
+			$(".bar-main-menu").toggleClass("exposed");
+			$(".navbar-collapse").toggleClass("collapse").toggleClass("exposed")
+		  });
 	}
 
 	/*
@@ -248,7 +253,8 @@ class Header extends Component
 							</nav>
 						</div>
 						<nav className="bar-main-menu navbar">
-							<div className="navbar-header"><button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+							<div className="navbar-header">
+								<button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
 								<span className="sr-only">Toggle navigation</span> 
 								<span className="icon-bar bar1"></span> <span className="icon-bar bar2"></span> 
 								<span className="icon-bar bar3"></span></button>
