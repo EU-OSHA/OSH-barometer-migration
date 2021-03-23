@@ -46,7 +46,8 @@ class CountryCards extends Component{
         }
 
         var downloadReport = "";
-        var healthPerceptionExtraLis = "";
+        var healthPerceptionExtraList01 = "";
+        var healthPerceptionExtraList02 = "";
         if(page === 'socialDialogue'){
             if(countryData.countryCode != 'IS' && countryData.countryCode != 'NO' && countryData.countryCode != 'CH'){
                 downloadReport = (
@@ -58,8 +59,7 @@ class CountryCards extends Component{
                 )
             }
         }else{
-            healthPerceptionExtraLis = (
-                <div>
+            healthPerceptionExtraList01 = (
                     <li>
                         <div className="group-data">
                         <span className="country-data">{fifthPercentage}</span>
@@ -67,6 +67,8 @@ class CountryCards extends Component{
                         </div>
                         <label>{this.state.fifthPercentageLiteral}</label>
                     </li>
+            )
+            healthPerceptionExtraList02 = (
                     <li>
                         <div className="group-data">
                         <span className="country-data">{sixthPercentage}</span>
@@ -74,7 +76,6 @@ class CountryCards extends Component{
                         </div>
                         <label>{this.state.sixthPercentageLiteral}</label>
                     </li>
-                </div>
             )
         }
         
@@ -110,7 +111,8 @@ class CountryCards extends Component{
                         {/* <span data-ng-if="matrix.health_committee != null" className="data-text">%</span> */}
                         <label>{this.state.fourthPercentageLiteral}</label>
                     </li>
-                    {healthPerceptionExtraLis}
+                    {healthPerceptionExtraList01}
+                    {healthPerceptionExtraList02}
                 </ul>
             </div>
         )

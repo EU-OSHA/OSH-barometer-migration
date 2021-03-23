@@ -36,7 +36,8 @@ class EUCountryCard extends Component{
         }
 
         var socialDialogueLink = "";
-        var healthPerceptionExtraLis = "";
+        var healthPerceptionExtraList01 = "";
+        var healthPerceptionExtraList02 = "";
         if(page === 'socialDialogue'){
             socialDialogueLink = (
                 <p className="download-report" >
@@ -46,8 +47,7 @@ class EUCountryCard extends Component{
                 </p>
             )
         }else{
-            healthPerceptionExtraLis = (
-                <div>
+            healthPerceptionExtraList01 = (
                     <li>
                         <div className="group-data">
                             <span className="country-data">{fifthPercentage}</span>
@@ -55,6 +55,8 @@ class EUCountryCard extends Component{
                         </div>
                         <label>{this.props.literals.L318}</label>
                     </li>
+            )
+            healthPerceptionExtraList02 = (
                     <li>
                         <div className="group-data">
                             <span className="country-data">{sixthPercentage}</span>
@@ -62,7 +64,6 @@ class EUCountryCard extends Component{
                         </div>
                         <label>{this.props.literals.L319}</label>
                     </li>
-                </div>
             )
         }
         
@@ -108,7 +109,8 @@ class EUCountryCard extends Component{
                                 </div>
                                 <label>{(this.props.page === "socialDialogue") ? this.props.literals.L20662 : this.props.literals.L317}</label>
                             </li>
-                            {healthPerceptionExtraLis}
+                            {healthPerceptionExtraList01}
+                            {healthPerceptionExtraList02}
                         </ul>
                     </div>
                 </div>
