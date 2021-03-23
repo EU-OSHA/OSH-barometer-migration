@@ -54,5 +54,5 @@ class Sitemap extends Component
 		)
 	}
 }
-
+Sitemap.displayName = 'Sitemap';
 export default Sitemap;

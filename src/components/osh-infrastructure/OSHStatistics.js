@@ -180,5 +180,5 @@ class OSHStatistics extends Component
 		)
 	}
 }
-
+OSHStatistics.displayName = 'OSHStatistics';
 export default OSHStatistics;

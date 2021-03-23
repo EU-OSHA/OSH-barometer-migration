@@ -39,5 +39,5 @@ class Regulation extends Component
 		)
 	}
 }
-
+Regulation.displayName = 'Regulation';
 export default Regulation;

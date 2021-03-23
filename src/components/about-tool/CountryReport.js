@@ -12,5 +12,5 @@ class CountryReport extends Component
 		)
 	}
 }
-
+CountryReport.displayName='CountryReport';
 export default CountryReport;

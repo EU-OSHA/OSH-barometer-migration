@@ -172,5 +172,5 @@ class WorkforceProfile extends Component
 		)
 	}
 }
-
+WorkforceProfile.displayName = 'WorkforceProfile';
 export default WorkforceProfile;

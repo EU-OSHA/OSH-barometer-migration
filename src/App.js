@@ -11,7 +11,7 @@ const App = (props) =>
 	// props.children.type.name will contain the name of the component that will be painted between the Header and the Footer
 	return(
 		<div>
-			<Header literals={props.literals} child={props.children.type.name}/>
+			<Header literals={props.literals} child={props.children.type.displayName}/>
 
 			{props.children}
 

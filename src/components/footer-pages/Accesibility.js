@@ -25,5 +25,5 @@ class Accesibility extends Component
 		)
 	}
 }
-
+Accesibility.displayName = 'Accesibility';
 export default Accesibility;

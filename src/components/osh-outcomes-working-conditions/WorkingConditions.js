@@ -76,5 +76,5 @@ class WorkingConditions extends Component
 		)
 	}
 }
-
+WorkingConditions.displayName = 'WorkingConditions';
 export default WorkingConditions;

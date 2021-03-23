@@ -290,5 +290,5 @@ class CountryProfile extends Component
 		)
 	}
 }
-
+CountryProfile.displayName = 'CountryProfile';
 export default CountryProfile;

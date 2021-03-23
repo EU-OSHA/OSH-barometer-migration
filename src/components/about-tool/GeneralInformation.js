@@ -92,5 +92,5 @@ class GeneralInformation extends Component
 		)
 	}
 }
-
+GeneralInformation.displayName = 'GeneralInformation';
 export default GeneralInformation;

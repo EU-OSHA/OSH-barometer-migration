@@ -10,5 +10,5 @@ class EnforcementCapacity extends Component
 		)
 	}
 }
-
+EnforcementCapacity.displayName = 'EnforcementCapacity';
 export default EnforcementCapacity;

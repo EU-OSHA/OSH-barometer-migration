@@ -23,5 +23,5 @@ class LegalNotice extends Component
 		)
 	}
 }
-
+LegalNotice.displayName = 'LegalNotice';
 export default LegalNotice;

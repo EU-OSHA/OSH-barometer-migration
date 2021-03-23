@@ -12,5 +12,5 @@ class OSHCulture extends Component
 		)
 	}
 }
-
+OSHCulture.displayName = 'OSHCulture';
 export default OSHCulture;

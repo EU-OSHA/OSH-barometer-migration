@@ -253,5 +253,5 @@ class EconomicSectorProfile extends Component
 		)
 	}
 }
-
+EconomicSectorProfile.displayName = 'EconomicSectorProfile';
 export default EconomicSectorProfile;

@@ -12,5 +12,5 @@ class HealthPerception extends Component
 		)
 	}
 }
-
+HealthPerception.displayName = 'HealthPerception';
 export default HealthPerception;

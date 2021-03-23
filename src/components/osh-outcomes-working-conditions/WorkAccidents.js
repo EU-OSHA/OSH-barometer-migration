@@ -19,5 +19,5 @@ class WorkAccidents extends Component
 		)
 	}
 }
-
+WorkAccidents.displayName = 'WorkAccidents';
 export default WorkAccidents;

@@ -12,5 +12,5 @@ class MentalRisk extends Component
 		)
 	}
 }
-
+MentalRisk.displayName = 'MentalRisk';
 export default MentalRisk;

@@ -169,5 +169,5 @@ class SocialDialogue extends Component
 		)
 	}
 }
-
+SocialDialogue.displayName = 'SocialDialogue';
 export default SocialDialogue;

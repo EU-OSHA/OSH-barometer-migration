@@ -13,5 +13,5 @@ class WorkerInvolvement extends Component
 		)
 	}
 }
-
+WorkerInvolvement.displayName = 'WorkerInvolvement';
 export default WorkerInvolvement;
