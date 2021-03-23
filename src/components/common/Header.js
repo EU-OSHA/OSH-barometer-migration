@@ -194,7 +194,7 @@ class Header extends Component
 			{
 				breadcrumbElems.push(this.state.breadcrumb[breadcrumb.tree[i]]);
 			}			
-		}		
+		}
 		return (
 			<p className="path" id="breadCrumbs">
 				{breadcrumbElems.map((elem, i) => 

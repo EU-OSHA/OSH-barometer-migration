@@ -35,11 +35,19 @@ class CountryCards extends Component{
                 secondPercentage = countryData.data.E3Q350_2 != 0 ? Math.round(countryData.data.E3Q350_2*100)+"%" : countryData.countryCode != "AT" ? "-" : "20%";
                 thirdPercentage = countryData.data.E3Q350_4 != 0 ? Math.round(countryData.data.E3Q350_4*100)+"%" : "-";
                 fourthPercentage = countryData.data.E3Q350_3 != 0 ? Math.round(countryData.data.E3Q350_3*100)+"%" : "-";
+            }else{
+                firstPercentage = countryData.data["Job satisfaction"] != 0 ? Math.round(countryData.data["Job satisfaction"])+"%" : "-";
+                secondPercentage = countryData.data["Health affected by work"] != 0 ? Math.round(countryData.data["Health affected by work"])+"%" : "-";
+                thirdPercentage = countryData.data["Health problem in the last 12 months"] != 0 ? Math.round(countryData.data["Health problem in the last 12 months"])+"%" : "-";
+                fourthPercentage = countryData.data["More than 15 days of absence"] != 0 ? Math.round(countryData.data["More than 15 days of absence"])+"%" : "-";
+                fifthPercentage = countryData.data["Sick at working"] != 0 ? Math.round(countryData.data["Sick at working"])+"%" : "-";
+                sixthPercentage = countryData.data["Be able to do current job until 60 years old"] != 0 ? Math.round(countryData.data["Be able to do current job until 60 years old"])+"%" : "-";
             }
         }
 
         var downloadReport = "";
-        var healthPerceptionExtraLis = "";
+        var healthPerceptionExtraList01 = "";
+        var healthPerceptionExtraList02 = "";
         if(page === 'socialDialogue'){
             if(countryData.countryCode != 'IS' && countryData.countryCode != 'NO' && countryData.countryCode != 'CH'){
                 downloadReport = (
@@ -51,23 +59,23 @@ class CountryCards extends Component{
                 )
             }
         }else{
-            healthPerceptionExtraLis = (
-                <div>
+            healthPerceptionExtraList01 = (
                     <li>
-                        <div class="group-data">
-                        <span class="country-data" data-ng-bind="EUData.sick_at_work"></span>
-                        <span class="data-text">&percnt;</span>
+                        <div className="group-data">
+                        <span className="country-data">{fifthPercentage}</span>
+                        {/* <span className="data-text">%</span> */}
                         </div>
                         <label>{this.state.fifthPercentageLiteral}</label>
                     </li>
+            )
+            healthPerceptionExtraList02 = (
                     <li>
-                        <div class="group-data">
-                        <span class="country-data" data-ng-bind="EUData.job_till_60"></span>
-                        <span class="data-text">&percnt;</span>
+                        <div className="group-data">
+                        <span className="country-data">{sixthPercentage}</span>
+                        {/* <span className="data-text">%</span> */}
                         </div>
                         <label>{this.state.sixthPercentageLiteral}</label>
                     </li>
-                </div>
             )
         }
         
@@ -103,7 +111,8 @@ class CountryCards extends Component{
                         {/* <span data-ng-if="matrix.health_committee != null" className="data-text">%</span> */}
                         <label>{this.state.fourthPercentageLiteral}</label>
                     </li>
-                    {healthPerceptionExtraLis}
+                    {healthPerceptionExtraList01}
+                    {healthPerceptionExtraList02}
                 </ul>
             </div>
         )
