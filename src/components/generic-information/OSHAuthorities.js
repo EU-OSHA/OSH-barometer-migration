@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
+
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
-
 import Cards from '../common/cards/Cards';
 import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
@@ -32,13 +30,14 @@ class OSHAuthorities extends Component
 
 	handleCallbackCountry = (countryCallback) => {
 		const countryFilter = this.state.filters.countries;
-		if (countryCallback != this.state.filters.countries.find((code) => code == countryCallback)) {
-			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]}});
+		const countryCode = this.state.filters.countries.find((country) => country.code == countryCallback.code)
+		if (countryCallback.code != countryCode?.code) {
+			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]} })
 		} else {
-			const index = this.state.filters.countries.findIndex((code) => code == countryCallback);
+			const index = this.state.filters.countries.findIndex((country) => country.code == countryCallback.code);
 			const newCountryFilters = this.state.filters.countries;
 			newCountryFilters.splice(index, 1);
-			this.setState({filters: {...this.state.filters, countries: newCountryFilters}});
+			this.setState({ filters: {...this.state.filters, countries: newCountryFilters} });
 		}
 	}
 
@@ -61,9 +60,9 @@ class OSHAuthorities extends Component
 	}
 
 	//when country is selected
-	onSelectCountryTag = (country) => {
+	onSelectCountryTag = (countryCode) => {
 		return () => {
-			const countryIndex = this.state.filters.countries.findIndex((code) => code == country);
+			const countryIndex = this.state.filters.countries.findIndex((country) => country.code == countryCode);
 			const newArray = this.state.filters.countries;
 			newArray.splice(countryIndex, 1);
 			this.setState({filters: {...this.state.filters, countries: newArray}});
@@ -143,7 +142,9 @@ class OSHAuthorities extends Component
 					<div className="selected--tags-wrapper">
 						{this.state.filters && (
 							<div>
-								{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectCountryTag(country)}>{country}</span>)}
+								{this.state.filters.countries.map((country) => (
+									<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>
+								))}
 								{this.state.filters.checks.map((array) => {
 									if (array.check) {
 										return <span key={array.id} className="selected-tag" onClick={this.onSelectInstitutionTag(array.id)} > {this.props.literals[`L${array.literal}`]} </span>
@@ -158,7 +159,7 @@ class OSHAuthorities extends Component
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
 								const id = `${index}-${data.country.code}`
-								return <Cards key={id} countryData={data} literals={literals} />
+								return <Cards key={id} countryData={data} literals={literals} cardType={'institution'}/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>
@@ -177,7 +178,7 @@ class OSHAuthorities extends Component
 							</div>
 							<div className="modal-body text-center"><img src="/img/img-not-available.png" alt="Image not available" /></div>
 						</div>
-					</div>
+					</div>-
 				</div>
 				</section>
 

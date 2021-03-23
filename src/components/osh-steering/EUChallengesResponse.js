@@ -21,7 +21,7 @@ class EUChallengesResponse extends Component
 			pageOfItems: [],
 			isFetching: false,
 			filters: {
-				countries: [this.props.match.params.country],
+				countries: [],
 				checks: [],
 				searchBar: ''
 			},
@@ -30,13 +30,14 @@ class EUChallengesResponse extends Component
 
 	handleCallbackCountry = (countryCallback) => {
 		const countryFilter = this.state.filters.countries;
-		if (countryCallback != this.state.filters.countries.find((code) => code == countryCallback)) {
-			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]}});
+		const countryCode = this.state.filters.countries.find((country) => country.code == countryCallback.code)
+		if (countryCallback.code != countryCode?.code) {
+			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]} })
 		} else {
-			const index = this.state.filters.countries.findIndex((code) => code == countryCallback);
+			const index = this.state.filters.countries.findIndex((country) => country.code == countryCallback.code);
 			const newCountryFilters = this.state.filters.countries;
 			newCountryFilters.splice(index, 1);
-			this.setState({filters: {...this.state.filters, countries: newCountryFilters}});
+			this.setState({ filters: {...this.state.filters, countries: newCountryFilters} });
 		}
 	}
 	
@@ -59,9 +60,9 @@ class EUChallengesResponse extends Component
 	}
 
 	//when country is selected
-	onSelectCountryTag = (country) => {
+	onSelectCountryTag = (countryCode) => {
 		return () => {
-			const countryIndex = this.state.filters.countries.findIndex((code) => code == country);
+			const countryIndex = this.state.filters.countries.findIndex((country) => country.code == countryCode);
 			const newArray = this.state.filters.countries;
 			newArray.splice(countryIndex, 1);
 			this.setState({filters: {...this.state.filters, countries: newArray}});
@@ -87,8 +88,10 @@ class EUChallengesResponse extends Component
 		this.setState({ ...this.state, isFetching: true });
 		try {
 			getOSHCountries('MATRIX_STRATEGY', ['UK'])
-				.then((res) => {
-					this.setState({ countries: res.resultset })
+			.then((res) => {
+				this.setState({ countries: res.resultset })
+				const selectedCountry = this.state.countries.find((country) => country.code == this.props.match.params.country);
+				this.setState({ filters: {...this.state.filters, countries: [selectedCountry]} })
 			})
 			getOSHData('MATRIX_STRATEGY', this.state.filters)
 				.then((res) => {
@@ -138,7 +141,9 @@ class EUChallengesResponse extends Component
 				<div className="selected--tags-wrapper">
 					{this.state.filters && (
 						<div>
-							{this.state.filters.countries.map((country) => <span key={country} className="selected-tag" onClick={this.onSelectCountryTag(country)}>{country}</span>)}
+							{this.state.filters.countries.map((country) => (
+								<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>
+							))}
 							{this.state.filters.checks.map((category) => {
 								if (category.check) {
 									return <span key={category.id} className="selected-tag" onClick={this.onSelectInstitutionTag(category.id)} >{this.props.literals[`L${category.literal}`]}</span>

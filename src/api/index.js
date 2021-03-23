@@ -50,7 +50,7 @@ export function getOSHData(dataPage, filters) {
             }
 
             if (params.country) {
-                params.country.map((country) => urlWithParams.append('country', country));
+                params.country.map((country) => urlWithParams.append('country', country.code));
             }
 
             if (params.checks) {
