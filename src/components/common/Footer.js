@@ -24,16 +24,16 @@ class Footer extends Component
 								<NavLink to="/sitemap" accessKey="M" className="menu__link"><span>{this.props.literals.L356}</span></NavLink>
 							</li>
 							<li>
-								<a target="_blank" href="https://osha.europa.eu/en/contact-us" accessKey="C" className="menu__link"> <span>{this.props.literals.L357}</span></a>
+								<a target="_blank" href="https://osha.europa.eu/en/contact-us" accessKey="C" className="menu__link"><span> {this.props.literals.L357}</span></a>
 							</li>
 							<li>
-								<NavLink to='/accesibility' accessKey="K" className="menu__link"> <span>{this.props.literals.L358}</span> </NavLink>
+								<NavLink to='/accesibility' accessKey="K" className="menu__link"><span> {this.props.literals.L358}</span> </NavLink>
 							</li>
 							<li>
-								<NavLink to="/privacy-policy" accessKey="P" className="menu__link"> <span>{this.props.literals.L359}</span></NavLink>
+								<NavLink to="/privacy-policy" accessKey="P" className="menu__link"><span> {this.props.literals.L359}</span></NavLink>
 							</li>
 							<li>
-								<NavLink to='/legal-notice' accessKey="N" className="menu__link"> <span>{this.props.literals.L360}</span></NavLink>
+								<NavLink to='/legal-notice' accessKey="N" className="menu__link"><span> {this.props.literals.L360}</span></NavLink>
 							</li>
 						</ul>
 						<ul className="footer-social-network list-inline col-xs-12 col-md-3 pull-right">
