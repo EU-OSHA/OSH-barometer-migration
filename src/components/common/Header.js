@@ -5,7 +5,6 @@ import {FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIc
 import $ from "jquery";
 
 function setTitleShare (props) {
-	console.log(props);
      return 'OSH Barometer | Data Visualisation';
 }
 

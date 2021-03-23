@@ -51,7 +51,7 @@ class AdviceSection extends Component
 	{		
 		return(
 				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					{this.state.items.map(item =>					
+					{this.state.items.map((item,i) =>{				
 					<div className="container horizontal-nopadding">
                          
 							<div className="text-advice left-text col-md-8 col-sm-8 col-xs-12  nopadding">
@@ -64,7 +64,7 @@ class AdviceSection extends Component
 							<div className={"icon--advice hide-mobile col-sm-4 col-md-4 "+this.indicatorIcons(item)}>
 							</div>			
 					</div>
-					)}
+					})}
 				</section>
 
 		)
