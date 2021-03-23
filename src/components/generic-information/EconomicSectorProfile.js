@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
+import Related from '../common/Related.js';
 
 class EconomicSectorProfile extends Component
 {
@@ -245,37 +246,8 @@ class EconomicSectorProfile extends Component
 				</section>
 				
 				<Methodology />
-
-				<section className="container-full section--page section--related--content ng-isolate-scope" items="relatedItems">
-					<div className="container related--content--wrapper">
-						<h2 className="title-related-content ng-binding" data-ng-bind="i18nLiterals.L20712">Explore also following topics:</h2>
-						<div className="related-content-items">
-							{/*  ngRepeat: item in items */}
-							<div className="related-content-item ng-scope" data-ng-repeat="item in items">
-								<div className="icon-related-item hide-mobile people-group-icon" data-ng-classname="indicatorIcons(item)"></div>
-								<div className="content-related-item">
-									<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Workforce profile</h3>
-									<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator includes a few key data on ageing workers and the workforce:<span className="dots">...</span></p>
-									<p className="button-related-item btn--block-full left-text">
-										<a className="btn-default btn-main-color" data-ui-sref="workforce-profile" href="/generic-information/workforce-profile/median-age/ageing-workers">See more</a>
-									</p>
-								</div>
-							</div>
-							{/* end ngRepeat: item in items */}
-							<div className="related-content-item ng-scope" data-ng-repeat="item in items">
-								<div className="icon-related-item hide-mobile prevention-icon" data-ng-classname="indicatorIcons(item)"></div>
-								<div className="content-related-item">
-									<h3 className="title-related-item ng-binding" data-ng-bind="i18nLiterals[item.title]">Prevention in companies</h3>
-									<p className="text-related-item ng-binding" data-ng-bind-html="trim(item.text)">This indicator visualises data on how OSH is implemented on company/enterprise<span className="dots">...</span></p>
-									<p className="button-related-item btn--block-full left-text">
-										<a className="btn-default btn-main-color" data-ui-sref="prevention-companies" href="/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a>
-									</p>
-								</div>
-							</div>
-							{/*  end ngRepeat: item in items */}
-						</div>
-					</div>
-				</section>
+				
+				<Related literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 
 			</div>
 		)
