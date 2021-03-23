@@ -105,6 +105,10 @@
         "text":"General information",
         "tree":["Home","about-tool"]
     },
+    "Methodology":{
+        "text":"Methodology",
+        "tree":["Home","about-tool"]
+    },
     "CountryReportHome":{
         "text":"Country Report",
         "tree":["Home","about-tool"]
