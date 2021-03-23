@@ -39,6 +39,7 @@ import OSHStatistics from './components/osh-infrastructure/OSHStatistics';
 
 // About Tool
 import GeneralInformation from './components/about-tool/GeneralInformation';
+import Methodology from './components/about-tool/Methodology';
 import CountryReport from './components/about-tool/CountryReport';
 import CountryReportHome from './components/about-tool/CountryReportHome';
 
@@ -48,6 +49,7 @@ import LegalNotice from './components/footer-pages/LegalNotice';
 import PageNotFound from './components/footer-pages/PageNotFound';
 import PrivacyPolicy from './components/footer-pages/PrivacyPolicy';
 import Sitemap from './components/footer-pages/Sitemap';
+
 
 const store = createStore(reducer);
 
@@ -110,7 +112,7 @@ ReactDOM.render(
 				/>
 
 				<Route exact path="/about-the-system" render={() => <App literals={literals}><GeneralInformation literals={literals}/></App>} />
-				<Route exact path="/about-the-system/methodology" render={() => <App literals={literals}><CountryReport literals={literals}/></App>} />
+				<Route exact path="/about-the-system/methodology" render={() => <App literals={literals}><Methodology literals={literals}/></App>} />
 				<Route exact path="/country-report" render={() => <App literals={literals}><CountryReportHome literals={literals}/></App>} />
 
 				<Route exact path="/accesibility" render={() => <App literals={literals}><Accesibility literals={literals}/></App>} />
