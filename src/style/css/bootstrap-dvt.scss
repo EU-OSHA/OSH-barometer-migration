@@ -704,6 +704,11 @@ pre {
     display: table; }
   .container:after {
     clear: both; }
+  @media (min-width: 576px) {
+    .container {
+      max-width: 100%;
+    }
+  }
   @media (min-width: 768px) {
     .container {
       width: 750px; } }
@@ -771,13 +776,22 @@ pre {
   width: 75%; }
 
 .col-xs-10 {
-  width: 83.33333%; }
+  width: 83.33333%; 
+  flex: 0 0 83.33333%;
+  max-width: 83.33333%;
+}
 
 .col-xs-11 {
-  width: 91.66667%; }
+  width: 91.66667%;
+  flex: 0 0 91.66667%;
+  max-width: 91.66667%;
+}
 
 .col-xs-12 {
-  width: 100%; }
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
 
 .col-xs-pull-0 {
   right: auto; }

@@ -1239,9 +1239,22 @@ and (max-width :767px)  {
 		padding: 1rem 0 1rem 1rem;
 		.social--network--nav{
 			align-self: flex-end;
+			align-items: center;
 			ul{
+				padding: 0;
 				li{
-					padding: 0 0.8rem 0.8rem;
+					padding: 0 0.5rem 0;
+					height: 3rem;
+					button{
+						width: 2.2rem;
+						height:2.2rem;
+						overflow: hidden;
+						svg{
+							position: relative;
+							top: -1rem;
+							left: -1rem;
+						}
+					}
 				}
 			}
 		}		  
