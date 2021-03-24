@@ -122,7 +122,7 @@ class OSHAuthorities extends Component
 
 	render() {
 		return(
-			<div>
+			<div className="osh-authority">
 				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} />
 
 				{/* FILTERS COMPONENT */}

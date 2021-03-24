@@ -8,7 +8,7 @@ class WorkingConditions extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="working-conditions">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","working-conditions"]} />
 
 				<section className="container-fluid background-gray section--page">

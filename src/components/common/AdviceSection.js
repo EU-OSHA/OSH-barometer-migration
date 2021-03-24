@@ -36,12 +36,12 @@ class AdviceSection extends Component
 			if(!str2){
 				return null;
 			}else{
-				return <p><span className="">{this.props.literals[str2]}&nbsp;</span><span><Link className="" to={this.props.literals[str3]}>{this.props.literals.L20705}</Link></span></p>
+				return <p><span className="">{this.props.literals[str2]}&nbsp;</span><span><Link className="" to={str3}>{this.props.literals.L20705}</Link></span></p>
 			}
 		} else if(!str2){
 			return <p><span className="">{this.props.literals[str1]}&nbsp;</span></p>
 		} else{
-			return <p><span className="">{this.props.literals[str1]} {this.props.literals[str2]}&nbsp;</span><span><Link className="" to={this.props.literals[str3]}>{this.props.literals.L20705}</Link></span></p>
+			return <p><span className="">{this.props.literals[str1]} {this.props.literals[str2]}&nbsp;</span><span><Link className="" to={str3}>{this.props.literals.L20705}</Link></span></p>
 		}
 	}
 

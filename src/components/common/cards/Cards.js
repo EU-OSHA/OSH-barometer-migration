@@ -51,7 +51,7 @@ class Cards extends Component {
 		const replacedText = countryData.text2 && literals[`L${countryData.text2}`].replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img);
         return (
 			<div className="matrix--element clearfix" >
-				<div className="matrix--header-elements">
+				<div className="matrix--header--elements">
 					<img className="flags--wrapper" src={images[countryData.country.code.toLowerCase()]} />
 					<h2 className="country title-section main-color">{literals[`L${countryData.country.literalID}`] }</h2>
 				</div>
@@ -67,7 +67,7 @@ class Cards extends Component {
 					)}
 				</h3>
 
-				<div className="">
+				<div className="matrix--content--elements">
 					{cardType == 'institution' && (
 						<React.Fragment>
 							<p className="institution-name">{literals[`L${countryData.text1 && countryData.text1}`]}</p>

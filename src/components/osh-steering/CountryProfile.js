@@ -237,7 +237,7 @@ class CountryProfile extends Component
 		}
 
 		return(
-			<div>
+			<div className="country--profile--page">
 				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
 
 				<div className="container">

@@ -6,7 +6,7 @@
   "scripts": {
     "clearcache": "rm -rf .cache/ dist/",
     "setlocal": "cp conf/.env.local ./.env",
-    "settest":"cp conf/.env.test ./.env",
+    "settest": "cp conf/.env.test ./.env",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "buildtest":"npm run clearcache && npm run settest && npm run build",

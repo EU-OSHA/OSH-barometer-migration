@@ -122,7 +122,7 @@ class OSHStatistics extends Component
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} />
 
 				<section className="container">
 

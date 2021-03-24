@@ -6,7 +6,7 @@ class OSHCulture extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="osh-culture">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture"]} />
 			</div>
 		)

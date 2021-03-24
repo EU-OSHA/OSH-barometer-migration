@@ -16,7 +16,7 @@ class PrivacyPolicy extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="mainBody">
 				<h1 className="title-section second-color ng-binding text-center">
 					{this.props.literals.L359}
 				</h1>
