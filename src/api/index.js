@@ -68,6 +68,19 @@ export function getOSHData(dataPage, filters) {
     return response
 }
 
+export function getIndicatorCountries(chart = '20012') {
+    const URL = `${BASEURL}countries/getIndicatorCountries`
+
+    const response = axios.get(URL, {
+        params: {
+            chart
+        }
+    })
+        .then((res) => res.data);
+
+    return response
+}
+
 //Get countries available for social dialogue select
 export function getSocialDialogueCountries() {
     const URL = `${BASEURL}countries/getIndicatorCountries?chart=20090`;
