@@ -19,13 +19,6 @@ import ReactHtmlParser from 'react-html-parser';
   const [selectedClient,setSelectedClient]= useState("");
   const [selectedClient2,setSelectedClient2]= useState("");
 
-  const initialState = {
-    pais1: [],
-    pais2: [],
-    selecteUser: null,
-  }
-  //redux para dispara el estado
-  // const [state, dispatch] = useReducer(UserReducer, initialState)
   
 
 ////-----  En caso de utilizar axios ----///

@@ -5,31 +5,23 @@ import Methodology from '../common/Methodology';
 import EmploymentPerSector from './EmploymentPerSector'
 import SelectEconomic from '../common/models/SelectEconomic';
 import Chart from '../common/models/Chart'
-import EmploymentRate from './EmploymentRate';
+import ChartHuman from '../common/models/ChartHuman'
 
+const EconomicSectorProfile = (props) => {
 
-const EconomicSectorProfile = (props)=>{
+	const [pais1,setPais1]=useState(props.country1);
+	const [pais2,stePais2]=useState("");
 
-const [pais1,setPais1]=useState("");
-const [pais2,stePais2]=useState("")
-
-
-useEffect(()=>{
-	//console.log(pais1)
-},[pais1,pais2])
-
-	const handleSearch = (pais1)=>{
+	const handleSearch = (pais1) => {
 		setPais1(pais1);
 	}
 
 	const handleSearch2 = (pais2)=>{
-	stePais2(pais2)
-	//console.log(`este es id2 ${pais2}`)
-		}
+		stePais2(pais2)
+	}
 
 		return(
-			
-			<div>		
+			<div>
 				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
 					<div className="container horizontal-nopadding">
 						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
@@ -42,27 +34,15 @@ useEffect(()=>{
 					</div>
 				</section>
 
-				
-
 				<div className="compare--block container">
-
 					{/* FILTERS */}
 					<form className="compare--block--form">
-					
-						
 						<ul className="compare--list">
-
 							<SelectEconomic  handleSearch={handleSearch} handleSearch2={handleSearch2}/>
-
 						</ul>
 					</form>
 					
 				</div>
-
-				
-				
-				
-				
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">
 						{/* CONTENT */}{/* COMPANY SIZE */}
@@ -84,15 +64,16 @@ useEffect(()=>{
 
 								<div className="chart--wrapper">
 								<Chart
-								
-								 title={pais1}
-								colors={['orange','aqua','grey','green','grey']}
-								showDataLabel={true}
-								tick={20}
-								percentage={true}
-								type='bar'
-								pais1={pais1}
-								pais2={pais2}
+									title='Economic Sector'
+									colors={['orange','aqua','grey','green','grey']}
+									showDataLabel={true}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20089'}
+									indicator={'31'}
 									/>
 									<div className="legend-text-block">
 									</div>
@@ -118,16 +99,19 @@ useEffect(()=>{
 								{/* <h2 className="title--card  ">Employment per sector</h2> */}
 
 								<div className="chart--wrapper">
-									<EmploymentPerSector
-									 title='Employment Per Sector'
+								<Chart
+									title='Employment per sector'
+									colors={['orange','aqua','grey','green','grey']}
+									showDataLabel={false}
+									tick={20}
+									percentage={true}
 									type='bar'
-							   		colors={['orange','blue','yellow','green','grey']}
-									showDataLabel={true}
-							   		tick={20}
-							   		percentage={true}
-							   		pais1={pais1}
-									   pais2={pais2}
-								  		 />
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20010'}
+									indicator={'32'}
+									stacking='percent'
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -152,17 +136,18 @@ useEffect(()=>{
 
 								<div className="chart--wrapper">
 
-								<EmploymentRate
-								title='Employment Rate '
-							   colors={['orange','red','yellow','green','grey']}
-							   showDataLabel={true}
-							   tick={20}
-							   percentage={true}
-							   type='bar'
-							   pais1={pais1}
-							   pais2={pais2
-							}
-								   />
+								<Chart
+									title='Employment Rate'
+									colors={['orange','blue','grey']}
+									showDataLabel={true}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20011'}
+									indicator={'33'}
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -184,18 +169,31 @@ useEffect(()=>{
 							<div className="chart--block with-filter">
 								<div className="card--block--chart--wrapper ng-isolate-scope">
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a className="maximize-button" title="Maximize" ><label className="sr-only " >Maximize</label></a></li>
+								<ul className="chart--submenu " >
+									{/* <li><a className="maximize-button" title="Maximize" ><label className="sr-only " >Maximize</label></a></li>
 									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 										<li><a className=""></a></li>
 										<li><a className="">Download raw data</a></li>
-									</ul>
+									</ul> */}
 								</ul>
 
-								<h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2>
+								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
 
 								<div className="chart--wrapper">
+								<Chart
+									title='GDP per capita in ralation to EU27_2020 average'
+									colors={['orange','blue','grey']}
+									showDataLabel={true}
+									//tick={20}
+									percentage='ft'
+									type='column'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20013'}
+									indicator={'35'}
+									
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -230,13 +228,17 @@ useEffect(()=>{
 								{/* <h2 className="title--card  ">Income per capita</h2> */}
 								<div className="chart--wrapper">
 								<Chart
-									 title='Income Per Capita'
-							   		colors={['blue','red','yellow','green','grey']}
+									title='Income per capita'
+									colors={['orange','aqua','grey','green','grey']}
 									showDataLabel={true}
-							   		tick={20}
-							   		percentage={true}
-							   		type='line'
-								  		 />
+									tick={5000}
+									percentage='€'
+									type='line'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20014'}
+									indicator={'36'}
+									/>
 
 									<div className="legend-text-block">
 									</div>

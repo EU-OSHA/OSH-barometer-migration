@@ -95,7 +95,7 @@ class EmploymentPerSector extends Component
 				},
 				plotOptions: {
 					series: {
-						stacking: 'normal'
+						stacking: ''
 
 					},
 					bar: {
