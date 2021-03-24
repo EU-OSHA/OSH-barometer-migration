@@ -109,8 +109,7 @@ function handleSelectChange2(event) {
   return (
    
     <div>
-
-
+      
     <div className="compare--block container">
 					{/* FILTERS */}
 					<form className="compare--block--form">

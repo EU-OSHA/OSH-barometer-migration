@@ -189,15 +189,14 @@ class Chart extends Component {
 		if (prevProps.pais1 !== this.props.pais1 || prevProps.pais2 !== this.props.pais2 ) {
 			//this.loadData()
 
-				
 		}
 
 
 		if (prevProps.pais1 !== this.props.pais1) {
 			 fetchData(this.props.pais1)
 
-
 		}
+		
 		if (prevProps.pais2 !== this.props.pais2) {
 			fetchData2(this.props.pais2)
 

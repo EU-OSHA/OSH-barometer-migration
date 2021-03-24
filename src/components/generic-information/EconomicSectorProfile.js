@@ -8,8 +8,6 @@ import Chart from '../common/models/Chart'
 import EmploymentRate from './EmploymentRate';
 
 
-
-
 const EconomicSectorProfile = (props)=>{
 
 const [pais1,setPais1]=useState("");
@@ -22,23 +20,16 @@ useEffect(()=>{
 
 	const handleSearch = (pais1)=>{
 		setPais1(pais1);
-	
-		//stePais2(pais2)
-	//console.log(`este es id1 ${pais1}`)
-	//console.log(`este es id2 ${pais2}`)
-}
+	}
 
-const handleSearch2 = (pais2)=>{
-	//setPais1(pais1);
+	const handleSearch2 = (pais2)=>{
 	stePais2(pais2)
-//console.log(`este es id2 ${pais2}`)
-}
+	//console.log(`este es id2 ${pais2}`)
+		}
 
 		return(
 			
-			<div>
-					
-					
+			<div>		
 				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
 					<div className="container horizontal-nopadding">
 						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
