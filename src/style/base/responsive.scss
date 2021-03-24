@@ -528,34 +528,42 @@ and (max-width : 1200px)  {
 			}
 		}
 		.bar-main-menu {
-		  display: block;
-		  width: auto;
-		  padding: 1.5rem 0;
-	    	margin: 0;
+			display: block;
+			width: auto;
+			padding: 1.5rem 0;
+			margin: 0;
 			.navbar-nav{
-			  box-shadow: 0 6px 0 0px #f6a400;
+			//box-shadow: 0 6px 0 0px #f6a400;
 				> li{
-					padding: 1.5rem 1.5rem 1rem;
+					padding: 0 1.5rem;
 					background:$white;
 					border-bottom: 1px solid $gray-lighter;
 					&:hover{
-						box-shadow: none !important;							
+						box-shadow: none !important;						
 					}
-					a{
+					&.dropdown:hover{
+						&:hover{
+							.dropdown-menu{
+								display: none;
+							}	
+						}
+					}
+					> a{
 						font-size: 1.8rem !important;
+						padding: 1.5rem 1.5rem !important;
 						&:hover{
 							border-bottom: 0px solid $aquamarine;
 						}
 					}						
 					ul.dropdown-menu{
-						display: none !important;
+						display: none;
 					}
 					&.dropdown.main-menu-selected{
 						box-shadow: 0 0 0 0px #F6A400;
 					}
 				}
 			}
-	    &.exposed{
+			&.exposed{
 				display: block;
 				width: auto;
 				padding: 1.5rem 0;
@@ -563,21 +571,21 @@ and (max-width : 1200px)  {
 				position: static;
 				left: 0;
 				top: 0;				
-				.collapse{
-			    right: -50vw;
-			    transition: 1.6s;
-			    position: absolute;
+				.navbar-collapse{
+					right: -50vw;
+					transition: 1.6s;
+					position: absolute;
 					&.exposed{
 						display: block !important;
 						background: #FFF;
-				    height: 95vh !important;
-				    width: 50vw;
-				    top: 9rem;
-				    left: initial;
-				    right: 0vw;
-				    transition:all 1.6s;
-				    position: absolute;
-				    border-left: 1px solid $gray-lighter;
+						height: 95vh !important;
+						width: 50vw;
+						top: 9rem;
+						left: initial;
+						right: 0vw;
+						transition:all 1.6s;
+						position: absolute;
+						border-left: 1px solid $gray-lighter;
 						.navbar-nav{
 							margin: 1rem 0 0;
 							padding: 0rem 0 2rem;
@@ -586,8 +594,8 @@ and (max-width : 1200px)  {
 							background:$white;
 							box-shadow: 0 0 0 0 !important;
 							li:last-child .dropdown-menu {
-							  left: 0;
-							  text-align: left;
+								left: 0;
+								text-align: left;
 							}
 							li.open{
 								box-shadow: none !important;								
@@ -595,48 +603,48 @@ and (max-width : 1200px)  {
 									display: block !important;
 									float: none;
 									position: relative;
-								  box-shadow: none;
-								  border: 0;
-								  left: 0;
-							    right: initial;
-							    text-align: left;
-								  li{
-								  	padding: 0.5rem 0;
-								  	a{
-								  		font-size: $font-size-body !important;
-								  	}
-								  }
+									box-shadow: none;
+									border: 0;
+									left: 0;
+									right: initial;
+									text-align: left;
+									li{
+									padding: 0.5rem 0;
+									a{
+										font-size: $font-size-body !important;
+									}
+									}
 								}
 							}
 						}
 					}
 				}
-	    }
-		  .navbar-toggle {
-		  	margin: 1rem;
-		  	.icon-bar {
-				  color: $aquamarine;
-				  background: $aquamarine;
-				  width: 32px;
-				  height: 4px;
-				  transition: 0.4s;
+			}
+		  	.navbar-toggle {
+				margin: 1rem;
+				.icon-bar {
+					color: $aquamarine;
+					background: $aquamarine;
+					width: 32px;
+					height: 4px;
+					transition: 0.4s;
+				}
+				&.exposed{
+					.bar1 {
+						-webkit-transform: rotate(-45deg) translate(-4px, 3px);
+						transform: rotate(-45deg) translate(-4px, 3px);
+						background: $gray-icon;
+					}
+					.bar2 {
+						opacity: 0;
+					}
+					.bar3 {
+						-webkit-transform: rotate(45deg) translate(-8px, -8px);
+						transform: rotate(45deg) translate(-8px, -8px);
+						background: $gray-icon;
+					}
+			  	}
 		  	}
-		  	&.exposed{
-		      .bar1 {
-		        -webkit-transform: rotate(-45deg) translate(-4px, 3px);
-		        transform: rotate(-45deg) translate(-4px, 3px);
-		        background: $gray-icon;
-		      }
-		      .bar2 {
-		        opacity: 0;
-		      }
-		      .bar3 {
-		        -webkit-transform: rotate(45deg) translate(-8px, -8px);
-		        transform: rotate(45deg) translate(-8px, -8px);
-		        background: $gray-icon;
-		      }
-			  }
-		  }
 		}
 	}
 	.breadcrumbs--social--network{

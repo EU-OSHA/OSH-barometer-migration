@@ -78,9 +78,13 @@ class Header extends Component
 		}
 
 		$("button.navbar-toggle").click(function() {
+			$(this).toggleClass("exposed");
 			$(".bar-main-menu").toggleClass("exposed");
 			$(".navbar-collapse").toggleClass("collapse").toggleClass("exposed")
-		  });
+		});
+		$("a.dropdown-toggle").click(function(){
+			$(this).parent().toggleClass("open");
+		});
 	}
 
 	/*
