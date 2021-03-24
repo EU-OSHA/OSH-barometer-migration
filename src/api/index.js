@@ -69,6 +69,16 @@ export function getOSHData(dataPage, filters) {
 }
 
 //Get countries available for social dialogue select
+export function getNationalStrategiesCountries() {
+    const URL = `${BASEURL}countries/getCountriesStrategiesPage?page=STRATEGY`;
+
+    const response = axios.get(URL)
+    .then((res) => res.data);
+
+    return response
+}
+
+//Get countries available for social dialogue select
 export function getSocialDialogueCountries() {
     const URL = `${BASEURL}countries/getIndicatorCountries?chart=20090`;
 

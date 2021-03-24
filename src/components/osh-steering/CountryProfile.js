@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
 import CountrySelect from '../common/CountrySelect';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 
-const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
+// const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
+const API_ADDRESS = process.env.BASE_URL;
 
 class CountryProfile extends Component
 {
@@ -28,16 +28,15 @@ class CountryProfile extends Component
 
 	retrieveCountryProfileData = () => {
 		Promise.all([
-			fetch(`${API_ADDRESS}/qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country1}`),
-			fetch(`${API_ADDRESS}/qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country2}`),
-			fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY`),
-			fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY&country=${this.state.country1}`),
-			fetch(`${API_ADDRESS}/qualitative/getStrategiesPageIndicators?page=STRATEGY`)
-		])
-		.then(([countryDataResponse1,countryDataResponse2,countrySelectResponse1,countrySelectResponse2, indicatorsResponse]) => 
+			fetch(`${API_ADDRESS}qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country1}`),
+			fetch(`${API_ADDRESS}qualitative/getMatrixPageData?page=STRATEGY&country=${this.state.country2}`),
+			fetch(`${API_ADDRESS}countries/getCountriesStrategiesPage?page=STRATEGY`),
+			fetch(`${API_ADDRESS}countries/getCountriesStrategiesPage?page=STRATEGY&country=${this.state.country1}`),
+			fetch(`${API_ADDRESS}qualitative/getStrategiesPageIndicators?page=STRATEGY`)
+		])		.then(([countryDataResponse1,countryDataResponse2,countrySelectResponse1,countrySelectResponse2, indicatorsResponse]) => 
 			Promise.all([countryDataResponse1.json(),countryDataResponse2.json(),countrySelectResponse1.json(),countrySelectResponse2.json(), indicatorsResponse.json()]))
 		.then(([countryData1,countryData2,countrySelect1,countrySelect2,indicatorData]) => {
-			console.log('this.props.country2',this.props.country2);
+			// console.log('this.props.country2',this.props.country2);
 			this.setState({
 				countryProfileData1: countryData1.resultset[0],
 				countryProfileData2: countryData2.resultset[0],
@@ -286,6 +285,8 @@ class CountryProfile extends Component
 				<section className="container section--page full-tablet">
 					{selectedTabContent}					
 				</section>
+
+				<Methodology />
 			</div>
 		)
 	}

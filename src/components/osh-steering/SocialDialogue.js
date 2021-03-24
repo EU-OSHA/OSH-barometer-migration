@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AdviceSection from '../common/AdviceSection';
+import Methodology from '../common/Methodology';
 import EUCountryCard from '../common/cards/EUCountryCard';
 import CountryCards from '../common/cards/CountryCards';
 import Pagination from '../common/pagination/Pagination';
@@ -133,6 +134,8 @@ class SocialDialogue extends Component
 						<Pagination items={this.state.countriesData} onChangePage={this.onChangePage} pageSize={this.state.pageSize}/>
 					</div>
 				</section>
+
+				<Methodology />
 			</div>
 		)
 	}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 import images from '../../style/img/flag/images';
 import AdviceSection from '../common/AdviceSection';
+import { getNationalStrategiesCountries } from '../../api';
 const API_ADDRESS = process.env.BASE_URL;
 
 class NationalStrategies extends Component
@@ -31,14 +31,13 @@ class NationalStrategies extends Component
 	}
 
 	componentDidMount(){
-        fetch(`${API_ADDRESS}countries/getCountriesStrategiesPage?page=STRATEGY`)
-            .then(response => response.json())
-            .then(json => {
-				this.setState({countries: json.resultset});
+		getNationalStrategiesCountries()
+			.then((res) => {
+				// this.setState({ countries: res.resultset });
+				this.setState({countries: res.resultset});
 				this.filterCountries();
 				this.createLetterNavigation();
-            })
-            .catch(error => console.log(error.message));
+			})
 	}
 
 	resetFilter = () => {
@@ -61,16 +60,33 @@ class NationalStrategies extends Component
 	}
 
 	filterCountries = () => {
+		var temporalArray = [];
 		if(this.state.alphabetFiltered.length === 0){
-			this.setState({countriesFiltered: this.state.countries});
-			console.log('No countries filtered. Showing all countries');
+			temporalArray = this.state.countries;
+
+			temporalArray.sort(function (a, b) {
+				if (a.name < b.name) return -1;
+				else if (a.name > b.name) return 1;
+				return 0;
+			});
+			
+			// this.setState({countriesFiltered: temporalArray});
+			// console.log('No countries filtered. Showing all countries');
 		}else{
-			var temporalArray = [];
 			this.state.countries.filter(country => this.state.alphabetFiltered.indexOf(country.name.charAt(0)) != -1).map(filteredCountry => {
 				temporalArray.push(filteredCountry);
 			});
-			this.setState({countriesFiltered: temporalArray});
+
+			temporalArray.sort(function (a, b) {
+				if (a.name < b.name) return -1;
+				else if (a.name > b.name) return 1;
+				return 0;
+			});
+
+			// this.setState({countriesFiltered: temporalArray});
 		}
+
+		this.setState({countriesFiltered: temporalArray});
 	}
 
 	filterAlphabet = (letter) => {
