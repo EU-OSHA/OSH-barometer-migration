@@ -7,38 +7,21 @@ import SelectEconomic from '../common/models/SelectEconomic';
 import Chart from '../common/models/Chart'
 import EmploymentRate from './EmploymentRate';
 
+const EconomicSectorProfile = (props) => {
 
+	const [pais1,setPais1]=useState(props.country1);
+	const [pais2,stePais2]=useState("");
 
-
-const EconomicSectorProfile = (props)=>{
-
-const [pais1,setPais1]=useState("");
-const [pais2,stePais2]=useState("")
-
-
-useEffect(()=>{
-	//console.log(pais1)
-},[pais1,pais2])
-
-	const handleSearch = (pais1)=>{
+	const handleSearch = (pais1) => {
 		setPais1(pais1);
-	
-		//stePais2(pais2)
-	//console.log(`este es id1 ${pais1}`)
-	//console.log(`este es id2 ${pais2}`)
-}
+	}
 
-const handleSearch2 = (pais2)=>{
-	//setPais1(pais1);
-	stePais2(pais2)
-//console.log(`este es id2 ${pais2}`)
-}
+	const handleSearch2 = (pais2)=>{
+		stePais2(pais2)
+	}
 
 		return(
-			
 			<div>
-					
-					
 				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
 					<div className="container horizontal-nopadding">
 						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
@@ -51,27 +34,15 @@ const handleSearch2 = (pais2)=>{
 					</div>
 				</section>
 
-				
-
 				<div className="compare--block container">
-
 					{/* FILTERS */}
 					<form className="compare--block--form">
-					
-						
 						<ul className="compare--list">
-
 							<SelectEconomic  handleSearch={handleSearch} handleSearch2={handleSearch2}/>
-
 						</ul>
 					</form>
 					
 				</div>
-
-				
-				
-				
-				
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">
 						{/* CONTENT */}{/* COMPANY SIZE */}
@@ -93,15 +64,16 @@ const handleSearch2 = (pais2)=>{
 
 								<div className="chart--wrapper">
 								<Chart
-								
-								 title={pais1}
-								colors={['orange','aqua','grey','green','grey']}
-								showDataLabel={true}
-								tick={20}
-								percentage={true}
-								type='bar'
-								pais1={pais1}
-								pais2={pais2}
+									title='Economic Sector'
+									colors={['orange','aqua','grey','green','grey']}
+									showDataLabel={true}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20089'}
+									indicator={'31'}
 									/>
 									<div className="legend-text-block">
 									</div>
