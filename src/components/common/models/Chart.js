@@ -3,7 +3,6 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import UserContext from '../models/context/UserContext';
 import axios from 'axios';
 import { data } from 'jquery';
 
@@ -71,7 +70,6 @@ const fetchData2 = (pais1,pais2) => {
 		})
 			console.log(res)
 	
-
 }
 
 
@@ -90,7 +88,7 @@ class Chart extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					text: this.props.title,
+					text: this.props.type,
 					align: 'left'
 				},
 				credits: {
@@ -116,7 +114,7 @@ class Chart extends Component {
 					}
 				},
 				xAxis: {
-					categories: [categories[0]],
+					categories: [''+this.props.pais1+'','AT'],
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -166,33 +164,10 @@ class Chart extends Component {
 
 	// componentDidMount(){
 	// 	fetchData()
-	// 	//this.state;
 	// 	console.log("base de dato montada")
 	// }
 
-	componentDidUpdate(prevState, prevProps) {
-		// if (prevState.chartConfig !== this.state.chartConfig) {
-		// 	fetchData(this.props.pais1)
-		// 	//console.log("estado cambiado")
-		
-				
-		// }
-
-
-		if (prevProps.pais1 !== this.props.pais1) {
-			 fetchData(this.props.pais1)
-
-
-		}
-		if (prevProps.pais2 !== this.props.pais2) {
-			fetchData2(this.props.pais2)
-
-		}
-
-
-	}
-
-	 loadData = ()=> {
+	loadData = ()=> {
 		// userContext.handleSelect();
 		//console.log('this.state.chartConfig.', this.state);
 		//console.log(this.handleSearch)
@@ -209,6 +184,29 @@ class Chart extends Component {
 				}
 			});
 	}
+
+	componentDidUpdate(prevState, prevProps) {
+		if (prevProps.pais1 !== this.props.pais1 || prevProps.pais2 !== this.props.pais2 ) {
+			//this.loadData()
+
+				
+		}
+
+
+		if (prevProps.pais1 !== this.props.pais1) {
+			 fetchData(this.props.pais1)
+
+
+		}
+		if (prevProps.pais2 !== this.props.pais2) {
+			fetchData2(this.props.pais2)
+
+		}
+
+
+	}
+
+	 
 
 	render() {
 		// const {value} = this.props

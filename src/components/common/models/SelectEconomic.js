@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import UserContext from './context/UserContext';
-import UserReducer from './context/UserReducer';
+
 
 
 
@@ -100,7 +99,7 @@ function handleSelectChange2(event) {
   fetchData4(pais2)
   //handleSearch2()
   handleSearch2(pais2);
-  console.log(`en el handleSearch2 ${pais2}`)
+  //console.log(`en el handleSearch2 ${pais2}`)
   
   // console.log(id)
   // console.log(event.target.value);
@@ -108,15 +107,7 @@ function handleSelectChange2(event) {
 
 
   return (
-    <UserContext.Provider
-    value={{
-      // pais1: state.users,
-      // pais2: state.users,
-      // selecteUser: state.selecteUser,
-      handleSelectChange,
-      handleSelectChange2,
-
-    }}>
+   
     <div>
 
 
@@ -158,10 +149,11 @@ function handleSelectChange2(event) {
       </ul>
         </form>
         </div>
+        {props.children}
     </div>
     
-    {props.children}
-    </UserContext.Provider>
+    
+  
   );
 }
 export default SelectEconomic;

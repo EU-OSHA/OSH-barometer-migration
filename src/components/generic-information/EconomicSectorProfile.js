@@ -22,7 +22,7 @@ useEffect(()=>{
 
 	const handleSearch = (pais1)=>{
 		setPais1(pais1);
-		loadData();
+	
 		//stePais2(pais2)
 	//console.log(`este es id1 ${pais1}`)
 	//console.log(`este es id2 ${pais2}`)
@@ -94,7 +94,7 @@ const handleSearch2 = (pais2)=>{
 								<div className="chart--wrapper">
 								<Chart
 								
-								 title='Company Size'
+								 title={pais1}
 								colors={['orange','aqua','grey','green','grey']}
 								showDataLabel={true}
 								tick={20}
