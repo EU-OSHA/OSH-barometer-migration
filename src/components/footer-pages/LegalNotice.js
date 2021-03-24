@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 
+const footerPages = require('../../model/FP-i18n.json');
 class LegalNotice extends Component
 {
+	constructor(props)
+	{
+		super(props);
+
+		this.state = {
+            footerPages: footerPages
+        }
+	}
 	render()
 	{
 		return(
@@ -13,11 +22,11 @@ class LegalNotice extends Component
 				</h1>
 				<div class="container legal--notice--block">
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.disclaimer">{ReactHtmlParser(this.props.literals.disclaimer)}</h2>
-					<div data-ng-bind-html="i18n.disclaimerText"></div>
+					<h2 class="title-section main-color">{ReactHtmlParser(this.state.footerPages.disclaimer)}</h2>
+					<div data-ng-bind-html="i18n.disclaimerText">{ReactHtmlParser(this.state.footerPages.disclaimerText)}</div>
 
-					<h3 class="title-section main-color" data-ng-bind-html="i18n.copyrightNotice">{ReactHtmlParser(this.props.literals.copyrightNotice)}</h3>
-					<div data-ng-bind-html="i18n.copyrightNoticeText"></div>
+					<h3 class="title-section main-color" >{ReactHtmlParser(this.state.footerPages.copyrightNotice)}</h3>
+					<div >{ReactHtmlParser(this.state.footerPages.copyrightNoticeText)}</div>
 				</div>
 			</div>
 		)

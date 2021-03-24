@@ -2,76 +2,85 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 
+const footerPages = require('../../model/FP-i18n.json');
 class PrivacyPolicy extends Component
 {
+	constructor(props)
+	{
+		super(props);
+
+		this.state = {
+            footerPages: footerPages
+        }
+	}
 	render()
 	{
 		return(
 			<div>
-				<h1 class="title-section second-color ng-binding text-center" data-ng-bind="i18nLiterals.L359">
+				<h1 className="title-section second-color ng-binding text-center">
 					{this.props.literals.L359}
 				</h1>
-				<div class="container legal--notice--block">
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.organizational">
-						{ReactHtmlParser(this.props.literals.L356)}
+				<div className="container legal--notice--block">
+					<h2 className="title-section main-color">
+						{ReactHtmlParser(this.state.footerPages.organizational)}
 					</h2>
-					<div data-ng-bind-html="i18n.Andrew">
-						{ReactHtmlParser(this.props.literals.L356)}
+					<div>
+						{ReactHtmlParser(this.state.footerPages.Andrew)}
 					</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Purpose">
-						{ReactHtmlParser(this.props.literals.L356)}
+					<h2 className="title-section main-color">
+						{ReactHtmlParser(this.state.footerPages.Purpose)}
 					</h2>
-					<div data-ng-bind-html="i18n.forThe">
-						{ReactHtmlParser(this.props.literals.L356)}
+					<div>
+						{ReactHtmlParser(this.state.footerPages.forThe)}
 					</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Type">
-						{ReactHtmlParser(this.props.literals.L356)}
+					<h2 className="title-section main-color" >
+						{ReactHtmlParser(this.state.footerPages.Type)}
 					</h2>
-					<div data-ng-bind-html="i18n.Those"></div>
-					<div data-ng-bind-html="i18n.ulTypeData" class="list--tag--block"></div>
+					<div>{ReactHtmlParser(this.state.footerPages.Those)}</div>
+					<div className="list--tag--block">{ReactHtmlParser(this.state.footerPages.ulTypeData)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.LegalBasis"></h2>
-					<div data-ng-bind-html="i18n.Council"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.LegalBasis)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.Council)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Lawfulness"></h2>
-					<div data-ng-bind-html="i18n.TheProcessing"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.Lawfulness)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.TheProcessing)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.DataRecipients"></h2>
-					<div data-ng-bind-html="i18n.accessToPersonal"></div>
-					<div data-ng-bind-html="i18n.DulyAppointed"></div>
-					<div data-ng-bind-html="i18n.AllTheRecipients"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.DataRecipients)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.accessToPersonal)}</div>
+					<div>{ReactHtmlParser(this.state.footerPages.DulyAppointed)}</div>
+					<div>{ReactHtmlParser(this.state.footerPages.AllTheRecipients)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Cookies"></h2>
-					<div data-ng-bind-html="i18n.cookiesText"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.Cookies)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.cookiesText)}</div>
 
-					<div class="box">
+					<div className="box">
 						<div id='box1'>
-							<p data-ng-bind-html="textBox"></p>
+							<p>{ReactHtmlParser(this.state.footerPages.optOutComplete)}</p>
 							<p>
-								<input type='checkbox' data-ng-click="oculta()" /> <strong data-ng-bind-html="textCheck"></strong>
+								<input type='checkbox' data-ng-click="oculta()" /> <strong>{ReactHtmlParser(this.state.footerPages.textCheck2)}</strong>
 							</p>
 						</div>
 					</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.TheDataS"></h2>
-					<div data-ng-bind-html="i18n.textDataSubjects"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.TheDataS)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.textDataSubjects)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.InformationConservation"></h2>
-					<div data-ng-bind-html="i18n.TheInformation"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.InformationConservation)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.TheInformation)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.SecurityMeasures"></h2>
-					<div data-ng-bind-html="i18n.WeTakeAp"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.SecurityMeasures)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.WeTakeAp)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Request"></h2>
-					<div data-ng-bind-html="i18n.ForAnyF"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.Request)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.ForAnyF)}</div>
 					
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Recourse"></h2>
-					<div data-ng-bind-html="i18n.DataSub"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.Recourse)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.DataSub)}</div>
 
-					<h2 class="title-section main-color" data-ng-bind-html="i18n.Processing"></h2>
-					<div data-ng-bind-html="i18n.DateAccess"></div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.Processing)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.DateAccess)}</div>
 				</div>
 			</div>
 		)

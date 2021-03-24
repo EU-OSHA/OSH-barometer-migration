@@ -3,6 +3,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { NavLink } from 'react-router-dom';
 import $ from "jquery";
 
+
 class Footer extends Component
 {
 	gotoTop() {
@@ -62,14 +63,14 @@ class Footer extends Component
 								</a>
 							</li>
 							<li>
-								<a target="_blank" href="https://www.flickr.com/photos/euosha/albums" title="{{i18n.L483}}" className="menu__link">
+								<a target="_blank" href="https://www.flickr.com/photos/euosha/albums" title={this.props.literals.L483} className="menu__link">
 									<i className="fa fa-flickr"></i>
-									<span className="sr-only" data-ng-bind="i18n.L483"></span>
+									<span className="sr-only">{this.props.literals.L483}</span>
 								</a>
 							</li>
 							<li>
-								<a target="_blank" href="https://www.slideshare.net/EUOSHA" title="{{i18n.L691}}" className="menu__link">
-									<i className="fa fa-slideshare" aria-hidden="true"></i><span className="sr-only" data-ng-bind="i18n.L691"></span>
+								<a target="_blank" href="https://www.slideshare.net/EUOSHA" title={this.props.literals.L691} className="menu__link">
+									<i className="fa fa-slideshare" aria-hidden="true"></i><span className="sr-only" >{this.props.literals.L691}</span>
 								</a>
 							</li>
 						</ul>
