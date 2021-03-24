@@ -7,7 +7,7 @@ class CountryReportHome extends Component
 	render()
 	{
 		return(
-			<div className="about-tool ">
+			<div>
 				<AdviceSection literals={this.props.literals} section={["about-tool","country-report"]} />
 
 				<section className="filter--letter--section container">
