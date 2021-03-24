@@ -6,7 +6,7 @@ class PreventionCompanies extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="prevention-companies">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies"]} />
 			</div>
 		)

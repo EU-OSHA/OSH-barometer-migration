@@ -10,7 +10,7 @@ class EconomicSectorProfile extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="economic--sector--profile">
 
 				<AdviceSection literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 

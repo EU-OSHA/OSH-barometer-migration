@@ -16,7 +16,7 @@ class LegalNotice extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="mainBody">
 				<h1 class="title-section second-color ng-binding text-center">
 					{this.props.literals.L360}
 				</h1>

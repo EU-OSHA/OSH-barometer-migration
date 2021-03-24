@@ -6,7 +6,7 @@ class PhysicalRisk extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} />
 			</div>
 		)

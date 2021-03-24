@@ -9,7 +9,7 @@ class WorkAccidents extends Component
 	render()
 	{
 		return(
-			<div>
+			<div className="work-accidents">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
 
 				<Methodology />
