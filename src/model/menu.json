@@ -198,7 +198,7 @@
             {
                 "id":"about-tool",
                 "name":"L22120",
-                "link":"about-tool",
+                "link":"/about-the-system",
                 "accesskey": "5",
                 "tabindex":"20"
             },

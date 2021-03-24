@@ -90,8 +90,10 @@ class EUChallengesResponse extends Component
 			getOSHCountries('MATRIX_STRATEGY', ['UK'])
 			.then((res) => {
 				this.setState({ countries: res.resultset })
-				const selectedCountry = this.state.countries.find((country) => country.code == this.props.match.params.country);
-				this.setState({ filters: {...this.state.filters, countries: [selectedCountry]} })
+				if (res) {
+					const selectedCountry = this.state.countries.find((country) => country.code == this.props.match.params.country);
+					this.setState({ filters: {...this.state.filters, countries: [selectedCountry]} })
+				}
 			})
 			getOSHData('MATRIX_STRATEGY', this.state.filters)
 				.then((res) => {
@@ -102,6 +104,7 @@ class EUChallengesResponse extends Component
 		} finally {
 			this.setState({ ...this.state, isFetching: false })
 		}
+		
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -163,7 +166,7 @@ class EUChallengesResponse extends Component
 											key={id} 
 											countryData={data} 
 											literals={literals} 
-											categoryType={'challenges'} 
+											cardType={'challenges'} 
 										/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
