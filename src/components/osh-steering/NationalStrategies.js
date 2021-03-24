@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 import images from '../../style/img/flag/images';
 import AdviceSection from '../common/AdviceSection';
-const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
+const API_ADDRESS = process.env.BASE_URL;
 
 class NationalStrategies extends Component
 {
@@ -31,7 +31,7 @@ class NationalStrategies extends Component
 	}
 
 	componentDidMount(){
-        fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY`)
+        fetch(`${API_ADDRESS}countries/getCountriesStrategiesPage?page=STRATEGY`)
             .then(response => response.json())
             .then(json => {
 				this.setState({countries: json.resultset});
