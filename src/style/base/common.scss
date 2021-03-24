@@ -677,8 +677,7 @@
   }
   .breadcrumbs--social--network{
     position: relative;
-
-    padding: 1.5rem 2rem; 
+    padding: 0.8rem 2rem; 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -716,7 +715,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: baseline;
-      margin-right: 1rem; 
+      margin-right:0.7rem; 
       label{
         padding-left: 5px;
         padding-right: 5px;
@@ -732,10 +731,21 @@
         justify-content: space-around; 
         li{
           padding:0 0rem;
-          a{
+          width: 3.2rem;
+          button{
             cursor: pointer;
             &:hover, &:focus{
-              color:$orange!important;
+              //color:$orange!important;
+              svg{
+                > path{
+                  fill:$orange!important;
+                  text-decoration: none;
+                  -webkit-transition: all 0.8s ease-out;
+                  -moz-transition: all 0.8s ease-out;
+                  -o-transition: all 0.8s ease-out;
+                  transition: all 0.8s ease-out;
+                }
+              }
             }
           }
         }
@@ -764,15 +774,19 @@
     position: relative;
     padding: 1rem 0 2rem;
     .text-advice{
-      padding-bottom: 0;
-      margin: 0 0 0.9rem;
-      p{
-        //margin: 0;
+      padding-left: 0rem;
+      padding-right: 0rem;
+      .advice-text{
+        padding: 0px;
+        margin: 0 0 0.9rem;
+      }
+      > p{
+        margin: 0;
       }
     }
     .title--section{
       font-family: 'Oswald';
-      font-size: 3rem;
+      font-size: 3.3rem;
       padding: 0;
       text-align: left;
     }

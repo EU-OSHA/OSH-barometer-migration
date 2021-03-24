@@ -55,19 +55,18 @@ class Cards extends Component {
 					<img className="flags--wrapper" src={images[countryData.country.code.toLowerCase()]} />
 					<h2 className="country title-section main-color">{literals[`L${countryData.country.literalID}`] }</h2>
 				</div>
-				<h3 className="">
-					{cardType == 'institution' && (
-						literals[countryData.check1 && 'L20614' || countryData.check2 && 'L20611' || countryData.check3 && 'L20612' || countryData.check4 && 'L20613']
-					)}
-					{cardType == 'statistics' && (
-						literals[countryData.check1 && 'L20714' || countryData.check2 && 'L20715' || countryData.check3 && 'L20716']
-					)}
-					{cardType == 'challenges' && (
-						literals[countryData.check1 && 'L20631' || countryData.check2 && 'L20632' || countryData.check3 && 'L20633']
-					)}
-				</h3>
-
 				<div className="matrix--content--elements">
+					<h3 className="">
+						{cardType == 'institution' && (
+							literals[countryData.check1 && 'L20614' || countryData.check2 && 'L20611' || countryData.check3 && 'L20612' || countryData.check4 && 'L20613']
+						)}
+						{cardType == 'statistics' && (
+							literals[countryData.check1 && 'L20714' || countryData.check2 && 'L20715' || countryData.check3 && 'L20716']
+						)}
+						{cardType == 'challenges' && (
+							literals[countryData.check1 && 'L20631' || countryData.check2 && 'L20632' || countryData.check3 && 'L20633']
+						)}
+					</h3>				
 					{cardType == 'institution' && (
 						<React.Fragment>
 							<p className="institution-name">{literals[`L${countryData.text1 && countryData.text1}`]}</p>
@@ -100,7 +99,7 @@ class Cards extends Component {
 					)}
 
 					{cardType == 'institution' && (
-						<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
+						<p><a onClick={this.onPDFClick(countryData.country.name)} className="btn--card main-color" target="_blank">{ReactHtmlParser(this.props.literals.L20563)}</a></p>
 					)}
 				</div>
 

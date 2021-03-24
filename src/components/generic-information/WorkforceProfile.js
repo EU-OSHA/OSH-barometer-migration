@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
-import Related from '../common/Related';
+
 
 class WorkforceProfile extends Component
 {
@@ -165,9 +165,7 @@ class WorkforceProfile extends Component
 					</section>
 				</section>
 
-				<Methodology />
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents","non-fatal-work-accidents"]} />
-				
+				<Methodology />			
 			</div>
 		)
 	}

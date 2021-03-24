@@ -45,7 +45,7 @@
 
 	@page {
 	  size: auto;
-	  margin:2.5cm; 
+	  margin:1.5cm; 
 
 	}
 	html{
@@ -104,8 +104,8 @@
 	.bar-header{
 		display: block;
 		position: relative !important;
-    height: auto;
-    margin-top: 2rem;
+		height: auto;
+		margin-top: 2rem;
 		&.hide-header{
 			top: 0rem !important;
 		}
@@ -119,6 +119,12 @@
 			}
 			.osh-barometer-legend{
 				padding-left: 0rem;
+				.main-title{
+					a{
+						padding-left: 0;
+						margin-left: 0;
+					}
+				}
 			}
 		}
 	}

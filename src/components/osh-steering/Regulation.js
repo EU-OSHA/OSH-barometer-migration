@@ -8,7 +8,7 @@ class Regulation extends Component
 	componentDidMount(){
         // footer at te bottom side for coming soon status
         if( $('.coming-soon').length > 0 ){
-			var h = Number( $('header').height() + 240 + 60 +70  ) ;
+			var h = Number( $('header').height() + 240 + 60 +74  ) ;
 			var w = $(window).height();
 			var f = $('footer').height();
 			$('.coming-soon').css('height', w-h-f);
@@ -19,7 +19,7 @@ class Regulation extends Component
 		  $(window).on("resize",function(e){
 			// footer at te bottom side for coming soon status
 			if( $('.coming-soon').length > 0 ){
-			  var h = Number( $('header').height() +  240 + 60 +70  ) ;
+			  var h = Number( $('header').height() +  240 + 60 +74  ) ;
 			  var w = $(window).height();
 			  var f = $('footer').height();
 			  $('.coming-soon').css('height', w-h-f);

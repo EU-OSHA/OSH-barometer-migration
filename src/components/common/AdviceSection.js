@@ -27,7 +27,7 @@ class AdviceSection extends Component
 		if(str1 == null){
 			return null;
 		} else {
-			return <div className="text-advice">{ReactHtmlParser(this.props.literals[str1])}</div>;
+			return <div className="advice-text">{ReactHtmlParser(this.props.literals[str1])}</div>;
 		}
 	}
 	sourceContent(str1,str2,str3){
@@ -48,7 +48,7 @@ class AdviceSection extends Component
 	render()
 	{	
 		return(
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
+				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid">
 					<div className="container horizontal-nopadding">                         
 							<div className="text-advice left-text col-md-8 col-sm-8 col-xs-12  nopadding">
 								<h1 className="main-color left-text title--section">

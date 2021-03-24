@@ -126,7 +126,7 @@ class Header extends Component
 			// The element has children, so it needs to open
 			return (								
 				<a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" target="_self" aria-expanded="false" tabIndex={pMenuElement.tabindex}>
-					<span>{this.props.literals[pMenuElement.name]}</span>
+					<span>{this.props.literals[pMenuElement.name]} </span>
 					<i className="fa fa-angle-down" aria-hidden="true"></i>
 				</a>
 			);
