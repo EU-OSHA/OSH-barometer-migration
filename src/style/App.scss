@@ -792,8 +792,8 @@ and (orientation : portrait){
     text-align: right;
     background: $gray-lighter;
     position: fixed;
-    bottom: 3px;
-    right: 3px;
+    bottom: 7rem;
+    right: 2rem;
     z-index: 999999;
     a{
       padding: 0px;
@@ -805,6 +805,7 @@ and (orientation : portrait){
       line-height: 1rem;
       right: 0px;
       position: relative;
+      cursor: pointer;
       &:before{
         content: "\f106";
         font-family: FontAwesome;
@@ -816,8 +817,7 @@ and (orientation : portrait){
         top: 1.3rem;    
       }
       &:hover{
-        //color:$black;
-        //background:$orange;
+        background:$orange;
       }
     }
   }
