@@ -137,7 +137,7 @@ const EconomicSectorProfile = (props) => {
 								<div className="chart--wrapper">
 
 								<EmploymentRate
-									title='Employment Rate2'
+									title='Employment Rate'
 									colors={['orange','blue','grey']}
 									showDataLabel={true}
 									tick={20}
