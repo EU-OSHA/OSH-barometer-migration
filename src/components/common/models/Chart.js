@@ -73,38 +73,7 @@ class Chart extends Component {
 						}
 					}
 				},
-				series: [
-					//{
-					
-				// 	//pointPadding: 0.25,
-				// 	//borderColor: 'transparent',
-				// 	//borderWidth: 0,
-				// 	data: [{
-	
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:0.8
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	},
-				// 	]
-				// }
-				]
+				series: [ ]
 			}
 		}
 	}
@@ -121,9 +90,7 @@ class Chart extends Component {
 
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.countryCode)
-					}
-
-					
+					}//console.log(categories)
 					
 					let split = element.split;
 					if (!(split in auxSeries)) {
@@ -131,15 +98,12 @@ class Chart extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-					if ( split == null){
-						split = element.countryCode
-					   //split.push(split)
-					  // console.log("nuevo split",split)
-					}
-						
-					 
-					
+					//console.log(auxSeries[split])
 
+// 					pues imagino que sera lo mismo que lo que tiene arriba, solamente en este caso si el split viene vacio.
+// haces el array asociativo de split in auxSeries.
+// pero en vez de pasarle el element.value, le pasas el element.countryCode
+						
 					//auxSeries[split].push(split)
 					//console.log(categories)
 					
@@ -149,7 +113,7 @@ class Chart extends Component {
 		for (let serie in auxSeries) {
 			
 			series.push({ name: serie , data: auxSeries[serie] })
-			console.log(auxSeries[serie])
+			//console.log(categories)
 		}
 
 		this.setState({

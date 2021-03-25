@@ -2,10 +2,10 @@ import React, { Component, useState,useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser'
 
 import Methodology from '../common/Methodology';
-import EmploymentPerSector from './EmploymentPerSector'
+import EmploymentRate from './EmploymentRate'
 import SelectEconomic from '../common/models/SelectEconomic';
 import Chart from '../common/models/Chart'
-import ChartHuman from '../common/models/ChartHuman'
+//import ChartHuman from '../common/models/ChartHuman'
 
 const EconomicSectorProfile = (props) => {
 
@@ -136,8 +136,8 @@ const EconomicSectorProfile = (props) => {
 
 								<div className="chart--wrapper">
 
-								<Chart
-									title='Employment Rate'
+								<EmploymentRate
+									title='Employment Rate2'
 									colors={['orange','blue','grey']}
 									showDataLabel={true}
 									tick={20}
@@ -227,7 +227,7 @@ const EconomicSectorProfile = (props) => {
 
 								{/* <h2 className="title--card  ">Income per capita</h2> */}
 								<div className="chart--wrapper">
-								<Chart
+								<EmploymentRate
 									title='Income per capita'
 									colors={['orange','aqua','grey','green','grey']}
 									showDataLabel={true}

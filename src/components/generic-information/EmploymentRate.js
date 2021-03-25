@@ -3,85 +3,13 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import axios from 'axios';
+import { getChartData } from '../../api';
 
-
-
-//const userContext = useContext(UserContext)
-const euColor = 'red';
+const euColor = 'blue';
 const country1Color = '#ffae00';
-const country2Color = '';
-
-
-const fetchData = (pais1) => {
-	const url = `http://89.0.4.28:8080/barometer-data-server/api/quantitative/getChartData?chart=20089&indicator=31`
-
-	const res = axios.get(`${url}&country1=${pais1}&country2=`
-		).then((res) => {
-			//console.log(res)
-			return res.data
-
-		}).then((data) => {
-			//console.log(data.resultset[10].split)
-			//const prueba = data.resultset.forEach(element =>console.log(element.country))
-			//console.log(data.resultset[2].country)
-		})
-			console.log(res)
-
-// ************************************************			
-	// 	{
-	// 	params:{country:pais1},
-	// 	paramsSerializer: params => {
-	// 		let urlparams = new URLSearchParams();
-
-	// 		console.log(pais1)
-	// 		if (params.country){
-	// 			urlparams.append('country',params.country)
-	// 		}
-	// 		console.log(urlparams)
-	// 		return urlparams
-
-	// 	}
-
-	// }).then((data)=>{
-	// 	console.log(data.data)
-	// 	return data.data
-	// }).catch((e)=>{
-	// 	console.log(e)
-	// })
-	// res.then((response)=>{
-	// 	console.log(response)
-	// }
-
-}
-
-
-const fetchData2 = (pais1,pais2) => {
-	const url = `http://89.0.4.28:8080/barometer-data-server/api/quantitative/getChartData?chart=20089&indicator=31`
-
-	const res = axios.get(`${url}&country1=${pais1}&country2=${pais2}`
-		).then((res) => {
-			//console.log(res)
-			return res.data
-
-		}).then((data) => {
-			//console.log(data.resultset)
-		})
-		//	console.log(res)
-	
-
-}
-
-
-
-
-
 class EmploymentRate extends Component {
 	constructor(props) {
-
 		super(props);
-		//console.log('props', this.props);
-		//this.loadData = this.loadData.bind(this);
 
 		this.state = {
 			chartConfig: {
@@ -94,6 +22,7 @@ class EmploymentRate extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
+					height:500,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
@@ -101,6 +30,10 @@ class EmploymentRate extends Component {
 					enabled: true
 				},
 				plotOptions: {
+					series: {
+						stacking: this.props.stacking
+
+					},
 					bar: {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
@@ -108,10 +41,19 @@ class EmploymentRate extends Component {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
 							}
 						}
+					},
+					line: {
+						dataLabels: {
+							enabled: this.props.showDataLabel === true ? true : false,
+							formatter: function () {
+								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+							}
+						}
 					}
 				},
 				xAxis: {
-					// categories: ['EU27_2020', 'AT'],
+
+					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -127,71 +69,95 @@ class EmploymentRate extends Component {
 					}
 				},
 				yAxis: {
-					categories: ['EU27_2020', 'AT'],
+					 
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value} %' : '{value}',
+						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
 						style: {
 							fontWeight: 'bold'
 						}
 					}
 				},
-				series: [{
-					name: "EU27_2020",
-					data: [78]
-				}, {
-					name: "AT",
-					data: [45]
-				}]
+				series: [ ]
 			}
 		}
 	}
 
+	getLoadData = (chart, indicator, country1, country2) => {
+		let categories = [];
+		let auxSeries = [];
+		let series = [];
+		let split =[];
+		let value=[];
 
-	componentDidUpdate(prevState, prevProps) {
-		if (prevState.chartConfig !== this.state.chartConfig) {
-			//console.log(this.state)
-				
+		getChartData(chart, indicator, country1, country2)
+			.then((res) => {
+				res.resultset.forEach(element => {
+
+					//console.log(res.resultset)
+					if (categories.indexOf(element.countryCode) == -1 ){
+					categories.push(element.countryCode)
+					console.log(categories)
+							}
+
+					let split = element.countryCode;
+					 if (!(split in auxSeries)) {
+						auxSeries[split] = []
+						
+					 }
+					 auxSeries[split].push(element.value)	
+					
+					// if (categories.indexOf(element.countryCode) == -1) {
+					// 	categories.push(element.countryCode)
+					// }//console.log(categories)
+					
+					// let split = element.split;
+					//  if (!(split in auxSeries)) {
+					// 	auxSeries[split] = []
+						
+					//  }
+					//  auxSeries[split].push(element.value)
+					 //console.log(split)
+			
+
+// 					pues imagino que sera lo mismo que lo que tiene arriba, solamente en este caso si el split viene vacio.
+// haces el array asociativo de split in auxSeries.
+// pero en vez de pasarle el element.value, le pasas el element.countryCode
+					
+				});
+					
+		for (let serie in auxSeries) {
+			
+			series.push({ name: serie , data: auxSeries[serie] })
+			//console.log(categories)
 		}
 
-
-		if (prevProps.pais1 !== this.props.pais1) {
-			fetchData(this.props.pais1)
-
-		}
-		if (prevProps.pais2 !== this.props.pais2) {
-			fetchData2(this.props.pais2)
-
-		}
-
-
+		this.setState({
+			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis}, series}
+		})
+	});
+		
 	}
 
-	 loadData = () => {
-		// userContext.handleSelect();
-		//console.log('this.state.chartConfig.', this.state);
-		//console.log(this.handleSearch)
-		this.setState(
-			{
-				chartConfig: {
-					xAxis: {
-						categories: [""+this.props.pais1+"", ""+this.props.pais2+"", "EU27_2020"]
-					},
-					series: this.state.chartConfig.series.concat([{ name: ""+this.props.pais1+"", data: [1, 2, 5] }])
-				}
-			});
+	componentDidMount() {
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.pais1 != this.props.pais1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+
+		if (prevProps.pais2 != this.props.pais2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
 	}
 
 	render() {
-		// const {value} = this.props
-		// console.log(value);
-
-		//console.log("this.state.chartConfig", this.state.chartConfig);
-
 		// There is a known bug with the Full Screen option, when exiting the chart takes the full height and width of the screen
 		// In order to fix it, add a className to the Highcharts element in the containerProps and set a fixed height (in pixels) in the CSS
 		// Do not set the height of the chart in the options. If so, when going full screen, it will only take the height configured in the options
@@ -202,13 +168,7 @@ class EmploymentRate extends Component {
 					options={this.state.chartConfig}
 					containerProps={{ className: 'chartContainer' }}
 				/>
-				<button onClick={this.loadData.bind(this)}>Update</button>
-				<div>
-					{this.props.pais1}-
-					{this.props.pais2}
-				</div>
 			</div>
-
 		)
 	}
 }
