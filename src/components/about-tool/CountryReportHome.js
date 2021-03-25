@@ -64,9 +64,11 @@ class CountryReportHome extends Component
 
 	filterCountries = () => {
 		if (this.state.alphabetFiltered.length == 0) {
-			this.setState({ countriesFiltered: this.state.countries });
+			const sortedCountries = [...this.state.countries].sort((a, b) => a.name < b.name ? -1 : 1);
+			this.setState({ countriesFiltered: sortedCountries });
 		} else {
-			const countriesFiltered = this.state.countries
+			const countriesFiltered = [...this.state.countries]
+				.sort((a, b) => a.name < b.name ? -1 : 1)
 				.filter((country) => this.state.alphabetFiltered.find((letter) => letter == country.name.charAt(0)))
 				.map((filteredCountries) => {
 					return filteredCountries
