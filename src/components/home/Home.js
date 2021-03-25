@@ -60,7 +60,7 @@ class Home extends Component
 			}
 			hideControls(numItems);
 
-			$('.carousel-showmanymoveone .item').each(function(){      
+			$('.carousel-showmanymoveone .carousel-item').each(function(){      
 				var itemToClone = $(this);	
 				$('>div.cloned',this).remove();					
 
@@ -199,7 +199,8 @@ class Home extends Component
 						</div>
 					</div>
 					<Carousel className="carousel-showmanymoveone" id="carousel" data-interval="false">
-						<Carousel.Item className="item">
+					{/* <Carousel slide> */}
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})">
@@ -220,7 +221,7 @@ class Home extends Component
 								</p>
 							</div>
 						</Carousel.Item>
-						<Carousel.Item className="item">
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card national-icon" to="national-strategies">
@@ -245,7 +246,7 @@ class Home extends Component
 								</p>
 							</div>
 						</Carousel.Item>
-						<Carousel.Item className="item">
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})">
@@ -266,7 +267,7 @@ class Home extends Component
 								</p>
 							</div>
 						</Carousel.Item>
-						<Carousel.Item className="item">
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card statistics-icon" to="osh-statistics">
@@ -291,7 +292,7 @@ class Home extends Component
 								</p>
 							</div>
 						</Carousel.Item>
-						<Carousel.Item className="item">
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card working-conditons-icon" to="working-conditions">
@@ -310,7 +311,7 @@ class Home extends Component
 								</p>
 							</div>
 						</Carousel.Item>
-						<Carousel.Item className="item">
+						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 								<div className="content">
 									<Link className="icon--card people-group-icon" to="workforce-profile">
@@ -330,6 +331,7 @@ class Home extends Component
 							</div>
 						</Carousel.Item>
 					</Carousel>
+
 				</section>
 				{/* CARROUSEL HOME */}
 
