@@ -23,7 +23,7 @@ class SocialDialogue extends Component
 		}
 	}
 
-	sortArray(countriesData){
+	/* sortArray(countriesData){
 		var sortedArray = []
 
 		countriesData.resultset.filter(country => country.countryCode != "EU27_2020").map(filteredCountry => {
@@ -39,7 +39,7 @@ class SocialDialogue extends Component
 		this.setState({
 			countriesData: sortedArray
 		})
-	}
+	} */
 
 	componentDidMount(){
 		// Open a listener for and mousedown event on body page to close any of the dropdowns
@@ -53,7 +53,11 @@ class SocialDialogue extends Component
 				res.resultset.filter(country => country.countryCode === 'EU27_2020').map(filteredCountry => {
 					this.setState({euData: filteredCountry});
 				})
-				this.sortArray(res);
+				
+				// Set the array with the countries as the array without EU27_2020
+				this.setState({
+					countriesData: res.resultset.filter(country => country.countryCode != 'EU27_2020')
+				})
 			});
 	}
 
@@ -62,7 +66,11 @@ class SocialDialogue extends Component
 		if (prevState.filters != this.state.filters) {
 			getSocialDialogueData(this.state.filters)
 				.then((res) => {
-					this.sortArray(res);
+				
+					// Set the array with the countries as the array without EU27_2020
+					this.setState({
+						countriesData: res.resultset.filter(country => country.countryCode != 'EU27_2020')
+					})
 				})
 		}
 	}
