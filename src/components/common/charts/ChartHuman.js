@@ -5,9 +5,9 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
-const euColor = 'blue';
+const euColor = 'red';
 const country1Color = '#ffae00';
-class Chart extends Component {
+class ChartHuman extends Component {
 	constructor(props) {
 		super(props);
 
@@ -22,16 +22,12 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					type: 'bar',
+					height:500,
+					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true,
-					buttons: {
-						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
-						}
-					}
+					enabled: true
 				},
 				plotOptions: {
 					series: {
@@ -77,38 +73,41 @@ class Chart extends Component {
 						}
 					}
 				},
-				series: [
-					//{
-					
-				// 	//pointPadding: 0.25,
-				// 	//borderColor: 'transparent',
-				// 	//borderWidth: 0,
-				// 	data: [{
-	
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:0.8
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	},
-				// 	]
-				// }
-				]
+				series: [{
+					type: 'column',
+					pointPadding: 0.25,
+					borderColor: 'transparent',
+					borderWidth: 0,
+					data: [{
+						name: 'AT',
+						y: 300,
+						color: {
+							pattern: {
+								image: 'human-orange.svg',
+								//aspectRatio:0.8
+							}
+						}
+					}, {
+						name: 'BE',
+						y: 180,
+						color: {
+							pattern: {
+								image: 'human-green.svg',
+								//aspectRatio:1.4
+							}
+						}
+					}, {
+						name: 'EU27_2020',
+						y: 120,
+						color: {
+							pattern: {
+								image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131210/Highsoft_04045_.jpg',
+								//aspectRatio:1.4
+							}
+						}
+					},
+					]
+				}]
 			}
 		}
 	}
@@ -117,7 +116,6 @@ class Chart extends Component {
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
-		
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
@@ -126,39 +124,25 @@ class Chart extends Component {
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.countryCode)
 					}
-
-					
-					
-					let split = element.split;
+					let split = element.countryCode;
 					if (!(split in auxSeries)) {
 						auxSeries[split] = []
-						
-					}auxSeries[split].push(element.value)
-					 
-					if ( split == null){
-						split = element.countryCode
-					   //split.push(split)
-					  // console.log("nuevo split",split)
 					}
-						
-					 
+					// else if (element.split == null) {
+					// 	split = element.value
+					// 	//console.log("esta funcion aplica")
+					// }
 					
-
-					//auxSeries[split].push(split)
-					//console.log(categories)
-					
-					//console.log(` ${split}`)
+					auxSeries[split].push(element.value)
 				});
 					
 		for (let serie in auxSeries) {
-			
-			series.push({ name: serie , data: auxSeries[serie] })
-			console.log(auxSeries[serie])
+			series.push({ name: serie, data: auxSeries[serie] })
 		}
 
-		this.setState({
-			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-		})
+		// this.setState({
+		// 	chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series: { color: { pattern: { image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131210/Highsoft_04045_.jpg'}}},}
+		// })
 	});
 		
 	}
@@ -193,4 +177,4 @@ class Chart extends Component {
 	}
 }
 
-export default Chart;
+export default ChartHuman;

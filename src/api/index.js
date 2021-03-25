@@ -68,6 +68,24 @@ export function getOSHData(dataPage, filters) {
     return response
 }
 
+// get data for the charts
+export function getChartData(chart, indicator, country1, country2) {
+    const URL = `${BASEURL}quantitative/getChartData`
+
+    const response = axios.get(URL, {
+        params: {
+            chart,
+            indicator,
+            country1,
+            country2
+        },        
+    }).then((res) => {
+        return res.data
+    })
+
+    return response;
+}
+
 export function getIndicatorCountries(chart = '20012') {
     const URL = `${BASEURL}countries/getIndicatorCountries`
 
