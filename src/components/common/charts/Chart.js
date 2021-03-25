@@ -18,19 +18,24 @@ class Chart extends Component
 		this.state = {
 			chartConfig: {
 				title: {
-						text: this.props.title,
-						align: 'left'
+					text: this.props.title,
+					align: 'left'
 				},
 				credits: {
 					enabled: false
 				},
 				colors: this.props.colors,
 				chart: {
-						type: 'bar',
-						backgroundColor: '#F0F0F0'
+					type: 'bar',
+					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-						enabled: true
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+						}
+					}
 				},
 				plotOptions: {
 					bar: {
