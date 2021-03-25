@@ -95,6 +95,13 @@ class Home extends Component
 				});
 			}
 		});
+
+		var previousBtn = $("#carousel .carousel-control-prev")[0].outerHTML;
+		var nextBtn = $("#carousel .carousel-control-next")[0].outerHTML;
+		$("#carousel .carousel-control-next,#carousel .carousel-control-prev").wrapAll('<div class="carousel-control-group"></div>');
+		$( "#carousel .carousel-control-group" ).appendTo( $( ".discover--charts--section" ) );
+
+
 	}
     // function to trim the passed text
 	truncateText = (str, limitNumber) => {	
@@ -188,17 +195,9 @@ class Home extends Component
 				{/* CARROUSEL HOME */}
 				<section className=" section--page carrousel-items background-main-lighter">
 					<div className="container discover--charts--section">
-						<h2 className="title-section main-color"></h2>
-						<div className="carousel-control-group carousel-indicators">
-							<Link className="left carousel-control carousel-control-prev" to="#" data-slide="next">
-								<i className="fa fa-angle-right" aria-hidden="true"></i>
-							</Link>
-							<Link className="right carousel-control carousel-control-next" to="#" data-slide="prev">
-								<i className="fa fa-angle-left" aria-hidden="true"></i>
-							</Link>
-						</div>
+						<h2 className="title-section main-color">{this.props.literals.L22119}</h2>
 					</div>
-					<Carousel className="carousel-showmanymoveone" id="carousel" data-interval="false">
+					<Carousel slide className="carousel-showmanymoveone" id="carousel" interval={null}>					
 					{/* <Carousel slide> */}
 						<Carousel.Item className="carousel-item">
 							<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
