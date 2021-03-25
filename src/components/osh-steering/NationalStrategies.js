@@ -34,7 +34,7 @@ class NationalStrategies extends Component
 		getNationalStrategiesCountries()
 			.then((res) => {
 				// this.setState({ countries: res.resultset });
-				this.setState({countries: res.resultset});
+				this.setState({countries: res.resultset.sort((a, b) => a.name < b.name ? -1 : 1)});
 				this.filterCountries();
 				this.createLetterNavigation();
 			})
@@ -64,11 +64,11 @@ class NationalStrategies extends Component
 		if(this.state.alphabetFiltered.length === 0){
 			temporalArray = this.state.countries;
 
-			temporalArray.sort(function (a, b) {
+			/*temporalArray.sort(function (a, b) {
 				if (a.name < b.name) return -1;
 				else if (a.name > b.name) return 1;
 				return 0;
-			});
+			});*/
 			
 			// this.setState({countriesFiltered: temporalArray});
 			// console.log('No countries filtered. Showing all countries');
@@ -77,11 +77,11 @@ class NationalStrategies extends Component
 				temporalArray.push(filteredCountry);
 			});
 
-			temporalArray.sort(function (a, b) {
+			/*temporalArray.sort(function (a, b) {
 				if (a.name < b.name) return -1;
 				else if (a.name > b.name) return 1;
 				return 0;
-			});
+			});*/
 
 			// this.setState({countriesFiltered: temporalArray});
 		}
