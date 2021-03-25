@@ -3,18 +3,18 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-require('highcharts/modules/pattern-fill')(Highcharts);
-import { getChartData } from '../../../api'
+import { getChartData } from '../../../api';
+
 const euColor = 'blue';
 const country1Color = '#ffae00';
-class ChartHuman extends Component {
+class EmploymentRate extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			chartConfig: {
 				title: {
-					title: this.props.title,
+					text: this.props.title,
 					align: 'left'
 				},
 				colors: this.props.colors,
@@ -42,7 +42,7 @@ class ChartHuman extends Component {
 						},
 						grouping: false
 					},
-					bar: {
+					line: {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -105,18 +105,7 @@ class ChartHuman extends Component {
 						//console.log('value',element.value);
 						series.push({
 			  				name: element.country,
-							type: 'column',
-							pointWidth: 110,
-							pointPadding: 0.25,
-        					borderColor: 'transparent',
-        					borderWidth: 0,
-							data: [{name:element.countryCode, y: element.value, x: i, 
-								color: {
-									pattern: {
-										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
-										//aspectRatio:0.8
-									}
-								}}]
+							data: [{name:element.countryCode, y: element.value, x: i}]
 						});
 						i++;
 					}					
@@ -159,4 +148,4 @@ class ChartHuman extends Component {
 	}
 }
 
-export default ChartHuman;
+export default EmploymentRate;

@@ -3,46 +3,42 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-require('highcharts/modules/pattern-fill')(Highcharts);
-import { getChartData } from '../../../api'
-const euColor = 'blue';
+import { getChartData } from '../../../api';
+
+const euColor = 'black';
 const country1Color = '#ffae00';
-class ChartHuman extends Component {
+class IncomerPercapital extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			chartConfig: {
 				title: {
-					title: this.props.title,
+					text: this.props.title,
 					align: 'left'
 				},
-				colors: this.props.colors,
 				credits: {
-					enabled: false,
+					enabled: false
 				},
+				colors: this.props.colors,
 				chart: {
-					height: 500,
+					height:500,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true,
+					enabled: true
 				},
+				// tooltip: {
+				// 	headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {}</b><br/>',
+				// 	pointFormat: '<b> Income </b> {point.y} €'
+				// },
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
+
 					},
-					bar: {
-						dataLabels: {
-							enabled: this.props.showDataLabel === true ? true : false,
-							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
-							}
-						},
-						grouping: false
-					},
-					bar: {
+					line: {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -51,10 +47,12 @@ class ChartHuman extends Component {
 						}
 					}
 				},
-				xAxis: {					
+				xAxis: {
+					
+					categories: [this.props.data?.categories],
 					labels: {
 						formatter: function () {
-							if ([this.value] == 'EU27_2020') {
+							if ([this.value] != 'EU27_2020') {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
 							}
 							else {
@@ -64,8 +62,7 @@ class ChartHuman extends Component {
 						style: {
 							fontWeight: 'bold'
 						}
-					},
-					type: 'category'
+					}
 				},
 				yAxis: {
 					max: this.props.yAxisMax,
@@ -80,7 +77,7 @@ class ChartHuman extends Component {
 						}
 					}
 				},
-				series: []
+				series: [ ]
 			}
 		}
 	}
@@ -89,41 +86,34 @@ class ChartHuman extends Component {
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
-		let split =[];
-		let value=[];
+
+		
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
-				//console.log('res',res.resultset);
-				let i = 0;
 				res.resultset.forEach(element => {
-
-					if (element.split == null)
-					{
-						// There is no split, series and the categories will be the same
-						//console.log('country', element.countryCode);
-						//console.log('value',element.value);
-						series.push({
-			  				name: element.country,
-							type: 'column',
-							pointWidth: 110,
-							pointPadding: 0.25,
-        					borderColor: 'transparent',
-        					borderWidth: 0,
-							data: [{name:element.countryCode, y: element.value, x: i, 
-								color: {
-									pattern: {
-										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
-										//aspectRatio:0.8
-									}
-								}}]
-						});
-						i++;
-					}					
+						//console.log(res.resultset)
+					if (categories.indexOf(element.split) == -1) {
+						categories.push(element.split)
+					}console.log(categories)
+					
+					let split = element.country;
+					if (!(split in auxSeries)) {
+						auxSeries[split] = []
+						
+					}auxSeries[split].push(element.value)
+					 
+					console.log(auxSeries)
 				});
+					
+		for (let serie in auxSeries) {
+			
+			series.push({ name: serie , data: auxSeries[serie] })
+			//console.log(categories)
+		}
 
 		this.setState({
-			chartConfig: {...this.state.chartConfig,  series}
+			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
 		})
 	});
 		
@@ -159,4 +149,4 @@ class ChartHuman extends Component {
 	}
 }
 
-export default ChartHuman;
+export default IncomerPercapital;

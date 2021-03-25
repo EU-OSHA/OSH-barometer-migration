@@ -98,16 +98,6 @@ class Chart extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-					//console.log(auxSeries[split])
-
-// 					pues imagino que sera lo mismo que lo que tiene arriba, solamente en este caso si el split viene vacio.
-// haces el array asociativo de split in auxSeries.
-// pero en vez de pasarle el element.value, le pasas el element.countryCode
-						
-					//auxSeries[split].push(split)
-					//console.log(categories)
-					
-					//console.log(` ${split}`)
 				});
 					
 		for (let serie in auxSeries) {

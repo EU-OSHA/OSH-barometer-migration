@@ -2,10 +2,11 @@ import React, { Component, useState,useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser'
 
 import Methodology from '../common/Methodology';
-import EmploymentRate from './EmploymentRate'
+import EmploymentRate from '../common/models/EmploymentRate'
 import SelectEconomic from '../common/models/SelectEconomic';
 import Chart from '../common/models/Chart'
-//import ChartHuman from '../common/models/ChartHuman'
+import ChartHuman from '../common/models/ChartHuman';
+import IncomerPercapital from '../common/models/IncomePerCapita'
 
 const EconomicSectorProfile = (props) => {
 
@@ -138,7 +139,7 @@ const EconomicSectorProfile = (props) => {
 
 								<EmploymentRate
 									title='Employment Rate'
-									colors={['orange','blue','grey']}
+									colors={['blue','orange','grey']}
 									showDataLabel={true}
 									tick={20}
 									percentage={true}
@@ -181,9 +182,9 @@ const EconomicSectorProfile = (props) => {
 								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
 
 								<div className="chart--wrapper">
-								<Chart
+								<ChartHuman
 									title='GDP per capita in ralation to EU27_2020 average'
-									colors={['orange','blue','grey']}
+									colors={['blue','orange','grey']}
 									showDataLabel={true}
 									//tick={20}
 									percentage='ft'
@@ -227,7 +228,7 @@ const EconomicSectorProfile = (props) => {
 
 								{/* <h2 className="title--card  ">Income per capita</h2> */}
 								<div className="chart--wrapper">
-								<EmploymentRate
+								<IncomerPercapital
 									title='Income per capita'
 									colors={['orange','aqua','grey','green','grey']}
 									showDataLabel={true}
