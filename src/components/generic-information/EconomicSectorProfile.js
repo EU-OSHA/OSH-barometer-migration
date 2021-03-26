@@ -93,7 +93,7 @@ class EconomicSectorProfile extends Component
 						</ul>
 					</form>
 				</div>
-
+				<div class="line background-main-light"></div>
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">
 						{/* CONTENT */}{/* COMPANY SIZE */}
