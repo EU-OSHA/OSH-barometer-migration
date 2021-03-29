@@ -1,6 +1,8 @@
 import React, { Component, useState,useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser'
 import Methodology from '../common/Methodology';
+import AdviceSection from '../common/AdviceSection';
+import Related from '../common/Related';
 import EmploymentRate from '../common/charts/EmploymentRate'
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
@@ -8,6 +10,8 @@ import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita'
 
 const EconomicSectorProfile = (props) => {
+
+	console.log('props', props);
 	
 	const [pais1,setPais1]=useState(props.country1);
 	const [pais2,stePais2]=useState("");
@@ -60,7 +64,7 @@ const EconomicSectorProfile = (props) => {
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
 
 				<div className="compare--block container">
 					{/* FILTERS */}
@@ -286,7 +290,7 @@ const EconomicSectorProfile = (props) => {
 				
 				<Methodology />
 				
-				<Related literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
+				<Related literals={props.literals} section={["generic-information","economic-sector-profile"]} />
 
 			</div>
 			
