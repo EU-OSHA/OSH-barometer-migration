@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
-
-const API_ADDRESS = 'http://89.0.4.28:8080/barometer-data-server/api';
+import images from '../../style/img/flag/images';
+import AdviceSection from '../common/AdviceSection';
+import { getNationalStrategiesCountries } from '../../api';
+const API_ADDRESS = process.env.BASE_URL;
 
 class NationalStrategies extends Component
 {
@@ -30,14 +31,13 @@ class NationalStrategies extends Component
 	}
 
 	componentDidMount(){
-        fetch(`${API_ADDRESS}/countries/getCountriesStrategiesPage?page=STRATEGY`)
-            .then(response => response.json())
-            .then(json => {
-				this.setState({countries: json.resultset});
+		getNationalStrategiesCountries()
+			.then((res) => {
+				// this.setState({ countries: res.resultset });
+				this.setState({countries: res.resultset.sort((a, b) => a.name < b.name ? -1 : 1)});
 				this.filterCountries();
 				this.createLetterNavigation();
-            })
-            .catch(error => console.log(error.message));
+			})
 	}
 
 	resetFilter = () => {
@@ -60,16 +60,33 @@ class NationalStrategies extends Component
 	}
 
 	filterCountries = () => {
+		var temporalArray = [];
 		if(this.state.alphabetFiltered.length === 0){
-			this.setState({countriesFiltered: this.state.countries});
-			console.log('No countries filtered. Showing all countries');
+			temporalArray = this.state.countries;
+
+			/*temporalArray.sort(function (a, b) {
+				if (a.name < b.name) return -1;
+				else if (a.name > b.name) return 1;
+				return 0;
+			});*/
+			
+			// this.setState({countriesFiltered: temporalArray});
+			// console.log('No countries filtered. Showing all countries');
 		}else{
-			var temporalArray = [];
 			this.state.countries.filter(country => this.state.alphabetFiltered.indexOf(country.name.charAt(0)) != -1).map(filteredCountry => {
 				temporalArray.push(filteredCountry);
 			});
-			this.setState({countriesFiltered: temporalArray});
+
+			/*temporalArray.sort(function (a, b) {
+				if (a.name < b.name) return -1;
+				else if (a.name > b.name) return 1;
+				return 0;
+			});*/
+
+			// this.setState({countriesFiltered: temporalArray});
 		}
+
+		this.setState({countriesFiltered: temporalArray});
 	}
 
 	filterAlphabet = (letter) => {
@@ -85,21 +102,7 @@ class NationalStrategies extends Component
 	{
 		return(
 			<div>
-				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page">
-					<div className="container horizontal-nopadding">
-						<div className="text-advice left-text col-md-8 col-sm-8 col-xs-12  nopadding">
-						<h1 className="main-color left-text">{this.props.literals.L22007}</h1>
-						<p>{this.props.literals.L22038}</p>
-						<span>{this.props.literals.L20704} </span> 
-						<span>
-							<Link to="about-tool-detail-page({pSection: 'osh-steering', pSubsection: 'structure_strategy', pIndicator: '46'})">
-							{this.props.literals.L20705}
-							</Link>
-						</span>
-						</div>
-						<div className="icon--advice national-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} />
 
 				<section className="filter--letter--section container">
 					<ul className="filter--letter--list">
@@ -126,9 +129,7 @@ class NationalStrategies extends Component
 								<div className="card--block--rounded national--card--item" key={index}>
 									<div className="resources-item">
 										<p className="nopadding additional-img text-center">
-											<img className="flags--wrapper" src={require('../../style/img/flag/at.png')} alt={country.name} />
-											{/* <img className="flags--wrapper" src={require(`../../style/img/flag/${country.code.toLowerCase()}.png`)} alt={country.name} /> */}
-											{/* <img className="flags--wrapper" ng-src="../../style/img/flag/{{::country.country_code.toLowerCase()}}.png" /> */}
+											<img className="flags--wrapper" src={`${images[country.code.toLowerCase()]}`} alt={country.name} />
 										</p>
 										<h2 className="text-center">{country.name}</h2>
 										<p className="btn--block-full left-text">
@@ -150,5 +151,5 @@ class NationalStrategies extends Component
 		)
 	}
 }
-
+NationalStrategies.displayName = 'NationalStrategies';
 export default NationalStrategies;

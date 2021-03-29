@@ -20,7 +20,10 @@
 	.download-pdf, 
 	#cookiesConsent, 
 	#widthDisclaimer, 
-	.partial-text {
+	.go-to, 
+	.coming-soon, 
+	a[target="_blank"]:after, 
+	.icon--advice {
 	  display: none !important;
 	}
 	.complete-text{
@@ -45,7 +48,7 @@
 
 	@page {
 	  size: auto;
-	  margin:2.5cm; 
+	  margin:1.5cm; 
 
 	}
 	html{
@@ -65,6 +68,12 @@
 	}
 	.container{
 		padding: 0;
+	}
+	a[target="_blank"]{
+		margin-right: 0.1rem;	
+	}
+	.text-advice{
+		padding: 0 !important;
 	}
 
   /** WIDTH CARDS  **/
@@ -104,8 +113,8 @@
 	.bar-header{
 		display: block;
 		position: relative !important;
-    height: auto;
-    margin-top: 2rem;
+		height: auto;
+		margin-top: 2rem;
 		&.hide-header{
 			top: 0rem !important;
 		}
@@ -119,6 +128,12 @@
 			}
 			.osh-barometer-legend{
 				padding-left: 0rem;
+				.main-title{
+					a{
+						padding-left: 0;
+						margin-left: 0;
+					}
+				}
 			}
 		}
 	}
@@ -151,8 +166,8 @@
 			font-family: 'Oswald-light';
 			margin: 2rem 0;
 			padding: 2rem 8rem;
-		  border-top: 1px solid $gray-light;
-		  border-bottom: 1px solid $gray-light;
+			border-top: 1px solid $gray-light;
+			border-bottom: 1px solid $gray-light;
 			&:before{
 				content:'"';
 			}
@@ -166,12 +181,21 @@
 			margin: 2rem 0;
 		}
 	}
-
+	.advice-home{
+		.lead-title {
+			font-size: 2.8rem;
+			padding: 2rem !important;
+			background: #f2f2f2 !important;
+			margin: 2rem 0 0rem;
+			width: 80%;
+		}
+	}
 	.title-section{
 		margin: 1.5rem 0;
 	}
 	.section--page {
 		padding: 0;
+		margin: 1.6rem auto;
 	}
 	.selected--tags-wrapper{
 		.selected-tag{
@@ -179,9 +203,10 @@
 		}
 	}
 	.matrix--elements--wrapper{
+		margin-top: 1rem;
 		.matrix--element {
-			padding: 1rem !important;
-			margin: 1rem 0 !important;
+			padding: 1rem 0 !important;
+			margin: 0rem 0 !important;
 		}
 	} 
 	.economic--sector--profile{
@@ -250,7 +275,9 @@
 			}
 		}
 	}
-
+	.national--card--section{
+		display: none;
+	}
 	.country--profile--page, .regulation {
 		.btn--block-full{
 			display: none;
@@ -327,10 +354,19 @@
 		}
 		.preferences-home{
 			.preferences--lock{
-				margin: 2rem 0;
+				margin: 2rem auto;
+				.title-section{
+					text-align: left !important;
+					margin: 1rem 0 1.6rem;
+				}
+				.preferences-text{
+					text-align: left !important;
+				}
 				form{
+					margin: 1rem 0 !important;
 					.country-selected-wrapper{
 						width: 50% !important;
+						
 					}
 				}
 			}	
@@ -338,21 +374,27 @@
 		.print{
 		  display: block;
 		  overflow: auto;
-    	margin: 2rem 0 4rem;
-    	.item{
-    		> div{
-    			width: 100% !important;
-    		}
-    	}
+    		margin: 2rem 0 4rem;
+			.item{
+				> div{
+					width: 100% !important;
+				}
+			}
+		}
+		.discover--charts--section{
+			.title-section{
+				text-align: left !important;
+				width: 100%;
+			}
 		}
 		.carousel-control-group{
 			display: none;
 		}
 		.carousel-showmanymoveone{
-			display: none;
+			//display: none;
 			.carousel-inner{
 				padding: 0;
-				> .item{
+				> .carousel-item{
 					display: none;
 					&.active{
 						display: block;
@@ -363,8 +405,11 @@
 						min-height: auto;
 						width: 100%;
 						.content{
-							padding: 1rem;
-							min-height: initial;
+							padding: 0;
+    						min-height: auto;
+							.title--card{
+								min-height: auto;
+							}
 						}
 						.btn--card--carousel{
 							display: none;
@@ -377,8 +422,9 @@
 	    display: none;
 		}
 		.section--our--methodology{
-			padding:1.5rem;
-			display: block;
+			padding:1.5rem 0;
+			display: flex;
+			flex-direction: column-reverse;
 			.agencies--logos--block{
 				width: 100%;
 				padding:0;
@@ -409,6 +455,12 @@
 			.content-methodology{
 				width: 100%;
 				padding:0;
+				h2 {
+					font-family: "Oswald";
+				}
+				.btn--wrapper{
+					display: none;
+				}
 			}
 		} 
 	}

@@ -27,7 +27,12 @@ class Chart extends Component {
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+						}
+					}
 				},
 				legend:{
 					//reversed: this.props.legend

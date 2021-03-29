@@ -1,11 +1,11 @@
 import React, { Component, useState,useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser'
 import Methodology from '../common/Methodology';
-import EmploymentRate from '../common/models/EmploymentRate'
-import SelectEconomic from '../common/models/SelectEconomic';
-import Chart from '../common/models/Chart'
-import ChartHuman from '../common/models/ChartHuman';
-import IncomerPercapital from '../common/models/IncomePerCapita'
+import EmploymentRate from '../common/charts/EmploymentRate'
+import SelectEconomic from '../common/select-filters/SelectEconomic';
+import Chart from '../common/charts/Chart'
+import ChartHuman from '../common/charts/ChartHuman';
+import IncomerPercapital from '../common/charts/IncomePerCapita'
 
 const EconomicSectorProfile = (props) => {
 	
@@ -58,18 +58,9 @@ const EconomicSectorProfile = (props) => {
 	}
 
 		return(
-			<div>
-				<section id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
-					<div className="container horizontal-nopadding">
-						<div className="left-text col-md-8 col-sm-8 col-xs-12 nopadding">
-							<h1 className="main-color left-text ng-binding">{ReactHtmlParser(props.literals.L22003)}</h1>
-							<p className="ng-binding">
-							{ReactHtmlParser(props.literals.L22028)}
-							</p><span className="ng-binding">c  {ReactHtmlParser(props.literals.L20704)}</span> <span><a className="ng-binding" href="#!/about-the-system/methodology">{ReactHtmlParser(props.literals.L20705)}</a></span>
-						</div>
-						<div className="icon--advice economic-chart-icon hide-mobile col-sm-4 col-md-4"></div>
-					</div>
-				</section>
+			<div className="economic--sector--profile">
+
+				<AdviceSection literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 
 				<div className="compare--block container">
 					{/* FILTERS */}
@@ -80,6 +71,7 @@ const EconomicSectorProfile = (props) => {
 					</form>
 					
 				</div>
+				<div class="line background-main-light"></div>
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">
 						{/* CONTENT */}{/* COMPANY SIZE */}
@@ -293,38 +285,13 @@ const EconomicSectorProfile = (props) => {
 				</section>
 				
 				<Methodology />
-
-				<section className="container-full section--page section--related--content ng-isolate-scope" items="relatedItems">
-					<div className="container related--content--wrapper">
-						<h2 className="title-related-content ng-binding" >{ReactHtmlParser(props.literals.L20712)}</h2>
-						<div className="related-content-items">
-							{/*  ngRepeat: item in items */}
-							<div className="related-content-item ng-scope">
-								<div className="icon-related-item hide-mobile people-group-icon" ></div>
-								<div className="content-related-item">
-								<h3 className="title-related-item ng-binding" >Workforce profile</h3>
-								<p className="text-related-item ng-binding" >This indicator includes a few key data on ageing workers and the workforce:<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" href="#!/generic-information/workforce-profile/median-age/ageing-workers">See more</a></p>
-								</div>
-							</div>
-							{/* end ngRepeat: item in items */}
-							<div className="related-content-item ng-scope">
-								<div className="icon-related-item hide-mobile prevention-icon" ></div>
-								<div className="content-related-item">
-								<h3 className="title-related-item ng-binding" >Prevention in companies</h3>
-								<p className="text-related-item ng-binding" >This indicator visualises data on how OSH is implemented on company/enterprise<span className="dots">...</span></p>
-								<p className="button-related-item btn--block-full left-text"><a className="btn-default btn-main-color" href="#!/osh-outcomes-working-conditions/prevention-companies/risk-assessment/sector">See more</a></p>
-								</div>
-							</div>
-							{/*  end ngRepeat: item in items */}
-						</div>
-					</div>
-				</section>
+				
+				<Related literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 
 			</div>
 			
 		)
-	}
-
-
+	
+}
+EconomicSectorProfile.displayName = 'EconomicSectorProfile';
 export default EconomicSectorProfile;

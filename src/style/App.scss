@@ -16,14 +16,26 @@
 @import './base/regulation.scss';
 @import './base/social-dialogue.scss';
 
+/****** OSH outcomes and working conditions ******/
+@import './base/health-perception-of-workers.scss';
+@import './base/mental-risk.scss';
+@import './base/osh-culture.scss';
+@import './base/overall-opinion.scss';
+@import './base/physical-risk.scss';
+@import './base/prevention-companies.scss';
+@import './base/work-accidents.scss';
+@import './base/worker-involvement.scss';
+@import './base/working-conditions.scss';
+
 /****** ABOUT THE SYSTEM ******/
 @import './base/about-tool.scss';
 @import './base/country-report.scss';
 @import './base/country-report-home.scss';
 
-
-
 @import  './base/responsive.scss';
+@import './base/print.scss';
+
+
 
 .home{
   .help-text{
@@ -182,6 +194,7 @@
     }
 }
 
+
 .discover--charts--section{
   display: flex;
   justify-content:space-around;
@@ -194,31 +207,44 @@
   .carousel-control-group{
     position: relative;
     min-height: 4rem;
+    width: 8rem;
+    display: flex;
     @media screen and (max-width:767px){
       display: flex;
-      flex-direction: row-reverse;
+      //flex-direction: row-reverse;
       justify-content: center;
       a{
         position: relative;
       }
     }
-    .carousel-control{
+    > a{
       width: 4rem;
       height: 4rem;
       background-image: none;
       padding: 0.5rem;
       text-shadow:none !important;
-      &.left{        
+      position: relative;
+      &.carousel-control-prev{        
         background: $aquamarine;
         color: $white;
         margin-left: 0;
         opacity: 1;
       }
-      &.right{
+      &.carousel-control-next{
         background: $white;
         color: $aquamarine;
         margin-right: 0;
         opacity: 1;
+        .carousel-control-next-icon{
+          background-color: $aquamarine;
+          background-image: none;
+          -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
+          -webkit-mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
+          mask-repeat: no-repeat;
+          mask-size: contain;
+        }
       }
       &:hover{
         background: $orange;
@@ -228,7 +254,7 @@
 }
 .carousel-showmanymoveone{
   .carousel-inner{
-    .item{
+    .carousel-item{
       //position: relative;
       .icon--card {
         height: 8rem;
@@ -241,7 +267,7 @@
         margin-top: auto;
       }
     }
-    .item{
+    .carousel-item{
       > div{
         display: flex;
         min-height: 36rem;
@@ -426,179 +452,35 @@
 /* Medium Devices, Desktops */
 
 @media only screen and (max-width: 992px) {
-   .carousel .item .col-xs-12:nth-last-child(-n+2) {
-      //display: none;
-   }
+  
 }
-
 @media all and (min-width: 768px) {
-   .carousel-showmanymoveone .carousel-inner > .active.left,
-   .carousel-showmanymoveone .carousel-inner > .prev {
-      left: -50%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .active.right,
-   .carousel-showmanymoveone .carousel-inner > .next {
-      left: 50%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .left,
-   .carousel-showmanymoveone .carousel-inner > .prev.right,
-   .carousel-showmanymoveone .carousel-inner > .active {
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner .cloneditem-1 {
-      display: block;
-   }
+  
 }
-
 @media all and (min-width: 768px) and (transform-3d),
 all and (min-width: 768px) and (-webkit-transform-3d) {
-   .carousel-showmanymoveone .carousel-inner > .item.active.right,
-   .carousel-showmanymoveone .carousel-inner > .item.next {
-      -webkit-transform: translate3d(50%, 0, 0);
-      transform: translate3d(50%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.active.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev {
-      -webkit-transform: translate3d(-50%, 0, 0);
-      transform: translate3d(-50%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev.right,
-   .carousel-showmanymoveone .carousel-inner > .item.active {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      left: 0;
-   }
+  
 }
-
 @media all and (min-width: 992px) {
-   .carousel-showmanymoveone .carousel-inner > .active.left,
-   .carousel-showmanymoveone .carousel-inner > .prev {
-      left: -33.3%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .active.right,
-   .carousel-showmanymoveone .carousel-inner > .next {
-      left: 33.3%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .left,
-   .carousel-showmanymoveone .carousel-inner > .prev.right,
-   .carousel-showmanymoveone .carousel-inner > .active {
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner .cloneditem-2,
-   .carousel-showmanymoveone .carousel-inner .cloneditem-3 {
-      display: block;
-   }
+  
 }
-
 @media all and (min-width: 992px) and (transform-3d),
 all and (min-width: 992px) and (-webkit-transform-3d) {
-   .carousel-showmanymoveone .carousel-inner > .item.active.right,
-   .carousel-showmanymoveone .carousel-inner > .item.next {
-      -webkit-transform: translate3d(33.3%, 0, 0);
-      transform: translate3d(33.3%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.active.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev {
-      -webkit-transform: translate3d(-33.3%, 0, 0);
-      transform: translate3d(-33.3%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev.right,
-   .carousel-showmanymoveone .carousel-inner > .item.active {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      left: 0;
-   }
+  
 }
-
-
 @media all and (min-width: 1200px) {
-   .carousel-showmanymoveone .carousel-inner > .active.left,
-   .carousel-showmanymoveone .carousel-inner > .prev {
-      left: -25%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .active.right,
-   .carousel-showmanymoveone .carousel-inner > .next {
-      left: 25%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .left,
-   .carousel-showmanymoveone .carousel-inner > .prev.right,
-   .carousel-showmanymoveone .carousel-inner > .active {
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner .cloneditem-2,
-   .carousel-showmanymoveone .carousel-inner .cloneditem-3 {
-      display: block;
-   }
+  
 }
 @media all and (min-width: 1200px) and (transform-3d),
 all and (min-width: 1200px) and (-webkit-transform-3d) {
-   .carousel-showmanymoveone .carousel-inner > .item.active.right,
-   .carousel-showmanymoveone .carousel-inner > .item.next {
-      -webkit-transform: translate3d(25%, 0, 0);
-      transform: translate3d(25%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.active.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev {
-      -webkit-transform: translate3d(-25%, 0, 0);
-      transform: translate3d(-25%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev.right,
-   .carousel-showmanymoveone .carousel-inner > .item.active {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      left: 0;
-   }
+  
 }
-
 @media all and (min-width: 1600px) {
-   .carousel-showmanymoveone .carousel-inner > .active.left,
-   .carousel-showmanymoveone .carousel-inner > .prev {
-      left: -20%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .active.right,
-   .carousel-showmanymoveone .carousel-inner > .next {
-      left: 20%;
-   }
-   .carousel-showmanymoveone .carousel-inner > .left,
-   .carousel-showmanymoveone .carousel-inner > .prev.right,
-   .carousel-showmanymoveone .carousel-inner > .active {
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner .cloneditem-2,
-   .carousel-showmanymoveone .carousel-inner .cloneditem-3 {
-      display: block;
-   }
+
 }
 @media all and (min-width: 1600) and (transform-3d),
 all and (min-width: 1600px) and (-webkit-transform-3d) {
-   .carousel-showmanymoveone .carousel-inner > .item.active.right,
-   .carousel-showmanymoveone .carousel-inner > .item.next {
-      -webkit-transform: translate3d(20%, 0, 0);
-      transform: translate3d(20%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.active.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev {
-      -webkit-transform: translate3d(-20%, 0, 0);
-      transform: translate3d(-20%, 0, 0);
-      left: 0;
-   }
-   .carousel-showmanymoveone .carousel-inner > .item.left,
-   .carousel-showmanymoveone .carousel-inner > .item.prev.right,
-   .carousel-showmanymoveone .carousel-inner > .item.active {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      left: 0;
-   }
+
 }
 
 @media only screen 
@@ -742,9 +624,10 @@ and (orientation : portrait){
             }
           }
           &:after{
-            content: '   |';
-            display: inline;
+            content: "|";
+            display: inline-block;
             font-weight: normal;
+            padding: 0 0.4rem 0 0.4rem;
           }
           &:last-child{
            &:after {
@@ -779,8 +662,8 @@ and (orientation : portrait){
     text-align: right;
     background: $gray-lighter;
     position: fixed;
-    bottom: 3px;
-    right: 3px;
+    bottom: 7rem;
+    right: 2rem;
     z-index: 999999;
     a{
       padding: 0px;
@@ -792,6 +675,7 @@ and (orientation : portrait){
       line-height: 1rem;
       right: 0px;
       position: relative;
+      cursor: pointer;
       &:before{
         content: "\f106";
         font-family: FontAwesome;
@@ -803,8 +687,7 @@ and (orientation : portrait){
         top: 1.3rem;    
       }
       &:hover{
-        //color:$black;
-        //background:$orange;
+        background:$orange;
       }
     }
   }

@@ -145,6 +145,7 @@
                 }       
               }
               .print--block{
+                padding-left: 0;
                 a{
                   cursor: pointer;
                   text-decoration: none;
@@ -164,6 +165,7 @@
             margin: 0 auto;
             z-index: -1;
             min-height: auto !important;
+            padding: 0px;
             .navbar-collapse{
               flex-grow: 0;
               flex-basis: auto;

@@ -1,116 +1,170 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
+
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
+import Cards from '../common/cards/Cards';
+import Pagination from '../common/pagination/Pagination';
+import SelectFilters from '../common/select-filters/SelectFilters';
+import { getOSHCountries, getOSHData } from '../../api';
+
+const literals = require('../../model/Literals.json');
 
 class OSHStatistics extends Component
 {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			countries: [],
+			matrixPageData: [],
+			pageOfItems: [],
+			isFetching: false,
+			filters: {
+				countries: [],
+				checks: [],
+				searchBar: ''
+			},
+		}
+	}
+
+	handleCallbackCountry = (countryCallback) => {
+		const countryFilter = this.state.filters.countries;
+		const countryCode = this.state.filters.countries.find((country) => country.code == countryCallback.code)
+		if (countryCallback.code != countryCode?.code) {
+			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]} })
+		} else {
+			const index = this.state.filters.countries.findIndex((country) => country.code == countryCallback.code);
+			const newCountryFilters = this.state.filters.countries;
+			newCountryFilters.splice(index, 1);
+			this.setState({ filters: {...this.state.filters, countries: newCountryFilters} });
+		}
+	}
+
+	handleCallbackCategory = (categoryCallback) => {
+		const checkFilter = this.state.filters.checks.find((data) => data.id == categoryCallback.id);
+		const checks = this.state.filters.checks;
+		if (!checkFilter) {
+			this.setState({ filters: {...this.state.filters, checks: [...checks, { ...categoryCallback, check: true }]}});
+		} else {
+			const index = this.state.filters.checks.findIndex((data) => data.id == categoryCallback.id);
+			const newArray = this.state.filters.checks;
+			newArray.splice(index, 1);
+			this.setState({ filters: { ...this.state.filters, checks: newArray } });
+		}
+	}
+
+	// Handles callback for the search bar on filters component
+	handleCallbackSearch = (searchCallback) => {
+		this.setState({ filters: { ...this.state.filters, searchBar: searchCallback } })
+	}
+
+	//when country is selected
+	onSelectCountryTag = (countryCode) => {
+		return () => {
+			const countryIndex = this.state.filters.countries.findIndex((country) => country.code == countryCode);
+			const newArray = this.state.filters.countries;
+			newArray.splice(countryIndex, 1);
+			this.setState({filters: {...this.state.filters, countries: newArray}});
+		}
+	}
+
+	//whe category is selected
+	onSelectInstitutionTag = (institutionId) => {
+		return () => {
+			const institutionIndex = this.state.filters.checks.findIndex((institution) => institution.id == institutionId);
+			const newArray = this.state.filters.checks;
+			newArray.splice(institutionIndex, 1);
+			this.setState({ filters: { ...this.state.filters, checks: newArray } })
+		}
+	}
+
+	// Handles change of page when clicked on the next or prev
+	onChangePage = (pageOfItems) => {
+		this.setState({ pageOfItems });
+	}
+
+	componentDidMount() {
+		this.setState({ ...this.state, isFetching: true});
+		try {
+			getOSHCountries('MATRIX_STATISTICS' ,['UK'])
+				.then((res) => {
+					this.setState({ countries: res.resultset })
+				});
+			getOSHData('MATRIX_STATISTICS')
+				.then((res) => {
+					this.setState({ matrixPageData: res.resultset })
+				});
+		} catch(error) {
+			console.log('Error getting data: ', error)
+		} finally {
+			this.setState({ ...this.state, isFetching: false })
+		}
+
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.filters != this.state.filters) {
+			this.setState({ ...this.state, isFetching: true })
+			try {
+				getOSHData('MATRIX_STATISTICS', this.state.filters)
+					.then((res) => {
+						this.setState({ matrixPageData: res.resultset })
+					})
+			} catch (error) {
+				console.log('Error Fetching data', error)
+			} finally {
+				this.setState({ ...this.state, isFetching: false })
+			}
+		}
+	}
+
 	render()
 	{
 		return(
 			<div>
-				<AdviceSection />
+				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} />
 
 				<section className="container">
-					<form className="row block--filter--wrapper">
-						{/*  COUNTRY FILTER */}
-						<div id="filter2"className="filter--dropdown--wrapper" tabIndex="9">
-							<div className="filter--dropdown--list">
-							<p className="option-title" ng-click="openSelect($event)">{this.props.literals.L20630}</p>
-							<ul className="filter--dropdown--options">
-								<li data-ng-repeat='country in countries'>
-									<input id='country-filter-{{::country.country}}' ng-checked="(!!country.param && country.param ==country.country_code) || pCountry == country.country_code" onClick="toggleCountryClick($event, $index);openSelect($event)" type="checkbox" value="{{::country}}" tabIndex="-1" />
-									<label htmlFor="country-filter-{{::country.country}}" data-ng-bind="('(')+(country.country_code)+(') ')+(i18nLiterals['L'+country.country])"></label>
-								</li>
-							</ul>
-							</div>
-						</div> 
-						{/*  CATEGORY TYPE FILTER */}
-						<div id="filter1" className="filter--dropdown--wrapper" tabIndex="8">
-							<div className="filter--dropdown--list">
-								<p className="option-title" ng-click="openSelect($event)" >{this.props.literals.L20651}</p>
-								<ul className="filter--dropdown--options">
-									<li>
-										<input id='category-filter-1' type="checkbox" ng-click="toggleCategoryClick($event);openSelect($event)" tabIndex="-1"/>
-										<label htmlFor='category-filter-1' >{this.props.literals.L20714}</label>
-									</li>
-									<li>
-										<input id='category-filter-2' type="checkbox" ng-click="toggleCategoryClick($event);openSelect($event)" tabIndex="-1"/>
-										<label htmlFor='category-filter-2' >{this.props.literals.L20715}</label>
-									</li>
-									<li>
-										<input id='category-filter-3' type="checkbox" ng-click="toggleCategoryClick($event);openSelect($event)" tabIndex="-1"/>
-										<label htmlFor='category-filter-3' >{this.props.literals.L20716}</label>
-									</li>
-								</ul>
-							</div>
-						</div>
-						{/*  SEARCH FILTER */}
-						<div className="filter-text">
-							<input ng-keypress="clickEnter($event)" ng-focus="closeSelect($event)" id="search-input" type="text" placeholder="{{i18nLiterals.L378}}" data-ng-model="searchText" tabIndex="7" />
-							<button onClick="clickEnter($event)"  id="policy-search" type="button">
-							<i className="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
-					</form>
+
+					<SelectFilters 
+						selectCountries={this.state.countries} 
+						literals={literals} 
+						onClickCountry={this.handleCallbackCountry}
+						onClickInstitution={this.handleCallbackCategory}
+						onSearchbarClick={this.handleCallbackSearch}
+						selectedFilters={this.state.filters}
+						filterCategory={'category'}
+					/>
+
 					<div className="container">
-						{/* CONTENT */}
-						<div className="selected--tags-wrapper"></div>
-						<div className="matrix--elements--wrapper">
-							{/* MATRIX ELEMENTS */} 
-							<div ng-if="amatrix.length <= 0">
-								<span>{this.props.literals.L20706}</span>
-							</div>
-							<div data-ng-repeat="matrix in amatrix | limitTo:pageSize:elementsStart" className="matrix--element clearfix">
-								<div className="matrix--header--elements">
-									<img  className="flags--wrapper" src={require('../../style/img/flag/eu28.png')} ng-src="../../style/img/flag/{{::matrix.country_code.toLowerCase()}}.png" />
-									<h2 className="country ng-binding title-section main-color" data-ng-bind="i18nLiterals['L'+matrix.country_name]"></h2>
+						<div className="selected--tags-wrapper">
+							{this.state.filters && (
+								<div>
+									{this.state.filters.countries.map((country) => (
+										<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>
+									))}
+									{this.state.filters.checks.map((category) => {
+										if (category.check) {
+											return <span key={category.id} className="selected-tag" onClick={this.onSelectInstitutionTag(category.id)} >{this.props.literals[`L${category.literal}`]}</span>
+										}
+									})}
 								</div>
-
-								<div className="matrix--content--elements">
-									<h3 className="" ng-if="::matrix.osh_statistics==1" >{this.props.literals.L20714}</h3>
-									<h3 className="" ng-if="::matrix.surveys==1" >{this.props.literals.L20715}</h3>
-									<h3 className="" ng-if="::matrix.research_institutes==1" >{this.props.literals.L20716}</h3>
-
-									<div data-ng-bind-html="i18nLiterals['L'+matrix.name_institution]"></div>
-									<div className="partial-text" data-ng-bind-html="trimText(i18nLiterals['L'+matrix.detail_institution], 300)"></div>
-									<div className="complete-text" data-ng-bind-html="trimText(i18nLiterals['L'+matrix.detail_institution], 1)"></div>
-									<p data-ng-if="i18nLiterals['L'+matrix.detail_institution].length > newMaxCharacter" className="see--more--wrapper"> 
-										<a ng-click='toggleText($event)' className="see-more main-color">{this.props.literals.L480}</a>
-										<a ng-click='toggleText($event)' className="see-less main-color" style={{display:'none'}}>{this.props.literals.L481}</a>
-									</p>
-								</div>
-							</div>
+							)}
 						</div>
 						
-						{/* PAGINATION */}
-						<div className="pagination--wrapper" data-ng-if="!!amatrix.length" >
-							<div className="pagination--elements">
-							<ul className="main-color">
-								<li role='button' className="arrow firstpage" onClick="firstPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==1 || currentPage+1==1)?'invisible':''">
-									<span aria-hidden="currentPage == 0">
-										<i className="fa fa-angle-double-left" aria-hidden="true"></i>
-									</span>
-								</li>
-								<li role='button' className="arrow previouspage" onClick="previousPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==1 || currentPage+1==1)?'invisible':''">
-									<span aria-hidden="currentPage == 0"><i className="fa fa-angle-left" aria-hidden="true"></i></span>
-								</li>
-								<li>
-									<span>currentPage+1/numberOfPages</span>
-								</li>
-								<li role='button' className="arrow nextpage" onClick="nextPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==numberOfPages())?'invisible':''">
-									<span aria-hidden="currentPage >= results.length/pageSize - 1"><i className="fa fa-angle-right" aria-hidden="true"></i></span>
-								</li>
-								<li role='button' className="arrow lastpage" onClick="lastPage()" ng-className="(currentPage+1==numberOfPages() && currentPage+1==numberOfPages())?'invisible':''">
-									<span><i className="fa fa-angle-double-right" aria-hidden="true"></i></span>
-								</li>
-							</ul>
-							{/* PAGINATION TEXT */}
-							<div className="pag-numbers" data-ng-if="!!amatrix.length">
-								<span>{this.props.paginationText}</span>
-							</div>
-							</div>
-						</div>
+					{/** Cards Component */}
+					<div className="matrix--elements--wrapper">
+						{this.state.pageOfItems.length > 0 ? (
+							this.state.pageOfItems.map((data, index) => {
+								const id = `${index}-${data.country.code}`
+								return <Cards key={id} countryData={data} literals={literals} cardType={'statistics'} />
+							})
+						) : (<span>{this.props.literals.L20706}</span>)}
+					</div>
+						
+					{/* PAGINATION */}
+					<Pagination items={this.state.matrixPageData} onChangePage={this.onChangePage} />
+
 					</div>
 				</section>
 
@@ -119,5 +173,5 @@ class OSHStatistics extends Component
 		)
 	}
 }
-
+OSHStatistics.displayName = 'OSHStatistics';
 export default OSHStatistics;

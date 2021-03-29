@@ -704,9 +704,14 @@ pre {
     display: table; }
   .container:after {
     clear: both; }
+  @media (min-width: 576px) {
+    .container {
+      max-width: 100%;
+    }
+  }
   @media (min-width: 768px) {
     .container {
-      width: 750px; } }
+      width:100%; } }
   @media (min-width: 992px) {
     .container {
       width: 970px; } }
@@ -771,13 +776,22 @@ pre {
   width: 75%; }
 
 .col-xs-10 {
-  width: 83.33333%; }
+  width: 83.33333%; 
+  flex: 0 0 83.33333%;
+  max-width: 83.33333%;
+}
 
 .col-xs-11 {
-  width: 91.66667%; }
+  width: 91.66667%;
+  flex: 0 0 91.66667%;
+  max-width: 91.66667%;
+}
 
 .col-xs-12 {
-  width: 100%; }
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
 
 .col-xs-pull-0 {
   right: auto; }
@@ -4612,7 +4626,9 @@ button.close {
 
 .carousel {
   position: relative; }
-
+  .carousel-control-prev, .carousel-control-next{
+    width: 2rem;
+  }
 .carousel-inner {
   position: relative;
   overflow: hidden;
@@ -4738,6 +4754,7 @@ button.close {
     content: '\203a'; }
 
 .carousel-indicators {
+  display: none;
   position: absolute;
   bottom: 10px;
   /*left: 50%;*/

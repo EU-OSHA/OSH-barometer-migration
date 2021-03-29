@@ -677,8 +677,7 @@
   }
   .breadcrumbs--social--network{
     position: relative;
-
-    padding: 1.5rem 2rem; 
+    padding: 0.8rem 2rem; 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -716,7 +715,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: baseline;
-      margin-right: 1rem; 
+      margin-right:0.7rem; 
       label{
         padding-left: 5px;
         padding-right: 5px;
@@ -724,18 +723,29 @@
         font-weight: normal;
       }
       ul{
-        padding: 0;
+        padding: 0 0.8rem 0 0;
         margin: 0;
         list-style-type: none;
         display: flex;
         flex-direction: row;
         justify-content: space-around; 
         li{
-          padding:0 0.8rem;
-          a{
+          padding:0 0rem;
+          width: 3.2rem;
+          button{
             cursor: pointer;
             &:hover, &:focus{
-              color:$orange!important;
+              //color:$orange!important;
+              svg{
+                > path{
+                  fill:$orange!important;
+                  text-decoration: none;
+                  -webkit-transition: all 0.8s ease-out;
+                  -moz-transition: all 0.8s ease-out;
+                  -o-transition: all 0.8s ease-out;
+                  transition: all 0.8s ease-out;
+                }
+              }
             }
           }
         }
@@ -764,13 +774,27 @@
     position: relative;
     padding: 1rem 0 2rem;
     .text-advice{
-      padding-bottom: 1rem;
+      padding-left: 0rem;
+      padding-right: 0rem;
+      .advice-text{
+        padding: 0px;
+        margin: 0 0 0.9rem;
+      }
+      > p{
+        margin: 0;
+      }
     }
     .title--section{
       font-family: 'Oswald';
-      font-size: 3rem;
+      font-size: 3.3rem;
       padding: 0;
       text-align: left;
+    }
+  }
+  .osh-authority{
+    .text-advice{
+      padding-left: 1.7rem;
+      padding-right: 1.7rem;
     }
   }
   .icon--card{
@@ -823,6 +847,7 @@
         position: relative;
         display: flex;
         margin-bottom: 1rem;
+        margin-top: 0.8rem;
         &:after{
           content: "\f107";
           font-family: FontAwesome;
@@ -925,7 +950,8 @@
       display: flex;
       justify-content: space-between;
       list-style: none;
-      margin-top: 1rem;
+      margin-top: 2.2rem;
+      padding: 0;
       li{
         width: 50%;
         padding: 0rem 4rem 0rem 0;
@@ -1095,7 +1121,7 @@
           }
         }
       }
-      .carousel-indicators{
+      .carousel-indicators{        
         bottom: 5rem;
         margin-bottom: 0;
         li{
@@ -1667,6 +1693,8 @@
 }
 
 .section--methodology{
+  padding-left:1.5rem;
+  padding-right:1.5rem;
   @media screen and (max-width: 767px) {
     padding-top: 0 !important;
   }
