@@ -52,9 +52,9 @@ class CountryCards extends Component{
             if(countryData.countryCode != 'IS' && countryData.countryCode != 'NO' && countryData.countryCode != 'CH'){
                 downloadReport = (
                     <p className="download-report">
-                        <Link href="/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/modules/vertical/osh-steering/social-dialogue/pdf/Social_Dialogue_{countryData.countryName}.pdf" className="download-pdf" target="_blank">
+                        <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+countryData.countryName+".pdf"} className="download-pdf" target="_blank">
                             {ReactHtmlParser(this.props.literals.L20637)}
-                        </Link>
+                        </a>
                     </p>
                 )
             }
