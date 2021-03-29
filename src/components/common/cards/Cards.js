@@ -29,7 +29,7 @@ class Cards extends Component {
 	// Opens PDF to a specific Country
     onPDFClick = (countryName) => {
 		return () => {
-			const url = `pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/modules/vertical/generic-information/osh-authorities/pdf/OSH authorities - ${countryName}.pdf`
+			const url = `/generic-information/osh-authorities/OSH authorities - ${countryName}.pdf`
 			window.open(url, "_blank")
 		}
 	}
