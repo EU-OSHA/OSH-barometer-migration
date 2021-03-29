@@ -149,10 +149,10 @@ export function getHealthPerceptionData(filters){
 
             return urlWithParams
         }
-    })
+    })  
     .then((response) => response.data);
 
-    return Response;
+    return response;
 }
 
 export function getChartData(chart, indicator, country1, country2) {
