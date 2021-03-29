@@ -3,44 +3,35 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
-
+require('highcharts/modules/pattern-fill')(Highcharts);
+import { getChartData } from '../../../api'
 const euColor = 'blue';
 const country1Color = '#ffae00';
-class Chart extends Component {
+class ChartHuman extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			chartConfig: {
 				title: {
-					text: this.props.title,
+					title: this.props.title,
 					align: 'left'
 				},
-				credits: {
-					enabled: false
-				},
 				colors: this.props.colors,
+				credits: {
+					enabled: false,
+				},
 				chart: {
-					height:500,
+					//height: 400,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
 					enabled: true,
-					buttons: {
-						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
-						}
-					}
-				},
-				legend:{
-					//reversed: this.props.legend
 				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
-
 					},
 					bar: {
 						dataLabels: {
@@ -48,12 +39,19 @@ class Chart extends Component {
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
 							}
+						},
+						grouping: false
+					},
+					bar: {
+						dataLabels: {
+							enabled: this.props.showDataLabel === true ? true : false,
+							formatter: function () {
+								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+							}
 						}
 					}
 				},
-				xAxis: {
-					categories: [this.props.data?.categories],
-					
+				xAxis: {					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -66,10 +64,10 @@ class Chart extends Component {
 						style: {
 							fontWeight: 'bold'
 						}
-					}
+					},
+					type: 'category'
 				},
 				yAxis: {
-					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -82,7 +80,7 @@ class Chart extends Component {
 						}
 					}
 				},
-				series: [ ]
+				series: []
 			}
 		}
 	}
@@ -91,32 +89,42 @@ class Chart extends Component {
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
-		
+		let split =[];
+		let value=[];
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				//console.log('res',res.resultset);
+				let i = 0;
 				res.resultset.forEach(element => {
-						//console.log(res.resultset)
-					if (categories.indexOf(element.countryCode) == -1) {
-						categories.push(element.countryCode)
-					}//console.log(categories)
-					
-					let split = element.split;
-					if (!(split in auxSeries)) {
-						auxSeries[split] = []
-						
-					}auxSeries[split].push(element.value)
-					 
+
+					if (element.split == null)
+					{
+						// There is no split, series and the categories will be the same
+						//console.log('country', element.countryCode);
+						//console.log('value',element.value);
+						series.push({
+			  				name: element.country,
+							type: 'column',
+							pointWidth: 110,
+							pointPadding: 0.25,
+        					borderColor: 'transparent',
+        					borderWidth: 0,
+							data: [{name:element.countryCode, y: element.value, x: i, 
+								color: {
+									pattern: {
+										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
+										 //image: '../style/img/man_blue.svg',
+										//aspectRatio:0.8
+									}
+								}}]
+						});
+						i++;
+					}					
 				});
-					
-		for (let serie in auxSeries) {
-			
-			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
-		}
 
 		this.setState({
-			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+			chartConfig: {...this.state.chartConfig,  series}
 		})
 	});
 		
@@ -132,6 +140,9 @@ class Chart extends Component {
 		}
 
 		if (prevProps.pais2 != this.props.pais2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+		if (prevProps.chart != this.props.chart){
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
 	}
@@ -152,4 +163,4 @@ class Chart extends Component {
 	}
 }
 
-export default Chart;
+export default ChartHuman;

@@ -7,7 +7,7 @@ import { getChartData } from '../../../api';
 
 const euColor = 'blue';
 const country1Color = '#ffae00';
-class Chart extends Component {
+class EmploymentRate extends Component {
 	constructor(props) {
 		super(props);
 
@@ -17,30 +17,21 @@ class Chart extends Component {
 					text: this.props.title,
 					align: 'left'
 				},
-				credits: {
-					enabled: false
-				},
 				colors: this.props.colors,
+				credits: {
+					enabled: false,
+				},
 				chart: {
-					height:500,
+					height: 500,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
 					enabled: true,
-					buttons: {
-						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
-						}
-					}
-				},
-				legend:{
-					//reversed: this.props.legend
 				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
-
 					},
 					bar: {
 						dataLabels: {
@@ -48,12 +39,19 @@ class Chart extends Component {
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
 							}
+						},
+						grouping: false
+					},
+					line: {
+						dataLabels: {
+							enabled: this.props.showDataLabel === true ? true : false,
+							formatter: function () {
+								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+							}
 						}
 					}
 				},
-				xAxis: {
-					categories: [this.props.data?.categories],
-					
+				xAxis: {					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -66,10 +64,10 @@ class Chart extends Component {
 						style: {
 							fontWeight: 'bold'
 						}
-					}
+					},
+					type: 'category'
 				},
 				yAxis: {
-					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -82,7 +80,7 @@ class Chart extends Component {
 						}
 					}
 				},
-				series: [ ]
+				series: []
 			}
 		}
 	}
@@ -91,32 +89,30 @@ class Chart extends Component {
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
-		
+		let split =[];
+		let value=[];
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				//console.log('res',res.resultset);
+				let i = 0;
 				res.resultset.forEach(element => {
-						//console.log(res.resultset)
-					if (categories.indexOf(element.countryCode) == -1) {
-						categories.push(element.countryCode)
-					}//console.log(categories)
-					
-					let split = element.split;
-					if (!(split in auxSeries)) {
-						auxSeries[split] = []
-						
-					}auxSeries[split].push(element.value)
-					 
+
+					if (element.split == null)
+					{
+						// There is no split, series and the categories will be the same
+						//console.log('country', element.countryCode);
+						//console.log('value',element.value);
+						series.push({
+			  				name: element.country,
+							data: [{name:element.countryCode, y: element.value, x: i}]
+						});
+						i++;
+					}					
 				});
-					
-		for (let serie in auxSeries) {
-			
-			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
-		}
 
 		this.setState({
-			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+			chartConfig: {...this.state.chartConfig,  series}
 		})
 	});
 		
@@ -152,4 +148,4 @@ class Chart extends Component {
 	}
 }
 
-export default Chart;
+export default EmploymentRate;

@@ -5,9 +5,9 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
-const euColor = 'blue';
+const euColor = 'black';
 const country1Color = '#ffae00';
-class Chart extends Component {
+class IncomerPercapital extends Component {
 	constructor(props) {
 		super(props);
 
@@ -27,36 +27,32 @@ class Chart extends Component {
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true,
-					buttons: {
-						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
-						}
-					}
+					enabled: true
 				},
-				legend:{
-					//reversed: this.props.legend
+				tooltip: {
+					headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {point.x}</b><br/>',
+					pointFormat: '<b> Income </b> {point.y} €'
 				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
 
 					},
-					bar: {
+					line: {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
+								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
 							}
 						}
 					}
 				},
 				xAxis: {
-					categories: [this.props.data?.categories],
 					
+					categories: [this.props.data?.categories],
 					labels: {
 						formatter: function () {
-							if ([this.value] == 'EU27_2020') {
+							if ([this.value] != 'EU27_2020') {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
 							}
 							else {
@@ -69,7 +65,6 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
-					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -88,25 +83,31 @@ class Chart extends Component {
 	}
 
 	getLoadData = (chart, indicator, country1, country2) => {
+	
+	
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
+
 		
 
 		getChartData(chart, indicator, country1, country2)
+	
+
 			.then((res) => {
 				res.resultset.forEach(element => {
-						//console.log(res.resultset)
-					if (categories.indexOf(element.countryCode) == -1) {
-						categories.push(element.countryCode)
-					}//console.log(categories)
+						
+					if (categories.indexOf(element.split) == -1) {
+						categories.push(element.split)
+					}
 					
-					let split = element.split;
+					let split = element.country;
 					if (!(split in auxSeries)) {
 						auxSeries[split] = []
 						
 					}auxSeries[split].push(element.value)
 					 
+				
 				});
 					
 		for (let serie in auxSeries) {
@@ -134,6 +135,11 @@ class Chart extends Component {
 		if (prevProps.pais2 != this.props.pais2) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
+
+		if (prevProps.chart != this.props.chart){
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+		
 	}
 
 	render() {
@@ -152,4 +158,4 @@ class Chart extends Component {
 	}
 }
 
-export default Chart;
+export default IncomerPercapital;

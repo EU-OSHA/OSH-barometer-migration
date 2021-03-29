@@ -1,14 +1,62 @@
-import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import AdviceSection from '../common/AdviceSection';
+import React, { Component, useState,useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser'
 import Methodology from '../common/Methodology';
-import Related from '../common/Related.js';
+import EmploymentRate from '../common/charts/EmploymentRate'
+import SelectEconomic from '../common/select-filters/SelectEconomic';
+import Chart from '../common/charts/Chart'
+import ChartHuman from '../common/charts/ChartHuman';
+import IncomerPercapital from '../common/charts/IncomePerCapita'
 
-class EconomicSectorProfile extends Component
-{
+const EconomicSectorProfile = (props) => {
+	
+	const [pais1,setPais1]=useState(props.country1);
+	const [pais2,stePais2]=useState("");
+	const [chart,setChart]=useState('20014');
+	const [indicator,setIndicator]=useState('36');
+	const [chart2,setChart2]=useState('20013');
+	const [indicator2,setIndicator2]=useState('35');
+	
 
-	render()
-	{
+
+	const selectEuro2 = (e) =>{
+		const indicator = e.target.value
+	   if(indicator == "278"){
+		const Chart =  "20087"
+	   setIndicator2("278");
+	   setChart2("20087");
+	   } else
+	   {
+		   const Chart = "20013"
+		   const indicator= "35"
+		   setChart2(Chart);
+		   setIndicator2(indicator);
+	   }  
+   }
+	
+
+	const selectEuro = (e) =>{
+		 const indicator = e.target.value
+		if(indicator == "279"){
+		 const Chart =  "20088"
+		setIndicator("279");
+		setChart("20088");
+		} else
+		{
+			const Chart = "20014"
+			const indicator= "36"
+			setChart(Chart);
+			setIndicator(indicator);
+		}
+	}
+
+	const handleSearch = (pais1) => {
+		setPais1(pais1);
+	}
+
+	const handleSearch2 = (pais2)=>{
+		stePais2(pais2)
+	}
+
 		return(
 			<div className="economic--sector--profile">
 
@@ -18,110 +66,44 @@ class EconomicSectorProfile extends Component
 					{/* FILTERS */}
 					<form className="compare--block--form">
 						<ul className="compare--list">
-							{/* 1ST COUNTRY FILTER */}
-							<li>
-								<label htmlFor="datafor" data-ng-bind="i18nLiterals.L20609" className="">DATA FOR</label>
-								<select className="select2-container select2-offscreen" tabIndex="-1" title="">
-								<option value="AT">(AT) Austria</option>
-								<option value="BE">(BE) Belgium</option>
-								<option value="BG">(BG) Bulgaria</option>
-								<option value="CH">(CH) Switzerland</option>
-								<option value="CY">(CY) Cyprus</option>
-								<option value="CZ">(CZ) Czechia</option>
-								<option value="DE">(DE) Germany</option>
-								<option value="DK">(DK) Denmark</option>
-								<option value="EE">(EE) Estonia</option>
-								<option value="EL">(EL) Greece</option>
-								<option value="ES">(ES) Spain</option>
-								<option value="FI">(FI) Finland</option>
-								<option value="FR">(FR) France</option>
-								<option value="HR">(HR) Croatia</option>
-								<option value="HU">(HU) Hungary</option>
-								<option value="IE">(IE) Ireland</option>
-								<option value="IS">(IS) Iceland</option>
-								<option value="IT">(IT) Italy</option>
-								<option value="LT">(LT) Lithuania</option>
-								<option value="LU">(LU) Luxembourg</option>
-								<option value="LV">(LV) Latvia</option>
-								<option value="MT">(MT) Malta</option>
-								<option value="NL">(NL) Netherlands</option>
-								<option value="NO">(NO) Norway</option>
-								<option value="PL">(PL) Poland</option>
-								<option value="PT">(PT) Portugal</option>
-								<option value="RO">(RO) Romania</option>
-								<option value="SE">(SE) Sweden</option>
-								<option value="SI">(SI) Slovenia</option>
-								<option value="SK">(SK) Slovakia</option>
-								</select>
-							</li>
-							{/* 2ND COUNTRY FILTER */}
-							<li>
-								<label htmlFor="comparewith" data-ng-bind="i18nLiterals.L20610" className="">COMPARE WITH</label>
-								<select className="select2-container select2-offscreen" tabIndex="-1" title="">
-								<option value="0">Country</option>
-								<option value="BE">(BE) Belgium</option>
-								<option value="BG">(BG) Bulgaria</option>
-								<option value="CH">(CH) Switzerland</option>
-								<option value="CY">(CY) Cyprus</option>
-								<option value="CZ">(CZ) Czechia</option>
-								<option value="DE">(DE) Germany</option>
-								<option value="DK">(DK) Denmark</option>
-								<option value="EE">(EE) Estonia</option>
-								<option value="EL">(EL) Greece</option>
-								<option value="ES">(ES) Spain</option>
-								<option value="FI">(FI) Finland</option>
-								<option value="FR">(FR) France</option>
-								<option value="HR">(HR) Croatia</option>
-								<option value="HU">(HU) Hungary</option>
-								<option value="IE">(IE) Ireland</option>
-								<option value="IS">(IS) Iceland</option>
-								<option value="IT">(IT) Italy</option>
-								<option value="LT">(LT) Lithuania</option>
-								<option value="LU">(LU) Luxembourg</option>
-								<option value="LV">(LV) Latvia</option>
-								<option value="MT">(MT) Malta</option>
-								<option value="NL">(NL) Netherlands</option>
-								<option value="NO">(NO) Norway</option>
-								<option value="PL">(PL) Poland</option>
-								<option value="PT">(PT) Portugal</option>
-								<option value="RO">(RO) Romania</option>
-								<option value="SE">(SE) Sweden</option>
-								<option value="SI">(SI) Slovenia</option>
-								<option value="SK">(SK) Slovakia</option>
-								</select>
-							</li>
+							<SelectEconomic  handleSearch={handleSearch} handleSearch2={handleSearch2}/>
 						</ul>
 					</form>
+					
 				</div>
 				<div class="line background-main-light"></div>
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">
 						{/* CONTENT */}{/* COMPANY SIZE */}
+					
 						<div className="card--block--chart">
 							<div className="chart--block">
-								<div className="card--block--chart--wrapper ng-isolate-scope" query="getCompanySizeData" cda="osha-dvt-barometer/dashboards/generic_information.cda" width="330" height="400" orientation="horizontal" axis-percent="1" axis-fixed-max="100" axis-fixed-min="0" step="20" params="[['pIndicator','31'],['pCountry1', pCountry1],['pCountry2', pCountry2],['pDataset', datasetEurostat]]" color-role="series" colors="[stories[0].color1, stories[0].color2, 
-								stories[0].color3, stories[0].color4, stories[0].color5]" chart-title="Company size" id="1" base-axis-label-visible="true" css-className="company-size" axis-label-font="12px 'OpenSans-bold'" base-axis-label-text-baseline="center" base-axis-band-size-ratio="0.9" label-text-align="stories[0].labelTextAlign" values-visible="true" values-overflow="show" values-font="14px 'OpenSans-bold'" values-mask="{value}" dimensions="stories[0].dimensions" base-axis-size="60" legend="true" legend-align="center" plots="stories[0].plots" multiple-label-colors="true" leaf-content-overflow="visible" datasource-and-dates="[datasetEurostat,31]">
+								<div className="card--block--chart--wrapper ng-isolate-scope" >
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li>
-										<a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a>
-									</li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										<a href=""><label className="sr-only">Download</label></a>
-									</li>
+								<ul className="chart--submenu " >
+									{/* <li><a className="maximize-button" title="Maximize"><label className="sr-only " >Maximize</label></a></li>
+									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li> */}
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li>
-											<a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a>
-										</li>
-										<li>
-											<a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a>
-										</li>
+										{/* <li><a className="">Export as image</a></li>
+										<li><a className="">Download raw data</a></li> */}
 									</ul>
 								</ul>
 
-								<h2 ng-if="(!!chartTitle &amp;&amp; !isMaximized &amp;&amp; !titleH3) || (isMaximized &amp;&amp; !longTitle)" data-ng-bind-html="chartTitle" className="title--card  ">Company size</h2>
+								{/* <h2  className="title--card ">Company size</h2> */}
 
 								<div className="chart--wrapper">
+								<Chart
+									title='Company Size'
+									colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
+									showDataLabel={true}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20089'}
+									indicator={'31'}
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -131,20 +113,35 @@ class EconomicSectorProfile extends Component
 						{/* EMPLOYMENT PER SECTOR */}
 						<div className="card--block--chart">
 							<div className="chart--block">
-								<div className="card--block--chart--wrapper ng-isolate-scope" query="getEmploymentPerSectorData" cda="osha-dvt-barometer/dashboards/generic_information.cda" width="300" height="400" orientation="horizontal" axis-percent="1" axis-fixed-max="100" step="20" params="[['pIndicator','32'],['pCountry1', pCountry1],['pCountry2', pCountry2],['pDataset', datasetEurostat2020]]" color-role="series" colors="[stories[1].color1, stories[1].color2, stories[1].color3, stories[1].color4, stories[1].color5, stories[1].color6, stories[1].color7]" chart-title="Employment per sector" id="2" stacked="1" plots="stories[1].plots" base-axis-band-size-ratio="0.40" axis-label-font="12px 'OpenSans-bold'" base-axis-label-text-baseline="center" dimensions="stories[1].dimensions" base-axis-size="60" legend="true" legend-align="center" legend-item-size="270" multiple-label-colors="true" datasource-and-dates="[datasetEurostat2020,32]">
+						
+								<div className="card--block--chart--wrapper ng-isolate-scope" width="300" height="400">
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a></li>
-										<li><a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a></li>
-									</ul>
+								<ul className="chart--submenu ">
+									{/* <li><a className="maximize-button" title="Maximize"><label className="sr-only " >Maximize</label></a></li>
+									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
+									 <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+										<li><a className="">Export as image</a></li>
+										<li><a className="">Download raw data</a></li>
+									</ul>  */}
 								</ul>
 
-								<h2 ng-if="(!!chartTitle &amp;&amp; !isMaximized &amp;&amp; !titleH3) || (isMaximized &amp;&amp; !longTitle)" data-ng-bind-html="chartTitle" className="title--card  ">Employment per sector</h2>
+								{/* <h2 className="title--card  ">Employment per sector</h2> */}
 
 								<div className="chart--wrapper">
+								<Chart
+									title='Employment per sector'
+									colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
+									showDataLabel={false}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20010'}
+									indicator={'32'}
+									stacking='percent'
+									reversed={true}
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -154,20 +151,33 @@ class EconomicSectorProfile extends Component
 						{/* EMPLOYMENT RATE */}
 						<div className="card--block--chart">
 							<div className="chart--block">
-								<div className="card--block--chart--wrapper ng-isolate-scope" query="getEmploymentRateData" cda="osha-dvt-barometer/dashboards/generic_information.cda" width="330" height="380" axis-percent="1" orientation="horizontal" axis-fixed-min="50" axis-fixed-max="100" step="10" params="[['pIndicator','33'],['pCountry1', pCountry1],['pCountry2', pCountry2],['pDataset', datasetEurostat2019]]" color-role="category" colors="[stories[2].color3, stories[2].color2, stories[2].color1]" chart-title="Employment rate" id="3" base-axis-label-visible="true" axis-label-font="12px 'OpenSans-bold'" base-axis-label-text-baseline="center" base-axis-band-size-ratio="0.5" values-visible="true" values-overflow="show" values-font="14px 'OpenSans-bold'" values-mask="{value}" plots="stories[2].plots" dimensions="stories[2].dimensions" base-axis-size="60" label-text-align="stories[2].labelTextAlign" multiple-label-colors="true" legend="true" custom-label="true" datasource-and-dates="[datasetEurostat2019, 33]">
+								<div className="card--block--chart--wrapper ng-isolate-scope" >
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><a href=""><label className="sr-only">Download</label></a></li>
+								<ul className="chart--submenu" >
+									{/* <li><a className="maximize-button" ><label className="sr-only ">Maximize</label></a></li>
+									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a></li>
-										<li><a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a></li>
-									</ul>
+										<li><a className="">Export as image</a></li>
+										<li><a className="">Download raw data</a></li>
+									</ul> */}
 								</ul>
 
-								<h2 ng-if="(!!chartTitle &amp;&amp; !isMaximized &amp;&amp; !titleH3) || (isMaximized &amp;&amp; !longTitle)" data-ng-bind-html="chartTitle" className="title--card  ">Employment rate</h2>
+								{/* <h2 className="title--card  ">Employment Rate</h2> */}
 
 								<div className="chart--wrapper">
+
+								<EmploymentRate
+									title='Employment Rate'
+									colors={['#f6a400','#003399','#449fa2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									showDataLabel={true}
+									tick={20}
+									percentage={true}
+									type='bar'
+									pais1={pais1}
+									pais2={pais2}
+									chart={'20011'}
+									indicator={'33'}
+									/>
 									<div className="legend-text-block">
 									</div>
 								</div>
@@ -177,9 +187,9 @@ class EconomicSectorProfile extends Component
 						{/* GDP PER CAPITA IN RELATION TO EU27_2020 AVERAGE */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart ng-isolate-scope ng-valid" chart="GDP" ng-model="dashboard.parameters.pSplit">
+								<div className="select-filter-chart ng-isolate-scope ng-valid">
 								{/* ngIf: chart == 'GDP' */}
-								<select ng-if="chart == 'GDP'" ng-model="pSplit" ng-change="changeType('split1', pSplit)" className="ng-pristine ng-untouched ng-valid ">
+								<select  className="ng-pristine ng-untouched ng-valid " onChange={selectEuro2}>
 									<option value="35">Purchasing Power Standards (PPS)</option>
 									<option value="278">Euro (€)</option>
 								</select>
@@ -187,21 +197,35 @@ class EconomicSectorProfile extends Component
 								</div>
 							</div>
 							<div className="chart--block with-filter">
-								<div className="card--block--chart--wrapper ng-isolate-scope" query="getGDPData" cda="osha-dvt-barometer/dashboards/generic_information.cda" height="370" orientation="vertical" listen-to="['pSplit']" axis-fixed-max="260" step="100" params="[['pIndicator','pSplit'],['pCountry1', pCountry1],['pCountry2', pCountry2],['pDataset', datasetEurostat2019]]" color-role="category" colors="[stories[4].color1, stories[4].color2, stories[4].color3]" chart-title="GDP per capita in relation to EU27_2020 average" id="5" plots="stories[4].plots" base-axis-position="top" axis-label-font="12px 'OpenSans-bold'" values-visible="true" values-font="12px 'OpenSans-bold'" values-mask="{value}" ortho-axis-visible="false" ortho-axis-grid="false" hoverable="false" base-axis-size="15" multiple-label-colors="true" leaf-content-overflow="visible" dimensions="stories[4].dimensions" base-axis-label-text-baseline="bottom" legend="true" legend-click-mode="none" legend-fill-style="#FFF" custom-label="true" datasource-and-dates="[datasetEurostat2019,35]">
+								<div className="card--block--chart--wrapper ng-isolate-scope">
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><a href=""><label className="sr-only">Download</label></a></li>
+								<ul className="chart--submenu " >
+									{/* <li><a className="maximize-button" title="Maximize" ><label className="sr-only " >Maximize</label></a></li>
+									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className=""></a></li>
-										<li><a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a></li>
-									</ul>
+										<li><a className=""></a></li>
+										<li><a className="">Download raw data</a></li>
+									</ul> */}
 								</ul>
 
-								<h2 ng-if="(!!chartTitle &amp;&amp; !isMaximized &amp;&amp; !titleH3) || (isMaximized &amp;&amp; !longTitle)" data-ng-bind-html="chartTitle" className="title--card  ">GDP per capita in relation to EU27_2020 average</h2>
+								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
 
 								<div className="chart--wrapper">
+								<ChartHuman
+									title='GDP per capita in ralation to EU27_2020 average'
+									colors={['#f6a400','#cbe2e3','#7b7b7d','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									showDataLabel={true}
+									//tick={20}
+									percentage='ft'
+									type='column'
+									pais1={pais1}
+									pais2={pais2}
+									chart={chart2}
+									indicator={indicator2}
+									
+									/>
 									<div className="legend-text-block">
+								
 									</div>
 								</div>
 								</div>
@@ -211,9 +235,9 @@ class EconomicSectorProfile extends Component
 						{/* INCOME PER CAPITA */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart ng-isolate-scope ng-valid" chart="IncomePerCapita" ng-model="dashboard.parameters.pSplit2">
+								<div className="select-filter-chart ng-isolate-scope ng-valid"  >
 
-								<select ng-if="chart == 'IncomePerCapita'" ng-model="pSplit2" ng-change="changeType('split2', pSplit2)" className="ng-pristine ng-untouched ng-valid ">
+								<select className="ng-pristine ng-untouched ng-valid " onChange={selectEuro}>
 									<option value="36">Purchasing Power Standards (PPS)</option>
 									<option value="279">Euro (€)</option>
 								</select>
@@ -221,20 +245,35 @@ class EconomicSectorProfile extends Component
 								</div>
 							</div>
 							<div className="chart--block with-filter">
-								<div className="card--block--chart--wrapper ng-isolate-scope" query="getIncomePerCapitaData" cda="osha-dvt-barometer/dashboards/generic_information.cda" width="330" height="370" type="lines" listen-to="['pSplit', 'pDataset']" orientation="vertical" axis-fixed-min="10000" axis-fixed-max="20000" step="5000" params="[['pIndicator','pSplit2'],['pCountry1', pCountry1],['pCountry2', pCountry2],['pDataset', datasetEurostatBetweenDates]]" color-role="series" colors="[stories[5].color1, stories[5].color2, stories[5].color3]" chart-title="Income per capita" id="6" axis-label-font="12px 'OpenSans-bold'" plots="stories[5].plots" dimensions="stories[5].dimensions" values-visible="true" values-font="14px 'OpenSans-bold'" values-mask="{value}" show-euro-mask="true" multiple-label-colors="false" base-axis-label-text-baseline="top" leaf-content-overflow="visible" legend="true" datasource-and-dates="[datasetEurostatBetweenDates, pSplit2]">
+								<div className="card--block--chart--wrapper ng-isolate-scope" >
 
-								<ul className="chart--submenu " ng-if="!isMaximized">
-									<li><a onClick="open(items[0].action)" className="maximize-button" title="Maximize" role="button"><label className="sr-only " data-ng-bind="items[0].text">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a onClick="open(items[2].action)" role="button" data-ng-bind="items[2].text" className="">Export as image</a></li>
-										<li><a onClick="open(items[1].action)" role="button" data-ng-bind="items[1].text" className="">Download raw data</a></li>
-									</ul>
+								<ul className="chart--submenu " >
+									{/* <li><a className="maximize-button" title="Maximize" role="button"><label className="sr-only " >Maximize</label></a></li>
+									<li className="dropdown-toggle" ><a href=""><label className="sr-only">Download</label></a></li>
+									<ul className="dropdown-menu dropdown-menu-right" >
+										<li><a  className="">Export as image</a></li>
+										<li><a className="">Download raw data</a></li>
+									</ul> */}
 								</ul>
 
-								<h2 ng-if="(!!chartTitle &amp;&amp; !isMaximized &amp;&amp; !titleH3) || (isMaximized &amp;&amp; !longTitle)" data-ng-bind-html="chartTitle" className="title--card  ">Income per capita</h2>
+								{/* <h2 className="title--card  ">Income per capita</h2> */}
 								<div className="chart--wrapper">
+								<IncomerPercapital
+									title='Income per capita'
+									colors={['#f6a400','#003399','#449fa2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									showDataLabel={true}
+									tick={5000}
+									percentage='€'
+									type='line'
+									pais1={pais1}
+									pais2={pais2}
+									chart={chart}
+									indicator={indicator}
+									/>
+
+
 									<div className="legend-text-block">
+									
 									</div>
 								</div>
 								</div>
@@ -250,8 +289,9 @@ class EconomicSectorProfile extends Component
 				<Related literals={this.props.literals} section={["generic-information","economic-sector-profile"]} />
 
 			</div>
+			
 		)
-	}
+	
 }
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
 export default EconomicSectorProfile;
