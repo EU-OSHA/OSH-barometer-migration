@@ -10,11 +10,11 @@ const App = ({children}) =>
 {
 	return(
 		<div>
-			{/* <Header /> */}
+			<Header />
 			
 			{children}
 
-			{/* <Footer /> */}
+			<Footer />
 		</div>
 	)
 }
