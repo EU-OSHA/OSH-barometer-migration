@@ -29,10 +29,10 @@ class IncomerPercapital extends Component {
 				exporting: {
 					enabled: true
 				},
-				// tooltip: {
-				// 	headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {}</b><br/>',
-				// 	pointFormat: '<b> Income </b> {point.y} €'
-				// },
+				tooltip: {
+					headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {point.x}</b><br/>',
+					pointFormat: '<b> Income </b> {point.y} €'
+				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
@@ -83,6 +83,8 @@ class IncomerPercapital extends Component {
 	}
 
 	getLoadData = (chart, indicator, country1, country2) => {
+	
+	
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
@@ -90,12 +92,14 @@ class IncomerPercapital extends Component {
 		
 
 		getChartData(chart, indicator, country1, country2)
+	
+
 			.then((res) => {
 				res.resultset.forEach(element => {
-						//console.log(res.resultset)
+						
 					if (categories.indexOf(element.split) == -1) {
 						categories.push(element.split)
-					}console.log(categories)
+					}
 					
 					let split = element.country;
 					if (!(split in auxSeries)) {
@@ -103,7 +107,7 @@ class IncomerPercapital extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-					console.log(auxSeries)
+				
 				});
 					
 		for (let serie in auxSeries) {
@@ -131,6 +135,11 @@ class IncomerPercapital extends Component {
 		if (prevProps.pais2 != this.props.pais2) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
+
+		if (prevProps.chart != this.props.chart){
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+		
 	}
 
 	render() {

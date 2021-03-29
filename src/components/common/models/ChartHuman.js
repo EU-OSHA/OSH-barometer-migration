@@ -22,7 +22,7 @@ class ChartHuman extends Component {
 					enabled: false,
 				},
 				chart: {
-					height: 500,
+					//height: 400,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
@@ -114,6 +114,7 @@ class ChartHuman extends Component {
 								color: {
 									pattern: {
 										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
+										 //image: '../style/img/man_blue.svg',
 										//aspectRatio:0.8
 									}
 								}}]
@@ -139,6 +140,9 @@ class ChartHuman extends Component {
 		}
 
 		if (prevProps.pais2 != this.props.pais2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+		if (prevProps.chart != this.props.chart){
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
 	}

@@ -29,6 +29,9 @@ class Chart extends Component {
 				exporting: {
 					enabled: true
 				},
+				legend:{
+					//reversed: this.props.legend
+				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
@@ -44,8 +47,8 @@ class Chart extends Component {
 					}
 				},
 				xAxis: {
-					
 					categories: [this.props.data?.categories],
+					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -61,6 +64,7 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -87,7 +91,7 @@ class Chart extends Component {
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
 				res.resultset.forEach(element => {
-
+						//console.log(res.resultset)
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.countryCode)
 					}//console.log(categories)
