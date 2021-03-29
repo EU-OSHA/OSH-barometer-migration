@@ -1454,46 +1454,46 @@ and (max-width :767px)  {
 	.hide-mobile{
 		display: none;
 	}
-  .hide-header{
-    position: fixed;
-    top: -10rem;
-    -webkit-transition: all 0.8s;
-    transition: all 0.8s;
-    &.affix{
-    	top: -25rem;
-    	background: $white;
-    	width: 100%;
-    }
+	.hide-header{
+		position: fixed;
+		top: -10rem;
+		-webkit-transition: all 0.8s;
+		transition: all 0.8s;
+		&.affix{
+			top: -25rem;
+			background: $white;
+			width: 100%;
+		}
+			&.affix-top{
+			top: -25rem;
+			background: $white;
+			width: 100%;
+		}
+	}
+	.show-header{
+		position: fixed;
+		top:0rem;
+		-webkit-transition: all 0.8s; 
+		transition: all 0.8s;
+		&.affix{
+			top:9rem;
+			background: $white;
+			width: 100%;
+		}
 		&.affix-top{
-    	top: -25rem;
-    	background: $white;
-    	width: 100%;
-    }
-  }
-  .show-header{
-    position: fixed;
-    top:0rem;
-    -webkit-transition: all 0.8s; 
-    transition: all 0.8s;
-    &.affix{
-    	top:9rem;
-    	background: $white;
-    	width: 100%;
-    }
-    &.affix-top{
-    	top:0rem;
-    	position: relative;
-    	background: $white;
-    	width: 100%;
-    }
-  }
+			top:0rem;
+			position: relative;
+			background: $white;
+			width: 100%;
+		}
+	}
 	.bar-header{
 		position: fixed;
 		background: $white;
 		box-shadow: 0 0px 2px #ccc;
 		width: 100%;
 		z-index: 1000;
-  	.header--top{
+		.header--top{
 			.eu-osha-logo {
 
 			}
@@ -1515,31 +1515,41 @@ and (max-width :767px)  {
 					}
 				}
 			}
-  	}
-  	.bar-main-menu{
-  		position: relative;
-  		z-index: 1000;
-  		background:$white;
-			.navbar-toggle{
-				margin: 1rem 1rem 0 1rem;
-			}
-			&.exposed .collapse.exposed {
-			  display: block !important;
-			  background: #FFF;
-			  height: auto !important;
-			  width: 100vw;
-			  top: 9rem;
-			  left: 0;
-			  right:initial;
-			  transition: all 1.6s;
-			  position: absolute;
-			  border-top: 1px solid #F0F0F0;
-			  border-bottom: 4px solid $aquamarine;
-			  .navbar-nav{
-					height: auto;
+		}
+		.bar-main-menu{
+			position: relative;
+			z-index: 1000;
+			background:$white;
+				.navbar-toggle{
+					margin: 1rem 1rem 0 1rem;
 				}
-			}
-  	}
+				&.exposed{
+					.navbar-collapse.exposed{
+						width:100vw;
+						height: auto !important;
+						.navbar-nav{
+							height: auto;
+							padding: 0;
+						}
+					}
+				}
+				// &.exposed .colapse.exposed {
+				// 	display: block !important;
+				// 	background: #FFF;
+				// 	height: auto !important;
+				// 	width: 100vw;
+				// 	top: 9rem;
+				// 	left: 0;
+				// 	right:initial;
+				// 	transition: all 1.6s;
+				// 	position: absolute;
+				// 	border-top: 1px solid #F0F0F0;
+				// 	border-bottom: 4px solid $aquamarine;
+				// 	.navbar-nav{
+				// 		height: auto;
+				// 	}
+				// }
+		}
 	}
 	.advice-home{
 		.lead-title {

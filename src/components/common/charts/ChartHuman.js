@@ -3,9 +3,9 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
-
-const euColor = 'red';
+require('highcharts/modules/pattern-fill')(Highcharts);
+import { getChartData } from '../../../api'
+const euColor = 'blue';
 const country1Color = '#ffae00';
 class ChartHuman extends Component {
 	constructor(props) {
@@ -14,25 +14,24 @@ class ChartHuman extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					text: this.props.title,
+					title: this.props.title,
 					align: 'left'
 				},
-				credits: {
-					enabled: false
-				},
 				colors: this.props.colors,
+				credits: {
+					enabled: false,
+				},
 				chart: {
-					height:500,
+					//height: 400,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true
+					enabled: true,
 				},
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
-
 					},
 					bar: {
 						dataLabels: {
@@ -40,12 +39,19 @@ class ChartHuman extends Component {
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
 							}
+						},
+						grouping: false
+					},
+					bar: {
+						dataLabels: {
+							enabled: this.props.showDataLabel === true ? true : false,
+							formatter: function () {
+								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+							}
 						}
 					}
 				},
-				xAxis: {
-					
-					categories: [this.props.data?.categories],
+				xAxis: {					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -58,7 +64,8 @@ class ChartHuman extends Component {
 						style: {
 							fontWeight: 'bold'
 						}
-					}
+					},
+					type: 'category'
 				},
 				yAxis: {
 					max: this.props.yAxisMax,
@@ -73,41 +80,7 @@ class ChartHuman extends Component {
 						}
 					}
 				},
-				series: [{
-					type: 'column',
-					pointPadding: 0.25,
-					borderColor: 'transparent',
-					borderWidth: 0,
-					data: [{
-						name: 'AT',
-						y: 300,
-						color: {
-							pattern: {
-								image: 'human-orange.svg',
-								//aspectRatio:0.8
-							}
-						}
-					}, {
-						name: 'BE',
-						y: 180,
-						color: {
-							pattern: {
-								image: 'human-green.svg',
-								//aspectRatio:1.4
-							}
-						}
-					}, {
-						name: 'EU27_2020',
-						y: 120,
-						color: {
-							pattern: {
-								image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131210/Highsoft_04045_.jpg',
-								//aspectRatio:1.4
-							}
-						}
-					},
-					]
-				}]
+				series: []
 			}
 		}
 	}
@@ -116,33 +89,43 @@ class ChartHuman extends Component {
 		let categories = [];
 		let auxSeries = [];
 		let series = [];
+		let split =[];
+		let value=[];
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				//console.log('res',res.resultset);
+				let i = 0;
 				res.resultset.forEach(element => {
 
-					if (categories.indexOf(element.countryCode) == -1) {
-						categories.push(element.countryCode)
-					}
-					let split = element.countryCode;
-					if (!(split in auxSeries)) {
-						auxSeries[split] = []
-					}
-					// else if (element.split == null) {
-					// 	split = element.value
-					// 	//console.log("esta funcion aplica")
-					// }
-					
-					auxSeries[split].push(element.value)
+					if (element.split == null)
+					{
+						// There is no split, series and the categories will be the same
+						//console.log('country', element.countryCode);
+						//console.log('value',element.value);
+						series.push({
+			  				name: element.country,
+							type: 'column',
+							pointWidth: 110,
+							pointPadding: 0.25,
+        					borderColor: 'transparent',
+        					borderWidth: 0,
+							data: [{name:element.countryCode, y: element.value, x: i, 
+								color: {
+									pattern: {
+										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
+										 //image: '../style/img/man_blue.svg',
+										//aspectRatio:0.8
+									}
+								}}]
+						});
+						i++;
+					}					
 				});
-					
-		for (let serie in auxSeries) {
-			series.push({ name: serie, data: auxSeries[serie] })
-		}
 
-		// this.setState({
-		// 	chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series: { color: { pattern: { image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131210/Highsoft_04045_.jpg'}}},}
-		// })
+		this.setState({
+			chartConfig: {...this.state.chartConfig,  series}
+		})
 	});
 		
 	}
@@ -157,6 +140,9 @@ class ChartHuman extends Component {
 		}
 
 		if (prevProps.pais2 != this.props.pais2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		}
+		if (prevProps.chart != this.props.chart){
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
 	}

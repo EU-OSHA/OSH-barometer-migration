@@ -791,6 +791,12 @@
       text-align: left;
     }
   }
+  .osh-authority{
+    .text-advice{
+      padding-left: 1.7rem;
+      padding-right: 1.7rem;
+    }
+  }
   .icon--card{
     height: 20rem;
     width: 100%;
@@ -841,6 +847,7 @@
         position: relative;
         display: flex;
         margin-bottom: 1rem;
+        margin-top: 0.8rem;
         &:after{
           content: "\f107";
           font-family: FontAwesome;
@@ -943,7 +950,8 @@
       display: flex;
       justify-content: space-between;
       list-style: none;
-      margin-top: 1rem;
+      margin-top: 2.2rem;
+      padding: 0;
       li{
         width: 50%;
         padding: 0rem 4rem 0rem 0;
@@ -1685,6 +1693,8 @@
 }
 
 .section--methodology{
+  padding-left:1.5rem;
+  padding-right:1.5rem;
   @media screen and (max-width: 767px) {
     padding-top: 0 !important;
   }

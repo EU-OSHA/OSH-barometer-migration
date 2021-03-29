@@ -167,7 +167,7 @@ export function getHealthPerceptionData(filters){
 
             return urlWithParams
         }
-    })
+    })  
     .then((response) => response.data);
 
     return response

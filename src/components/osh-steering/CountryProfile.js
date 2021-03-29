@@ -64,7 +64,9 @@ class CountryProfile extends Component
 	}
 
 	openIndicatorsList = (event) => {
-		if( window.innerWidth < 1090 ){
+		
+		if( window.innerWidth < 990 ){
+			
 			if(event.target.nodeName == "A"){
 			  var parentTag = event.target.offsetParent.nextSibling.parentNode.className;
 			} else if( event.target.nodeName == "LI" ){
@@ -222,7 +224,7 @@ class CountryProfile extends Component
 				<ul className={"submenu--items--wrapper "+this.state.openListClass}>
 					{
 						this.state.indicators.map((indicator, index) => (
-							<li key={index} onClick={this.openIndicatorsList()} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
+							<li key={index} onClick={this.openIndicatorsList(this)} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
 								<Link to={"/osh-steering/country-profile/"+this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-')+"/"
 									+this.state.country1+"/"+(this.state.country2 != undefined ? this.state.country2 : "" )} 
 									onClick={this.changeIndicator(this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-'))}
@@ -246,7 +248,7 @@ class CountryProfile extends Component
 					</p>
 				</div>
 
-				<div className="compare--block regulation-page">
+				<div className="compare--block">
 					<div className="submenu--block container">
 						{/* <label className="submenu-indicator" >Select the indicator</label> */}
 						{indicatorTabs}

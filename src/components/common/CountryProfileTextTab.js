@@ -111,8 +111,8 @@ class CountryProfileTextTab extends Component
                     <div className="columm--item--content">
                         { /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
                         <p className="download-report">
-                            <Link to={`/osh-steering/country-profile/pdf/National-Strategies-Mapping_${country2.name}.pdf`} 
-                            className="download-pdf" target="_blank">{this.props.literals.L20640}</Link>
+                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country2.name}.pdf`} 
+                            className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         </p>
                         <div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
                         <div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
@@ -134,8 +134,8 @@ class CountryProfileTextTab extends Component
                     <h2>{this.props.literals[tabName]}</h2>
                     <div className="columm--item--content">
                         <p className="download-report">
-                            <Link to={`/osh-steering/country-profile/pdf/National-Strategies-Mapping_${country1.name}.pdf`} 
-                                className="download-pdf" target="_blank">{this.props.literals.L20640}</Link>
+                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country1.name}.pdf`} 
+                                className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         </p>
                         <div className="partial-text" >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
                         <div className="complete-text" >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>

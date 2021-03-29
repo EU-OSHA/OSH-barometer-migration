@@ -7,6 +7,10 @@ import ReactHtmlParser from 'react-html-parser';
 const menu = require('../../model/menu.json');
 const breadcrumb = require('../../model/breadcrumb.json');
 
+function googleTranslateElementInit () {
+	new window.google.translate.TranslateElement({ pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element')
+}
+
 function setTitleShare (props) {
 	return 'OSH Barometer | Data Visualisation';
 }
@@ -85,6 +89,12 @@ class Header extends Component
 		$("a.dropdown-toggle").click(function(){
 			$(this).parent().toggleClass("open");
 		});
+
+		// Add the script to load the Google Translate Element
+		var addScript = document.createElement('script');
+		addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+		document.body.appendChild(addScript);
+		window.googleTranslateElementInit = googleTranslateElementInit;
 	}
 
 	/*

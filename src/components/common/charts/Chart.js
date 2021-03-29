@@ -22,7 +22,8 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					type: 'bar',
+					height:500,
+					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
@@ -32,6 +33,9 @@ class Chart extends Component {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
 						}
 					}
+				},
+				legend:{
+					//reversed: this.props.legend
 				},
 				plotOptions: {
 					series: {
@@ -48,8 +52,8 @@ class Chart extends Component {
 					}
 				},
 				xAxis: {
-					
 					categories: [this.props.data?.categories],
+					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -65,6 +69,7 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -77,38 +82,7 @@ class Chart extends Component {
 						}
 					}
 				},
-				series: [
-					//{
-					
-				// 	//pointPadding: 0.25,
-				// 	//borderColor: 'transparent',
-				// 	//borderWidth: 0,
-				// 	data: [{
-	
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:0.8
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	}, {
-				// 		color: {
-				// 			pattern: {
-				// 				//image: '',
-				// 				//aspectRatio:1.4
-				// 			}
-				// 		}
-				// 	},
-				// 	]
-				// }
-				]
+				series: [ ]
 			}
 		}
 	}
@@ -122,12 +96,10 @@ class Chart extends Component {
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
 				res.resultset.forEach(element => {
-
+						//console.log(res.resultset)
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.countryCode)
-					}
-
-					
+					}//console.log(categories)
 					
 					let split = element.split;
 					if (!(split in auxSeries)) {
@@ -135,25 +107,12 @@ class Chart extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-					if ( split == null){
-						split = element.countryCode
-					   //split.push(split)
-					  // console.log("nuevo split",split)
-					}
-						
-					 
-					
-
-					//auxSeries[split].push(split)
-					//console.log(categories)
-					
-					//console.log(` ${split}`)
 				});
 					
 		for (let serie in auxSeries) {
 			
 			series.push({ name: serie , data: auxSeries[serie] })
-			console.log(auxSeries[serie])
+			//console.log(categories)
 		}
 
 		this.setState({
