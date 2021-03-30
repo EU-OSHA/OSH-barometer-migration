@@ -86,15 +86,29 @@ export function getChartData(chart, indicator, country1, country2) {
     return response;
 }
 
-export function getIndicatorCountries(chart = '20012') {
+export function getIndicatorCountries(charts = ['20012'], indicator) {
     const URL = `${BASEURL}countries/getIndicatorCountries`
 
     const response = axios.get(URL, {
         params: {
-            chart
+            charts,
+            indicator
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.charts) {
+                params.charts.map((chart) => urlWithParams.append('chart', chart));
+            }
+
+            if (params.indicator) {
+                urlWithParams.append('indicator', params.indicator);
+            }
+
+            return urlWithParams
         }
     })
-        .then((res) => res.data);
+        .then((response) => response.data);
 
     return response
 }

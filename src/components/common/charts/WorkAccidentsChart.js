@@ -85,10 +85,12 @@ class WorkAccidentsChart extends Component {
         let categories = [];
         let series = [];
         let auxSeries = [];
+        let euValue = null
         
         this.initChart();
         getChartData(chart, indicator, country1, country2)
-        .then((data) => {
+            .then((data) => {
+                euValue = data.resultset[1].value;
                 try {
                     this.setState({ ...this.state, isLoading: true });
                     data.resultset.forEach(element => {
@@ -161,10 +163,10 @@ class WorkAccidentsChart extends Component {
                              * it depends on the value of the serie if they're the same.
                              */
                             let euSerie = {...auxSeries[serie].find((serie) => serie.name == 'EU27_2020' )};
-                            if (euSerie.y == 1.9) {
-                                euSerie = {...euSerie}
-                            } else {
+                            if (euSerie.y == euValue) {
                                 euSerie = {...euSerie, color: '#003399'}
+                            } else {
+                                euSerie = {...euSerie}
                             }
                             auxSeries[serie][0] = euSerie
                             series.push( {name: serie, data: auxSeries[serie]} );

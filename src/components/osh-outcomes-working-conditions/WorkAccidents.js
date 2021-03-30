@@ -95,7 +95,7 @@ class WorkAccidents extends Component
 							/>
 						) : (
 							<WorkAccidentsChart 
-							title={`<h2>${this.props.literals.L22196}</h2>`}
+							title={this.props.literals.L22196}
 							showDataLabel={true}
 							type={'column'}
 							chart={'20023'}
