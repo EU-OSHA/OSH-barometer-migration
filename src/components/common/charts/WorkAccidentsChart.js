@@ -14,7 +14,8 @@ class WorkAccidentsChart extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: this.props.title,
+                    useHTML: true,
+                    text: "<h2 class='title--card'>"+this.props.title+"</h2>",
                     align: 'left'
                 },
                 credits: {
@@ -25,20 +26,35 @@ class WorkAccidentsChart extends Component {
                     type: this.props.type,
                     backgroundColor: '#F0F0F0'
                 },
-                exporting: {
-                    enabled: true,
-                    buttons: {
-                        contextButton: {
-                            menuItems: ['viewFullscreen']
-                        }
-                    }
-                },
+				exporting: {
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						}
+					}
+				},
                 yAxis: {
                     title: {
                         text: ''
                     }
                 },
-                tooltip: {},
+				tooltip: {},
                 plotOptions: {},
                 series: []
             },
@@ -50,7 +66,8 @@ class WorkAccidentsChart extends Component {
     initChart = () => {
         this.setState({ chartConfig: {
             title: {
-                text: this.props.title,
+                useHTML: true,
+                text: "<h2 class='title--card'>"+this.props.title+"</h2>",
                 align: 'left'
             },
             credits: {
@@ -58,6 +75,7 @@ class WorkAccidentsChart extends Component {
             },
             colors: this.props.colors,
             chart: {
+                height:450,
                 type: this.props.type,
                 backgroundColor: '#F0F0F0'
             },
@@ -65,16 +83,66 @@ class WorkAccidentsChart extends Component {
                 enabled: true,
                 buttons: {
                     contextButton: {
-                        menuItems: ['viewFullscreen']
+                        menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+                    }
+                }
+            },
+            navigation: {
+                buttonOptions: {
+                    theme: {
+                        fill: 'transparent',
+                        states: {
+                            hover: {
+                                fill: '#CCC'
+                            },
+                            select: {
+                                fill: 'transparent'
+                            }
+                        }
                     }
                 }
             },
             yAxis: {
+                gridLineColor:'#FFF',
+                gridLineWidth:2,
+                startOnTick: true,
+                endOnTick: true,
                 title: {
                     text: ''
                 },
+                labels: {
+                    format: this.props.percentage === true ? '{value}%' : `{value}`,
+                    style: {
+                        fontFamily: 'OpenSans-bold',
+                        fontWeight: 'normal',
+                        fontSize:'12px',
+                        textOverflow: 'none'
+                    }
+                }
             },
-            tooltip: {},
+            xAxis: {
+                lineWidth: 0,
+                labels: {	
+                    style: {
+                        fontFamily: 'OpenSans-bold',
+                        fontWeight: 'normal',
+                        fontSize:'12px',
+                        textOverflow: 'none'
+                    }
+                }
+            },
+            tooltip: {					
+                useHTML: true,
+                style: {
+                    opacity: 1
+                },
+                formatter: function () {
+                    return '<ul class="tooltip-item">'+
+                    '<li><strong>Country: </strong> ' + this.series.name + '</li>' +
+                    '<li><strong> Value: </strong>' + this.y +'%</li>' +
+                    '</ul>';
+                }
+            },
             plotOptions: {},
             series: []
         } })

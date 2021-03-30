@@ -91,7 +91,7 @@ class WorkAccidents extends Component
 							indicator={'53'}
 							selectedCountry1={this.state.selectCountry1}
 							selectedCountry2={this.state.selectCountry2}
-							colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
+							colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
 							/>
 						) : (
 							<WorkAccidentsChart 
