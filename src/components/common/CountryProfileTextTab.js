@@ -71,20 +71,19 @@ class CountryProfileTextTab extends Component
 			// (completeText.style.display === "block" || completeText.style.display === "") ? completeText.style.display = "none": completeText.style.display = "block";
 			// (partialText.style.display === "block" || partialText.style.display === "") ? partialText.style.display = "none": partialText.style.display = "block";
 		} 
-		// else if(event.target.nodeName === "FONT")
-		// {
-			
-		// }
+		else if(event.target.nodeName === "FONT")
+		{
+			completeText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling;
+			partialText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling;
+			seeMore = event.target.parentNode.parentNode.previousSibling !== null ? event.target.parentNode.parentNode.previousSibling: event.target.parentNode.parentNode;
+			seeLess = event.target.parentNode.parentNode.nextSibling !== null ? event.target.parentNode.parentNode.nextSibling: event.target.parentNode.parentNode;
+		}
 		else if(event.target.nodeName === "I")
 		{
 			completeText = event.target.parentNode.parentNode.parentNode.previousSibling;
-			console.log('completeText',completeText);
 			partialText = event.target.parentNode.parentNode.parentNode.previousSibling.previousSibling;
-			console.log('partialText',partialText);
 			seeMore = event.target.parentNode.previousSibling !== null ? event.target.parentNode.previousSibling: event.target.parentNode;
-			console.log('seeMore',seeMore);
 			seeLess = event.target.parentNode.nextSibling !== null ? event.target.parentNode.nextSibling: event.target.parentNode;
-			console.log('seeLess',seeLess);
 		}
 
 		completeText.classList.toggle("complete-text");

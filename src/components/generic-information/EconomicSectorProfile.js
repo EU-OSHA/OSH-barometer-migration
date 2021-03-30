@@ -70,7 +70,11 @@ const EconomicSectorProfile = (props) => {
 					{/* FILTERS */}
 					<form className="compare--block--form">
 						<ul className="compare--list">
-							<SelectEconomic  handleSearch={handleSearch} handleSearch2={handleSearch2}/>
+							<SelectEconomic 
+								handleSearch={handleSearch} 
+								handleSearch2={handleSearch2} 
+								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+							/>
 						</ul>
 					</form>
 					
