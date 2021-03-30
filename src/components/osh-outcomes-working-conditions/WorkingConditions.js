@@ -17,7 +17,7 @@ class WorkingConditions extends Component
 					<section className="card--grid xxs-w1 w3 center-text">
 						<div className="card--block--rounded">
 							<Link className="icon--card overall-opinion-icon" to={"osh-outcomes-working-conditions/overall_opinion/job-satisfaction/AT/0/sector"}
-								// ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})"
+								 ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})"
 							></Link>
 							<h3 className="title--card main-color">
 								<Link to={"osh-outcomes-working-conditions/overall_opinion/job-satisfaction/AT/0/sector"}
