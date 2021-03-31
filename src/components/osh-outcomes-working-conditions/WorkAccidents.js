@@ -12,7 +12,7 @@ class WorkAccidents extends Component
 		super(props)
 
 		this.state = {
-			selectCountry1: this.props.initCountry,
+			selectCountry1: 'AT',
 			selectCountry2: '',
 			indicatorTabs: [{ literalID: '310' }, { literalID: '311' }],
 			selectedTab: '310',
