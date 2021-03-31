@@ -27,7 +27,12 @@ class IncomerPercapital extends Component {
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+						}
+					}
 				},
 				tooltip: {
 					headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {point.x}</b><br/>',

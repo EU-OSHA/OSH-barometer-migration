@@ -20,7 +20,7 @@ class CountryReportHome extends Component
 
 	onPDFClick = (country) => {
 		return () => {
-			const url = `about-tool/country-report-home/pdf/country-report_${country}.pdf`;
+			const url = `/country-report/country-report_${country}.pdf`;
 			window.open(url, "_blank")
 		}
 	}

@@ -41,9 +41,9 @@ class EUCountryCard extends Component{
         if(page === 'socialDialogue'){
             socialDialogueLink = (
                 <p className="download-report" >
-                    <Link href="./osh-steering/social-dialogue/pdf/Social_Dialogue_{euData.countryCode}.pdf" className="download-pdf" target="_blank">
+                    <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+euData.countryCode+".pdf"} className="download-pdf" target="_blank">
                         {ReactHtmlParser(this.props.literals.L20637)}
-                    </Link>
+                    </a>
                 </p>
             )
         }else{

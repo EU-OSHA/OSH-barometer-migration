@@ -8,7 +8,6 @@ const SeeMore = props => {
     var html = "";
 
     function toggleText (event){
-        console.log('event',event);
         props.toggleText(event)();
     }
 

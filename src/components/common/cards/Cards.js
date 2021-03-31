@@ -29,7 +29,7 @@ class Cards extends Component {
 	// Opens PDF to a specific Country
     onPDFClick = (countryName) => {
 		return () => {
-			const url = `pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/modules/vertical/generic-information/osh-authorities/pdf/OSH authorities - ${countryName}.pdf`
+			const url = `/generic-information/osh-authorities/OSH authorities - ${countryName}.pdf`
 			window.open(url, "_blank")
 		}
 	}
@@ -75,8 +75,11 @@ class Cards extends Component {
 								{this.state.selectedId == countryID ? (
 									countryData.text3 && ReactHtmlParser(literals[`L${countryData.text3}`])
 								) : (
-									countryData.text3 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text3}`], 300))
+									null
 								)}
+								{this.state.selectedId != countryID ? (
+									countryData.text3 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text3}`], 300))
+								) : null}
 							</div>
 						</React.Fragment>
 					)}
@@ -87,14 +90,20 @@ class Cards extends Component {
 							{this.state.selectedId == countryID ? (
 								ReactHtmlParser(literals[`L${countryData.text2}`])
 							) : (
+								null
+							)}
+							{this.state.selectedId != countryID ? (
 								countryData.text2 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text2}`], 350))
+							) : (
+								null
 							)}
 						</React.Fragment>
 					)}
 					
 					{(countryData.text3 && literals[`L${countryData.text3}`].length > 300 || countryData.text2 && replacedText.length > 350) && (
 						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
-							<a className={this.state.toggleShowMore ? 'see-less main-color' : 'see-more main-color'} > {this.state.toggleShowMore ? this.props.literals.L481 : this.props.literals.L480} </a>
+							{this.state.toggleShowMore ? <a className='see-less main-color'> {this.props.literals.L481} </a> : null }
+							{!this.state.toggleShowMore ? <a className='see-more main-color'> {this.props.literals.L480} </a> : null }
 						</p>
 					)}
 

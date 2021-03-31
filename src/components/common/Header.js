@@ -87,7 +87,16 @@ class Header extends Component
 			$(".navbar-collapse").toggleClass("collapse").toggleClass("exposed")
 		});
 		$("a.dropdown-toggle").click(function(){
+			//console.log(window.location.pathname );
+			if($(this).parent().attr('class').indexOf("open")<=0){
+				$('.navbar-nav li').removeClass('open');
+			}
 			$(this).parent().toggleClass("open");
+		});
+		$(".dropdown-menu > li > a").click(function(){
+			$("button.navbar-toggle").toggleClass("exposed");
+			$(".bar-main-menu").toggleClass("exposed");
+			$(".navbar-collapse").toggleClass("collapse").toggleClass("exposed");
 		});
 
 		// Add the script to load the Google Translate Element

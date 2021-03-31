@@ -71,20 +71,19 @@ class CountryProfileTextTab extends Component
 			// (completeText.style.display === "block" || completeText.style.display === "") ? completeText.style.display = "none": completeText.style.display = "block";
 			// (partialText.style.display === "block" || partialText.style.display === "") ? partialText.style.display = "none": partialText.style.display = "block";
 		} 
-		// else if(event.target.nodeName === "FONT")
-		// {
-			
-		// }
+		else if(event.target.nodeName === "FONT")
+		{
+			completeText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling;
+			partialText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling;
+			seeMore = event.target.parentNode.parentNode.previousSibling !== null ? event.target.parentNode.parentNode.previousSibling: event.target.parentNode.parentNode;
+			seeLess = event.target.parentNode.parentNode.nextSibling !== null ? event.target.parentNode.parentNode.nextSibling: event.target.parentNode.parentNode;
+		}
 		else if(event.target.nodeName === "I")
 		{
 			completeText = event.target.parentNode.parentNode.parentNode.previousSibling;
-			console.log('completeText',completeText);
 			partialText = event.target.parentNode.parentNode.parentNode.previousSibling.previousSibling;
-			console.log('partialText',partialText);
 			seeMore = event.target.parentNode.previousSibling !== null ? event.target.parentNode.previousSibling: event.target.parentNode;
-			console.log('seeMore',seeMore);
 			seeLess = event.target.parentNode.nextSibling !== null ? event.target.parentNode.nextSibling: event.target.parentNode;
-			console.log('seeLess',seeLess);
 		}
 
 		completeText.classList.toggle("complete-text");
@@ -111,8 +110,8 @@ class CountryProfileTextTab extends Component
                     <div className="columm--item--content">
                         { /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
                         <p className="download-report">
-                            <Link to={`/osh-steering/country-profile/pdf/National-Strategies-Mapping_${country2.name}.pdf`} 
-                            className="download-pdf" target="_blank">{this.props.literals.L20640}</Link>
+                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country2.name}.pdf`} 
+                            className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         </p>
                         <div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
                         <div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
@@ -134,8 +133,8 @@ class CountryProfileTextTab extends Component
                     <h2>{this.props.literals[tabName]}</h2>
                     <div className="columm--item--content">
                         <p className="download-report">
-                            <Link to={`/osh-steering/country-profile/pdf/National-Strategies-Mapping_${country1.name}.pdf`} 
-                                className="download-pdf" target="_blank">{this.props.literals.L20640}</Link>
+                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country1.name}.pdf`} 
+                                className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         </p>
                         <div className="partial-text" >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
                         <div className="complete-text" >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
