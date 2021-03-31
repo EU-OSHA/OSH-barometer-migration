@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import humanBlue from './img/human-blue.svg';
+import humanOrange from './img/human-orange.svg';
+import humanGreen from './img/human-green.svg';
+
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 require('highcharts/modules/pattern-fill')(Highcharts);
 import { getChartData } from '../../../api'
-const euColor = 'blue';
+
+const euColor = '#003399';
 const country1Color = '#ffae00';
+const country2Color = '#529FA2';
+
 class ChartHuman extends Component {
 	constructor(props) {
 		super(props);
@@ -14,7 +21,8 @@ class ChartHuman extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					title: this.props.title,
+					useHTML: true,
+					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left'
 				},
 				colors: this.props.colors,
@@ -30,16 +38,55 @@ class ChartHuman extends Component {
 					enabled: true,
 					buttons: {
 						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						}
+					}
+				},
+				legend:{
+					//reversed: this.props.legend
+					verticalAlign: 'bottom',
+					symbolRadius: 0,
+					//layout: 'vertical',
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					//width: 300,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'12px',
+						textOverflow: "ellipsis",
+						width: 250
 					}
 				},
 				plotOptions: {
 					series: {
+						shadow: false,
+						outline: 0,
 						stacking: this.props.stacking
 					},
 					bar: {
 						dataLabels: {
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'14px'
+							},
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
@@ -48,6 +95,12 @@ class ChartHuman extends Component {
 						grouping: false
 					},
 					bar: {
+						style: {
+							textOutline: 0,
+							textShadow: false,
+							fontFamily: 'OpenSans-Bold',
+							fontSize:'14px'
+						},
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -63,7 +116,12 @@ class ChartHuman extends Component {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
 							}
 							else {
-								return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>"
+								if( this.pos == 0){
+									return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>"
+								} else {
+									return "<span style='color:" + country2Color + "'>" + [this.value] + "</span>"
+								}
+								
 							}
 						},
 						style: {
@@ -73,13 +131,14 @@ class ChartHuman extends Component {
 					type: 'category'
 				},
 				yAxis: {
-					max: this.props.yAxisMax,
-					tickInterval: this.props.tick,
+					//max: this.props.yAxisMax,
+					//tickInterval: this.props.tick,
+					visible:false,
 					title: {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
+						//format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
 						style: {
 							fontWeight: 'bold'
 						}
@@ -108,22 +167,61 @@ class ChartHuman extends Component {
 						// There is no split, series and the categories will be the same
 						//console.log('country', element.countryCode);
 						//console.log('value',element.value);
-						series.push({
-			  				name: element.country,
-							type: 'column',
-							pointWidth: 110,
-							pointPadding: 0.25,
-        					borderColor: 'transparent',
-        					borderWidth: 0,
-							data: [{name:element.countryCode, y: element.value, x: i, 
-								color: {
-									pattern: {
-										image: 'https://www.svgrepo.com/show/27081/ahu-tongariki.svg',
-										 //image: '../style/img/man_blue.svg',
-										//aspectRatio:0.8
-									}
-								}}]
-						});
+						
+						if( element.countryCode == "EU27_2020" ){
+							series.push({
+								name: element.country,
+								type: 'column',
+								color:euColor,
+								pointWidth: 110,
+								pointPadding: 0.25,
+								borderColor: 'transparent',
+								borderWidth: 0,
+								data: [{name:element.countryCode, y: element.value, x: i, 
+									color: {
+										pattern: {
+											image:humanBlue,
+											//aspectRatio:0.8
+										}
+									}}]
+							});
+						}else{
+							if( i== 0){
+								series.push({
+									name: element.country,
+									type: 'column',
+									color:this.props.colors[i],
+									pointWidth: 110,
+									pointPadding: 0.25,
+									borderColor: 'transparent',
+									borderWidth: 0,
+									data: [{name:element.countryCode, y: element.value, x: i, 
+										color: {
+											pattern: {
+												image: humanOrange,
+												//aspectRatio:0.8
+											}
+										}}]
+								});
+							} else {
+								series.push({
+									name: element.country,
+									type: 'column',
+									color:this.props.colors[i],
+									pointWidth: 110,
+									pointPadding: 0.25,
+									borderColor: 'transparent',
+									borderWidth: 0,
+									data: [{name:element.countryCode, y: element.value, x: i, 
+										color: {
+											pattern: {
+												image: humanGreen,
+												//aspectRatio:0.8
+											}
+										}}]
+								});
+							}
+						}
 						i++;
 					}					
 				});
