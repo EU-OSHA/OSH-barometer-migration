@@ -17,6 +17,7 @@ class WorkAccidents extends Component
 			indicatorTabs: [{ literalID: '310' }, { literalID: '311' }],
 			selectedTab: '310',
 			isSubMenuOpen: false,
+			chartDimension: 'column'
 		}
 	}
 	handleSearch = (callbackCountry1) => {
@@ -36,6 +37,23 @@ class WorkAccidents extends Component
 	onClickSubMenu = (e) => {
 		e.preventDefault();
 		this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+	}
+
+	updateDimension = () => {
+		console.log('width: ', window.innerWidth)
+		if (window.innerWidth > 768) {
+			this.setState({ chartDimension: 'column' });
+		} else {
+			this.setState({ chartDimension: 'bar' })
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension)
 	}
 
 	render()
@@ -97,7 +115,7 @@ class WorkAccidents extends Component
 							<WorkAccidentsChart 
 							title={this.props.literals.L22196}
 							showDataLabel={true}
-							type={'column'}
+							type={this.state.chartDimension}
 							chart={'20023'}
 							indicator={'54'}
 							colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}

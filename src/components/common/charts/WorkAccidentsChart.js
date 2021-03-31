@@ -153,12 +153,14 @@ class WorkAccidentsChart extends Component {
         let categories = [];
         let series = [];
         let auxSeries = [];
-        let euValue = null
-        
+        let firstDataEuColor = null
+        let secondDataEuColor = null
+
         this.initChart();
         getChartData(chart, indicator, country1, country2)
             .then((data) => {
-                euValue = data.resultset[1].value;
+                firstDataEuColor = data.resultset[0].value
+                secondDataEuColor = data.resultset[1].value;
                 try {
                     this.setState({ ...this.state, isLoading: true });
                     data.resultset.forEach(element => {
@@ -175,7 +177,7 @@ class WorkAccidentsChart extends Component {
                             auxSeries[country].push(element.value)
                         }
 
-                        if (this.props.type == 'column') {
+                        if (this.props.type == 'column' || this.props.type == 'bar') {
 
                             if (categories.indexOf(element.country) == -1) {
                                 categories.push(element.country);
@@ -186,8 +188,6 @@ class WorkAccidentsChart extends Component {
                                 auxSeries[split] = []
                             }
                             auxSeries[split].push({name: element.countryCode, y: element.value});
-
-                            
                         }
                     });
                     
@@ -222,7 +222,7 @@ class WorkAccidentsChart extends Component {
                         } 
                         })
                     } 
-                    if (this.props.type == 'column') {
+                    if (this.props.type == 'column' || this.props.type == 'bar') {
                         // Unknown reason but you have to reverse the array or else 2015 will appear first.
                         let newArray;
                         for (let serie in auxSeries) {
@@ -231,10 +231,11 @@ class WorkAccidentsChart extends Component {
                              * it depends on the value of the serie if they're the same.
                              */
                             let euSerie = {...auxSeries[serie].find((serie) => serie.name == 'EU27_2020' )};
-                            if (euSerie.y == euValue) {
+                            if (euSerie.y == firstDataEuColor) {
+                                euSerie = {...euSerie, color: '#7f97ce'}
+                            }
+                            if (euSerie.y == secondDataEuColor) {
                                 euSerie = {...euSerie, color: '#003399'}
-                            } else {
-                                euSerie = {...euSerie}
                             }
                             auxSeries[serie][0] = euSerie
                             series.push( {name: serie, data: auxSeries[serie]} );
@@ -243,7 +244,23 @@ class WorkAccidentsChart extends Component {
                     this.setState({
                         chartConfig: {
                             ...this.state.chartConfig, 
-                            xAxis: {categories},
+                            xAxis: {
+                                categories,
+                                plotLines: [
+                                    {
+                                        color: 'black',
+                                        width: 2,
+                                        value: 0.5,
+                                        id: 'break-eu'
+                                    },
+                                    {
+                                        color: 'black',
+                                        width: 2,
+                                        value: 27.5,
+                                        id: 'break-country'
+                                    }
+                                ],
+                            },
                             tooltip: {
                                 headerFormat: '<b>Trend </b> {series.name} <br/> <b>Country </b> {point.x} <br/>',
                                 pointFormat: '<b>Value </b> {point.y}'
