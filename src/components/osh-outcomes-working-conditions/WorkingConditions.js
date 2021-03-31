@@ -35,16 +35,16 @@ class WorkingConditions extends Component
 						<div className="card--block--rounded">
 							<Link className="icon--card mental-risk-icon" 
 								// ui-sref="mental-risk"
-								to={"osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
+								to={"/osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
 							></Link>
 							<h3 className="title--card main-color">
-								<Link to={"osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
+								<Link to={"/osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
 									// ui-sref="mental-risk"
 								>{this.props.literals.L20710}</Link>
 								</h3>
 							<p>{this.props.literals.L20578}</p>
 							<p className="btn--card--block">
-								<Link to={"osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
+								<Link to={"/osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
 									// ui-sref="mental-risk" 
 									className="btn--card main-color">
 									{ReactHtmlParser(this.props.literals.L480)}
