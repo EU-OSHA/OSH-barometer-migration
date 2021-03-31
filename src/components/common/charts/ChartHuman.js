@@ -28,6 +28,11 @@ class ChartHuman extends Component {
 				},
 				exporting: {
 					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+						}
+					}
 				},
 				plotOptions: {
 					series: {
