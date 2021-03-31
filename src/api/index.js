@@ -187,23 +187,6 @@ export function getHealthPerceptionData(filters){
     return Response;
 }
 
-export function getChartData(chart, indicator, country1, country2) {
-    const URL = `${BASEURL}quantitative/getChartData`;
-
-    const response = axios.get(URL, {
-        params: {
-            chart,
-            indicator,
-            country1,
-            country2
-        },        
-    }).then((res) => {
-        return res.data
-    })
-
-    return response;
-}
-
 export function getChartDataRisk(chart, indicator, country1,country2, sector, gender, age){
     const URL = `${BASEURL}/quantitative/getChartData`;
     //?&sector=9&sector=10&sector=11&sector=12&sector=13&sector=8
