@@ -4,6 +4,8 @@ import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
 import EmploymentRate from '../common/charts/EmploymentRate'
+import AdviceSection from '../common/AdviceSection';
+import Related from '../common/Related';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';

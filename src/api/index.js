@@ -184,5 +184,76 @@ export function getHealthPerceptionData(filters){
     })  
     .then((response) => response.data);
 
-    return response
+    return Response;
 }
+
+export function getChartData(chart, indicator, country1, country2) {
+    const URL = `${BASEURL}quantitative/getChartData`;
+
+    const response = axios.get(URL, {
+        params: {
+            chart,
+            indicator,
+            country1,
+            country2
+        },        
+    }).then((res) => {
+        return res.data
+    })
+
+    return response;
+}
+
+export function getChartDataRisk(chart, indicator, country1,country2, sector, gender, age){
+    const URL = `${BASEURL}/quantitative/getChartData`;
+    //?&sector=9&sector=10&sector=11&sector=12&sector=13&sector=8
+  
+    const response = axios.get(URL, {
+        params: {
+            chart,
+            indicator,
+            country1,
+            country2,
+            sector,
+            gender,
+            age
+            
+        },
+        paramsSerializer: params =>{
+            let urlWithParams = new URLSearchParams()
+
+            if(params.chart){
+                urlWithParams.append('chart',chart)
+            }
+
+            if(params.indicator){
+                urlWithParams.append('indicator',indicator)
+            }
+
+            if (params.country1){
+                urlWithParams.append('country1',country1)
+            }
+
+            if(params.country2){
+                urlWithParams.append('country2',country2)
+            }
+            if(params.sector){
+                params.sector.map(element => urlWithParams.append('sector',element))
+            }
+            if (params.gender){
+                params.gender.map(element => urlWithParams.append('gender',element))
+            }
+
+            if (params.age){
+                params.age.map(element => urlWithParams.append('age',element))
+            }
+
+            return urlWithParams;
+        }
+    }).then((res)=> {
+        return res.data
+    })
+
+    return response;
+}
+

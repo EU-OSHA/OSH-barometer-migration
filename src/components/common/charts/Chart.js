@@ -104,6 +104,9 @@ class Chart extends Component {
 						outline: 0,
 						stacking: this.props.stacking
 					},
+					column: {
+						stacking: this.props.stackingColumn
+					},
 					bar: {
 						minPointLength:3,
 						groupPadding:0.06,
@@ -195,8 +198,9 @@ class Chart extends Component {
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				
 				res.resultset.forEach(element => {
-						//console.log(res.resultset)
+					//console.log(res.resultset)
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.countryCode)
 					}//console.log(categories)
@@ -207,7 +211,7 @@ class Chart extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-				});
+				});//console.log(auxSeries)
 					
 		for (let serie in auxSeries) {
 			
@@ -247,6 +251,7 @@ class Chart extends Component {
 					options={this.state.chartConfig}
 					containerProps={{ className: 'chartContainer' }}
 				/>
+				
 			</div>
 		)
 	}
