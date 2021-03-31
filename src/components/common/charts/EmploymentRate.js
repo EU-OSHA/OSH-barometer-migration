@@ -5,8 +5,9 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
-const euColor = 'blue';
+const euColor = '#003399';
 const country1Color = '#ffae00';
+const country2Color = '#529FA2';
 class EmploymentRate extends Component {
 	constructor(props) {
 		super(props);
@@ -14,10 +15,11 @@ class EmploymentRate extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					text: this.props.title,
+					useHTML: true,
+					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left'
 				},
-				colors: this.props.colors,
+				colors: this.props.colors, 
 				credits: {
 					enabled: false,
 				},
@@ -28,13 +30,63 @@ class EmploymentRate extends Component {
 				},
 				exporting: {
 					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						}
+					}
+				},
+				legend:{
+					//reversed: this.props.legend
+					verticalAlign: 'bottom',
+					symbolRadius: 0,
+					layout: 'vertical',
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					width: 300,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'12px',
+						textOverflow: "ellipsis",
+						width: 250
+					}
 				},
 				plotOptions: {
 					series: {
+						shadow: false,
+						outline: 0,
 						stacking: this.props.stacking
 					},
 					bar: {
 						dataLabels: {
+							//useHTML: true,
+							align: 'left',
+							y:-2,
+							inside: false,
+							overflow: 'none',
+							crop: false,
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'14px'
+							},
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
@@ -51,18 +103,44 @@ class EmploymentRate extends Component {
 						}
 					}
 				},
+				tooltip: {					
+                    useHTML: true,
+					style: {
+						opacity: 1,
+						background: "rgba(255, 255, 255, 1)" 
+					},
+					// positioner: function(labelWidth, labelHeight, point) {
+					// 	var tooltipX = point.plotX/2;
+					// 	var tooltipY = point.plotY - point.h/4;
+					// 	return {
+					// 		x: tooltipX,
+					// 		y: tooltipY
+					// 	};
+					// },
+					formatter: function () {
+						return '<ul class="tooltip-item">'+
+						'<li><strong>Country: </strong> ' + this.series.name + '</li>' +
+						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'</ul>';
+					}
+				},
 				xAxis: {					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
-							}
-							else {
-								return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>"
+							}else{
+								if([this.pos] == 0){
+									return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>";
+								}else{
+									return "<span style='color:" + country2Color + "'>" + [this.value] + "</span>";
+								}
 							}
 						},
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px'
 						}
 					},
 					type: 'category'
@@ -74,9 +152,12 @@ class EmploymentRate extends Component {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
+						format: this.props.percentage === true ? '{value}%' : `{value} ${this.props.percentage}`,
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px',
+							textOverflow: 'none'
 						}
 					}
 				},
@@ -103,14 +184,29 @@ class EmploymentRate extends Component {
 						// There is no split, series and the categories will be the same
 						//console.log('country', element.countryCode);
 						//console.log('value',element.value);
-						series.push({
-			  				name: element.country,
-							data: [{name:element.countryCode, y: element.value, x: i}]
-						});
+
+						if(element.countryCode == "EU27_2020"){							
+							series.push({
+								name: element.country,
+								color:euColor,
+							  	data: [{
+									name:element.countryCode, 
+									y: element.value, x: i
+							  	}]
+						 	});
+						}else{
+							series.push({
+								name: element.country,
+								color:this.props.colors[i],
+							  	data: [{
+									name:element.countryCode, 
+									y: element.value, x: i,
+							  	}]
+						 	});
+						}
 						i++;
 					}					
 				});
-
 		this.setState({
 			chartConfig: {...this.state.chartConfig,  series}
 		})
