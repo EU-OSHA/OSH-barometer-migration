@@ -266,12 +266,10 @@ class WorkAccidentsChart extends Component {
                                 pointFormat: '<b>Value </b> {point.y}'
                             },
                             plotOptions: {
-                                column: {
-                                    pointPadding: 0.2, 
-                                    borderWidth: 0
-                                }, 
                                 series: {
-                                    pointStart: 0,
+                                    pointPadding: 0.11,
+                                    groupPadding: 0.15,
+                                    borderWidth: 0
                                 },
                             }, 
                             series: newArray

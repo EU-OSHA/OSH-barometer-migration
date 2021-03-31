@@ -40,7 +40,6 @@ class WorkAccidents extends Component
 	}
 
 	updateDimension = () => {
-		console.log('width: ', window.innerWidth)
 		if (window.innerWidth > 768) {
 			this.setState({ chartDimension: 'column' });
 		} else {
