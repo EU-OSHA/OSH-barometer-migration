@@ -70,45 +70,45 @@ class ChartHuman extends Component {
 						fontWeight: 'normal',
 						fontSize:'12px',
 						textOverflow: "ellipsis",
-						width: 250
+						//width: 250
 					}
 				},
-				plotOptions: {
-					series: {
-						shadow: false,
-						outline: 0,
-						stacking: this.props.stacking
-					},
-					bar: {
-						dataLabels: {
-							style: {
-								textOutline: 0,
-								textShadow: false,
-								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
-							},
-							enabled: this.props.showDataLabel === true ? true : false,
-							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
-							}
-						},
-						grouping: false
-					},
-					bar: {
-						style: {
-							textOutline: 0,
-							textShadow: false,
-							fontFamily: 'OpenSans-Bold',
-							fontSize:'14px'
-						},
-						dataLabels: {
-							enabled: this.props.showDataLabel === true ? true : false,
-							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
-							}
-						}
-					}
-				},
+				// plotOptions: {
+				// 	series: {
+				// 		shadow: false,
+				// 		outline: 0,
+				// 		stacking: this.props.stacking
+				// 	},
+				// 	// bar: {
+				// 	// 	dataLabels: {
+				// 	// 		style: {
+				// 	// 			textOutline: 0,
+				// 	// 			textShadow: false,
+				// 	// 			fontFamily: 'OpenSans-Bold',
+				// 	// 			fontSize:'14px'
+				// 	// 		},
+				// 	// 		enabled: this.props.showDataLabel === true ? true : false,
+				// 	// 		formatter: function () {
+				// 	// 			return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
+				// 	// 		}
+				// 	// 	},
+				// 	// 	grouping: false
+				// 	// },
+				// 	// bar: {
+				// 	// 	style: {
+				// 	// 		textOutline: 0,
+				// 	// 		textShadow: false,
+				// 	// 		fontFamily: 'OpenSans-Bold',
+				// 	// 		fontSize:'14px'
+				// 	// 	},
+				// 	// 	dataLabels: {
+				// 	// 		enabled: this.props.showDataLabel === true ? true : false,
+				// 	// 		formatter: function () {
+				// 	// 			return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+				// 	// 		}
+				// 	// 	}
+				// 	// }
+				// },
 				xAxis: {					
 					labels: {
 						formatter: function () {
@@ -125,7 +125,10 @@ class ChartHuman extends Component {
 							}
 						},
 						style: {
-							fontWeight: 'bold'
+							textOutline: 0,
+							textShadow: false,
+							fontFamily: 'OpenSans-Bold',
+							fontSize:'14px'
 						}
 					},
 					type: 'category'
@@ -161,7 +164,6 @@ class ChartHuman extends Component {
 				//console.log('res',res.resultset);
 				let i = 0;
 				res.resultset.forEach(element => {
-
 					if (element.split == null)
 					{
 						// There is no split, series and the categories will be the same
@@ -171,52 +173,67 @@ class ChartHuman extends Component {
 						if( element.countryCode == "EU27_2020" ){
 							series.push({
 								name: element.country,
-								type: 'column',
+								//type: 'column',
 								color:euColor,
-								pointWidth: 110,
-								pointPadding: 0.25,
+								pointWidth: 68,
+								pointPadding: 0.15,
 								borderColor: 'transparent',
 								borderWidth: 0,
-								data: [{name:element.countryCode, y: element.value, x: i, 
+								data: [{
+									name:element.countryCode, 
+									y: element.value, 
+									x: i, 
 									color: {
 										pattern: {
 											image:humanBlue,
-											//aspectRatio:0.8
+											// width:68,
+											// height:element.value,
+											// x:10,
+											// y:0
+											//aspectRatio:0.453
 										}
-									}}]
+									}									
+								}]
 							});
 						}else{
 							if( i== 0){
 								series.push({
 									name: element.country,
-									type: 'column',
+									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 110,
-									pointPadding: 0.25,
-									borderColor: 'transparent',
-									borderWidth: 0,
+									pointWidth: 68,
+									// pointPadding: 1,
+									// borderColor: 'transparent',
+									// borderWidth: 0,
 									data: [{name:element.countryCode, y: element.value, x: i, 
 										color: {
 											pattern: {
 												image: humanOrange,
-												//aspectRatio:0.8
+												//width:68,
+												//height:element.value,
+												//aspectRatio:0.453
 											}
 										}}]
 								});
 							} else {
 								series.push({
 									name: element.country,
-									type: 'column',
+									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 110,
-									pointPadding: 0.25,
+									pointWidth: 68,
+									pointPadding: 1,
 									borderColor: 'transparent',
 									borderWidth: 0,
-									data: [{name:element.countryCode, y: element.value, x: i, 
+									data: [{
+										name:element.countryCode, 
+										y: element.value, 
+										x: i, 
 										color: {
 											pattern: {
 												image: humanGreen,
-												//aspectRatio:0.8
+												//width:110,
+												//height:element.value
+												//aspectRatio:0.453
 											}
 										}}]
 								});
@@ -238,6 +255,7 @@ class ChartHuman extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
+		console.log(prevProps ,'-----------------',this.props.pais1)
 		if (prevProps.pais1 != this.props.pais1) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
 		}
