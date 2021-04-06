@@ -14,8 +14,9 @@ class WorkAccidentsChart extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    useHTML: true,
-                    text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                    // useHTML: true,
+                    // text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                    text: this.props.title,
                     align: 'left'
                 },
                 credits: {
@@ -66,7 +67,7 @@ class WorkAccidentsChart extends Component {
     initChart = () => {
         this.setState({ chartConfig: {
             title: {
-                useHTML: true,
+                //useHTML: true,
                 text: "<h2 class='title--card'>"+this.props.title+"</h2>",
                 align: 'left'
             },
@@ -102,6 +103,22 @@ class WorkAccidentsChart extends Component {
                     }
                 }
             },
+            legend:{
+                //reversed: this.props.legend
+                verticalAlign: 'bottom',
+                symbolRadius: 0,
+                //layout: 'vertical',
+                itemMarginTop:4,
+                itemMarginBottom:4,
+                //width: 300,
+                itemStyle: {
+                    fontFamily: 'OpenSans',
+                    fontWeight: 'normal',
+                    fontSize:'12px',
+                    textOverflow: "ellipsis",
+                    width: 250
+                }
+            },
             yAxis: {
                 gridLineColor:'#FFF',
                 gridLineWidth:2,
@@ -134,7 +151,8 @@ class WorkAccidentsChart extends Component {
             tooltip: {					
                 useHTML: true,
                 style: {
-                    opacity: 1
+                    opacity: 1,
+                    zIndex: 100
                 },
                 formatter: function () {
                     return '<ul class="tooltip-item">'+
