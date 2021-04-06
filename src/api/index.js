@@ -69,7 +69,7 @@ export function getOSHData(dataPage, filters) {
 }
 
 // get data for the charts
-export function getChartData(chart, indicator, country1, country2) {
+export function getChartData(chart, indicator, country1, country2, sector, answers) {
     const URL = `${BASEURL}quantitative/getChartData`
 
     const response = axios.get(URL, {
@@ -77,8 +77,39 @@ export function getChartData(chart, indicator, country1, country2) {
             chart,
             indicator,
             country1,
-            country2
-        },        
+            country2,
+            sector,
+            answers
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.chart) {
+                urlWithParams.append('chart', params.chart);
+            }
+
+            if (params.indicator) {
+                urlWithParams.append('indicator', params.indicator);
+            }
+
+            if (params.country1) {
+                urlWithParams.append('country1', params.country1);
+            }
+
+            if (params.country2) {
+                urlWithParams.append('country2', params.country2);
+            }
+
+            if (params.sector) {
+                urlWithParams.append('sector', params.sector);
+            }
+
+            if (params.answers) {
+                params.answers.map((answer) => urlWithParams.append('answer', answer));
+            }
+
+            return urlWithParams
+        }
     }).then((res) => {
         return res.data
     })
