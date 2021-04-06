@@ -19,7 +19,7 @@ class MentalRiskCharts extends Component {
                 },
                 colors: this.props.colors,
                 chart: {
-                    type: 'column',
+                    type: this.props.type,
                     backgroundColor: '#F0F0F0'
                 },
                 xAxis: {
