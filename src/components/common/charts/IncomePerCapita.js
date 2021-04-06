@@ -72,17 +72,16 @@ class IncomerPercapital extends Component {
 					useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
-					//zIndex: console.log('valores-------------'+this.pos),
 					style: {
 						zIndex: 100
 					},
-					// headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {point.x}</b><br/>',
-					// pointFormat: '<b> Income </b> {point.y} €',
+					// headerFormat: '<ul class="tooltip-item"><li><strong>Country: </strong> {series.name}</li>',
+					// pointFormat: '<li><strong>Year: </strong> {point.x}</li><li><strong>Imcome: </strong> {point.y} €</li></ul>',
 					formatter: function () {
 						return '<ul class="tooltip-item">'+
-						'<li><strong>Country: </strong> '+ this.series.name +'</li>' +
+						'<li><strong>Country: </strong>'+ this.series.name +' </li>' +
 						'<li><strong>Year: </strong>'+ this.x  +' </li>' +
-						'<li><strong>Imcome: </strong> '+ this.y +' €</li>' +
+						'<li><strong>Imcome: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') + ' ' + props.percentage +'</li>' +
 						'</ul>';
 					}
 				},
@@ -95,7 +94,7 @@ class IncomerPercapital extends Component {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+								return '<span style="color:' + this.point.color + '">' + Highcharts.numberFormat(this.y,0,',','.')   + ' ' + props.percentage +'</span>';
 							}
 						}
 					}
@@ -126,7 +125,7 @@ class IncomerPercapital extends Component {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
+						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
