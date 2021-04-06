@@ -60,6 +60,12 @@ class Home extends Component
 			}
 			hideControls(numItems);
 
+			if(screenWidth < 1919){
+				$('.carousel-control-group').css('visibility','visible');
+			}else{
+				$('.carousel-control-group').css('visibility','hidden');
+			}
+
 			$('.carousel-showmanymoveone .carousel-item').each(function(){      
 				var itemToClone = $(this);	
 				$('>div.cloned',this).remove();					
