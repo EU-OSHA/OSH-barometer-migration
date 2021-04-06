@@ -14,13 +14,27 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: this.props.title,
+                    text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
                     align: 'left'
                 },
                 colors: this.props.colors,
                 chart: {
                     type: 'column',
                     backgroundColor: '#F0F0F0'
+                },
+                xAxis: {
+                    plotLines: [
+                        {
+                            color: 'black',
+                            width: '2',
+                            value: 0.5
+                        },
+                        {
+                            color: 'black',
+                            width: '2',
+                            value: 29.5
+                        }
+                    ]
                 },
                 yAxis: {
                     title: {
@@ -34,55 +48,29 @@ class MentalRiskCharts extends Component {
                     min: 0,
                     max: 100
                 },
-                tooltip: {},
+                tooltip: {
+                    headerFormat: '<b>Answer <b/> {series.name} <br/> <b>Country </b> {point.x} <br/>',
+                    pointFormat: '<b> Value </b> {point.y}%'
+                },
                 plotOptions: {
                     series: {
                         stacking: 'normal',
-                        pointStart: 0
+                        pointStart: 0,
                     }
                 },
                 series: []
             },
-            isLoading: false
+            isLoading: false,
+            typeCharts: [],
+            selectedTypeChart: this.props?.chartType[0].type
         }
     }
 
-    // Init chart config so the Chart loads correctly
-    initChart = () => {
-        this.setState({ chartConfig: {
-            title: {
-                text: this.props.title,
-                align: 'left'
-            },
-            credits: {
-                enabled: false
-            },
-            colors: this.props.colors,
-            chart: {
-                type: 'column',
-                backgroundColor: '#F0F0F0'
-            },
-            exporting: {
-                enabled: true,
-                buttons: {
-                    contextButton: {
-                        menuItems: ['viewFullscreen']
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-            },
-            tooltip: {},
-            plotOptions: {
-                series: {
-                    pointStart: 0,
-                }
-            },
-            series: []
-        } })
+    onChangeSelect = (e) => {
+        this.setState({ selectedTypeChart: e.target.value });
+
+        const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
+        this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: this.props.chartTitle[`L${serie.title}`]}} })
     }
     
     getLoadData = (chartType) => {
@@ -90,86 +78,99 @@ class MentalRiskCharts extends Component {
         let auxSeries = [];
         let series = [];
 
-        let euSeries = '';
+        let euSerie1 = null;
+        let euSerie2 = null;
+        this.setState({ ...this.state, isLoading: true });
+        let chart
+
+        if (chartType.length > 1) {
+            chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+        } else {
+            chart = chartType[0];
+            this.setState({ selectedTypeChart: null })
+        }
 
         try {
-            this.initChart();
-            this.setState({ ...this.state, isLoading: true });
-            switch (this.props.tabIndicator) {
-                case '340':
-                    const chart = chartType.find((chart) => chart.type == 'esener')
-                    if (chart) {
-                        getChartData(chart.chart, chart.indicator, null, null, chart.sector, chart.answer)
-                            .then((data1) => {
-                                console.log('data', data1)
-                                data1.resultset.forEach(element => {
+            getChartData(chart.chart, chart.chartIndicator, null, null, chart.sector, chart.answers)
+                .then((data) => {
+                    euSerie1 = data.resultset[0].value
+                    euSerie2 = data.resultset[1].value
+
+                    data.resultset.forEach(element => {
+                        if (categories.indexOf(element.country) == -1) {
+                            categories.push(element.country)
+                        }
     
-                                    if (categories.indexOf(element.country) == -1) {
-                                        categories.push(element.country)
-                                    }
+                        let split = element.split;
+                        if (!(split in auxSeries)) {
+                            auxSeries[split] = []
+                        }
     
-                                    let split = element.split;
-                                    if (!(split in auxSeries)) {
-                                        auxSeries[split] = []
-                                    }
-    
-                                    auxSeries[split].push(element.value);
-                                });
-    
-                                for (let serie in auxSeries) {
-                                    series.push({ name: serie, data: auxSeries[serie] });
-                                }
-                                const reversedArray = [...series].reverse()
-                                this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}} })
-                            });
+                        if (chart.type == 'esener') {
+                            auxSeries[split].push({ name: element.country, y: element.value * 100 });
+                        } else {
+                            auxSeries[split].push({ name: element.country, y: element.value });
+                        }
+                    });
+
+                    for (let serie in auxSeries) {
+                            if (serie == 'Yes' || serie == 'Once or more' || serie == 'Mean') {
+                                const euValueSerie1 = {...auxSeries[serie][0], color: '#003399'}
+                                auxSeries[serie][0] = euValueSerie1
+                            }
+                            if (serie == 'No' || serie == 'Never' ) {
+                                const euValueSerie2 = {...auxSeries[serie][0], color: '#7f97ce'}
+                                auxSeries[serie][0] = euValueSerie2
+                            }
+                        series.push({ name: serie, data: auxSeries[serie] });
                     }
-                    break;
-                case '341':
-                    console.log('second case');
-                    break;
-                case '342':
-                    console.log('third case');
-                    break;
-                case '343':
-                    console.log('fourth case');
-                    break;
-                case '344':
-                    console.log('fifth case');
-                    break;
-                case '345':
-                    console.log('sixth case');
-                    break;
-                case '346':
-                    console.log('seventh case');
-                    break;
-                default:
-                    break;
-            }
+
+                    const reversedArray = [...series].reverse();
+                    if (series.length == 1) {
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, legend: {enabled: false}} })
+                    } else {
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}} })
+                    }
+                });
         } catch (error) {
             console.log('error', error)    
         } finally {
             this.setState({ ...this.state, isLoading: false })
         }
-        
-        console.log('categories', categories)
-        console.log('auxSeries', auxSeries)
-        console.log('series', series)
     }
 
     componentDidMount() {
         this.getLoadData(this.props.chartType);
-        // this.getLoadData(this.props.chart, this.props.indicator, this.props.sector)
+        this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
+            this.getLoadData(this.props.chartType);
+        }
     }
 
     render() {
         return (
-            <div className='chart-container'>
-                <HighchartsReact
+            <React.Fragment>
+                {this.state.selectedTypeChart && (
+                    <div className="select-filter-chart">
+                        <select onChange={this.onChangeSelect} >
+                            {this.state.typeCharts.map((type) => {
+                                return <option key={type} value={type} > {type.toUpperCase()} </option>
+                            })}
+                        </select>
+                    </div>
+                )}
+            
+                <div className='chart-container'>
+                    <HighchartsReact
                         highcharts={Highcharts}
                         options={this.state.chartConfig}
                         containerProps={{ className: 'chartContainer' }}
-                />
-            </div>
+                    />
+                </div>
+            </React.Fragment>
         );
     }
 }
