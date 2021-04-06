@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser'
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
-import EmploymentRate from '../common/charts/EmploymentRate'
+import EmploymentRate from '../common/charts/EmploymentRate';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
@@ -11,7 +11,7 @@ import IncomerPercapital from '../common/charts/IncomePerCapita'
 
 const EconomicSectorProfile = (props) => {
 
-	console.log('props', props);
+	//console.log('props', props);
 	
 	const [pais1,setPais1]=useState(props.country1);
 	const [pais2,stePais2]=useState("");
@@ -86,19 +86,13 @@ const EconomicSectorProfile = (props) => {
 					
 						<div className="card--block--chart">
 							<div className="chart--block">
-								<div className="card--block--chart--wrapper ng-isolate-scope" >
+								<div className="card--block--chart--wrapper" >
 
 								<ul className="chart--submenu " >
-									{/* <li><a className="maximize-button" title="Maximize"><label className="sr-only " >Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li> */}
 									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										{/* <li><a className="">Export as image</a></li>
-										<li><a className="">Download raw data</a></li> */}
 									</ul>
 								</ul>
-
 								{/* <h2  className="title--card ">Company size</h2> */}
-
 								<div className="chart--wrapper">
 								<Chart
 									title='Company Size'
@@ -112,8 +106,6 @@ const EconomicSectorProfile = (props) => {
 									chart={'20089'}
 									indicator={'31'}
 									/>
-									<div className="legend-text-block">
-									</div>
 								</div>
 								</div>
 							</div>
@@ -122,19 +114,9 @@ const EconomicSectorProfile = (props) => {
 						<div className="card--block--chart">
 							<div className="chart--block">
 						
-								<div className="card--block--chart--wrapper ng-isolate-scope" width="300" height="400">
-
-								<ul className="chart--submenu ">
-									{/* <li><a className="maximize-button" title="Maximize"><label className="sr-only " >Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
-									 <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a className="">Export as image</a></li>
-										<li><a className="">Download raw data</a></li>
-									</ul>  */}
-								</ul>
-
+								<div className="card--block--chart--wrapper" width="300" height="400">
+								{/* <ul className="chart--submenu "></ul> */}
 								{/* <h2 className="title--card  ">Employment per sector</h2> */}
-
 								<div className="chart--wrapper">
 								<Chart
 									title='Employment per sector'
@@ -148,10 +130,8 @@ const EconomicSectorProfile = (props) => {
 									chart={'20010'}
 									indicator={'32'}
 									stacking='percent'
-									reversed={true}
+									reversed={false}
 									/>
-									<div className="legend-text-block">
-									</div>
 								</div>
 								</div>
 							</div>
@@ -159,24 +139,13 @@ const EconomicSectorProfile = (props) => {
 						{/* EMPLOYMENT RATE */}
 						<div className="card--block--chart">
 							<div className="chart--block">
-								<div className="card--block--chart--wrapper ng-isolate-scope" >
-
-								<ul className="chart--submenu" >
-									{/* <li><a className="maximize-button" ><label className="sr-only ">Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a className="">Export as image</a></li>
-										<li><a className="">Download raw data</a></li>
-									</ul> */}
-								</ul>
-
+								<div className="card--block--chart--wrapper" >
+								{/* <ul className="chart--submenu"></ul> */}
 								{/* <h2 className="title--card  ">Employment Rate</h2> */}
-
 								<div className="chart--wrapper">
-
 								<EmploymentRate
 									title='Employment Rate'
-									colors={['#f6a400','#003399','#449fa2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									colors={['#f6a400','#529FA2']}
 									showDataLabel={true}
 									tick={20}
 									percentage={true}
@@ -186,8 +155,6 @@ const EconomicSectorProfile = (props) => {
 									chart={'20011'}
 									indicator={'33'}
 									/>
-									<div className="legend-text-block">
-									</div>
 								</div>
 								</div>
 							</div>
@@ -195,9 +162,9 @@ const EconomicSectorProfile = (props) => {
 						{/* GDP PER CAPITA IN RELATION TO EU27_2020 AVERAGE */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart ng-isolate-scope ng-valid">
+								<div className="select-filter-chart">
 								{/* ngIf: chart == 'GDP' */}
-								<select  className="ng-pristine ng-untouched ng-valid " onChange={selectEuro2}>
+								<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
 									<option value="35">Purchasing Power Standards (PPS)</option>
 									<option value="278">Euro (€)</option>
 								</select>
@@ -205,23 +172,14 @@ const EconomicSectorProfile = (props) => {
 								</div>
 							</div>
 							<div className="chart--block with-filter">
-								<div className="card--block--chart--wrapper ng-isolate-scope">
-
-								<ul className="chart--submenu " >
-									{/* <li><a className="maximize-button" title="Maximize" ><label className="sr-only " >Maximize</label></a></li>
-									<li className="dropdown-toggle" id="dropdownMenu1" ><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a className=""></a></li>
-										<li><a className="">Download raw data</a></li>
-									</ul> */}
-								</ul>
-
+								<div className="card--block--chart--wrapper">
+								{/* <ul className="chart--submenu"></ul> */}
 								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
 
 								<div className="chart--wrapper">
 								<ChartHuman
 									title='GDP per capita in ralation to EU27_2020 average'
-									colors={['#f6a400','#cbe2e3','#7b7b7d','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									colors={['#ffae00','#529FA2','#003399']}
 									showDataLabel={true}
 									//tick={20}
 									percentage='ft'
@@ -229,12 +187,9 @@ const EconomicSectorProfile = (props) => {
 									pais1={pais1}
 									pais2={pais2}
 									chart={chart2}
-									indicator={indicator2}
-									
+									indicator={indicator2}									
 									/>
-									<div className="legend-text-block">
-								
-									</div>
+									<div className="legend-text-block"></div>
 								</div>
 								</div>
 							</div>
@@ -243,9 +198,9 @@ const EconomicSectorProfile = (props) => {
 						{/* INCOME PER CAPITA */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart ng-isolate-scope ng-valid"  >
+								<div className="select-filter-chart"  >
 
-								<select className="ng-pristine ng-untouched ng-valid " onChange={selectEuro}>
+								<select className="ng-pristine ng-untouched " onChange={selectEuro}>
 									<option value="36">Purchasing Power Standards (PPS)</option>
 									<option value="279">Euro (€)</option>
 								</select>
@@ -253,7 +208,7 @@ const EconomicSectorProfile = (props) => {
 								</div>
 							</div>
 							<div className="chart--block with-filter">
-								<div className="card--block--chart--wrapper ng-isolate-scope" >
+								<div className="card--block--chart--wrapper" >
 
 								<ul className="chart--submenu " >
 									{/* <li><a className="maximize-button" title="Maximize" role="button"><label className="sr-only " >Maximize</label></a></li>

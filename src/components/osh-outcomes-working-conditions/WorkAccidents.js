@@ -12,11 +12,12 @@ class WorkAccidents extends Component
 		super(props)
 
 		this.state = {
-			selectCountry1: this.props.initCountry,
+			selectCountry1: 'AT',
 			selectCountry2: '',
 			indicatorTabs: [{ literalID: '310' }, { literalID: '311' }],
 			selectedTab: '310',
 			isSubMenuOpen: false,
+			chartDimension: 'column'
 		}
 	}
 	handleSearch = (callbackCountry1) => {
@@ -36,6 +37,22 @@ class WorkAccidents extends Component
 	onClickSubMenu = (e) => {
 		e.preventDefault();
 		this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+	}
+
+	updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartDimension: 'column' });
+		} else {
+			this.setState({ chartDimension: 'bar' })
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension)
 	}
 
 	render()
@@ -65,18 +82,15 @@ class WorkAccidents extends Component
 
 				{this.state.selectedTab == '310' && (
 					<React.Fragment> 
-						<ul className="compare--list">
 							<SelectEconomic 
 								handleSearch={this.handleSearch} 
 								handleSearch2={this.handleSearch2} 
 								charts={['20022']}
 								indicator={'53'}
 							/>
-						</ul>
-
-						<div className="line background-main-light" />
 				</React.Fragment>
 				)}
+				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart">
@@ -91,13 +105,13 @@ class WorkAccidents extends Component
 							indicator={'53'}
 							selectedCountry1={this.state.selectCountry1}
 							selectedCountry2={this.state.selectCountry2}
-							colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
+							colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
 							/>
 						) : (
 							<WorkAccidentsChart 
 							title={this.props.literals.L22196}
 							showDataLabel={true}
-							type={'column'}
+							type={this.state.chartDimension}
 							chart={'20023'}
 							indicator={'54'}
 							colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
