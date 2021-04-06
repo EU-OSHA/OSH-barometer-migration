@@ -82,18 +82,15 @@ class WorkAccidents extends Component
 
 				{this.state.selectedTab == '310' && (
 					<React.Fragment> 
-						<ul className="compare--list">
 							<SelectEconomic 
 								handleSearch={this.handleSearch} 
 								handleSearch2={this.handleSearch2} 
 								charts={['20022']}
 								indicator={'53'}
 							/>
-						</ul>
-
-						<div className="line background-main-light" />
 				</React.Fragment>
 				)}
+				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart">

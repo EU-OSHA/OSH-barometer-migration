@@ -14,7 +14,7 @@ class Chart extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					useHTML: true,
+					//useHTML: true,
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left'
 				},

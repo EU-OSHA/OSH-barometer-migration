@@ -52,83 +52,87 @@ const OverallOpinion = (props) =>{
 				
 
 				
-				<div className="container">
-						
+				<div className="">						
 						<div>
-
 						{visible ?<div>
 								<div className="compare--block">
-								<div className="submenu--block container">
-								<ul className="submenu--items--wrapper">
-								<li className="sub--item active">
-								<a onClick={handleRisk} className="ng-bining active">Job satisfaction</a>
-							</li>
-							<li className="sub--item">
-								<a onClick={handleJob} className="ng-bining ">Health at risk</a>
-							</li>
-
-							</ul>
-
+									<div className="submenu--block container">
+										<ul className="submenu--items--wrapper">
+											<li className="sub--item active">
+												<a onClick={handleRisk} className="ng-bining active">Job satisfaction</a>
+											</li>
+											<li className="sub--item">
+												<a onClick={handleJob} className="ng-bining ">Health at risk</a>
+											</li>
+										</ul>										
+									</div>
+									<div class="line background-main-light"></div>
 								</div>
-								</div>
-									<div className="container">
-									<Chart
-								title='How satisfied are you with working conditions in your main paid job?'
-								colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
-								showDataLabel={true}
-								tick={20}
-								percentage={true}
-								type='column'
-								stackingColumn='percent'
-								//pais1={'AT'}
-								//pais2={'0'}
-								reversed={true}
-								//legend={true}
-								chart={'20040'}
-								indicator={'65'}
-								/>  </div>
-								
+								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
+									<div className="card--block--chart">
+										<div className="chart--block">
+											<Chart
+											title='How satisfied are you with working conditions in your main paid job?'
+											colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
+											showDataLabel={true}
+											tick={20}
+											percentage={true}
+											type='column'
+											stackingColumn='percent'
+											//pais1={'AT'}
+											//pais2={'0'}
+											reversed={true}
+											//legend={true}
+											chart={'20040'}
+											indicator={'65'}
+											/> 
+										</div>
+									</div>
+								</div>								
 							</div>
 		
 							:<div>
 								<div className="compare--block">
-								<div className="submenu--block container">
-								<ul className="submenu--items--wrapper">
-								<li className="sub--item">
-								<a onClick={handleRisk} className="ng-bining">Job satisfaction</a>
-							</li>
-							<li className="sub--item active">
-								<a onClick={handleJob} className="ng-bining active">Health at risk</a>
-							</li>
-
-						</ul>
-
-								</div>
-								</div>
-									<div className="compare--block">
-										<SelectEconomic handleSearch={handleSearch} handleSearch2={handleSearch2}/>
+									<div className="submenu--block container">
+										<ul className="submenu--items--wrapper">
+												<li className="sub--item">
+												<a onClick={handleRisk} className="ng-bining">Job satisfaction</a>
+											</li>
+											<li className="sub--item active">
+												<a onClick={handleJob} className="ng-bining active">Health at risk</a>
+											</li>
+										</ul>										
 									</div>
-									<div className="container">
-									 <RiskChart
-									title='Do you think your health or safety is at risk because of your work?'
-									colors={['#f6a400','#003399','#cbe2e3','#ffe300','#449fa2','#f3c564','#16983e']}
-									showDataLabel={true}
-									tick={20}
-									percentage={true}
-									type='column'
-									//stackingColumn='percent'
-									pais1={pais1}
-									pais2={pais2}
-									//reversed={true}
-									chart={'20041'}
-									indicator={'66'}
-									sector={[8,9,10,11,12,13]}
-									gender={[1,2,3]}
-									age={[1,2,3,4]}
-									/> </div>
-								
-							</div>}
-				
+									<div class="line background-main-light"></div>
+								</div>
+								<div className="compare--block">
+									<SelectEconomic handleSearch={handleSearch} handleSearch2={handleSearch2}/>
+								</div>
+								<div class="line background-main-light"></div>
+								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
+									<div className="card--block--chart">
+										<div className="chart--block">
+											<RiskChart
+												title='Do you think your health or safety is at risk because of your work?'
+												colors={['#f6a400','#003399','#cbe2e3','#ffe300','#449fa2','#f3c564','#16983e']}
+												showDataLabel={true}
+												tick={20}
+												percentage={true}
+												type='column'
+												//stackingColumn='percent'
+												pais1={pais1}
+												pais2={pais2}
+												//reversed={true}
+												chart={'20041'}
+												indicator={'66'}
+												sector={[8,9,10,11,12,13]}
+												gender={[1,2,3]}
+												age={[1,2,3,4]}
+											/> 
+										</div>
+									</div>
+								</div>								
+							</div>}			
 		
 						</div>
 					</div>

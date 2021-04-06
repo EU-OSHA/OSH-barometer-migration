@@ -16,7 +16,7 @@ class Chart extends Component {
 			select: 'sector',
 			chartConfig: {
 				title: {
-					text: this.props.title,
+					text:  "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left'
 				},
 				credits: {
@@ -32,16 +32,58 @@ class Chart extends Component {
 					enabled: true,
 					buttons: {
 						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
 						}
 					}
 				},
 				legend:{
-					reversed: this.props.reversed
+					//reversed: this.props.legend
+					verticalAlign: 'bottom',
+					symbolRadius: 0,
+					//layout: 'vertical',
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					//width: 300,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'12px',
+						textOverflow: "ellipsis",
+						width: 250
+					}
 				},
-                tooltip: {
-					headerFormat: '<b>Sector:</b>{point.x}<br/><b> Country</b> {series.name}<br/>',
-					pointFormat: '<b> Value </b> {point.y} %'
+                // tooltip: {
+				// 	headerFormat: '<b>Sector:</b>{point.x}<br/><b> Country</b> {series.name}<br/>',
+				// 	pointFormat: '<b> Value </b> {point.y} %'
+				// },
+				tooltip: {					
+					useHTML: true,
+					style: {
+						opacity: 1,
+						zIndex: 100
+					},
+					formatter: function () {
+						return '<ul class="tooltip-item">'+
+						'<li><strong>Sector: </strong> ' + this.x + '</li>' +
+						'<li><strong>Country: </strong> ' + this.series.name + '</li>' +
+						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'</ul>';
+					}
 				},
 				plotOptions: {
 					series: {
@@ -73,7 +115,10 @@ class Chart extends Component {
 							}
 						},
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px',
+							textOverflow: 'none'
 						}
 					}
 				},
@@ -87,7 +132,10 @@ class Chart extends Component {
 					labels: {
 						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px',
+							textOverflow: 'none'
 						}
 					}
 				},
@@ -211,12 +259,12 @@ handleSelect = (e) => {
 		// Do not set the height of the chart in the options. If so, when going full screen, it will only take the height configured in the options
 		return (
 			<div className='chart-container'>
-				<div className="card--block--chart" >
-				<select onChange={this.handleSelect} className="ng-pristine ng-untouched ng-valid" name="" id="">
-					<option className="ng-binding" value="sector">Sector</option>
-					<option className="ng-binding" value="gender">Gender</option>
-					<option className="ng-binding" value="age">Age</option>
-				</select>
+				<div className="select-filter-chart" >
+					<select onChange={this.handleSelect} className="ng-pristine ng-untouched ng-valid" name="" id="">
+						<option className="ng-binding" value="sector">Sector</option>
+						<option className="ng-binding" value="gender">Gender</option>
+						<option className="ng-binding" value="age">Age</option>
+					</select>
 				</div>
 				<HighchartsReact
 					highcharts={Highcharts}
