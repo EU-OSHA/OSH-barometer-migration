@@ -20,10 +20,17 @@ class ChartHuman extends Component {
 
 		this.state = {
 			chartConfig: {
+				styledMode: true,
 				title: {
-					useHTML: true,
+					//useHTML: true,
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-					align: 'left'
+					align: 'left',
+					widthAdjust: 20,
+					y:25,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}
 				},
 				colors: this.props.colors,
 				credits: {
@@ -54,12 +61,14 @@ class ChartHuman extends Component {
 									fill: 'transparent'
 								}
 							}
-						}
+						},
+						verticalAlign: 'top',
+						y: 4
 					}
 				},
 				legend:{
 					//reversed: this.props.legend
-					verticalAlign: 'bottom',
+					//verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
 					itemMarginTop:4,
@@ -70,7 +79,26 @@ class ChartHuman extends Component {
 						fontWeight: 'normal',
 						fontSize:'12px',
 						textOverflow: "ellipsis",
-						//width: 250
+						//width: 150
+					}
+				},
+				tooltip: {					
+					useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					zIndex: 100,
+					borderWidth:1,
+					borderColor:"#CCC",
+					// followPointer: true,
+					// followTouchMove: true,
+					style: {
+						zIndex: 100
+					},
+					formatter: function () {						
+						return '<ul class="tooltip-item">'+
+						'<li><strong>Country: </strong> ' + this.series.name+ '</li>' +
+						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'</ul>';
 					}
 				},
 				// plotOptions: {
@@ -143,7 +171,9 @@ class ChartHuman extends Component {
 					labels: {
 						//format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px'
 						}
 					}
 				},

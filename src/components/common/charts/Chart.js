@@ -13,17 +13,23 @@ class Chart extends Component {
 		super(props);
 		this.state = {
 			chartConfig: {
+				styledMode: true,
 				title: {
 					//useHTML: true,
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-					align: 'left'
+					align: 'left',
+					widthAdjust: 0,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}					
 				},
 				credits: {
 					enabled: false
 				},
 				colors: this.props.colors,
 				chart: {
-					height:500,
+					height:450,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					// events: {
@@ -61,6 +67,7 @@ class Chart extends Component {
 				},
 				exporting: {
 					enabled: true,
+					y:-10,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -79,11 +86,12 @@ class Chart extends Component {
 									fill: 'transparent'
 								}
 							}
-						}
+						},
+						verticalAlign: 'top',
+						y:-5
 					}
 				},
 				legend:{
-					//reversed: this.props.legend
 					verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
@@ -112,7 +120,6 @@ class Chart extends Component {
 						groupPadding:0.06,
 						pointWidth:this.props.stacking ? 50 : undefined,
 						dataLabels: {
-							//useHTML: true,
 							align: 'left',
 							y:-2,
 							inside: false,
@@ -133,9 +140,11 @@ class Chart extends Component {
 				},
 				tooltip: {					
 					useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					zIndex: 100,
 					style: {
-						opacity: 1,
-						background: "rgba(255, 255, 255, 1)" 
+						zIndex: 100
 					},
 					formatter: function () {
 						return '<ul class="tooltip-item">'+
@@ -143,7 +152,7 @@ class Chart extends Component {
 						'<li><strong>Country: </strong> ' + this.x + '</li>' +
 						'<li><strong> Value: </strong>' + this.y +'%</li>' +
 						'</ul>';
-					}
+					},
 				},
 				xAxis: {
 					categories: [this.props.data?.categories],

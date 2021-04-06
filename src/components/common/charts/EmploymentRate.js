@@ -15,16 +15,21 @@ class EmploymentRate extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					useHTML: true,
+					//useHTML: true,
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-					align: 'left'
+					align: 'left',
+					widthAdjust: 0,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}	
 				},
 				colors: this.props.colors, 
 				credits: {
 					enabled: false,
 				},
 				chart: {
-					height: 500,
+					height: 450,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
@@ -48,23 +53,23 @@ class EmploymentRate extends Component {
 									fill: 'transparent'
 								}
 							}
-						}
+						},
+						verticalAlign: 'top',
+						y: -5
 					}
 				},
 				legend:{
 					//reversed: this.props.legend
-					verticalAlign: 'bottom',
 					symbolRadius: 0,
-					layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
-					width: 300,
+					//width: 300,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:'12px',
 						textOverflow: "ellipsis",
-						width: 250
+						//width: 250
 					}
 				},
 				plotOptions: {
@@ -105,9 +110,11 @@ class EmploymentRate extends Component {
 				},
 				tooltip: {					
                     useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					zIndex: 100,
 					style: {
-						opacity: 1,
-						background: "rgba(255, 255, 255, 1)" 
+						zIndex: 100
 					},
 					// positioner: function(labelWidth, labelHeight, point) {
 					// 	var tooltipX = point.plotX/2;
