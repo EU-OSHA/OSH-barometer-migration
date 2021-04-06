@@ -17,6 +17,11 @@ class SubMenuTabs extends Component {
 		this.setState({ selectedTab: `${indicator}` });
 	}
 
+    onClickSubMenu = (e) => {
+		e.preventDefault();
+		this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+	}
+
     componentDidMount() {
         this.props.onSelectedTab(this.state.selectedTab);
     }
