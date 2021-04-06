@@ -1,0 +1,33 @@
+{
+    "configuration":
+            {
+                "appenders": {
+                    "RandomAccessFile": {
+                        "name": "FILE",
+                        "fileName": "C:\\eclipse-workspace-rod3\\apache-tomcat-8.5.63\\logs\\dvt-barometer.log",
+                        "PatternLayout": {
+                            "pattern": "%x %d %p %c{1.} [%t]  %m%n"
+                        }
+                    },
+                    "Console": {
+                        "name": "STDOUT",
+                        "PatternLayout": {
+                            "pattern": "%highlight{%x %d [%-5level] %c{1} %m%n}"
+                        }
+                    }
+                },
+                "loggers": {
+                    "root": {
+                        "level": "DEBUG",
+                        "AppenderRef": [
+                            {
+                                "ref": "STDOUT"
+                            },
+                            {
+                            	"ref": "FILE"
+                            }
+                        ]
+                    }
+                }
+            }
+}
