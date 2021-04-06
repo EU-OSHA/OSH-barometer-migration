@@ -13,14 +13,31 @@ class MentalRisk extends Component
 		
 		this.state = {
 			indicatorTabs: subTabs,
-			selectedTab: ''
+			selectedTab: '',
+			chartDimension: 'column'
+		}
+	}
+
+	updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartDimension: 'column' });
+		} else {
+			this.setState({ chartDimension: 'bar' })
 		}
 	}
 
 	handleSelectedTab = (callback) => {
 		this.setState({ selectedTab: callback })
 	}
-	
+
+	componentDidMount() {
+		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension)
+	}
+
 	render()
 	{
 		return(
@@ -41,12 +58,12 @@ class MentalRisk extends Component
 												tabIndicator={tab.literalTab}
 												chartType={tab.chartType}
 												colors={['#cbe2e3', '#f6a400','#7b7b7d']}
+												type={this.state.chartDimension}
 											/>
 										</div>
 									)
 								}
 							})}
-
 						</div>
 					</div>
 				</div>
