@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link,  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
