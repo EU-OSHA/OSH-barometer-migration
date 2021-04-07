@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related.js';
-import SelectEconomic from '../common/charts/SelectEconomic';
+import SelectEconomic from '../common/select-filters/SelectEconomic';
 import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
 
 class WorkAccidents extends Component
@@ -81,14 +81,15 @@ class WorkAccidents extends Component
 				<div className="line background-main-light" />
 
 				{this.state.selectedTab == '310' && (
-					<React.Fragment> 
-							<SelectEconomic 
-								handleSearch={this.handleSearch} 
-								handleSearch2={this.handleSearch2} 
-								charts={['20022']}
-								indicator={'53'}
-							/>
-				</React.Fragment>
+					<SelectEconomic 
+						handleSearch={this.handleSearch} 
+						handleSearch2={this.handleSearch2} 
+						charts={['20022']}
+						indicator={'53'}
+						literals={this.props.literals}
+						selectedCountry1={this.state.selectCountry1}
+						selectedCountry2={this.state.selectCountry2}
+					/>
 				)}
 				<div className="line background-main-light" />
 
