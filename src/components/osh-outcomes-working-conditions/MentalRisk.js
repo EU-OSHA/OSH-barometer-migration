@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-
+import ReactHtmlParser from 'react-html-parser'
+import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
+import Related from '../common/Related';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 
 const literals = require('../../model/Literals.json');
 const subTabs = require('../../model/mentalHealth.json');
+
 class MentalRisk extends Component
 {
 	constructor(props) {
@@ -69,6 +72,9 @@ class MentalRisk extends Component
 					</div>
 				</div>
 				
+				<Methodology />
+				
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk","time-pressure"]} />
 			</div>
 		)
 	}

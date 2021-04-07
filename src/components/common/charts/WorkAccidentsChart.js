@@ -7,6 +7,7 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
+const xAxisColor = "#808080";
 class WorkAccidentsChart extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,7 @@ class WorkAccidentsChart extends Component {
                 title: {
                     // useHTML: true,
                     // text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-                    text: this.props.title,
+                    text: "<h2 class='title--card'>"+this.props.title+"</h2>",
                     align: 'left'
                 },
                 credits: {
@@ -138,7 +139,7 @@ class WorkAccidentsChart extends Component {
                 }
             },
             xAxis: {
-                lineWidth: 0,
+                //lineWidth: 0,
                 labels: {	
                     style: {
                         fontFamily: 'OpenSans-bold',
@@ -146,19 +147,6 @@ class WorkAccidentsChart extends Component {
                         fontSize:'12px',
                         textOverflow: 'none'
                     }
-                }
-            },
-            tooltip: {					
-                useHTML: true,
-                style: {
-                    opacity: 1,
-                    zIndex: 100
-                },
-                formatter: function () {
-                    return '<ul class="tooltip-item">'+
-                    '<li><strong>Country: </strong> ' + this.series.name + '</li>' +
-                    '<li><strong> Value: </strong>' + this.y +'%</li>' +
-                    '</ul>';
                 }
             },
             plotOptions: {},
@@ -179,6 +167,7 @@ class WorkAccidentsChart extends Component {
             .then((data) => {
                 firstDataEuColor = data.resultset[0].value
                 secondDataEuColor = data.resultset[1].value;
+                
                 try {
                     this.setState({ ...this.state, isLoading: true });
                     data.resultset.forEach(element => {
@@ -192,7 +181,7 @@ class WorkAccidentsChart extends Component {
                             if (!(country in auxSeries)) {
                                 auxSeries[country] = []
                             }
-                            auxSeries[country].push(element.value)
+                            auxSeries[country].push(element.value);
                         }
 
                         if (this.props.type == 'column' || this.props.type == 'bar') {
@@ -205,7 +194,7 @@ class WorkAccidentsChart extends Component {
                             if (!(split in auxSeries)) {
                                 auxSeries[split] = []
                             }
-                            auxSeries[split].push({name: element.countryCode, y: element.value});
+                            auxSeries[split].push({country:element.country, name: element.countryCode, y: element.value});
                         }
                     });
                     
@@ -225,9 +214,23 @@ class WorkAccidentsChart extends Component {
                     }
                     this.setState({ 
                         chartConfig: {...this.state.chartConfig, 
-                            tooltip: {
-                                headerFormat: '<b>Country </b> {series.name} <br/> <b>Year </b> {point.x} <br/>',
-                                pointFormat: '<b>Value </b> {point.y}%'
+                            // tooltip: {
+                            //     headerFormat: '<b>Country </b> {series.name} <br/> <b>Year </b> {point.x} <br/>',
+                            //     pointFormat: '<b>Value </b> {point.y}%'
+                            // },
+                            tooltip: {					
+                                useHTML: true,
+                                style: {
+                                    opacity: 1,
+                                    zIndex: 100
+                                },
+                                formatter: function () {
+                                    return '<ul class="tooltip-item">'+
+                                    '<li><strong>Country: </strong> ' + this.series.name + '</li>' +
+                                    '<li><strong>Year: </strong> '+ this.point.x + '</li>' +
+                                    '<li><strong class="tooltip-value up">Value: </strong>' + this.point.y +'%</li>' +
+                                    '</ul>';
+                                }
                             },
                             plotOptions: {
                                 series: {
@@ -238,30 +241,34 @@ class WorkAccidentsChart extends Component {
                             }, 
                             series
                         } 
-                        })
-                    } 
-                    if (this.props.type == 'column' || this.props.type == 'bar') {
-                        // Unknown reason but you have to reverse the array or else 2015 will appear first.
-                        let newArray;
-                        for (let serie in auxSeries) {
-                            /** 
-                             * Finds in the series the same country code and changes the color
-                             * it depends on the value of the serie if they're the same.
-                             */
-                            let euSerie = {...auxSeries[serie].find((serie) => serie.name == 'EU27_2020' )};
-                            if (euSerie.y == firstDataEuColor) {
-                                euSerie = {...euSerie, color: '#7f97ce'}
-                            }
-                            if (euSerie.y == secondDataEuColor) {
-                                euSerie = {...euSerie, color: '#003399'}
-                            }
-                            auxSeries[serie][0] = euSerie
-                            series.push( {name: serie, data: auxSeries[serie]} );
-                            newArray = [...series].reverse();
+                    })
+                } 
+                
+                if (this.props.type == 'column' || this.props.type == 'bar') {
+                   
+                    // Unknown reason but you have to reverse the array or else 2015 will appear first.
+                    let newArray;
+                                   
+                    for (let serie in auxSeries) {
+                        /** 
+                         * Finds in the series the same country code and changes the color
+                         * it depends on the value of the serie if they're the same.
+                         */
+                        let euSerie = {...auxSeries[serie].find((serie) => serie.name == 'EU27_2020' )};
+                        if (euSerie.y == firstDataEuColor) {
+                            euSerie = {...euSerie, color: '#7f97ce'}
                         }
+                        if (euSerie.y == secondDataEuColor) {
+                            euSerie = {...euSerie, color: '#003399'}
+                        }
+                        auxSeries[serie][0] = euSerie;
+                        series.push( {country:euSerie.country,name: serie, data: auxSeries[serie]} );
+                        newArray = [...series].reverse();
+                       
+                    }
+                    
                     this.setState({
-                        chartConfig: {
-                            ...this.state.chartConfig, 
+                        chartConfig: {...this.state.chartConfig, 
                             xAxis: {
                                 categories,
                                 plotLines: [
@@ -279,9 +286,19 @@ class WorkAccidentsChart extends Component {
                                     }
                                 ],
                             },
-                            tooltip: {
-                                headerFormat: '<b>Trend </b> {series.name} <br/> <b>Country </b> {point.x} <br/>',
-                                pointFormat: '<b>Value </b> {point.y}'
+                            tooltip: {					
+                                useHTML: true,
+                                style: {
+                                    opacity: 1,
+                                    zIndex: 100
+                                },
+                                formatter: function () {
+                                    return '<ul class="tooltip-item">'+
+                                    '<li><strong>Trend: </strong> ' + this.series.name + '</li>' +
+                                    '<li><strong>Country: </strong> '+ this.point.country + '</li>' +
+                                    '<li><strong class="tooltip-value up">Value: </strong>' + this.point.y +'%</li>' +
+                                    '</ul>';
+                                }
                             },
                             plotOptions: {
                                 series: {

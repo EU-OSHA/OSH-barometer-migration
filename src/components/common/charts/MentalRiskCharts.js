@@ -10,6 +10,7 @@ require('highcharts/modules/export-data')(Highcharts);
 const xAxisColor = "#808080";
 const euColor = "#003399";
 const euColorLight = "#7f97ce";
+
 class MentalRiskCharts extends Component {
     constructor(props) {
         super(props);
