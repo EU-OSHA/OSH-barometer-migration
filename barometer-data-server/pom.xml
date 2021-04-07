@@ -29,12 +29,41 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>war</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/src/main/resources/packages</outputDirectory>
+							<packagingExcludes>WEB-INF/classes/packages/*</packagingExcludes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -83,111 +112,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <profiles>
-  	<!-- DEVELOP PROFILE -->
-  	<profile>
-  		<id>develop</id>
-  		<properties>
-  			<envClassifier>develop</envClassifier>
-  		</properties>
-  		<build>
-  			<plugins>
-  				<plugin>
-  					<artifactId>maven-antrun-plugin</artifactId>
-  					<executions>
-  						<execution>
-  							<phase>package</phase>
-  							<goals>
-  								<goal>run</goal>
-  							</goals>
-  							<configuration>
-  								<tasks>
-  									<delete
-  										file="${project.build.directory}/${project.build.finalName}/META-INF/context.xml" />
-  									<copy
-  										file="${project.build.directory}/${project.build.finalName}/META-INF/context_local.xml"
-  										tofile="${project.build.directory}/${project.build.finalName}/META-INF/context.xml" />
-  									<delete
-  										file="${project.build.directory}/${project.build.finalName}/META-INF/context_local.xml" />
-  									<delete
-  										file="${project.build.directory}/${project.build.finalName}/META-INF/context_test.xml" />
-  								</tasks>
-  							</configuration>
-  						</execution>
-  					</executions>
-  				</plugin>
-  				<plugin>
-  					<artifactId>maven-surefire-plugin</artifactId>
-  					<configuration>
-  						<skip>true</skip>
-  					</configuration>
-  				</plugin>
-  				<plugin>
-  					<artifactId>maven-war-plugin</artifactId>
-  					<executions>
-  						<execution>
-  							<phase>install</phase>
-  							<goals>
-  								<goal>war</goal>
-  							</goals>
-  							<configuration>
-  								<outputDirectory>${project.basedir}/src/main/resources/packages</outputDirectory>
-  								<classifier>${envClassifier}</classifier>
-  								<packagingExcludes>WEB-INF/classes/packages/*</packagingExcludes>
-  							</configuration>
-  						</execution>
-  					</executions>
-  				</plugin>
-  			</plugins>
-  		</build>
-  	</profile>
-  	<!-- TESTING PROFILE -->
-  	<profile>
-  		<id>testing</id>
-  		<properties>
-  			<envClassifier>testing</envClassifier>
-  			<database.password>dvt_reader</database.password>
-   			<database.username>N$wmkb6#</database.username>
-            <database.url>jdbc:mysql://localhost:3306/osha_dvt?characterEncoding=utf8</database.url> 
-  		</properties>
-  		<build>
-  			<plugins>
-  				<plugin>
-  					<artifactId>maven-antrun-plugin</artifactId>
-  					<executions>
-  						<execution>
-  							<phase>package</phase>
-  							<goals>
-  								<goal>run</goal>
-  							</goals>
-  						</execution>
-  					</executions>
-  				</plugin>
-  				<plugin>
-  					<artifactId>maven-surefire-plugin</artifactId>
-  					<configuration>
-  						<skip>true</skip>
-  					</configuration>
-  				</plugin>
-  				<plugin>
-  					<artifactId>maven-war-plugin</artifactId>
-  					<executions>
-  						<execution>
-  							<phase>install</phase>
-  							<goals>
-  								<goal>war</goal>
-  							</goals>
-  							<configuration>
-  								<outputDirectory>${project.basedir}/src/main/resources/packages</outputDirectory>
-  								<classifier>${envClassifier}</classifier>
-  								<packagingExcludes>WEB-INF/classes/packages/*</packagingExcludes>
-  							</configuration>
-  						</execution>
-  					</executions>
-  				</plugin>
-  			</plugins>
-  		</build>
-  	</profile>
-  </profiles>
+
 </project>
