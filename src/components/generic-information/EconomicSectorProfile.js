@@ -1,5 +1,4 @@
-import React, { Component, useState,useEffect } from 'react';
-import ReactHtmlParser from 'react-html-parser'
+import React, { useState } from 'react';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
@@ -74,6 +73,7 @@ const EconomicSectorProfile = (props) => {
 								handleSearch={handleSearch} 
 								handleSearch2={handleSearch2} 
 								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+								literals={props.literals}
 							/>
 						</ul>
 					</form>
