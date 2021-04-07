@@ -45,7 +45,7 @@ class MentalRisk extends Component
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk"]} />
 
 				<SubMenuTabs literals={literals} onSelectedTab={this.handleSelectedTab}  subMenuTabs={this.state.indicatorTabs} />
-
+				<div class="line background-main-light"></div>
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text" >
 					<div className="card--block--chart" >
 						<div className="chart--block" >
@@ -59,6 +59,7 @@ class MentalRisk extends Component
 												chartType={tab.chartType}
 												colors={['#cbe2e3', '#f6a400','#7b7b7d']}
 												type={this.state.chartDimension}
+												percentage={true}
 											/>
 										</div>
 									)

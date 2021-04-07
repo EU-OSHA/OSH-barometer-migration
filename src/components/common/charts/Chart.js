@@ -150,7 +150,7 @@ class Chart extends Component {
 						return '<ul class="tooltip-item">'+
 						'<li><strong>'+props.title+': </strong><br>' + this.series.name +'</li>'+
 						'<li><strong>Country: </strong> ' + this.x + '</li>' +
-						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'<li><strong class="tooltip-value"> Value: </strong>' + this.y +'%</li>' +
 						'</ul>';
 					},
 				},
