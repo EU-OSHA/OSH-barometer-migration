@@ -97,7 +97,7 @@ class ChartHuman extends Component {
 					formatter: function () {						
 						return '<ul class="tooltip-item">'+
 						'<li><strong>Country: </strong> ' + this.series.name+ '</li>' +
-						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'<li><strong class="tooltip-value up"> Value: </strong>' + this.y +'%</li>' +
 						'</ul>';
 					}
 				},

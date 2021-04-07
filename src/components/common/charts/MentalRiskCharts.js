@@ -7,6 +7,9 @@ import { getChartData } from '../../../api';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 
+const xAxisColor = "#808080";
+const euColor = "#003399";
+const euColorLight = "#7f97ce";
 class MentalRiskCharts extends Component {
     constructor(props) {
         super(props);
@@ -14,15 +17,88 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
-                    align: 'left'
+                    text: "<h2 class='title--card'>"+this.props.chartTitle[`L${this.props.chartType[0].title}`]+"</h2>",
+                    //text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
+                    align: 'left',
+					widthAdjust: -100,
+					y:20,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}
                 },
                 colors: this.props.colors,
+				credits: {
+					enabled: false,
+				},
                 chart: {
+                    height:450,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0'
                 },
+				exporting: {
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y: 0
+					}
+				},
+				legend:{
+					//reversed: this.props.legend
+					//verticalAlign: 'bottom',
+					symbolRadius: 0,
+					//layout: 'vertical',
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					//width: 300,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'12px',
+						textOverflow: "ellipsis",
+						//width: 150
+					}
+				},
+				tooltip: {					
+					useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					zIndex: 100,
+					borderWidth:1,
+					borderColor:"#CCC",
+					// followPointer: true,
+					// followTouchMove: true,
+					style: {
+						zIndex: 100
+					},
+					formatter: function () {
+						return '<ul class="tooltip-item">'+
+						'<li><strong>Anwser: </strong>'+ this.series.name +' </li>' +
+						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
+						'<li><strong class="tooltip-value up">Value: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') +'%</li>' +
+						'</ul>';
+					}
+				},
                 xAxis: {
+                    max: this.props.yAxisMax,
                     plotLines: [
                         {
                             color: 'black',
@@ -34,23 +110,30 @@ class MentalRiskCharts extends Component {
                             width: '2',
                             value: 29.5
                         }
-                    ]
+                    ],
+                    labels: {
+                        style: {
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px',
+                            color:xAxisColor
+						}
+                    }
                 },
                 yAxis: {
                     title: {
                         text: ''
                     },
                     labels: {
-                        formatter: function () {
-                            return `${this.value}%`
-                        }
+						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
+						style: {
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px'
+						}
                     },
                     min: 0,
                     max: 100
-                },
-                tooltip: {
-                    headerFormat: '<b>Answer <b/> {series.name} <br/> <b>Country </b> {point.x} <br/>',
-                    pointFormat: '<b> Value </b> {point.y}%'
                 },
                 plotOptions: {
                     series: {
@@ -65,12 +148,12 @@ class MentalRiskCharts extends Component {
             selectedTypeChart: this.props?.chartType[0].type
         }
     }
-
+    
     onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
-        this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: this.props.chartTitle[`L${serie.title}`]}} })
+        this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.chartTitle[`L${serie.title}`]+"</h2>" } } })
     }
     
     getLoadData = (chartType) => {
@@ -115,11 +198,11 @@ class MentalRiskCharts extends Component {
 
                     for (let serie in auxSeries) {
                             if (serie == 'Yes' || serie == 'Once or more' || serie == 'Mean') {
-                                const euValueSerie1 = {...auxSeries[serie][0], color: '#003399'}
+                                const euValueSerie1 = {...auxSeries[serie][0], color: euColor}
                                 auxSeries[serie][0] = euValueSerie1
                             }
                             if (serie == 'No' || serie == 'Never' ) {
-                                const euValueSerie2 = {...auxSeries[serie][0], color: '#7f97ce'}
+                                const euValueSerie2 = {...auxSeries[serie][0], color: euColorLight}
                                 auxSeries[serie][0] = euValueSerie2
                             }
                         series.push({ name: serie, data: auxSeries[serie] });

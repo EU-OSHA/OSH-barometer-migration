@@ -5,7 +5,7 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
-const euColor = 'black';
+const euColor = '#003399';
 const country1Color = '#ffae00';
 class IncomerPercapital extends Component {
 	constructor(props) {
@@ -81,7 +81,7 @@ class IncomerPercapital extends Component {
 						return '<ul class="tooltip-item">'+
 						'<li><strong>Country: </strong>'+ this.series.name +' </li>' +
 						'<li><strong>Year: </strong>'+ this.x  +' </li>' +
-						'<li><strong>Imcome: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') + ' ' + props.percentage +'</li>' +
+						'<li><strong class="tooltip-value up">Imcome: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') + ' ' + props.percentage +'</li>' +
 						'</ul>';
 					}
 				},
