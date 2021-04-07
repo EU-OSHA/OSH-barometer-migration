@@ -7,10 +7,14 @@
     "clearcache": "rm -rf .cache/ dist/",
     "setlocal": "cp conf/.env.local ./.env",
     "settest": "cp conf/.env.test ./.env",
+    "setstaging":"cp conf/.env.staging ./.env",
+    "setprod":"cp conf/.env.prod ./.env",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "buildtest": "npm run clearcache && npm run settest && npm run build",
-    "start": "npm run build && live-server dist"
+    "start": "npm run build && live-server dist",
+    "buildstaging":"npm run clearcache && npm run setstaging && npm run build",
+    "buildprod":"npm run clearcache && npm run setprod && npm run build"
   },
   "staticFiles": {
     "staticPath": [
