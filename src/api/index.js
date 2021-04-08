@@ -205,6 +205,7 @@ export function getHealthPerceptionCountries() {
 //Get health perception data for each available country including EU27
 export function getHealthPerceptionData(filters){
     const URL = `${BASEURL}quantitative/getCountryCardData?chart=20026`;
+    console.log('URL',URL);
     const response = axios.get(URL, {
         params: {
             country: filters?.countries
@@ -221,7 +222,7 @@ export function getHealthPerceptionData(filters){
     })  
     .then((response) => response.data);
 
-    return Response;
+    return response;
 }
 
 export function getChartDataRisk(chart, indicator, country1,country2, sector, gender, age){
