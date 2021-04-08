@@ -189,12 +189,8 @@ class MentalRiskCharts extends Component {
                         if (!(split in auxSeries)) {
                             auxSeries[split] = []
                         }
-    
-                        if (chart.type == 'esener') {
-                            auxSeries[split].push({ name: element.country, y: element.value * 100 });
-                        } else {
-                            auxSeries[split].push({ name: element.country, y: element.value });
-                        }
+                        
+                        auxSeries[split].push({ name: element.country, y: element.value });
                     });
 
                     for (let serie in auxSeries) {
