@@ -17,7 +17,7 @@ class WorkAccidents extends Component
 			indicatorTabs: [{ literalID: '310' }, { literalID: '311' }],
 			selectedTab: '310',
 			isSubMenuOpen: false,
-			chartDimension: 'column'
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 	}
 	handleSearch = (callbackCountry1) => {

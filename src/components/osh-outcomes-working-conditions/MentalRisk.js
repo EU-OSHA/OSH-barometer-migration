@@ -17,7 +17,7 @@ class MentalRisk extends Component
 		this.state = {
 			indicatorTabs: subTabs,
 			selectedTab: '',
-			chartDimension: 'column'
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 	}
 
