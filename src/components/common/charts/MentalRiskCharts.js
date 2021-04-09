@@ -28,7 +28,6 @@ class MentalRiskCharts extends Component {
 						lineHeight:36
 					}
                 },
-                colors: this.props.colors,
 				credits: {
 					enabled: false,
 				},
@@ -144,9 +143,9 @@ class MentalRiskCharts extends Component {
                 },
                 series: []
             },
-            isLoading: false,
+            isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props?.chartType[0].type
+            selectedTypeChart: this.props?.chartType[0].type,
         }
     }
     
@@ -164,16 +163,16 @@ class MentalRiskCharts extends Component {
 
         let euSerie1 = null;
         let euSerie2 = null;
-        this.setState({ ...this.state, isLoading: true });
         let chart
-
+        
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null })
         }
-
+        
+        this.setState({ ...this.state, isLoading: true });
         try {
             getChartData(chart.chart, chart.chartIndicator, null, null, chart.sector, chart.answers)
                 .then((data) => {
@@ -206,16 +205,20 @@ class MentalRiskCharts extends Component {
                     }
 
                     const reversedArray = [...series].reverse();
-                    if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, legend: {enabled: false}} })
+                    if (series.length == 2) {
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3)}})                        
+                    } else if (series.length == 1) {
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3)}})  
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}} })
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors}})
                     }
                 });
         } catch (error) {
             console.log('error', error)    
         } finally {
-            this.setState({ ...this.state, isLoading: false })
+            setTimeout(() => {
+                this.setState({ ...this.state, isLoading: false })
+            }, 20);
         }
     }
 
@@ -246,14 +249,15 @@ class MentalRiskCharts extends Component {
                         </select>
                     </div>
                 )}
-            
-                <div className='chart-container'>
-                    <HighchartsReact
-                        highcharts={Highcharts}
-                        options={this.state.chartConfig}
-                        containerProps={{ className: 'chartContainer' }}
-                    />
-                </div>
+                {!this.state.isLoading && (
+                    <div className='chart-container'>
+                        <HighchartsReact
+                            highcharts={Highcharts}
+                            options={this.state.chartConfig}
+                            containerProps={{ className: 'chartContainer' }}
+                        />
+                    </div>
+                )}
             </React.Fragment>
         );
     }
