@@ -264,7 +264,6 @@ class WorkAccidentsChart extends Component {
                         auxSeries[serie][0] = euSerie;
                         series.push( {country:euSerie.country,name: serie, data: auxSeries[serie]} );
                         newArray = [...series].reverse();
-                       
                     }
                     
                     this.setState({
@@ -304,7 +303,8 @@ class WorkAccidentsChart extends Component {
                                 series: {
                                     pointPadding: 0.11,
                                     groupPadding: 0.15,
-                                    borderWidth: 0
+                                    borderWidth: 0,
+                                    pointStart: 0
                                 },
                             }, 
                             series: newArray
