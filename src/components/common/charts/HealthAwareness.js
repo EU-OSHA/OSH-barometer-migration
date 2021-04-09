@@ -146,9 +146,9 @@ class HealthAwareness extends Component {
 
                     const reversedArray = [...series.reverse()];
                     if (series.length >= 3) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: ['#7b7b7d', '#cbe2e3','#f6a400']}  });
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: this.props.colors}  });
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: ['#cbe2e3', '#f6a400']} });
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: this.props.colors.slice(1,3)} });
                     }
                 })
         } catch (error) {
