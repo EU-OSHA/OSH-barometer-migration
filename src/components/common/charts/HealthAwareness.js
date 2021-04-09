@@ -161,6 +161,12 @@ class HealthAwareness extends Component {
     componentDidMount() {
         this.getLoadData(this.props.chartType);
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.type != this.props.type) {
+            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
+        }
+    }
     
     render() {
         return (

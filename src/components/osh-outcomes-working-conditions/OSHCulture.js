@@ -15,13 +15,29 @@ class OSHCulture extends Component
 		this.state = {
 			indicatorTabs: subTabs,
 			selectedTab: '',
-			chartDimension: 'column'
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 		
 	}
 
 	handleSelectedTab = (callback) => {
 		this.setState({ selectedTab: callback })
+	}
+
+	updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartDimension: 'column' });
+		} else {
+			this.setState({ chartDimension: 'bar' })
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension)
 	}
 	
 	render()
@@ -44,7 +60,7 @@ class OSHCulture extends Component
 												tabIndicator={tab.literalTab}
 												chartType={tab.chartType}
 												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-												type={'column'}
+												type={this.state.chartDimension}
 												percentage={true}
 											/>
 										</div>

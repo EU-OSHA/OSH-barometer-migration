@@ -17,7 +17,7 @@ class MentalRisk extends Component
 		this.state = {
 			indicatorTabs: subTabs,
 			selectedTab: '',
-			chartDimension: 'column'
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 	}
 
@@ -60,7 +60,7 @@ class MentalRisk extends Component
 												chartTitle={this.props.literals}
 												tabIndicator={tab.literalTab}
 												chartType={tab.chartType}
-												colors={['#cbe2e3', '#f6a400','#7b7b7d']}
+												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
 												type={this.state.chartDimension}
 												percentage={true}
 											/>
