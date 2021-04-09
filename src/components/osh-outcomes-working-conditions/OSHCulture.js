@@ -3,7 +3,7 @@ import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related.js';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
-import HealthAwareness from '../common/charts/healthAwareness';
+import HealthAwareness from '../common/charts/HealthAwareness';
 
 const literals = require('../../model/Literals.json');
 const subTabs = require('../../model/healthAwareness.json');
