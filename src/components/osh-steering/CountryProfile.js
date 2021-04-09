@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
-import CountrySelect from '../common/CountrySelect';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
+import SelectEconomic from '../common/select-filters/SelectEconomic';
 
 const API_ADDRESS = process.env.BASE_URL;
-
 class CountryProfile extends Component
 {
 	constructor(props){
@@ -50,8 +49,13 @@ class CountryProfile extends Component
 	}
 
 	componentDidUpdate(prevProps, prevState){
+
+		if (prevState.country1 != this.state.country1 || prevState.country2 != this.state.country2) {
+			window.history.replaceState(null, null, "/osh-steering/country-profile/"+this.state.indicator+"/"+this.state.country1+"/"+this.state.country2+"/")
+		}
+
 		if(prevState.country1 != this.state.country1 ){
-				this.retrieveCountryProfileData();
+			this.retrieveCountryProfileData();
 		}
 
 		if (prevState.country2 != this.state.country2) {
@@ -95,12 +99,14 @@ class CountryProfile extends Component
 		}
 	}
 
-	countryChange = event => {
-		if(event.target.id === "datafor"){
-			this.setState({country1: event.target.value});
-		}else{
-			this.setState({country2: event.target.value});
-		}
+	// Handle change event for the select box 1
+	handleChangeSelect1 = (callbackCountry) => {
+		this.setState({ country1: callbackCountry });
+	}
+
+	// Handle change event for the select box 2
+	handleChangeSelect2 = (callbackCountry) => {
+		this.setState({ country2: callbackCountry });
 	}
 
 	changeIndicator = indicatorSelected => () => {
@@ -260,29 +266,13 @@ class CountryProfile extends Component
 
 					{/* FILTERS */}
 					<form className="compare--block--form container">
-						<ul className="compare--list">
-							{/*  1ST COUNTRY FILTER  */}
-							<li>
-								<label htmlFor="datafor">{this.props.literals.L20609}</label>
-								<CountrySelect id="datafor" 
-									countries={this.state.countriesSelect1} 
-									country={this.state.country1} 
-									handler ={this.countryChange} 
-									currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"}
-								/>
-							</li>
-							{/* 2ND COUNTRY FILTER  */}
-							<li>
-								<label htmlFor="comparewith">{this.props.literals.L20610}</label>
-								<CountrySelect 
-									id="comparewith" 
-									countries={this.state.countriesSelect2} 
-									country={this.state.country2} 
-									handler ={this.countryChange}
-									currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"+this.state.country1+"/"}
-								/>
-							</li>
-						</ul>
+						<SelectEconomic 
+							handleSearch={this.handleChangeSelect1}
+							handleSearch2={this.handleChangeSelect2}
+							selectedCountry1={this.state.country1}
+							selectedCountry2={this.state.country2}
+							literals={this.props.literals}
+						/>
 					</form>
 
 					<div className="line background-main-light"></div>

@@ -128,8 +128,10 @@ public class QuantitativeDataAccess {
 					chartID == 20103 || chartID == 20104)
 			{
 				// The filters are answer and activity sector
+				// The indicators belong to ESENER
+				// For ESENER data, return the data multiplied by 100
 				// The sector is not returned in the select
-				selectBuilder.append("select t1.text as Answer, n.country_code as countryCode, t.text as countryName, v.value as Value ");
+				selectBuilder.append("select t1.text as Answer, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
 				fromBuilder.append(", split_answer a, translation t1 ");
 				whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' ");
 				

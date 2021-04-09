@@ -10,6 +10,7 @@ require('highcharts/modules/export-data')(Highcharts);
 const xAxisColor = "#808080";
 const euColor = "#003399";
 const euColorLight = "#7f97ce";
+
 class MentalRiskCharts extends Component {
     constructor(props) {
         super(props);
@@ -188,12 +189,8 @@ class MentalRiskCharts extends Component {
                         if (!(split in auxSeries)) {
                             auxSeries[split] = []
                         }
-    
-                        if (chart.type == 'esener') {
-                            auxSeries[split].push({ name: element.country, y: element.value * 100 });
-                        } else {
-                            auxSeries[split].push({ name: element.country, y: element.value });
-                        }
+                        
+                        auxSeries[split].push({ name: element.country, y: element.value });
                     });
 
                     for (let serie in auxSeries) {
