@@ -145,7 +145,7 @@ class MentalRiskCharts extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props?.chartType[0].type,
+            selectedTypeChart: this.props?.chartType[0].type
         }
     }
     
