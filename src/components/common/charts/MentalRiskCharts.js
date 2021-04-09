@@ -228,6 +228,10 @@ class MentalRiskCharts extends Component {
         if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
             this.getLoadData(this.props.chartType);
         }
+
+        if (prevProps.type != this.props.type) {
+            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
+        }
     }
 
     render() {
