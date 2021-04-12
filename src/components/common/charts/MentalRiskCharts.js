@@ -32,7 +32,7 @@ class MentalRiskCharts extends Component {
 					enabled: false,
 				},
                 chart: {
-                    height:450,
+                    height: window.innerWidth > 768 ? 450 : 770,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0'
                 },
@@ -206,11 +206,11 @@ class MentalRiskCharts extends Component {
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3)}})                        
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {categories} }})                        
                     } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3)}})  
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {categories} }})  
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors}})
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {categories} }})
                     }
                 });
         } catch (error) {
@@ -222,9 +222,19 @@ class MentalRiskCharts extends Component {
         }
     }
 
+    updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
+		} else {
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}} });
+		}
+	}
+
     componentDidMount() {
         this.getLoadData(this.props.chartType);
         this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+
+        window.addEventListener('resize', this.updateDimension);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -237,6 +247,10 @@ class MentalRiskCharts extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimension);
+    }
+    
     render() {
         return (
             <React.Fragment>
