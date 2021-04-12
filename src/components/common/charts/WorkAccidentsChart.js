@@ -25,6 +25,7 @@ class WorkAccidentsChart extends Component {
                 },
                 colors: this.props.colors,
                 chart: {
+                    height: window.innerWidth > 768 ? 450 : 770,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0'
                 },
@@ -77,7 +78,7 @@ class WorkAccidentsChart extends Component {
             },
             colors: this.props.colors,
             chart: {
-                height:450,
+                height: window.innerWidth > 768 ? 450 : 770,
                 type: this.props.type,
                 backgroundColor: '#F0F0F0'
             },
@@ -315,8 +316,18 @@ class WorkAccidentsChart extends Component {
 
     }
 
+    updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
+		} else {
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}} });
+		}
+	}
+
     componentDidMount() {
-        this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2)
+        this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
+
+        window.addEventListener('resize', this.updateDimension);
     }
 
     componentDidUpdate(prevProps) {
@@ -331,6 +342,10 @@ class WorkAccidentsChart extends Component {
         if (prevProps.selectedCountry2 != this.props.selectedCountry2) {
             this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2)
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimension);
     }
 
     render() {

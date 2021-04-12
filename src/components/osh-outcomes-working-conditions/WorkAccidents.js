@@ -36,7 +36,9 @@ class WorkAccidents extends Component
 
 	onClickSubMenu = (e) => {
 		e.preventDefault();
-		this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+		if (window.innerWidth < 768) {
+			this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+		}
 	}
 
 	updateDimension = () => {
