@@ -13,7 +13,8 @@ class CountryProfile extends Component
 		this.state = {
 			countryProfileData1: {}, 
 			countryProfileData2: {}, 
-			openListClass: "", 
+			openListClass: "",
+			tabIndicators: false,
 			countriesSelect1: [], 
 			countriesSelect2: [], 
 			indicators: [],
@@ -63,21 +64,9 @@ class CountryProfile extends Component
 		}
 	}
 
-	openIndicatorsList = (event) => {
-		
-		if( window.innerWidth < 990 ){
-			
-			if(event.target.nodeName == "A"){
-			  var parentTag = event.target.offsetParent.nextSibling.parentNode.className;
-			} else if( event.target.nodeName == "LI" ){
-			  var parentTag = event.target.parentNode.className;
-			} 
-
-			if(parentTag.indexOf('open-list') < 0 ){
-				this.setState({openListClass: "open-list"});
-			} else {
-				this.setState({openListClass: ""});
-			}
+	openIndicatorsList = () => {
+		if (window.innerWidth < 768) {
+			this.setState({ tabIndicators: !this.state.tabIndicators })
 		}
 	}
 
@@ -231,10 +220,10 @@ class CountryProfile extends Component
 
 		if(this.state.indicators.length > 0){
 			indicatorTabs = (
-				<ul className={"submenu--items--wrapper "+this.state.openListClass}>
+				<ul className={`submenu--items--wrapper ${this.state.tabIndicators ? 'open-list' : ''}`}>
 					{
 						this.state.indicators.map((indicator, index) => (
-							<li key={index} onClick={this.openIndicatorsList(this)} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
+							<li key={index} onClick={this.openIndicatorsList} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
 								<Link to={"/osh-steering/country-profile/"+this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-')+"/"
 									+this.state.country1+"/"+(this.state.country2 != undefined ? this.state.country2 : "" )} 
 									onClick={this.changeIndicator(this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-'))}
