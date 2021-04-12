@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getIndicatorCountries } from '../../../api';
+import { getIndicatorCountries, getNationalStrategiesCountries } from '../../../api';
 
  const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals }) => {
   const [selectCountry1, setSelectCountry1]= useState([]);
@@ -16,14 +16,25 @@ import { getIndicatorCountries } from '../../../api';
   const initCountryIndicators = (country1, country2) => {
     setIsLoading(true);
     try {
-      getIndicatorCountries(charts, indicator, country2)
-        .then((data) => {
-          setSelectCountry1(data.resultset);
-        });
-      getIndicatorCountries(charts, indicator, country1)
-        .then((data) => {
-          setSelectCountry2(data.resultset);
-        })
+      if (charts) {
+        getIndicatorCountries(charts, indicator, country2)
+          .then((data) => {
+            setSelectCountry1(data.resultset);
+          });
+        getIndicatorCountries(charts, indicator, country1)
+          .then((data) => {
+            setSelectCountry2(data.resultset);
+          })
+      } else {
+        getNationalStrategiesCountries([country1])
+          .then((data) => {
+            setSelectCountry2(data.resultset);
+          })
+        getNationalStrategiesCountries([country2])
+          .then((data) => {
+            setSelectCountry1(data.resultset)
+          })
+      }
     } catch (error) {
       console.log('Error fetching indicator countries', error);
     } finally {
@@ -33,10 +44,17 @@ import { getIndicatorCountries } from '../../../api';
 
   const getSelectIndicators1 = (country) => {
     try {
-      getIndicatorCountries(charts, null, country)
+      if (charts) {
+        getIndicatorCountries(charts, null, country)
         .then((data) => {
           setSelectCountry2(data.resultset);
         })
+      } else {
+        getNationalStrategiesCountries([country])
+          .then((data) => {
+            setSelectCountry2(data.resultset)
+          })
+      }
     } catch (error) {
       console.log('Error fetching selected country in Select box 1', error.message);
     }
@@ -44,10 +62,17 @@ import { getIndicatorCountries } from '../../../api';
 
   const getSelectIndicators2 = (country) => {
     try {
-      getIndicatorCountries(charts, null, country)
-        .then((data) => {
-          setSelectCountry1(data.resultset);
-        })
+      if (charts) {
+        getIndicatorCountries(charts, null, country)
+          .then((data) => {
+            setSelectCountry1(data.resultset);
+          })
+      } else {
+        getNationalStrategiesCountries([country])
+          .then((data) => {
+            setSelectCountry1(data.resultset)
+          })
+      }
     } catch (error) {
       console.log('Error fetching selected country in select box 2', error.message)
     }
