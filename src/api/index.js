@@ -234,7 +234,17 @@ export function getHealthPerceptionData(filters){
     })  
     .then((response) => response.data);
 
-    return response;
+    return response
+}
+
+
+export function getCountryDataMap(){
+    const URL = `${BASEURL}quantitative/getCountryCardData?chart=20012`;
+    const response = axios.get(URL,{
+
+    }).then((res) => res.data)
+
+    return response
 }
 
 export function getChartDataRisk(chart, indicator, country1,country2, sector, gender, age){
