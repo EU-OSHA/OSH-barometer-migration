@@ -186,3 +186,13 @@ export function getHealthPerceptionData(filters){
 
     return response
 }
+
+
+export function getCountryDataMap(){
+    const URL = `${BASEURL}quantitative/getCountryCardData?chart=20012`;
+    const response = axios.get(URL,{
+
+    }).then((res) => res.data)
+
+    return response
+}
