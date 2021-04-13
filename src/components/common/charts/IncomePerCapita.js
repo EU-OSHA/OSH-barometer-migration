@@ -5,7 +5,7 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
-const euColor = 'black';
+const euColor = '#003399';
 const country1Color = '#ffae00';
 class IncomerPercapital extends Component {
 	constructor(props) {
@@ -14,8 +14,13 @@ class IncomerPercapital extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					text: this.props.title,
-					align: 'left'
+					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+					align: 'left',
+					widthAdjust: 0,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}	
 				},
 				credits: {
 					enabled: false
@@ -27,11 +32,58 @@ class IncomerPercapital extends Component {
 					backgroundColor: '#F0F0F0'
 				},
 				exporting: {
-					enabled: true
+					enabled: true,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y: -8
+					}
+				},
+				legend:{
+					//reversed: this.props.legend
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'12px',
+						textOverflow: "ellipsis",
+						//width: 250
+					}
 				},
 				tooltip: {
-					headerFormat: '<b>Country</b> {series.name}<br/> <b> Year {point.x}</b><br/>',
-					pointFormat: '<b> Income </b> {point.y} €'
+					useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					style: {
+						zIndex: 100
+					},
+					// headerFormat: '<ul class="tooltip-item"><li><strong>Country: </strong> {series.name}</li>',
+					// pointFormat: '<li><strong>Year: </strong> {point.x}</li><li><strong>Imcome: </strong> {point.y} €</li></ul>',
+					formatter: function () {
+						return '<ul class="tooltip-item">'+
+						'<li><strong>Country: </strong>'+ this.series.name +' </li>' +
+						'<li><strong>Year: </strong>'+ this.x  +' </li>' +
+						'<li><strong class="tooltip-value up">Imcome: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') + ' ' + props.percentage +'</li>' +
+						'</ul>';
+					}
 				},
 				plotOptions: {
 					series: {
@@ -42,7 +94,7 @@ class IncomerPercapital extends Component {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
+								return '<span style="color:' + this.point.color + '">' + Highcharts.numberFormat(this.y,0,',','.')   + ' ' + props.percentage +'</span>';
 							}
 						}
 					}
@@ -60,7 +112,9 @@ class IncomerPercapital extends Component {
 							}
 						},
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px'
 						}
 					}
 				},
@@ -71,9 +125,11 @@ class IncomerPercapital extends Component {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
+						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
 						style: {
-							fontWeight: 'bold'
+							fontFamily: 'OpenSans-bold',
+							fontWeight: 'normal',
+							fontSize:'12px'
 						}
 					}
 				},

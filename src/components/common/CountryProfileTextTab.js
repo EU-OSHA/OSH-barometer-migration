@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import images from '../../style/img/flag/images';
-import SeeMore from './seeMore';
+import SeeMore from './SeeMore';
 
 class CountryProfileTextTab extends Component
 {

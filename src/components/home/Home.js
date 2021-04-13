@@ -26,20 +26,19 @@ class Home extends Component
 		$(window).on("resize",function(e){
 			var screenWidth = getWidth();		  
 			createCarousel(screenWidth);
-		}); 
-		
-   
+		}); 	
+
 		function hideControls(items){
 			if(items == 6){
-				$('.carousel-control-group').addClass('hide');
+				$(".carousel-control-group").css('visibility','hidden');
 			} else {
-				$('.carousel-control-group').removeClass('hide');
+				$(".carousel-control-group").css('visibility','visible');
 			}
 		}
    
 		function createCarousel(screenWidth){      
 			if( screenWidth >= 1919){
-				var numItems = 6;
+				var numItems = 6;				
 			}
 			else if( screenWidth >= 1600 && screenWidth < 1919 ){
 				var numItems =5;
@@ -58,6 +57,9 @@ class Home extends Component
 			} else {
 				var numItems = 1;
 			}
+			
+			$("#carousel .carousel-control-next,#carousel .carousel-control-prev").wrapAll('<div class="carousel-control-group"></div>');
+			$( "#carousel .carousel-control-group").appendTo( $( ".discover--charts--section" ) );
 			hideControls(numItems);
 
 			$('.carousel-showmanymoveone .carousel-item').each(function(){      
@@ -75,6 +77,7 @@ class Home extends Component
 				}
 			});
 		}
+
 		$(".carousel").on("touchstart", function(event){
 			if( numItems != 6){				   
 			   	var xClick = event.originalEvent.touches[0].pageX;
@@ -95,12 +98,6 @@ class Home extends Component
 				});
 			}
 		});
-
-		var previousBtn = $("#carousel .carousel-control-prev")[0].outerHTML;
-		var nextBtn = $("#carousel .carousel-control-next")[0].outerHTML;
-		$("#carousel .carousel-control-next,#carousel .carousel-control-prev").wrapAll('<div class="carousel-control-group"></div>');
-		$( "#carousel .carousel-control-group" ).appendTo( $( ".discover--charts--section" ) );
-
 
 	}
     // function to trim the passed text

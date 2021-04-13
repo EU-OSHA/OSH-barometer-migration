@@ -1176,6 +1176,7 @@
         &.min-height{
           .title--card{
             min-height: 10rem;
+            font-family:$font-header;
           }
         }
         .title--card{
@@ -1184,6 +1185,8 @@
           margin: 0;
           padding: 2rem 0;
           line-height: 1.16;
+          font-family:$font-header;
+          color: #58585A;
           a{
             color: $aquamarine;
             cursor: pointer;
@@ -1238,6 +1241,7 @@
           display: block;
           margin: 0;
           padding: 2rem 0;
+          font-family:$font-header;
           a{
             color:$orange;
             cursor: pointer;
@@ -1276,7 +1280,7 @@
       }
       .card--block--chart{
         background: $gray-lighter;
-        padding: 1rem 2rem 3rem 2rem;
+        padding: 3rem 2rem 3rem 2rem;
         border-radius: 46px 0;
         margin-bottom: 3rem;
         display: flex;
@@ -1314,12 +1318,18 @@
             }
           }
         }
+        .highcharts-title{
+          width: 85% !important;
+          top: -2px !important;
+          fill: #58585A !important;
+        }
         .title--card{
           font-size: 2.8rem;
-          margin-top: 0rem;
+          margin-top: 1rem;
           text-align: left;
           //min-height: 6rem;
           margin-bottom: 1rem;
+          font-family:$font-header;
         }
         .chart--block{
           //margin-top:auto; 
@@ -2007,6 +2017,7 @@
           margin: 0rem 0 0 3%;
           padding-top: 2rem;
           text-align: left;
+          font-family:$font-header;
         } 
         .chart--wrapper{
           width: 94%;
@@ -2215,14 +2226,14 @@ p{
 
 
 .dvt-map-tooltip{
-background:rgba(255,255,255,0.9);
-color: $gray;
-padding:1.5rem;
-border: 2px solid $aquamarine;
-border-radius: 6px;
-position: absolute;
-z-index: 1000000000;
-max-width:35rem;
+  background:rgba(255,255,255,1);
+  color: $gray;
+  padding:1.5rem;
+  border: 2px solid $aquamarine;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1000000000;
+  max-width:35rem;
   &.botton:after {
     content: "";
     position: absolute;
@@ -2278,6 +2289,18 @@ max-width:35rem;
       font-family: 'OpenSans';
       margin-right: 0.5rem;     
       font-weight: bold;
+      &.tooltip-value{
+        &:after{
+          content: "\2194";
+          font-size: 1.2em;
+        }
+        &.up{
+          &:after{
+            content: "\2195";
+            font-size: 1.2em;
+          }
+        }
+      }
     }
   }
 }

@@ -69,7 +69,7 @@ export function getOSHData(dataPage, filters) {
 }
 
 // get data for the charts
-export function getChartData(chart, indicator, country1, country2) {
+export function getChartData(chart, indicator, country1, country2, sector, answers) {
     const URL = `${BASEURL}quantitative/getChartData`
 
     const response = axios.get(URL, {
@@ -77,8 +77,39 @@ export function getChartData(chart, indicator, country1, country2) {
             chart,
             indicator,
             country1,
-            country2
-        },        
+            country2,
+            sector,
+            answers
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.chart) {
+                urlWithParams.append('chart', params.chart);
+            }
+
+            if (params.indicator) {
+                urlWithParams.append('indicator', params.indicator);
+            }
+
+            if (params.country1) {
+                urlWithParams.append('country1', params.country1);
+            }
+
+            if (params.country2) {
+                urlWithParams.append('country2', params.country2);
+            }
+
+            if (params.sector) {
+                urlWithParams.append('sector', params.sector);
+            }
+
+            if (params.answers) {
+                params.answers.map((answer) => urlWithParams.append('answer', answer));
+            }
+
+            return urlWithParams
+        }
     }).then((res) => {
         return res.data
     })
@@ -86,13 +117,14 @@ export function getChartData(chart, indicator, country1, country2) {
     return response;
 }
 
-export function getIndicatorCountries(charts = ['20012'], indicator) {
+export function getIndicatorCountries(charts = ['20012'], indicator, country) {
     const URL = `${BASEURL}countries/getIndicatorCountries`
 
     const response = axios.get(URL, {
         params: {
             charts,
-            indicator
+            indicator,
+            country
         },
         paramsSerializer: params => {
             let urlWithParams = new URLSearchParams();
@@ -105,19 +137,37 @@ export function getIndicatorCountries(charts = ['20012'], indicator) {
                 urlWithParams.append('indicator', params.indicator);
             }
 
+            if (params.country) {
+                urlWithParams.append('country', params.country);
+            }
+
             return urlWithParams
         }
     })
-        .then((response) => response.data);
-
+        .then((response) => {
+            return response.data
+        });
     return response
 }
 
 //Get countries available for social dialogue select
-export function getNationalStrategiesCountries() {
+export function getNationalStrategiesCountries(countries) {
     const URL = `${BASEURL}countries/getCountriesStrategiesPage?page=STRATEGY`;
 
-    const response = axios.get(URL)
+    const response = axios.get(URL, {
+        params: {
+            country: countries
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.country) {
+                countries.map((country) => urlWithParams.append('country', country))
+            }
+
+            return urlWithParams
+        }
+    })
     .then((res) => res.data);
 
     return response
@@ -196,3 +246,57 @@ export function getCountryDataMap(){
 
     return response
 }
+
+export function getChartDataRisk(chart, indicator, country1,country2, sector, gender, age){
+    const URL = `${BASEURL}/quantitative/getChartData`;
+    //?&sector=9&sector=10&sector=11&sector=12&sector=13&sector=8
+  
+    const response = axios.get(URL, {
+        params: {
+            chart,
+            indicator,
+            country1,
+            country2,
+            sector,
+            gender,
+            age
+            
+        },
+        paramsSerializer: params =>{
+            let urlWithParams = new URLSearchParams()
+
+            if(params.chart){
+                urlWithParams.append('chart',chart)
+            }
+
+            if(params.indicator){
+                urlWithParams.append('indicator',indicator)
+            }
+
+            if (params.country1){
+                urlWithParams.append('country1',country1)
+            }
+
+            if(params.country2){
+                urlWithParams.append('country2',country2)
+            }
+            if(params.sector){
+                params.sector.map(element => urlWithParams.append('sector',element))
+            }
+            if (params.gender){
+                params.gender.map(element => urlWithParams.append('gender',element))
+            }
+
+            if (params.age){
+                params.age.map(element => urlWithParams.append('age',element))
+            }
+
+            return urlWithParams;
+        }
+    }).then((res)=> {
+        return res.data
+    })
+
+    return response;
+}
+

@@ -207,7 +207,12 @@
             }]
         },
         "mental-risk":{
-            "time-pressure":[],
+            "time-pressure":[{
+                "title": "L20674",
+                "text":"L20578",
+                "link": "osh-outcomes-working-conditions/working-conditions/mental-risk/working-hours/esener",
+                "icon": "mental-risk"
+            }],
             "poor-communication":[],
             "influence":[{
                 "title": "L22015",
