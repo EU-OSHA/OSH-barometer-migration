@@ -4,6 +4,7 @@ import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
+import Related from '../common/Related';
 
 const API_ADDRESS = process.env.BASE_URL;
 class CountryProfile extends Component
@@ -62,6 +63,7 @@ class CountryProfile extends Component
 		if (prevState.country2 != this.state.country2) {
 			this.retrieveCountryProfileData();
 		}
+
 	}
 
 	openIndicatorsList = () => {
@@ -272,6 +274,15 @@ class CountryProfile extends Component
 				</section>
 
 				<Methodology />
+
+				{(this.state.indicator == 'background' 
+					|| this.state.indicator == 'actors-and-stakeholders' 
+					|| this.state.indicator == 'resources-and-timeframe' 
+					|| this.state.indicator == 'relationship-to-eu-strategic-framework') 
+					&& (
+					<Related literals={this.props.literals} section={["osh-steering", "country-profile", this.state.indicator]} />
+				)}
+				
 			</div>
 		)
 	}
