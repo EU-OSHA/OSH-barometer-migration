@@ -46,8 +46,7 @@ class Cards extends Component {
 	}
 
     render() {
-		const { literals, countryData, cardType } = this.props
-        const countryID = `id-${countryData.country.code}`;
+		const { literals, countryData, cardType, idCard } = this.props
 		const replacedText = countryData.text2 && literals[`L${countryData.text2}`].replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img);
         return (
 			<div className="matrix--element clearfix" >
@@ -72,12 +71,12 @@ class Cards extends Component {
 							<p className="institution-name">{literals[`L${countryData.text1 && countryData.text1}`]}</p>
 							{countryData.text2 && ReactHtmlParser(literals[`L${countryData.text2}`])}
 							<div className="partial-text" >
-								{this.state.selectedId == countryID ? (
+								{this.state.selectedId == idCard ? (
 									countryData.text3 && ReactHtmlParser(literals[`L${countryData.text3}`])
 								) : (
 									null
 								)}
-								{this.state.selectedId != countryID ? (
+								{this.state.selectedId != idCard ? (
 									countryData.text3 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text3}`], 300))
 								) : null}
 							</div>
@@ -87,12 +86,12 @@ class Cards extends Component {
 					{(cardType == 'statistics' || cardType == 'challenges') && (
 						<React.Fragment>
 							{ReactHtmlParser(literals[`L${countryData.text1}`])}
-							{this.state.selectedId == countryID ? (
+							{this.state.selectedId == idCard ? (
 								ReactHtmlParser(literals[`L${countryData.text2}`])
 							) : (
 								null
 							)}
-							{this.state.selectedId != countryID ? (
+							{this.state.selectedId != idCard ? (
 								countryData.text2 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text2}`], 350))
 							) : (
 								null
@@ -101,7 +100,7 @@ class Cards extends Component {
 					)}
 					
 					{(countryData.text3 && literals[`L${countryData.text3}`].length > 300 || countryData.text2 && replacedText.length > 350) && (
-						<p className="see--more--wrapper" onClick={this.onToggleShowMore(countryID)}>
+						<p className="see--more--wrapper" onClick={this.onToggleShowMore(idCard)}>
 							{this.state.toggleShowMore ? <a className='see-less main-color'> {this.props.literals.L481} </a> : null }
 							{!this.state.toggleShowMore ? <a className='see-more main-color'> {this.props.literals.L480} </a> : null }
 						</p>
