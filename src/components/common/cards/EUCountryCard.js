@@ -1,72 +1,62 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 
 class EUCountryCard extends Component{
     constructor(props) {
         super(props);
+
+        this.state = {
+            firstPercentage: '',
+            secondPercentage: '',
+            thirdPercentage: '',
+            fourthPercentage: '',
+            fifthPercentage: '',
+            sixthPercentage: '',
+            socialDialogueLink: '',
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.page == 'socialDialogue') {
+            this.setState({
+                socialDialogueLink: 
+                <p className="download-report" >
+                    <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
+                        {ReactHtmlParser(this.props.literals.L20637)}
+                    </a>
+                </p>
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.euData != this.props.euData) {
+            if (this.props.euData.data !== undefined) {
+                if (this.props.page == 'socialDialogue') {
+                    this.setState({ 
+                        firstPercentage: Math.round(this.props.euData.data.E3Q350_1*100),
+                        secondPercentage: Math.round(this.props.euData.data.E3Q350_2*100),
+                        thirdPercentage: Math.round(this.props.euData.data.E3Q350_4*100),
+                        fourthPercentage: Math.round(this.props.euData.data.E3Q350_3*100),
+                     })
+                } else {
+                    this.setState({
+                        firstPercentage: Math.round(this.props.euData.data["Job satisfaction"]),
+                        secondPercentage: Math.round(this.props.euData.data["Health affected by work"]),
+                        thirdPercentage: Math.round(this.props.euData.data["Health problem in the last 12 months"]),
+                        fourthPercentage: Math.round(this.props.euData.data["More than 15 days of absence"]),
+                        fifthPercentage: Math.round(this.props.euData.data["Sick at working"]),
+                        sixthPercentage: Math.round(this.props.euData.data["Be able to do current job until 60 years old"])
+                    })
+                }
+            }
+        }
     }
 
     render()
 	{
         const { euData, page } = this.props;
-        // console.log('euData',euData);
 
-        var firstPercentage = "";
-        var secondPercentage = "";
-        var thirdPercentage = "";
-        var fourthPercentage = "";
-        var fifthPercentage = "";
-        var sixthPercentage = "";
-
-        if(euData.data !== undefined){
-            if(page === 'socialDialogue'){
-                firstPercentage = Math.round(euData.data.E3Q350_1*100);
-                secondPercentage = Math.round(euData.data.E3Q350_2*100);
-                thirdPercentage = Math.round(euData.data.E3Q350_3*100);
-                fourthPercentage = Math.round(euData.data.E3Q350_4*100);
-            }else{
-                firstPercentage = Math.round(euData.data["Job satisfaction"]);
-                secondPercentage = Math.round(euData.data["Health affected by work"]);
-                thirdPercentage = Math.round(euData.data["Health problem in the last 12 months"]);
-                fourthPercentage = Math.round(euData.data["More than 15 days of absence"]);
-                fifthPercentage = Math.round(euData.data["Sick at working"]);
-                sixthPercentage = Math.round(euData.data["Be able to do current job until 60 years old"]);
-            }
-        }
-
-        var socialDialogueLink = "";
-        var healthPerceptionExtraList01 = "";
-        var healthPerceptionExtraList02 = "";
-        if(page === 'socialDialogue'){
-            socialDialogueLink = (
-                <p className="download-report" >
-                    <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+euData.countryCode+".pdf"} className="download-pdf" target="_blank">
-                        {ReactHtmlParser(this.props.literals.L20637)}
-                    </a>
-                </p>
-            )
-        }else{
-            healthPerceptionExtraList01 = (
-                    <li>
-                        <div className="group-data">
-                            <span className="country-data">{fifthPercentage}</span>
-                            <span className="data-text">%</span>
-                        </div>
-                        <label>{this.props.literals.L318}</label>
-                    </li>
-            )
-            healthPerceptionExtraList02 = (
-                    <li>
-                        <div className="group-data">
-                            <span className="country-data">{sixthPercentage}</span>
-                            <span className="data-text">%</span>
-                        </div>
-                        <label>{this.props.literals.L319}</label>
-                    </li>
-            )
-        }
-        
 		return(
             <div className="highlited--data--section">
                 <div className="highlited--data--block container">
@@ -76,41 +66,58 @@ class EUCountryCard extends Component{
                         </div>
                         <div className="eu-data">
                             <h2 className="country title-section main-color">{euData.countryName}</h2>
-                            {socialDialogueLink}
+                            {this.state.socialDialogueLink}
                         </div>
                     </div>
                     <div className="highlited-data-item">
                         <ul className="highlited-data-list">
                             <li>
                                 <div className="group-data">                
-                                    <span className="country-data">{firstPercentage}</span>
+                                    <span className="country-data">{this.state.firstPercentage}</span>
                                     <span className="data-text">%</span>
                                 </div>
-                                <label>{(this.props.page === "socialDialogue") ? this.props.literals.L20659 : this.props.literals.L314 }</label>
+                                <label>{(page === "socialDialogue") ? this.props.literals.L20659 : this.props.literals.L314 }</label>
                             </li>
                             <li>
                                 <div className="group-data">                
-                                    <span className="country-data">{secondPercentage}</span>
+                                    <span className="country-data">{this.state.secondPercentage}</span>
                                     <span className="data-text">%</span>
                                 </div>
-                                <label>{(this.props.page === "socialDialogue") ? this.props.literals.L20660 : this.props.literals.L315}</label>
+                                <label>{(page === "socialDialogue") ? this.props.literals.L20660 : this.props.literals.L315}</label>
                             </li>
                             <li>
                                 <div className="group-data">                
-                                    <span className="country-data">{thirdPercentage}</span>
+                                    <span className="country-data">{this.state.thirdPercentage}</span>
                                     <span className="data-text">%</span>
                                 </div>
-                                <label>{(this.props.page === "socialDialogue") ? this.props.literals.L20661 : this.props.literals.L316}</label>
+                                <label>{(page === "socialDialogue") ? this.props.literals.L20661 : this.props.literals.L316}</label>
                             </li>
                             <li>
                                 <div className="group-data">                
-                                    <span className="country-data">{fourthPercentage}</span>
+                                    <span className="country-data">{this.state.fourthPercentage}</span>
                                     <span className="data-text">%</span>
                                 </div>
-                                <label>{(this.props.page === "socialDialogue") ? this.props.literals.L20662 : this.props.literals.L317}</label>
+                                <label>{(page === "socialDialogue") ? this.props.literals.L20662 : this.props.literals.L317}</label>
                             </li>
-                            {healthPerceptionExtraList01}
-                            {healthPerceptionExtraList02}
+
+                            {page != 'socialDialogue' && (
+                                <React.Fragment>
+                                    <li>
+                                        <div className="group-data">
+                                            <span className="country-data">{this.state.fifthPercentage}</span>
+                                            <span className="data-text">%</span>
+                                        </div>
+                                        <label>{this.props.literals.L318}</label>
+                                    </li>
+                                    <li>
+                                        <div className="group-data">
+                                            <span className="country-data">{this.state.sixthPercentage}</span>
+                                            <span className="data-text">%</span>
+                                        </div>
+                                        <label>{this.props.literals.L319}</label>
+                                    </li>
+                                </React.Fragment>
+                            )}
                         </ul>
                     </div>
                 </div>
