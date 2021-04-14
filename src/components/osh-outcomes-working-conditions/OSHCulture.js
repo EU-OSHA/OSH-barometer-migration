@@ -14,14 +14,14 @@ class OSHCulture extends Component
 
 		this.state = {
 			indicatorTabs: subTabs,
-			selectedTab: '',
+			selectedTab: 'health-and-safety-discussed',
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 		
 	}
 
 	handleSelectedTab = (callback) => {
-		this.setState({ selectedTab: callback })
+		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
 	}
 
 	updateDimension = () => {
@@ -52,7 +52,7 @@ class OSHCulture extends Component
 					<div className="card--block--chart" >
 						<div className="chart--block">
 							{this.state.indicatorTabs.map((tab) => {
-								if (tab.literalTab == this.state.selectedTab) {
+								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
 									return (
 										<div key={tab.literalTab}>
 											<HealthAwareness
@@ -72,7 +72,8 @@ class OSHCulture extends Component
 				</div>
 				
 				<Methodology />
-				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture","health-and-safety-discussed"]} />
+
+				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab]} />
 			</div>
 		)
 	}
