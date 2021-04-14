@@ -17,6 +17,7 @@ class MentalRisk extends Component
 		this.state = {
 			indicatorTabs: subTabs,
 			selectedTab: 'time-pressure',
+			chartLegend: '',
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 	}
@@ -31,6 +32,10 @@ class MentalRisk extends Component
 
 	handleSelectedTab = (callback) => {
 		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
+	}
+
+	callbackChartLegend = (legend) => {
+		this.setState({ chartLegend: legend });
 	}
 
 	componentDidMount() {
@@ -48,7 +53,7 @@ class MentalRisk extends Component
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk"]} />
 
 				<SubMenuTabs literals={literals} onSelectedTab={this.handleSelectedTab}  subMenuTabs={this.state.indicatorTabs} />
-				<div class="line background-main-light"></div>
+				<div classname="line background-main-light"></div>
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text" >
 					<div className="card--block--chart" >
 						<div className="chart--block" >
@@ -63,12 +68,16 @@ class MentalRisk extends Component
 												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
 												type={this.state.chartDimension}
 												percentage={true}
+												callbackLegend={this.callbackChartLegend}
 											/>
 										</div>
 									)
 								}
 							})}
 						</div>
+					</div>
+					<div className="chart-legend">
+						{this.props.literals[`L${this.state.chartLegend}`]}
 					</div>
 				</div>
 				

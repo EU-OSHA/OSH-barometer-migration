@@ -167,6 +167,7 @@ class MentalRiskCharts extends Component {
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+            this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null })
