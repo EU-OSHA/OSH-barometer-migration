@@ -261,6 +261,9 @@
       }
     }
   }
+  .carousel-control-group[style*="visibility: hidden"]{
+    display: none;
+  }
 }
 .carousel-showmanymoveone{
   .carousel-inner{

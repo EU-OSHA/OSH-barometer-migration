@@ -35,6 +35,16 @@ class Related extends Component
         return (<p className="text-related-item">{pText}</p>);
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.section != this.props.section) {
+            let rel = relatedItems;
+            for (let i = 0; i < this.props.section.length; i++) {
+                rel = rel[this.props.section[i]];
+            }
+            this.setState({ items: rel })
+        }
+    }
+
     render()
     {
         return(
@@ -43,8 +53,8 @@ class Related extends Component
                     <h2 className="title-related-content">{this.props.literals.L20712}</h2>
                     <div className="related-content-items">
                         {/* RELATED ITEMS */ }
-                        {this.state.items.map(item => 
-                            <div className="related-content-item">
+                        {this.state.items.map((item, index) => 
+                            <div key={`tab-${index}`} className="related-content-item">
                                 <div className={"icon-related-item hide-mobile "+this.indicatorIcons(item)}></div>
                                 <div className="content-related-item">
                                     <h3 className="title-related-item">{this.props.literals[item.title]}</h3>

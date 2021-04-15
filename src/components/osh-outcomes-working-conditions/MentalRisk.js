@@ -16,7 +16,7 @@ class MentalRisk extends Component
 		
 		this.state = {
 			indicatorTabs: subTabs,
-			selectedTab: '',
+			selectedTab: 'time-pressure',
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
 	}
@@ -30,7 +30,7 @@ class MentalRisk extends Component
 	}
 
 	handleSelectedTab = (callback) => {
-		this.setState({ selectedTab: callback })
+		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
 	}
 
 	componentDidMount() {
@@ -53,7 +53,7 @@ class MentalRisk extends Component
 					<div className="card--block--chart" >
 						<div className="chart--block" >
 							{this.state.indicatorTabs.map((tab) => {
-								if (tab.literalTab == this.state.selectedTab) {
+								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
 									return (
 										<div key={tab.literalTab} >
 											<MentalRiskCharts
@@ -73,8 +73,8 @@ class MentalRisk extends Component
 				</div>
 				
 				<Methodology />
-				
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk","time-pressure"]} />
+
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.state.selectedTab]} />
 			</div>
 		)
 	}

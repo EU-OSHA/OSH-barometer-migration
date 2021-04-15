@@ -5,6 +5,7 @@ import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related.js';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
+import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 
 class WorkAccidents extends Component
 {
@@ -14,8 +15,8 @@ class WorkAccidents extends Component
 		this.state = {
 			selectCountry1: 'AT',
 			selectCountry2: '',
-			indicatorTabs: [{ literalID: '310' }, { literalID: '311' }],
-			selectedTab: '310',
+			indicatorTabs: [{ literalTab: '310' }, { literalTab: '311' }],
+			selectedTab: 'non-fatal-work-accidents',
 			isSubMenuOpen: false,
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
@@ -28,17 +29,8 @@ class WorkAccidents extends Component
 		this.setState({ selectCountry2: callbackCountry2 })
 	}
 
-	onClickIndicator = (e, indicator) => {
-		e.preventDefault();
-
-		this.setState({ selectedTab: `${indicator}` })
-	}
-
-	onClickSubMenu = (e) => {
-		e.preventDefault();
-		if (window.innerWidth < 768) {
-			this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
-		}
+	handleSelectedTab = (callback) => {
+		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
 	}
 
 	updateDimension = () => {
@@ -57,32 +49,23 @@ class WorkAccidents extends Component
 		window.removeEventListener('resize', this.updateDimension)
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState != this.state) {
+			console.log(this.state)
+		}
+	}
+
 	render()
 	{
 		return(
 			<div className="work-accidents">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
 				<form className="compare--block--form">
-				<div className="compare--block work-accidents" >
-					<div className="submenu--block container">
-						<ul  className={`submenu--items--wrapper ${this.state.isSubMenuOpen ? 'open-list' : ''} `} >
-							{this.state.indicatorTabs.map((indicator) => (
-								<li onClick={this.onClickSubMenu} key={indicator.literalID} className={`submenu--item ${this.state.selectedTab == indicator.literalID ? 'active' : '' }`} >
-									<a 
-										className={this.state.selectedTab == indicator.literalID ? 'active' : ''} 
-										onClick={(e) => this.onClickIndicator(e, indicator.literalID)} 
-										>
-										{this.props.literals[`L${indicator.literalID}`]} 
-										</a>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
+				<SubMenuTabs literals={this.props.literals} onSelectedTab={this.handleSelectedTab} subMenuTabs={this.state.indicatorTabs} />
 
 				<div className="line background-main-light" />
 
-				{this.state.selectedTab == '310' && (
+				{this.state.selectedTab == 'non-fatal-work-accidents' && (
 					<SelectEconomic 
 						handleSearch={this.handleSearch} 
 						handleSearch2={this.handleSearch2} 
@@ -93,12 +76,13 @@ class WorkAccidents extends Component
 						selectedCountry2={this.state.selectCountry2}
 					/>
 				)}
+
 				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart">
 						<div className="chart--block">
-						{this.state.selectedTab == '310' ? (
+						{this.state.selectedTab == 'non-fatal-work-accidents' ? (
 							<WorkAccidentsChart 
 							title={this.props.literals.L310}
 							showDataLabel={true}
@@ -124,14 +108,15 @@ class WorkAccidents extends Component
 					</div>
 
 					<div className="chart-legend">
-						<p>{ this.state.selectedTab == '310' ? this.props.literals.L20565 : ReactHtmlParser(this.props.literals.L20566) }</p>
+						<p>{ this.state.selectedTab == 'non-fatal-work-accidents' ? this.props.literals.L20565 : ReactHtmlParser(this.props.literals.L20566) }</p>
 					</div>
 				</div>
 
 			</form>
 				<Methodology />
 
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents","non-fatal-work-accidents"]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents", this.state.selectedTab ]} />
+				
 		</div>
 		)
 	}
@@ -139,3 +124,6 @@ class WorkAccidents extends Component
 
 WorkAccidents.displayName = 'WorkAccidents';
 export default WorkAccidents;
+
+
+ 
