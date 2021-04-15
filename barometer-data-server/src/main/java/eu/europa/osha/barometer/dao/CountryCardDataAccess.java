@@ -155,6 +155,10 @@ public class CountryCardDataAccess {
 		}
 		else if (chartID == 20090)
 		{
+			// The data for ESENER needs to be multiplied by 100
+			selectBuilder = new StringBuilder();
+			selectBuilder.append("select i.name, n.country_code, t.text, (v.value*100) ");
+			
 			// Social Dialogue
 			// Each country will have data for 4 different indicators
 			// 354 -> E3Q350_1
