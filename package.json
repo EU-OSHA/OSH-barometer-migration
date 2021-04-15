@@ -7,14 +7,14 @@
     "clearcache": "rm -rf .cache/ dist/",
     "setlocal": "cp conf/.env.local ./.env",
     "settest": "cp conf/.env.test ./.env",
-    "setstaging":"cp conf/.env.staging ./.env",
-    "setprod":"cp conf/.env.prod ./.env",
+    "setstaging": "cp conf/.env.staging ./.env",
+    "setprod": "cp conf/.env.prod ./.env",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "buildtest": "npm run clearcache && npm run settest && npm run build",
     "start": "npm run build && live-server dist",
-    "buildstaging":"npm run clearcache && npm run setstaging && npm run build",
-    "buildprod":"npm run clearcache && npm run setprod && npm run build"
+    "buildstaging": "npm run clearcache && npm run setstaging && npm run build",
+    "buildprod": "npm run clearcache && npm run setprod && npm run build"
   },
   "staticFiles": {
     "staticPath": [
@@ -68,6 +68,7 @@
     "react-html-parser": "^2.0.2",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
+    "react-select": "^4.3.0",
     "react-share": "^4.4.0",
     "redux": "^4.0.5",
     "save": "^2.4.0"
