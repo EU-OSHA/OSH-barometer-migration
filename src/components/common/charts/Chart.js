@@ -5,6 +5,8 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData } from '../../../api';
 
+import oshaLogo from '../../../style/img/EU-OSHA-en.png';
+
 const euColor = '#003399';
 const country1Color = '#ffae00';
 const country2Color = '#529FA2';
@@ -25,45 +27,58 @@ class Chart extends Component {
 					}					
 				},
 				credits: {
-					enabled: false
+					enabled: true,
+					text: "Eurostat, 2017",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				colors: this.props.colors,
 				chart: {
 					height:450,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
-					// events: {
-					// 	render: function() {
-					// 	  var chart = this;	
-					// 	  console.log(chart.yAxis[0].height);
-					// 	  if (!chart.customImage) {
-					// 			chart.customImage = chart.renderer.image(
-					// 			'https://www.highcharts.com/samples/graphics/sun.png',
-					// 			chart.plotLeft + chart.plotSizeX - 250,
-					// 			chart.plotTop + chart.plotSizeY - 130,
-					// 			130,
-					// 			130
-					// 			).add();
-					// 	  } else {
-					// 			chart.customImage.attr({
-					// 			x: chart.plotLeft + chart.plotSizeX - 50,
-					// 			y: chart.plotTop + chart.plotSizeY + 30
-					// 			});
-					// 	  }
-				  
-					// 	  if (!chart.fullscreen.isOpen) {
-					// 			chart.customImage.css({
-					// 			display: 'none'
-					// 			});
-					// 	  } else {								
-					// 			chart.customImage.css({
-					// 			display: 'block'
-					// 			});								
-					// 			// chart.legend.options.layout = "horizontal";
-					// 			console.log(chart.yAxis[0].height);	
-					// 	  }	
-					// 	}						
-					// },
+					events: {
+					 	render: function() {
+					 	  	var chart = this;
+							   console.log('chart',chart);
+							if (!chart.customImage)
+							{
+								chart.customImage = chart.renderer.image(
+									require('../../../style/img/EU-OSHA-en.png'),
+									chart.chartWidth - 130,
+									chart.chartHeight - 37,
+									130,
+									37
+								).add();
+							}
+							else
+							{
+								chart.customImage.attr({
+									x: chart.chartWidth - 130,
+									y: chart.chartHeight - 37
+								});
+							}
+
+							if (chart.fullscreen.isOpen) {
+								chart.customImage.css({
+									display: 'block'
+								});
+								chart.container.className = 'highcharts-container full-screen';
+						  	}
+							else
+							{
+								chart.customImage.css({
+									display: ''
+								});	
+								chart.container.className = 'highcharts-container';
+							}
+					 	}					
+					},
 				},
 				exporting: {
 					enabled: true,
@@ -71,6 +86,12 @@ class Chart extends Component {
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					},
+					chartOptions:
+					{
+						credits: {
+							enabled: true
 						}
 					}
 				},
