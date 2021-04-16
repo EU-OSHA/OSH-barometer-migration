@@ -99,18 +99,6 @@ class MentalRiskCharts extends Component {
 				},
                 xAxis: {
                     max: this.props.yAxisMax,
-                    plotLines: [
-                        {
-                            color: 'black',
-                            width: '2',
-                            value: 0.5
-                        },
-                        {
-                            color: 'black',
-                            width: '2',
-                            value: 29.5
-                        }
-                    ],
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
@@ -145,12 +133,13 @@ class MentalRiskCharts extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props?.chartType[0].type
+            selectedTypeChart: this.props.chartType[0].type
         }
     }
     
     onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
+        this.props.callbackSelectedSurvey(e.target.value);
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.chartTitle[`L${serie.title}`]+"</h2>" } } })
@@ -170,9 +159,9 @@ class MentalRiskCharts extends Component {
             this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
-            this.setState({ selectedTypeChart: null })
+            this.setState({ selectedTypeChart: null });
         }
-        
+
         this.setState({ ...this.state, isLoading: true });
         try {
             getChartData(chart.chart, chart.chartIndicator, null, null, chart.sector, chart.answers)
@@ -207,11 +196,30 @@ class MentalRiskCharts extends Component {
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {categories} }})                        
+                        if (categories.length < 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}] ,categories} }})                        
+                        }
+
+                        if (categories.length > 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}] ,categories} }})                        
+                        }
+
                     } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {categories} }})  
+                        if (categories.length < 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})  
+                        }
+
+                        if (categories.length > 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
+                        }
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {categories} }})
+                        if (categories.length < 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})
+                        }
+
+                        if (categories.length > 31) {
+                            this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})
+                        }
                     }
                 });
         } catch (error) {
@@ -219,7 +227,7 @@ class MentalRiskCharts extends Component {
         } finally {
             setTimeout(() => {
                 this.setState({ ...this.state, isLoading: false })
-            }, 20);
+            }, 50);
         }
     }
 
@@ -233,8 +241,16 @@ class MentalRiskCharts extends Component {
 
     componentDidMount() {
         this.getLoadData(this.props.chartType);
-        this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+        if (this.props.chartType.length > 1) {
+            this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+        }
 
+        if (this.props.chartType[0].type == 'ewcs') {
+            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+        } else {
+            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+        }
+        
         window.addEventListener('resize', this.updateDimension);
     }
 
@@ -256,13 +272,17 @@ class MentalRiskCharts extends Component {
         return (
             <React.Fragment>
                 {this.state.selectedTypeChart && (
-                    <div className="select-filter-chart">
-                        <select onChange={this.onChangeSelect} >
-                            {this.state.typeCharts.map((type) => {
-                                return <option key={type} value={type} > {type.toUpperCase()} </option>
-                            })}
-                        </select>
-                    </div>
+                    <React.Fragment>
+                        {this.state.typeCharts.length > 1 && (
+                            <div className="select-filter-chart">
+                                <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                                    {this.state.typeCharts.map((type) => {
+                                        return <option key={type} value={type} > {type.toUpperCase()} </option>
+                                    })}
+                                </select>
+                            </div>
+                        )}
+                     </React.Fragment>
                 )}
                 {!this.state.isLoading && (
                     <div className='chart-container'>
