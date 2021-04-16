@@ -15,7 +15,7 @@
     },
     { 
         "literalTab": "342", 
-        "chartType": [{"chart":"20075", "title": "22181", "chartIndicator": "85", "sector": null, "answers": ["18", "19", "20"], "legend": "20588"}]
+        "chartType": [{"type": "ewcs", "chart":"20075", "title": "22181", "chartIndicator": "85", "sector": null, "answers": ["18", "19", "20"], "legend": "20588"}]
     },
     { 
         "literalTab": "343",
@@ -40,6 +40,6 @@
     },
     { 
         "literalTab": "346", 
-        "chartType": [{"chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
+        "chartType": [{"type": "ewcs", "chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
      }
 ]
