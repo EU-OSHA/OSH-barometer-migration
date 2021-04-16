@@ -15,7 +15,7 @@ import { data } from 'jquery';
 
   // on Component initialization, gets the indicators for each of the selects
   useEffect(()=>{
-    initCountryIndicators(selectedCountry1, selectedCountry2);
+    initCountryIndicators();
   },[]);
 //console.log(countrySelect)
   const initCountryIndicators = (country1, country2) => {
@@ -122,7 +122,37 @@ import { data } from 'jquery';
       color: 'black',
       padding: 20,
       display: 'flex'
-    })}
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+      color: "#f6a400",
+      fontSize: "21px",
+      fontFamily:"Sans-serif",
+      fontWeight: 700,
+      textTransform:"uppercase"
+
+    }) 
+  }
+
+  const customStyles2 = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: '300px',
+      borderBottom: '1px dotted pink',
+      color: 'black',
+      padding: 20,
+      display: 'flex'
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+      color: "#529FA2",
+      fontSize: "21px",
+      fontFamily:"Sans-serif",
+      fontWeight: 700,
+      textTransform:"uppercase"
+
+    }) 
+  }
 
     const customOptions = [
       {
@@ -160,7 +190,7 @@ import { data } from 'jquery';
 
                 <Select
                 onChange={handleSelectChange2}
-                styles={customStyles}
+                styles={customStyles2}
                 defaultValue={{ label: "COUNTRY", value: null }}
               // isClearable
                 isSearchable
