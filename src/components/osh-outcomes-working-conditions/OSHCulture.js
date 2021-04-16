@@ -21,10 +21,6 @@ class OSHCulture extends Component
 		
 	}
 
-	handleSelectedTab = (callback) => {
-		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
-	}
-
 	updateDimension = () => {
 		if (window.innerWidth > 768) {
 			this.setState({ chartDimension: 'column' });
