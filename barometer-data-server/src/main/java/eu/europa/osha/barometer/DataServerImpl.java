@@ -48,7 +48,7 @@ public class DataServerImpl {
 		{
 			countryToExclude = new ArrayList<String>();
 		}
-		if (chartID.size() == 0 && chartID.get(0).equalsIgnoreCase("20090"))
+		if (chartID.indexOf("20090") > -1)
 		{
 			countryToExclude.add("AL");
 			countryToExclude.add("ME");
