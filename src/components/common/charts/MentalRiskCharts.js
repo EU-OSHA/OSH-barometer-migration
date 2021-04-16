@@ -192,6 +192,7 @@ class MentalRiskCharts extends Component {
                                 auxSeries[serie][0] = euValueSerie2
                             }
                         series.push({ name: serie, data: auxSeries[serie] });
+
                     }
 
                     const reversedArray = [...series].reverse();

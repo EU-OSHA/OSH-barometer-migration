@@ -119,6 +119,7 @@ export function getChartData(chart, indicator, country1, country2, sector, answe
 
 export function getIndicatorCountries(charts = ['20012'], indicator, country) {
     const URL = `${BASEURL}countries/getIndicatorCountries`
+    
 
     const response = axios.get(URL, {
         params: {
@@ -146,7 +147,9 @@ export function getIndicatorCountries(charts = ['20012'], indicator, country) {
     })
         .then((response) => {
             return response.data
+            
         });
+        
     return response
 }
 
@@ -221,7 +224,9 @@ export function getHealthPerceptionData(filters){
     const response = axios.get(URL, {
         params: {
             country: filters?.countries
+            
         },
+        
         paramsSerializer: params => {
             let urlWithParams = new URLSearchParams();
 
@@ -233,7 +238,7 @@ export function getHealthPerceptionData(filters){
         }
     })  
     .then((response) => response.data);
-
+    
     return response
 }
 
@@ -299,4 +304,5 @@ export function getChartDataRisk(chart, indicator, country1,country2, sector, ge
 
     return response;
 }
+
 

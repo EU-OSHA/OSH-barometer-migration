@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @highcharts.com/mapdata
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add re
 
 PATH: 
   C:\Users\Dell\AppData\Roaming\npm\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\Dell\Desktop\clone\OSH-barometer-migration\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Dell\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27;C:\Python27\Scripts;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_231\bin;C:\Program Files (x86)\Yarn\bin;C:\Program Files\nodejs;C:\Program Files\AutoFirma\AutoFirma;C:\Program Files\Git\cmd;C:\Users\Dell\AppData\Local\jdk-11.0.2\bin;C:\Users\Dell\AppData\Local\Microsoft\WindowsApps;C:\Users\Dell\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dell\AppData\Local\Yarn\bin;C:\Program Files\MongoDB\Server\4.2\bin;C:\Users\Dell\AppData\Local\Android\Sdk\platform-tools;C:\Users\Dell\AppData\Local\Microsoft\WindowsApps;C:\Users\Dell\AppData\Roaming\npm
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.npmjs.org/@highcharts.com%2fmapdata: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
-      at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (internal/streams/readable.js:1327:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\Dell\Desktop\clone\OSH-barometer-migration\node_modules\deasync\bin\win32-x64-node-14\deasync.node'
 
 npm manifest: 
   {
@@ -36,10 +26,14 @@ npm manifest:
       "clearcache": "rm -rf .cache/ dist/",
       "setlocal": "cp conf/.env.local ./.env",
       "settest": "cp conf/.env.test ./.env",
+      "setstaging": "cp conf/.env.staging ./.env",
+      "setprod": "cp conf/.env.prod ./.env",
       "dev": "parcel src/index.html",
       "build": "parcel build src/index.html",
       "buildtest": "npm run clearcache && npm run settest && npm run build",
-      "start": "npm run build && live-server dist"
+      "start": "npm run build && live-server dist",
+      "buildstaging": "npm run clearcache && npm run setstaging && npm run build",
+      "buildprod": "npm run clearcache && npm run setprod && npm run build"
     },
     "staticFiles": {
       "staticPath": [
@@ -82,6 +76,7 @@ npm manifest:
       "highcharts-react-official": "^3.0.0",
       "history": "^5.0.0",
       "html-react-parser": "^1.2.4",
+      "img": "^3.0.3",
       "jquery": "^3.6.0",
       "live-server": "^1.2.1",
       "parcel-bundler": "^1.12.4",
@@ -92,6 +87,7 @@ npm manifest:
       "react-html-parser": "^2.0.2",
       "react-redux": "^7.2.2",
       "react-router-dom": "^5.2.0",
+      "react-select": "^4.3.0",
       "react-share": "^4.4.0",
       "redux": "^4.0.5",
       "save": "^2.4.0"

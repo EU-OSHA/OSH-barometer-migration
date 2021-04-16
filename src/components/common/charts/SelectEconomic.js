@@ -56,7 +56,7 @@ function handleSelectChange2(event) {
             <li>
           <label> DATA FOR</label>
 
-          <select value={selectedClient} onChange={handleSelectChange} name="" className="select2-container select2-offscreen">
+          <select value={selectedClient} onChange={handleSelectChange} name="" className=" select2-container select2-offscreen">
             {
           countrySelect1.map((item,id) =>(
           <option key={id} value={item.code}>

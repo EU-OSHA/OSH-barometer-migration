@@ -7,8 +7,8 @@ import SelectEconomic from '../common/select-filters/SelectEconomic'
 
 const OverallOpinion = (props) =>{
 		
-	const [pais1,setPais1]=useState("AT");
-	const [pais2,stePais2]=useState("");
+	const [selectCountry1,setselectCountry1]=useState("AT");
+	const [selectCountry2,steselectCountry2]=useState("");
 	const [visible, setVisible]=useState(true)
 	// const [chart,setChart]=useState('20014');
 	// const [indicator,setIndicator]=useState('36');
@@ -24,12 +24,12 @@ const OverallOpinion = (props) =>{
 			setVisible(true)
 		}
 
-	const handleSearch = (pais1) => {
-		setPais1(pais1);
+	const handleSearch = (selectCountry1) => {
+		setselectCountry1(selectCountry1);
 	}
 
-	const handleSearch2 = (pais2)=>{
-		stePais2(pais2)
+	const handleSearch2 = (selectCountry2)=>{
+		steselectCountry2(selectCountry2)
 	}
 
 		// handleClickJob=()=>{
@@ -42,7 +42,7 @@ const OverallOpinion = (props) =>{
 		// 	console.log("opcion Health")
 		// }
 
-		// handleClickRisk = (pais1)=>{
+		// handleClickRisk = (selectCountry1)=>{
 		// 	setState
 		// }
 
@@ -79,8 +79,8 @@ const OverallOpinion = (props) =>{
 											percentage={true}
 											type='column'
 											stackingColumn='percent'
-											//pais1={'AT'}
-											//pais2={'0'}
+											//selectCountry1={'AT'}
+											//selectCountry2={'0'}
 											reversed={true}
 											//legend={true}
 											chart={'20040'}
@@ -106,7 +106,14 @@ const OverallOpinion = (props) =>{
 									<div class="line background-main-light"></div>
 								</div>
 								<div className="compare--block">
-									<SelectEconomic handleSearch={handleSearch} handleSearch2={handleSearch2}/>
+								<SelectEconomic 
+								handleSearch={handleSearch} 
+								handleSearch2={handleSearch2} 
+								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+								literals={props.literals}
+								selectedCountry1={selectCountry1}
+								selectedCountry2={selectCountry2}	
+								/>
 								</div>
 								<div class="line background-main-light"></div>
 								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
@@ -120,8 +127,8 @@ const OverallOpinion = (props) =>{
 												percentage={true}
 												type='column'
 												//stackingColumn='percent'
-												pais1={pais1}
-												pais2={pais2}
+												selectCountry1={selectCountry1}
+												selectCountry2={selectCountry2}
 												//reversed={true}
 												chart={'20041'}
 												indicator={'66'}

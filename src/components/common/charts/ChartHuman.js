@@ -26,10 +26,10 @@ class ChartHuman extends Component {
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 20,
-					y:25,
+					y:44,
 					style: {
 						zIndex: 1,
-						lineHeight:36
+						lineHeight:33
 					}
 				},
 				colors: this.props.colors,
@@ -38,6 +38,7 @@ class ChartHuman extends Component {
 				},
 				chart: {
 					//height: 400,
+					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},
@@ -73,11 +74,12 @@ class ChartHuman extends Component {
 					//layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
+					itemDistance: 5,
 					//width: 300,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'12px',
+						fontSize:'11px',
 						textOverflow: "ellipsis",
 						//width: 150
 					}
@@ -96,7 +98,7 @@ class ChartHuman extends Component {
 					},
 					formatter: function () {						
 						return '<ul class="tooltip-item">'+
-						'<li><strong>Country: </strong> ' + this.series.name+ '</li>' +
+						'<li><strong>Country: </strong> ' + this.series.name + '</li>' +
 						'<li><strong class="tooltip-value up"> Value: </strong>' + this.y +'%</li>' +
 						'</ul>';
 					}
@@ -210,7 +212,7 @@ class ChartHuman extends Component {
 								borderColor: 'transparent',
 								borderWidth: 0,
 								data: [{
-									name:element.countryCode, 
+									name:element.value, 
 									y: element.value, 
 									x: i, 
 									color: {
@@ -232,10 +234,10 @@ class ChartHuman extends Component {
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: 68,
-									// pointPadding: 1,
-									// borderColor: 'transparent',
+									 pointPadding: 1,
+									 borderColor: 'transparent',
 									// borderWidth: 0,
-									data: [{name:element.countryCode, y: element.value, x: i, 
+									data: [{name:element.value, y: element.value, x: i, 
 										color: {
 											pattern: {
 												image: humanOrange,
@@ -251,11 +253,11 @@ class ChartHuman extends Component {
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: 68,
-									pointPadding: 1,
+									pointPadding: 0.15,
 									borderColor: 'transparent',
 									borderWidth: 0,
 									data: [{
-										name:element.countryCode, 
+										name:element.value, 
 										y: element.value, 
 										x: i, 
 										color: {
@@ -281,20 +283,20 @@ class ChartHuman extends Component {
 	}
 
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
 	}
 
 	componentDidUpdate(prevProps) {
-		console.log(prevProps ,'-----------------',this.props.pais1)
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		//console.log(prevProps ,'-----------------',this.props.selectCountry1)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 		if (prevProps.chart != this.props.chart){
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 	}
 

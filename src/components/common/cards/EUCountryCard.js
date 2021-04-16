@@ -34,10 +34,10 @@ class EUCountryCard extends Component{
             if (this.props.euData.data !== undefined) {
                 if (this.props.page == 'socialDialogue') {
                     this.setState({ 
-                        firstPercentage: Math.round(this.props.euData.data.E3Q350_1*100),
-                        secondPercentage: Math.round(this.props.euData.data.E3Q350_2*100),
-                        thirdPercentage: Math.round(this.props.euData.data.E3Q350_4*100),
-                        fourthPercentage: Math.round(this.props.euData.data.E3Q350_3*100),
+                        firstPercentage: Math.round(this.props.euData.data.E3Q350_1),
+                        secondPercentage: Math.round(this.props.euData.data.E3Q350_2),
+                        thirdPercentage: Math.round(this.props.euData.data.E3Q350_4),
+                        fourthPercentage: Math.round(this.props.euData.data.E3Q350_3),
                      })
                 } else {
                     this.setState({
