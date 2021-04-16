@@ -17,7 +17,7 @@ import { data } from 'jquery';
   useEffect(()=>{
     initCountryIndicators();
   },[]);
-//console.log(countrySelect)
+//console.log(defaultValue)
   const initCountryIndicators = (country1, country2) => {
     setIsLoading(true);
     try {
@@ -120,18 +120,17 @@ import { data } from 'jquery';
       width: '300px',
       borderBottom: '1px dotted pink',
       color: 'black',
-      padding: 20,
+      padding: 21,
       display: 'flex'
     }),
     singleValue: (provided, state) => ({
       ...provided,
       color: "#f6a400",
-      fontSize: "21px",
-      fontFamily:"Sans-serif",
-      fontWeight: 700,
-      textTransform:"uppercase"
-
-    }) 
+      fontSize: "20px",
+      fontWeight:"700",
+      fontFamily:"sans-serif",
+      textTransform: "uppercase"
+    })
   }
 
   const customStyles2 = {
@@ -140,30 +139,33 @@ import { data } from 'jquery';
       width: '300px',
       borderBottom: '1px dotted pink',
       color: 'black',
-      padding: 20,
+      padding: 21,
       display: 'flex'
     }),
     singleValue: (provided, state) => ({
       ...provided,
       color: "#529FA2",
-      fontSize: "21px",
-      fontFamily:"Sans-serif",
-      fontWeight: 700,
-      textTransform:"uppercase"
-
-    }) 
+      fontSize: "20px",
+      fontWeight: "700",
+      fontFamily:"sans-serif",
+      textTransform: "uppercase"
+    })
   }
 
-    const customOptions = [
-      {
-        value: countrySelect,
-        label: selectedCountry1,
-      },
+      
+       const customOptions = [
+         
       {
         value: 'pririrnjnjdn',
         label: 'lslrems ms ccsc sjc  j sjdc zmc jac n ac kasc n',
       }
     ];
+      
+    const options = [
+      { name: 'John', id: 1 },
+      { name: 'Doe', id: 2 },
+    ];
+    
     
     
   // Early Return 
@@ -178,7 +180,7 @@ import { data } from 'jquery';
                   <Select
                   onChange={handleSelectChange}
                   styles={customStyles}
-                  defaultValue={countrySelect}
+                  defaultValue={defaultValue}
                   label='single'
                   className="select2-container select2-offscreen"
                   classNamePrefix="select"

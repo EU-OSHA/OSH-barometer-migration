@@ -234,7 +234,6 @@ class Chart extends Component {
 		for (let serie in auxSeries) {
 			
 			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
 		}
 
 		this.setState({

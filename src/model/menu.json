@@ -94,7 +94,7 @@
             {
                 "id":"work-accidents",
                 "name":"L22010",
-                "link":"/osh-outcomes-working-conditions/work-accidents",
+                "link":"/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents",
                 "tabindex":"11",
                 "accesskey":"3",
                 "database_name":"Work accidents",
