@@ -133,7 +133,7 @@ public class QuantitativeDataAccess {
 				// The sector is not returned in the select
 				selectBuilder.append("select t1.text as Answer, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
 				fromBuilder.append(", split_answer a, translation t1 ");
-				whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' and n.country_code NOT IN ('UK') ");
+				whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' and n.country_code NOT IN ('AL','ME','MK','RS','TR','UK') ");
 				
 				// Add the filter for the answer
 				fillInFiltersInQuery(pQueryFilter.getAnswer(), queryClauses, "a.id", false);
