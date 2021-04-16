@@ -7,39 +7,14 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
-import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
 
 const EconomicSectorProfile = (props) => {
-
-	//console.log('props', props);
-
 	const [selectCountry1, setSelectCountry1]= useState(props.country1);
 	const [selectCountry2, setSelectCountry2]= useState(props.country2);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	const [defaultValue,setDefaultValue]=useState('')
-	
-
-	useEffect(()=>{
-		initCountryIndicators();
-	  },[]);
-
-
-	 // console.log(defaultValue)
- 		const initCountryIndicators = (country1, country2) => {
-			getIndicatorCountries(country1, country2)
-			  .then((data) => {
-				const datos= data.resultset.find(element=> (element.code) == selectCountry1)
-				const datos2 = datos.name
-			   setDefaultValue(datos2)
-			  // console.log(datos2)
-			   //setSelectCountry1(data.resultset);
-			  });		
-	  }
-
-
 
 	const selectEuro2 = (e) =>{
 		const indicator = e.target.value
@@ -56,7 +31,6 @@ const EconomicSectorProfile = (props) => {
 	   }  
    }
 	
-
 	const selectEuro = (e) =>{
 		 const indicator = e.target.value
 		if(indicator == "279"){
@@ -74,12 +48,13 @@ const EconomicSectorProfile = (props) => {
 
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
+		console.log('selected country 1', selectCountry1)
 	}
-
+	
 	const handleSearch2 = (selectCountry2)=>{
+		console.log('selected country 2', selectCountry2)
 		setSelectCountry2(selectCountry2)
 	}
-
 		return(
 			<div className="economic--sector--profile">
 
@@ -96,7 +71,7 @@ const EconomicSectorProfile = (props) => {
 								literals={props.literals}
 								selectedCountry1={selectCountry1}
 								selectedCountry2={selectCountry2}
-								countrySelect={{label:defaultValue,value:selectCountry1}}	
+								// countrySelect={{label:defaultValue,value:selectCountry1}}	
 								/>
 						</ul>
 					</form>
