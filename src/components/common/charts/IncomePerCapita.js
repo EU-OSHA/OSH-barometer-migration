@@ -169,16 +169,22 @@ class IncomerPercapital extends Component {
 					auxSeries[split].splice(1,auxSeries[split][0])
 					}
 				});
-					
+
 		for (let serie in auxSeries) {
-			
-			series.push({ name: serie , data: auxSeries[serie] })
-			
+		series.push({ name: serie , data: auxSeries[serie]})
+		}
+			//const valueSeries =[...series]
+		if (series == 1){
+			this.setState({chartConfig: {...this.state.chartConfing, xAxis: {...this.state.chartConfig.xAxis, categories},series:[...series], colors:this.props.colors.slice(0,2)}})
+		}else if (series.length == 2){
+			this.setState({chartConfig:{...this.state.chartConfig, xAxis:{...this.state.chartConfig.xAxis, categories}, series:[...series], colors:this.props.colors.slice(0,2)}})
+		} else {
+			this.setState({ chartConfig: {...this.state.chartConfig, xAxis:{...this.state.chartConfig.xAxis, categories}, series: [...series], colors: this.props.colors }})
 		}
 
-		this.setState({
-			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-		})
+		// this.setState({
+		// 	chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+		// })
 	});
 		
 	}
