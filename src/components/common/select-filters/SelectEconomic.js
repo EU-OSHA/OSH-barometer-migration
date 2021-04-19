@@ -123,45 +123,7 @@ import { data } from 'jquery';
     getSelectIndicators2(country);
     handleSearch2(country);
   }
-
-  const customStyles = {
-    menu: (provided, state) => ({
-      ...provided,
-      width: '300px',
-      borderBottom: '1px dotted pink',
-      color: 'black',
-      padding: 21,
-      display: 'flex'
-    }),
-    singleValue: (provided, state) => ({
-      ...provided,
-      color: "#f6a400",
-      fontSize: "20px",
-      fontWeight:"700",
-      fontFamily:"sans-serif",
-      textTransform: "uppercase"
-    })
-  }
-
-  const customStyles2 = {
-    menu: (provided, state) => ({
-      ...provided,
-      width: '300px',
-      borderBottom: '1px dotted pink',
-      color: 'black',
-      padding: 21,
-      display: 'flex'
-    }),
-    singleValue: (provided, state) => ({
-      ...provided,
-      color: "#529FA2",
-      fontSize: "20px",
-      fontWeight: "700",
-      fontFamily:"sans-serif",
-      textTransform: "uppercase"
-    })
-  }
-    
+   
   // Early Return 
   if (isLoading) {
     return null;
