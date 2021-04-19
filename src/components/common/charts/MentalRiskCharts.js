@@ -127,6 +127,27 @@ class MentalRiskCharts extends Component {
                     series: {
                         stacking: 'normal',
                         pointStart: 0,
+                        states: {
+                            inactive: {
+                                opacity: 1
+                            }
+                        },
+                        point: {
+                            events: {
+                                mouseOver: function () {
+                                    let series = this.series.data;
+                                    series.forEach((p) => {
+                                        p.setState('hover')
+                                    });
+                                },
+                                mouseOut: function () {
+                                    let series = this.series.data;
+                                    series.forEach((p) => {
+                                        p.setState();
+                                    })
+                                }
+                            }
+                        }
                     }
                 },
                 series: []
