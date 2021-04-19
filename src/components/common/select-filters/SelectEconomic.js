@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select'
 import { data } from 'jquery';
 
- const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals}) => {
+ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals, countrySelect}) => {
 
   const [selectCountry1,setSelectCountry1]= useState([]);
   const [selectCountry2,setSelectCountry2]= useState([]);
@@ -123,7 +123,45 @@ import { data } from 'jquery';
     getSelectIndicators2(country);
     handleSearch2(country);
   }
-   
+
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: '300px',
+      borderBottom: '1px dotted pink',
+      color: 'black',
+      padding: 21,
+      display: 'flex'
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+      color: "#f6a400",
+      fontSize: "20px",
+      fontWeight:"700",
+      fontFamily:"sans-serif",
+      textTransform: "uppercase"
+    })
+  }
+
+  const customStyles2 = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: '300px',
+      borderBottom: '1px dotted pink',
+      color: 'black',
+      padding: 21,
+      display: 'flex'
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+      color: "#529FA2",
+      fontSize: "20px",
+      fontWeight: "700",
+      fontFamily:"sans-serif",
+      textTransform: "uppercase"
+    })
+  }
+    
   // Early Return 
   if (isLoading) {
     return null;
@@ -132,6 +170,13 @@ import { data } from 'jquery';
   return (
     <div>
 
+      <div>
+                  
+
+                
+      
+        
+      </div>
       <div className="compare--block container">
         {/* FILTERS */}
 				<form className="compare--block--form">
@@ -159,7 +204,6 @@ import { data } from 'jquery';
             {/* 2ND COUNTRY FILTER */}
             <li>
               <label>{literals.L20610}</label>
-
               <Select
                 onChange={handleSelectChange2}
                 styles={customStyles2}
