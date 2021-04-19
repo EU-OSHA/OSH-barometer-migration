@@ -47,44 +47,39 @@ function handleSelectChange2(event) {
   }
 
   return (
-    <div>
-      <div className="compare--block container">
-            {/* FILTERS */}
-            <form className="compare--block--form">
-              <ul className="compare--list">
-                {/* 1ST COUNTRY FILTER */}	
-            <li>
-          <label> DATA FOR</label>
-
-          <select value={selectedClient} onChange={handleSelectChange} name="" className=" select2-container select2-offscreen">
-            {
-          countrySelect1.map((item,id) =>(
-          <option key={id} value={item.code}>
-              ({item.code})  {item.name.toUpperCase()}
-                  </option>
-        ))
-            }
-          </select> 
-            </li>
-            <li>
-          <label> COMPARE WITH</label>
-
-          <select value={selectedClient2} onChange={handleSelectChange2} name="" className="select2-container select2-offscreen">
-          <option>COUNTRY</option>
-            {
-          countrySelect2.map((pais,id) => (
-            
-          <option key={id} value={pais.code}>
-                  ({pais.code}) {pais.name.toUpperCase()}
-                  </option>
-                  ))
-                }
-          </select> 
-          </li>
-        </ul>
-          </form>
-        </div>
-    </div>
+      // <div className="compare--block container">
+      //   {/* FILTERS */}
+      //   <form className="compare--block--form">
+      //     <ul className="compare--list">
+      //       {/* 1ST COUNTRY FILTER */}	
+      //       <li>
+      //         <label> DATA FOR</label>
+      //         <select value={selectedClient} onChange={handleSelectChange} name="" className=" select2-container select2-offscreen">
+      //           {
+      //           countrySelect1.map((item,id) =>(
+      //           <option key={id} value={item.code}>
+      //               ({item.code})  {item.name.toUpperCase()}
+      //                   </option>
+      //               ))
+      //           }
+      //         </select> 
+      //       </li>
+      //       <li>
+      //         <label> COMPARE WITH</label>
+      //         <select value={selectedClient2} onChange={handleSelectChange2} name="" className="select2-container select2-offscreen">
+      //           <option>COUNTRY</option>
+      //             {
+      //               countrySelect2.map((pais,id) => (            
+      //                 <option key={id} value={pais.code}>
+      //                 ({pais.code}) {pais.name.toUpperCase()}
+      //                 </option>
+      //               ))
+      //             }
+      //         </select> 
+      //       </li>
+      //     </ul>
+      //   </form>
+      // </div>
   );
 }
 export default SelectEconomic;

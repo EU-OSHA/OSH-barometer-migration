@@ -83,25 +83,17 @@ const EconomicSectorProfile = (props) => {
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
-
-				<div className="compare--block container">
-					{/* FILTERS */}
-					<form className="compare--block--form">
-						<ul className="compare--list">
-							<SelectEconomic 
-								handleSearch={handleSearch} 
-								handleSearch2={handleSearch2} 
-								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
-								literals={props.literals}
-								selectedCountry1={selectCountry1}
-								selectedCountry2={selectCountry2}
-								countrySelect={{label:defaultValue,value:selectCountry1}}	
-								/>
-						</ul>
-					</form>
-					
-				</div>
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />			
+				{/* FILTERS */}
+				<SelectEconomic 
+					handleSearch={handleSearch} 
+					handleSearch2={handleSearch2} 
+					charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+					literals={props.literals}
+					selectedCountry1={selectCountry1}
+					selectedCountry2={selectCountry2}
+					countrySelect={{label:defaultValue,value:selectCountry1}}	
+				/>
 				<div class="line background-main-light"></div>
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">

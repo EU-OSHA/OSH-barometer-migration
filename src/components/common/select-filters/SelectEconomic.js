@@ -174,34 +174,6 @@ console.log(defaultValue)
   }
 
   return (
-    <div>
-
-      <div>
-                  <Select
-                  onChange={handleSelectChange}
-                  styles={customStyles}
-                  defaultValue={defaultValue}
-                  label='single'
-                  className="select2-container select2-offscreen"
-                  classNamePrefix="select"
-                  isSearchable
-                  options={selectCountry1.map(item=>({label: item.name, value: item.code}))}
-                  getOptionLabel={option => `(${option.value}) ${option.label}`}
-                  
-                  />
-
-                <Select
-                onChange={handleSelectChange2}
-                styles={customStyles2}
-                defaultValue={{ label: "COUNTRY", value: null }}
-              // isClearable
-                isSearchable
-                options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
-                getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
-              />
-      
-        
-      </div>
       <div className="compare--block container">
         {/* FILTERS */}
 				<form className="compare--block--form">
@@ -209,19 +181,38 @@ console.log(defaultValue)
 						{/* 1ST COUNTRY FILTER */}
             <li>
               <label>{literals.L20609}</label>
-              
-            </li>
-            
+              <Select
+                  onChange={handleSelectChange}
+                  // styles={customStyles}
+                  defaultValue={defaultValue}
+                  // label='single'
+                  className="select-component select2-container"
+                  // isClearable
+                  // classNamePrefix="select"
+                  isSearchable
+                  options={selectCountry1.map(item=>({label: item.name, value: item.code}))}
+                  getOptionLabel={option => `(${option.value}) ${option.label}`}
+                  
+                />
+            </li>            
             
             {/* 2ND COUNTRY FILTER */}
             <li>
               <label>{literals.L20610}</label>
-             
+              <Select
+                onChange={handleSelectChange2}
+                // styles={customStyles2}
+                defaultValue={{ label: "COUNTRY", value: null }}
+                className="select-component select2-container"
+                // isClearable
+                isSearchable
+                options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
+                getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
+              />
             </li>
           </ul>
         </form>
       </div>
-    </div>
   );
 }
 
