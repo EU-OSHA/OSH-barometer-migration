@@ -170,13 +170,6 @@ import { data } from 'jquery';
   return (
     <div>
 
-      <div>
-                  
-
-                
-      
-        
-      </div>
       <div className="compare--block container">
         {/* FILTERS */}
 				<form className="compare--block--form">
@@ -184,7 +177,6 @@ import { data } from 'jquery';
 						{/* 1ST COUNTRY FILTER */}
             <li>
               <label>{literals.L20609}</label>
-
               <Select
                   onChange={handleSelectChange}
                   styles={customStyles}
@@ -204,6 +196,7 @@ import { data } from 'jquery';
             {/* 2ND COUNTRY FILTER */}
             <li>
               <label>{literals.L20610}</label>
+
               <Select
                 onChange={handleSelectChange2}
                 styles={customStyles2}
