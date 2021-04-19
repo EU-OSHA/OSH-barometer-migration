@@ -93,7 +93,7 @@ class MentalRiskCharts extends Component {
 						return '<ul class="tooltip-item">'+
 						'<li><strong>Anwser: </strong>'+ this.series.name +' </li>' +
 						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
-						'<li><strong class="tooltip-value up">Value: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') +'%</li>' +
+						'<li><strong class="tooltip-value up">Value: </strong> '+ Highcharts.numberFormat(this.y,1,',','.') +'%</li>' +
 						'</ul>';
 					}
 				},
