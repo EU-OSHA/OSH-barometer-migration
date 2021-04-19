@@ -262,16 +262,27 @@
 			.compare--list{
 				display: block;
 				li{
-					width: auto;
+					width: 50%;
 					display: inline-block;
 					font-size: 1.6rem !important;
 					label{
 						width: auto;
 						font-size: 1.4rem !important;
+						margin: 0;
+						&:after{
+							display: none;
+						}
 					}
-					select{
+					select, .select-component{
 						width: auto;
 						font-size: 1.6rem !important;
+						border: 0;
+						.css-g1d714-ValueContainer{
+							padding: 0;
+						}
+						.css-1hb7zxy-IndicatorsContainer{
+							display: none;
+						}
 					}
 				}
 			}
