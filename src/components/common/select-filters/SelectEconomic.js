@@ -4,21 +4,22 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select'
 import { data } from 'jquery';
 
- const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals, countrySelect}) => {
+ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals}) => {
 
   const [selectCountry1,setSelectCountry1]= useState([]);
   const [selectCountry2,setSelectCountry2]= useState([]);
   const [selectedClient,setSelectedClient]= useState(selectedCountry1);
   const [selectedClient2,setSelectedClient2]= useState(selectedCountry2);
   const [isLoading,setIsLoading] = useState(false);
-  const [defaultValue, setDefaultValue]=useState(null)
-  const [defaultValue2, setDefaultValue2]=useState(null)
+  const [defaultValue, setDefaultValue]=useState({})
+  const [defaultValue2, setDefaultValue2]=useState({})
 
   // on Component initialization, gets the indicators for each of the selects
   useEffect(()=>{
     initCountryIndicators(selectedCountry1, selectedCountry2);
   },[selectedCountry1, selectedCountry2]);
 
+  console.log(selectedCountry2)
   const initCountryIndicators = (country1, country2) => {
     setIsLoading(true);
     try {
@@ -84,6 +85,8 @@ import { data } from 'jquery';
     }
   }
 
+  
+
   const getSelectIndicators2 = (country) => {
     try {
       if (charts) {
@@ -102,6 +105,7 @@ import { data } from 'jquery';
     }
   }
 
+  
    const handleSelectChange = value => {
     /**
      * Gets the selected country from select box 1 and sends it on the callback,
