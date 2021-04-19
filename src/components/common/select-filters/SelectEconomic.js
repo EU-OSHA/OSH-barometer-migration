@@ -130,8 +130,6 @@ import { data } from 'jquery';
   }
 
   return (
-    <div>
-
       <div className="compare--block container">
         {/* FILTERS */}
 				<form className="compare--block--form">
@@ -142,11 +140,11 @@ import { data } from 'jquery';
 
               <Select
                   onChange={handleSelectChange}
-                  styles={customStyles}
+                  // styles={customStyles}
                   value={defaultValue}
-                  label='single'
-                  className="select2-container select2-offscreen"
-                  classNamePrefix="select"
+                  // label='single'
+                  className="select-component select2-container"
+                  // classNamePrefix="select"
                   isSearchable
                   options={selectCountry1.map(item=>({label: item.name, value: item.code}))}
                   getOptionLabel={option => `(${option.value}) ${option.label}`}
@@ -162,8 +160,9 @@ import { data } from 'jquery';
 
               <Select
                 onChange={handleSelectChange2}
-                styles={customStyles2}
+                // styles={customStyles2}
                 value={defaultValue2}
+                className="select-component select2-container"
               // isClearable
                 isSearchable
                 options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
@@ -174,7 +173,6 @@ import { data } from 'jquery';
           </ul>
         </form>
       </div>
-    </div>
   );
 }
 
