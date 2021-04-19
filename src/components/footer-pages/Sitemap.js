@@ -82,7 +82,7 @@ class Sitemap extends Component
 							</Link>
 						</li>
 						<li>
-							<Link to="privacy-policy">
+							<Link to="privacy-notice">
 								{ReactHtmlParser(this.props.literals.L359)}
 							</Link>
 						</li>
