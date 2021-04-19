@@ -103,6 +103,7 @@ class IncomerPercapital extends Component {
 					}
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					labels: {
 						formatter: function () {
@@ -121,6 +122,9 @@ class IncomerPercapital extends Component {
 					}
 				},
 				yAxis: {
+					lineWidth: 0,
+					gridLineColor: '#FFF',
+                    gridLineWidth: 2,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {

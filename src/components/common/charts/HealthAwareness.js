@@ -63,12 +63,14 @@ class HealthAwareness extends Component {
                         {
                             color: 'black',
                             width: '2',
-                            value: 0.5
+                            value: 0.5,
+                            zIndex:1
                         },
                         {
                             color: 'black',
                             width: '2',
-                            value: 29.5
+                            value: 29.5,
+                            zIndex:1
                         }
                     ],
                     labels: {
@@ -81,6 +83,8 @@ class HealthAwareness extends Component {
                     }
                 },
                 yAxis: {
+                    gridLineColor: '#FFF',
+                    gridLineWidth: 2,
                     title: {
                         text: ''
                     },
@@ -96,8 +100,13 @@ class HealthAwareness extends Component {
                     max: 100,
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         stacking: 'normal',
+                        borderWidth: 0,
+                        pointStart: 0
+                    },
+                    series: {
+                        // stacking: 'normal',
                     }
                 },
                 series: {}

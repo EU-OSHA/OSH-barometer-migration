@@ -103,12 +103,14 @@ class MentalRiskCharts extends Component {
                         {
                             color: 'black',
                             width: '2',
-                            value: 0.5
+                            value: 0.5,
+                            zIndex:1
                         },
                         {
                             color: 'black',
                             width: '2',
-                            value: 29.5
+                            value: 29.5,
+                            zIndex:1
                         }
                     ],
                     labels: {
@@ -124,6 +126,8 @@ class MentalRiskCharts extends Component {
                     title: {
                         text: ''
                     },
+                    gridLineColor: '#FFF',
+                    gridLineWidth: 2,
                     labels: {
 						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
 						style: {
@@ -136,9 +140,14 @@ class MentalRiskCharts extends Component {
                     max: 100
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         stacking: 'normal',
-                        pointStart: 0,
+                        borderWidth: 0,
+                        pointStart: 0
+                    },
+                    series: {
+                        // stacking: 'normal',
+                        // pointStart: 0,
                     }
                 },
                 series: []
