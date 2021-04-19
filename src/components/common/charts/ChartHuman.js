@@ -32,6 +32,10 @@ class ChartHuman extends Component {
 						lineHeight:33
 					}
 				},
+				data: {
+					enablePolling: true,
+					dataRefreshRate: 1
+				},
 				colors: this.props.colors,
 				credits: {
 					enabled: false,
@@ -207,8 +211,8 @@ class ChartHuman extends Component {
 								name: element.country,
 								//type: 'column',
 								color:euColor,
-								pointWidth: 68,
-								pointPadding: 0.15,
+								pointWidth: 70,
+								//pointPadding: 0.15,
 								borderColor: 'transparent',
 								borderWidth: 0,
 								data: [{
@@ -228,13 +232,13 @@ class ChartHuman extends Component {
 								}]
 							});
 						}else{
-							if( i== 0){
+							if( i == 0){
 								series.push({
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 68,
-									 pointPadding: 1,
+									pointWidth: 70,
+									 //pointPadding: 1,
 									 borderColor: 'transparent',
 									// borderWidth: 0,
 									data: [{name:element.value, y: element.value, x: i, 
@@ -252,8 +256,8 @@ class ChartHuman extends Component {
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 68,
-									pointPadding: 0.15,
+									pointWidth: 70,
+									pointPadding: 0.25,
 									borderColor: 'transparent',
 									borderWidth: 0,
 									data: [{

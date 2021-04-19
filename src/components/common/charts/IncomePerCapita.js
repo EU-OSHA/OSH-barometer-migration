@@ -173,7 +173,6 @@ class IncomerPercapital extends Component {
 		for (let serie in auxSeries) {
 		series.push({ name: serie , data: auxSeries[serie]})
 		}
-			console.log(series)
 		if (series.length == 3 ){
 			this.setState({chartConfig: {...this.state.chartConfing, xAxis: {...this.state.chartConfig.xAxis, categories},series:[...series], colors:['#f6a400','#529FA2','#003399']}})
 		}else if (series.length == 2){

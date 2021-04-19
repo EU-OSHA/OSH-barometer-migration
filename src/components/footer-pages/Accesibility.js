@@ -16,7 +16,7 @@ class Accesibility extends Component
 	render()
 	{
 		return(
-			<div className="mainBody">
+			<div  className="mainBody">
 				<h1 class="title-section second-color ng-binding text-center">
 				{this.props.literals.L694}
 				</h1>

@@ -20,25 +20,6 @@ const EconomicSectorProfile = (props) => {
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
 	const [defaultValue,setDefaultValue]=useState('')
-	
-
-	useEffect(()=>{
-		initCountryIndicators();
-	  },[selectCountry1]);
-
-
-	// console.log(defaultValue)
- 		const initCountryIndicators = (country1, country2) => {
-			getIndicatorCountries(country1, country2)
-			  .then((data) => {
-				const datos= data.resultset.find(element=> (element.code) == selectCountry1)
-				const datos2 = datos.name
-			   setDefaultValue(datos2)
-			   //console.log(datos2)
-			   //setSelectCountry1(data.resultset);
-			  });		
-	  }
-
 
 
 	const selectEuro2 = (e) =>{
@@ -95,8 +76,7 @@ const EconomicSectorProfile = (props) => {
 								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
 								literals={props.literals}
 								selectedCountry1={selectCountry1}
-								selectedCountry2={selectCountry2}
-								countrySelect={{label:"AAAAAAA",value:selectCountry1}}	
+								selectedCountry2={selectCountry2}	
 								/>
 						</ul>
 					</form>

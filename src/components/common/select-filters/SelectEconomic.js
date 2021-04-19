@@ -4,20 +4,21 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select'
 import { data } from 'jquery';
 
- const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals, countrySelect}) => {
+ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals}) => {
 
   const [selectCountry1,setSelectCountry1]= useState([]);
   const [selectCountry2,setSelectCountry2]= useState([]);
   const [selectedClient,setSelectedClient]= useState(selectedCountry1);
   const [selectedClient2,setSelectedClient2]= useState(selectedCountry2);
   const [isLoading,setIsLoading] = useState(false);
-  const [defaultValue,setDefaultValue]=useState(countrySelect)
+  const [defaultValue, setDefaultValue]=useState(null)
+  const [defaultValue2, setDefaultValue2]=useState(null)
 
   // on Component initialization, gets the indicators for each of the selects
   useEffect(()=>{
-    initCountryIndicators();
-  },[]);
-//console.log(defaultValue)
+    initCountryIndicators(selectedCountry1, selectedCountry2);
+  },[selectedCountry1, selectedCountry2]);
+
   const initCountryIndicators = (country1, country2) => {
     setIsLoading(true);
     try {
@@ -25,15 +26,26 @@ import { data } from 'jquery';
         getIndicatorCountries(charts, indicator, country2)
           .then((data) => {
             const datos= data.resultset.find(element=> (element.code) == country1)
-          //  setDefaultValue({
-          //    label: datos.name,
-          //    value: datos.code
-          //  })
-          // console.log(defaultValue)
+           setDefaultValue({
+             label: datos.name,
+             value: datos.code
+           })
            setSelectCountry1(data.resultset);
           });
         getIndicatorCountries(charts, indicator, country1)
           .then((data) => {
+            const datos= data.resultset.find(element=> (element.code) == country2)
+            if (datos) {
+              setDefaultValue2({
+                label: datos.name,
+                value: datos.code
+              })
+            } else {
+              setDefaultValue2({
+                label: 'Country',
+                value: null
+              })
+            }
             setSelectCountry2(data.resultset);
           })
       } else {
@@ -52,8 +64,6 @@ import { data } from 'jquery';
       setIsLoading(false);
     }
   }
-//console.log(defaultValue)
-
 
   const getSelectIndicators1 = (country) => {
     try {
@@ -151,22 +161,6 @@ import { data } from 'jquery';
       textTransform: "uppercase"
     })
   }
-
-      
-       const customOptions = [
-         
-      {
-        value: 'pririrnjnjdn',
-        label: 'lslrems ms ccsc sjc  j sjdc zmc jac n ac kasc n',
-      }
-    ];
-      
-    const options = [
-      { name: 'John', id: 1 },
-      { name: 'Doe', id: 2 },
-    ];
-    
-    
     
   // Early Return 
   if (isLoading) {
@@ -176,11 +170,18 @@ import { data } from 'jquery';
   return (
     <div>
 
-      <div>
-                  <Select
+      <div className="compare--block container">
+        {/* FILTERS */}
+				<form className="compare--block--form">
+					<ul className="compare--list">
+						{/* 1ST COUNTRY FILTER */}
+            <li>
+              <label>{literals.L20609}</label>
+
+              <Select
                   onChange={handleSelectChange}
                   styles={customStyles}
-                  defaultValue={defaultValue}
+                  value={defaultValue}
                   label='single'
                   className="select2-container select2-offscreen"
                   classNamePrefix="select"
@@ -189,26 +190,6 @@ import { data } from 'jquery';
                   getOptionLabel={option => `(${option.value}) ${option.label}`}
                   
                   />
-
-                <Select
-                onChange={handleSelectChange2}
-                styles={customStyles2}
-                defaultValue={{ label: "COUNTRY", value: null }}
-              // isClearable
-                isSearchable
-                options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
-                getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
-              />
-      
-        
-      </div>
-      <div className="compare--block container">
-        {/* FILTERS */}
-				<form className="compare--block--form">
-					<ul className="compare--list">
-						{/* 1ST COUNTRY FILTER */}
-            <li>
-              <label>{literals.L20609}</label>
               
             </li>
             
@@ -216,6 +197,16 @@ import { data } from 'jquery';
             {/* 2ND COUNTRY FILTER */}
             <li>
               <label>{literals.L20610}</label>
+
+              <Select
+                onChange={handleSelectChange2}
+                styles={customStyles2}
+                value={defaultValue2}
+              // isClearable
+                isSearchable
+                options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
+                getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
+              />
              
             </li>
           </ul>
