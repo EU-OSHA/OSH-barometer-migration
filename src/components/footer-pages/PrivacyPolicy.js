@@ -13,6 +13,11 @@ class PrivacyPolicy extends Component
             footerPages: footerPages
         }
 	}
+
+	componentDidMount() {
+		window.scrollTo(0, 0)
+	  }
+	  
 	render()
 	{
 		return(
