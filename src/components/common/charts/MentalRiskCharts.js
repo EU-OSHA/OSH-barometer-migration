@@ -83,7 +83,7 @@ class MentalRiskCharts extends Component {
 					backgroundColor: "rgba(255, 255, 255, 1)",
 					zIndex: 100,
 					borderWidth:1,
-					borderColor:"#CCC",
+					borderColor:"#00696C",
 					// followPointer: true,
 					// followTouchMove: true,
 					style: {
@@ -93,7 +93,7 @@ class MentalRiskCharts extends Component {
 						return '<ul class="tooltip-item">'+
 						'<li><strong>Anwser: </strong>'+ this.series.name +' </li>' +
 						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
-						'<li><strong class="tooltip-value up">Value: </strong> '+ Highcharts.numberFormat(this.y,0,',','.') +'%</li>' +
+						'<li><strong class="tooltip-value up">Value: </strong> '+ this.y +'%</li>' +
 						'</ul>';
 					}
 				},
@@ -127,6 +127,27 @@ class MentalRiskCharts extends Component {
                     series: {
                         stacking: 'normal',
                         pointStart: 0,
+                        states: {
+                            inactive: {
+                                opacity: 1
+                            }
+                        },
+                        point: {
+                            events: {
+                                mouseOver: function () {
+                                    let series = this.series.data;
+                                    series.forEach((p) => {
+                                        p.setState('hover')
+                                    });
+                                },
+                                mouseOut: function () {
+                                    let series = this.series.data;
+                                    series.forEach((p) => {
+                                        p.setState();
+                                    })
+                                }
+                            }
+                        }
                     }
                 },
                 series: []
@@ -197,7 +218,7 @@ class MentalRiskCharts extends Component {
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}] ,categories} }})                        
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}] ,categories} }})                        
                         // if (categories.length < 31) {
                         //     console.log('trigger 1.1', categories.length)
                         // }
@@ -208,7 +229,7 @@ class MentalRiskCharts extends Component {
                         // }
                         
                     } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})  
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})  
                         // if (categories.length < 31) {
                         //     console.log('trigger 2.1', categories.length)
                         // }
@@ -218,7 +239,7 @@ class MentalRiskCharts extends Component {
                         //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
                         // }
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}], categories} }})
                         // if (categories.length < 31) {
                         //     console.log('trigger 3.1', categories.length)
                         // }

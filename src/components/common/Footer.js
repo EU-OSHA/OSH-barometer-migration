@@ -28,10 +28,10 @@ class Footer extends Component
 								<a target="_blank" href="https://osha.europa.eu/en/contact-us" accessKey="C" className="menu__link"><span> {this.props.literals.L357}</span></a>
 							</li>
 							<li>
-								<NavLink exact to='/accesibility' accessKey="K" className="menu__link"><span> {this.props.literals.L358}</span> </NavLink>
+								<NavLink exact to='/accessibility' accessKey="K" className="menu__link"><span> {this.props.literals.L358}</span> </NavLink>
 							</li>
 							<li>
-								<NavLink to="/privacy-policy" accessKey="P" className="menu__link"><span> {this.props.literals.L359}</span></NavLink>
+								<NavLink to="/privacy-notice" accessKey="P" className="menu__link"><span> {this.props.literals.L359}</span></NavLink>
 							</li>
 							<li>
 								<NavLink to='/legal-notice' accessKey="N" className="menu__link"><span> {this.props.literals.L360}</span></NavLink>
