@@ -40,11 +40,13 @@
 			display: block !important;
 			page-break-before: auto;
 		}	
+		.partial-text{
+			display: none;
+		}
 	}
 	.pagination--wrapper{
 		page-break-before: auto;
 	}
-
 
 	@page {
 	  size: auto;
@@ -599,6 +601,9 @@
 	  }
 	}
 
+	.highcharts-container{
+		zoom: 0.9;
+	}
 
 	.work-accidents{
 		.card--grid{

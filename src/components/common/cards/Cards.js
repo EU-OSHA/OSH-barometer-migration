@@ -80,6 +80,9 @@ class Cards extends Component {
 									countryData.text3 && ReactHtmlParser(this.truncateText(literals[`L${countryData.text3}`], 300))
 								) : null}
 							</div>
+							<div className="complete-text">
+								{ReactHtmlParser(literals[`L${countryData.text3}`])}
+							</div>
 						</React.Fragment>
 					)}
 
