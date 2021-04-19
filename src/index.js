@@ -49,6 +49,7 @@ import LegalNotice from './components/footer-pages/LegalNotice';
 import PageNotFound from './components/footer-pages/PageNotFound';
 import PrivacyPolicy from './components/footer-pages/PrivacyPolicy';
 import Sitemap from './components/footer-pages/Sitemap';
+import ScrollToTop from './components/common/hook/ScrollToTop';
 
 
 const store = createStore(reducer);
@@ -58,6 +59,7 @@ const literals = require('./model/Literals.json');
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter >
+		<ScrollToTop>
 			<Switch>
 				<Route exact path="/" render={() => <App literals={literals}><Home literals={literals}/></App>} />
 				<Route exact path="/generic-information/osh-authorities" render={() => <App literals={literals}><OSHAuthorities literals={literals}/></App>} />
@@ -121,7 +123,8 @@ ReactDOM.render(
 				<Route exact path="/privacy-policy" render={() => <App literals={literals}><PrivacyPolicy literals={literals}/></App>} />
 				<Route exact path="/sitemap" render={() => <App literals={literals}><Sitemap literals={literals}/></App>} />
 
-			</Switch>		
+			</Switch>
+			</ScrollToTop>		
 		</BrowserRouter>
 	</Provider>, 
 	document.getElementById('root')

@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import AdviceSection from '../common/AdviceSection';
 import Chart from '../common/charts/Chart';
@@ -10,14 +10,27 @@ const OverallOpinion = (props) =>{
 	const [selectCountry1,setselectCountry1]=useState("AT");
 	const [selectCountry2,steselectCountry2]=useState("");
 	const [visible, setVisible]=useState(true)
-	// const [chart,setChart]=useState('20014');
-	// const [indicator,setIndicator]=useState('36');
-	// const [chart2,setChart2]=useState('20013');
-	// const [indicator2,setIndicator2]=useState('35');
+	const [dimension, setDimension]= useState(window.innerWidth > 768 ? 'column' : 'bar')
+	const [change, setChange]=useState(true)
+
+useEffect(() => {
+updateDimension();
+
+window.addEventListener('resize', updateDimension);
+//return ()=> window.removeEventListener('resize',updateDimension);
+}, [])
+ 
+const updateDimension = ()=>{
+	if (window.innerWidth > 768 ){
+		setDimension('column')
+	}else{
+		setDimension('bar'),
+		setChange(false)
+	}
+}
 
 		const handleJob = ()=>{
 			setVisible(false)
-
 		}
 
 		const handleRisk = ()=>{
@@ -32,19 +45,6 @@ const OverallOpinion = (props) =>{
 		steselectCountry2(selectCountry2)
 	}
 
-		// handleClickJob=()=>{
-		// 	//this.setState({optionJob: true});
-		// 	console.log("opcion Job")
-		// }
-
-		// handleClickRisk = ()=>{
-		// 	//this.setState({optionJob: false})
-		// 	console.log("opcion Health")
-		// }
-
-		// handleClickRisk = (selectCountry1)=>{
-		// 	setState
-		// }
 
 		return(
 			<div className="overall-opinion">
@@ -74,15 +74,15 @@ const OverallOpinion = (props) =>{
 											<Chart
 											title='How satisfied are you with working conditions in your main paid job?'
 											colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
-											showDataLabel={true}
+											//showDataLabel={true}
 											tick={20}
 											percentage={true}
-											type='column'
+											type={dimension}
 											stackingColumn='percent'
 											//selectCountry1={'AT'}
 											//selectCountry2={'0'}
-											reversed={true}
-											//legend={true}
+											stacking={true}
+											//reversed={true}
 											chart={'20040'}
 											indicator={'65'}
 											/> 
@@ -125,7 +125,7 @@ const OverallOpinion = (props) =>{
 												showDataLabel={true}
 												tick={20}
 												percentage={true}
-												type='column'
+												type={dimension}
 												//stackingColumn='percent'
 												selectCountry1={selectCountry1}
 												selectCountry2={selectCountry2}

@@ -113,7 +113,7 @@ class Chart extends Component {
 						shadow: false,
 						outline: 0,
 						stacking: this.props.stacking,
-
+						//pointPadding: 0.25
 					},
 					column: {
 						stacking: this.props.stackingColumn,
@@ -253,6 +253,9 @@ class Chart extends Component {
 		}
 
 		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
+		}
+		if (prevProps.type != this.props.type){
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 	}
