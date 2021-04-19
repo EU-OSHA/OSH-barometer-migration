@@ -72,6 +72,10 @@ public class QuantitativeDataAccess {
 		Map<String, List<String>> queryClauses = new HashMap<String, List<String>>();
 		ArrayList<String> paramValues = new ArrayList<String>();
 		
+		// When the country goes in the legend, the code is placed first
+		// When it is displayed in the chart, the name is placed first
+		boolean countryCodeFirst = true;
+		
 		/*
 		 * We will build the query with 4 different StringBuilders
 		 * The first will have the SELECT part, the second will have the FROM part
@@ -100,6 +104,9 @@ public class QuantitativeDataAccess {
 		// If country1 and country2 are null, the query will return data for all the countries except UK
 		if (pQueryFilter.getCountry1() == null && pQueryFilter.getCountry2() == null)
 		{
+			// The country will not be displayed in the legend of the chart
+			countryCodeFirst = false;
+			
 			// The chart will show the data for all the countries that have data
 			if (chartID == 20023) {
 				// The filter is the trend
@@ -133,7 +140,7 @@ public class QuantitativeDataAccess {
 				// The sector is not returned in the select
 				selectBuilder.append("select t1.text as Answer, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
 				fromBuilder.append(", split_answer a, translation t1 ");
-				whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' and n.country_code NOT IN ('UK') ");
+				whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' and n.country_code NOT IN ('AL','ME','MK','RS','TR','UK') ");
 				
 				// Add the filter for the answer
 				fillInFiltersInQuery(pQueryFilter.getAnswer(), queryClauses, "a.id", false);
@@ -322,7 +329,7 @@ public class QuantitativeDataAccess {
 			/*
 			 * Run query
 			 */	
-			runQuery(data, queryBuilderTxt, paramValues);			
+			runQuery(data, queryBuilderTxt, paramValues, countryCodeFirst);			
 		}
 		
 		return data;
@@ -345,7 +352,7 @@ public class QuantitativeDataAccess {
 		}
 	}
 	
-	private void runQuery (List<IndicatorData> pData, String pQueryBuilderTxt, ArrayList<String> pParamValues)
+	private void runQuery (List<IndicatorData> pData, String pQueryBuilderTxt, ArrayList<String> pParamValues, boolean pCountryCodeFirst)
 	{
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -390,7 +397,7 @@ public class QuantitativeDataAccess {
 					countryName = rs.getString(2);
 					value = rs.getDouble(3);
 					
-					iData.setCountry(countryCode, countryName);
+					iData.setCountry(countryCode, countryName, pCountryCodeFirst);
 					iData.setCountryCode(countryCode);
 					iData.setValue(value);
 				}
@@ -402,7 +409,7 @@ public class QuantitativeDataAccess {
 					value = rs.getDouble(4);
 					
 					iData.setSplit(split);
-					iData.setCountry(countryCode, countryName);
+					iData.setCountry(countryCode, countryName, pCountryCodeFirst);
 					iData.setCountryCode(countryCode);
 					iData.setValue(value);
 					iData.setSplitName(splitName);
@@ -416,7 +423,7 @@ public class QuantitativeDataAccess {
 					auxSplit = rs.getString(5);
 					
 					iData.setSplit(split);
-					iData.setCountry(countryCode, countryName);
+					iData.setCountry(countryCode, countryName, pCountryCodeFirst);
 					iData.setCountryCode(countryCode);
 					iData.setValue(value);
 					iData.setAuxSplit(auxSplit);
