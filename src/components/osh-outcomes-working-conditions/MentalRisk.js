@@ -87,16 +87,14 @@ class MentalRisk extends Component
 										return (
 											<div className="chart--wrapper" key={tab.literalTab} >
 												<MentalRiskCharts
-													chartTitle={this.props.literals}
+													literals={this.props.literals}
 													tabIndicator={tab.literalTab}
 													chartType={tab.chartType}
-													selectedSurvey={this.state.selectedSurvey}
 													colors={['#7b7b7d', '#cbe2e3','#f6a400']}
 													type={this.state.chartDimension}
 													percentage={true}
 													callbackLegend={this.callbackChartLegend}
 													callbackSelectedSurvey={this.callbackSelectedSurvey}
-													selectedTab={this.state.selectedTab}
 												/>
 											</div>
 										)
