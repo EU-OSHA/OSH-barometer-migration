@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -29,12 +29,56 @@ class MentalRiskCharts extends Component {
 					}
                 },
 				credits: {
-					enabled: false,
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
                 chart: {
                     height: window.innerWidth > 768 ? 450 : 770,
                     type: this.props.type,
-                    backgroundColor: '#F0F0F0'
+                    backgroundColor: '#F0F0F0',
+                    events: {
+                        render: function() {
+                              var chart = this;
+                           if (!chart.customImage)
+                           {
+                               chart.customImage = chart.renderer.image(
+                                   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+                                   chart.chartWidth - 130,
+                                   chart.chartHeight - 37,
+                                   130,
+                                   37
+                               ).add();
+                           }
+                           else
+                           {
+                               chart.customImage.attr({
+                                   x: chart.chartWidth - 130,
+                                   y: chart.chartHeight - 37
+                               });
+                           }
+                    
+                           if (chart.fullscreen.isOpen) {
+                               chart.customImage.css({
+                                   display: 'block'
+                               });
+                               chart.container.className = 'highcharts-container full-screen';
+                             }
+                           else
+                           {
+                               chart.customImage.css({
+                                   display: ''
+                               });	
+                               chart.container.className = 'highcharts-container';
+                           }
+                        }					
+                    },
                 },
 				exporting: {
 					enabled: true,
@@ -153,10 +197,12 @@ class MentalRiskCharts extends Component {
         this.setState({ selectedTypeChart: e.target.value });
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
+        this.getCredits(serie.chart);
         this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.chartTitle[`L${serie.title}`]+"</h2>" } } })
     }
     
     getLoadData = (chartType) => {
+        console.log('getLoadData');
         let categories = [];
         let auxSeries = [];
         let series = [];
@@ -222,6 +268,15 @@ class MentalRiskCharts extends Component {
         }
     }
 
+    getCredits = (chart) => {
+        getDatasourceAndDates(chart).then((res)=>{
+            let text = res;
+            this.setState({
+                chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+            })
+        })		
+    }
+
     updateDimension = () => {
 		if (window.innerWidth > 768) {
 			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
@@ -232,6 +287,7 @@ class MentalRiskCharts extends Component {
 
     componentDidMount() {
         this.getLoadData(this.props.chartType);
+        this.getCredits(this.props.chartType[0].chart);
         this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
 
         window.addEventListener('resize', this.updateDimension);

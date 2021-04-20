@@ -10,6 +10,21 @@
 			}
 		}
 	}
+	.highcharts-container{
+        svg {
+          image {
+            display:none
+          }
+          .highcharts-credits {
+            display: none
+          }
+        }
+        &.full-screen{
+          .highcharts-credits {
+            display: block
+          }
+        }
+    }
 }
 
 @media (max-width: 990px) {

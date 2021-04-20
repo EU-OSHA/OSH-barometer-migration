@@ -3,7 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
 
 import oshaLogo from '../../../style/img/EU-OSHA-en.png';
 
@@ -28,7 +28,7 @@ class Chart extends Component {
 				},
 				credits: {
 					enabled: true,
-					text: "Eurostat, 2017",
+					text: "",
 					href: '',
 					style: {
 						cursor: 'arrow'
@@ -45,11 +45,10 @@ class Chart extends Component {
 					events: {
 					 	render: function() {
 					 	  	var chart = this;
-							   console.log('chart',chart);
 							if (!chart.customImage)
 							{
 								chart.customImage = chart.renderer.image(
-									require('../../../style/img/EU-OSHA-en.png'),
+									'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
 									chart.chartWidth - 130,
 									chart.chartHeight - 37,
 									130,
@@ -256,8 +255,18 @@ class Chart extends Component {
 		
 	}
 
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
+	}
+
 	componentDidMount() {
 		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
