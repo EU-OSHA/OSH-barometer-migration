@@ -246,13 +246,9 @@ handleSelect = (e) => {
 		// }
 		// if (prevProps.selectCountry2 != this.props.selectCountry2) {
 		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
-		// }
+		// }		
 
-				
-		
 	}
-
-
 
 
 

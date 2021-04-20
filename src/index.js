@@ -87,8 +87,8 @@ ReactDOM.render(
 					path="/osh-outcomes-working-conditions/osh-culture/:indicator" 
 					render={routeParams => <App literals={literals}><OSHCulture literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
 				/>
-				<Route exact path="/osh-outcomes-working-conditions/overall-opinion" render={() => <App literals={literals}><OverallOpinion literals={literals}/></App>} />
-				<Route exact path="/osh-outcomes-working-conditions/physical-risk" render={() => <App literals={literals}><PhysicalRisk literals={literals}/></App>} />
+				<Route exact path="/osh-outcomes-working-conditions/overall-opinion/:indicator" render={routeParams => <App literals={literals}><OverallOpinion literals={literals} indicator={routeParams.match.params.indicator} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2}/></App>} />
+				<Route exact path="/osh-outcomes-working-conditions/physical-risk" render={() => <App literals={literals} ><PhysicalRisk literals={literals}/></App>} />
 				<Route 
 					path="/osh-outcomes-working-conditions/prevention-companies/:indicator/:split/:country1?/:country2?" 
 					render={routeParams => <App literals={literals}><PreventionCompanies literals={literals} indicator={routeParams.match.params.indicator} 

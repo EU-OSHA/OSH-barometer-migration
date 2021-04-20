@@ -7,10 +7,8 @@ const SubMenuTabs = props => {
     const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
 
     const history = useHistory();
-
     useEffect(() => {
         setSelectedTab(props.selectedTab)
-
         if (props.selectedSurvey) {
             history.push({
                 pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`

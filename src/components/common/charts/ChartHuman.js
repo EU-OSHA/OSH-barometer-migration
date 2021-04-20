@@ -336,7 +336,7 @@ class ChartHuman extends Component {
 	getCredits = (chart) => {
 		getDatasourceAndDates(chart).then((res)=>{
 			let text = res;
-			console.log('text',text);
+			//console.log('text',text);
 			this.setState({
 				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
 			})

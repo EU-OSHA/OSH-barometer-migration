@@ -287,9 +287,12 @@ class Chart extends Component {
 		if (prevProps.selectCountry2 != this.props.selectCountry2) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
-		if (prevProps.type != this.props.type){
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
-		}
+		// if (prevProps.type != this.props.type){
+		// 	this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
+		// }
+		// if (prevProps.title != this.props.title){
+		// 	this.setState({...chartConfig, title: {...chartConfig.title, text:this.props.title}})
+		// }
 	}
 
 	render() {

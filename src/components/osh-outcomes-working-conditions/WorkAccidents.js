@@ -41,10 +41,9 @@ class WorkAccidents extends Component
 			this.setState({ chartDimension: 'bar' })
 		}
 	}
-
+	
 	componentDidMount() {
 		window.addEventListener('resize', this.updateDimension);
-
 	}
 
 	componentWillUnmount() {

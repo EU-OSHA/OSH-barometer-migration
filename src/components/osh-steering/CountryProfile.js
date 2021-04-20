@@ -48,6 +48,7 @@ class CountryProfile extends Component
 
 	componentDidMount(){
 		this.retrieveCountryProfileData();
+		console.log(this.state.country1)
 	}
 
 	componentDidUpdate(prevProps, prevState){
@@ -260,8 +261,8 @@ class CountryProfile extends Component
 						<SelectEconomic 
 							handleSearch={this.handleChangeSelect1}
 							handleSearch2={this.handleChangeSelect2}
-							selectedCountry1={this.state.country1}
-							selectedCountry2={this.state.country2}
+							selectedCountry1={this.props.country1}
+							selectedCountry2={this.props.country2}
 							literals={this.props.literals}
 						/>
 					</form>

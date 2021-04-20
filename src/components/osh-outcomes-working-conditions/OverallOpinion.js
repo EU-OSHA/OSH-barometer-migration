@@ -2,47 +2,54 @@ import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import AdviceSection from '../common/AdviceSection';
 import Chart from '../common/charts/Chart';
-import RiskChart from '../common/charts/RiskChart'
-import SelectEconomic from '../common/select-filters/SelectEconomic'
+import RiskChart from '../common/charts/RiskChart';
+import SelectEconomic from '../common/select-filters/SelectEconomic';
+import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 
-const OverallOpinion = (props) =>{
+const OverallOpinion = (props) => {
 		
-	const [selectCountry1,setselectCountry1]=useState("AT");
-	const [selectCountry2,steselectCountry2]=useState("");
+	const [selectCountry1,setSelectCountry1]=useState('AT');
+	const [selectCountry2,setSelectCountry2]=useState('');
 	const [visible, setVisible]=useState(true)
-	const [dimension, setDimension]= useState(window.innerWidth > 768 ? 'column' : 'bar')
+	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
+	const [title, setTitle] = React.useState('')
+	const [selectedTab, setSelectedTab] = useState(props.indicator);
+    const [indicatorTabs, setIndicatorTabs] = useState([{ literalTab: '322' }, { literalTab: '323' }]);
+	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
+	const [isSubMenuOpen,setIsSubMenuOpen]= useState(false)
 
 useEffect(() => {
 updateDimension();
 
-window.addEventListener('resize', updateDimension);
-//return ()=> window.removeEventListener('resize',updateDimension);
+window.addEventListener('resize',updateDimension);
+return ()=> window.removeEventListener('resize',updateDimension);
 }, [])
+
  
-const updateDimension = ()=>{
+const updateDimension = () =>{
 	if (window.innerWidth > 768 ){
 		setDimension('column')
+		setTitle('How satisfied are you with working conditions in your main paid job?')
 	}else{
 		setDimension('bar'),
 		setChange(false)
+		setTitle('Job satisfaction')
 	}
+
+}
+//console.log(currentPath)
+
+const callbackSelectedTab = (callback) => {
+	setSelectedTab( callback )
 }
 
-		const handleJob = ()=>{
-			setVisible(false)
-		}
-
-		const handleRisk = ()=>{
-			setVisible(true)
-		}
-
 	const handleSearch = (selectCountry1) => {
-		setselectCountry1(selectCountry1);
+		setSelectCountry1(selectCountry1);
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
-		steselectCountry2(selectCountry2)
+		setSelectCountry2(selectCountry2)
 	}
 
 
@@ -50,29 +57,23 @@ const updateDimension = ()=>{
 			<div className="overall-opinion">
 				<AdviceSection literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion"]} />
 				
-
+				<SubMenuTabs 
+					literals={props.literals}
+					selectedTab={selectedTab}
+					callbackSelectedTab={callbackSelectedTab}
+					locationPath={currentPath}
+					subMenuTabs={indicatorTabs} 
+				/>
 				
-				<div className="">						
+				 <div className="">						
 						<div>
-						{visible ?<div>
-								<div className="compare--block">
-									<div className="submenu--block container">
-										<ul className="submenu--items--wrapper">
-											<li className="sub--item active">
-												<a onClick={handleRisk} className="ng-bining active">Job satisfaction</a>
-											</li>
-											<li className="sub--item">
-												<a onClick={handleJob} className="ng-bining ">Health at risk</a>
-											</li>
-										</ul>										
-									</div>
-									<div class="line background-main-light"></div>
-								</div>
+						{(selectedTab == 'job-satisfaction') ?<div>
+
 								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 									<div className="card--block--chart">
 										<div className="chart--block">
 											<Chart
-											title='How satisfied are you with working conditions in your main paid job?'
+											title={title}
 											colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
 											//showDataLabel={true}
 											tick={20}
@@ -92,19 +93,6 @@ const updateDimension = ()=>{
 							</div>
 		
 							:<div>
-								<div className="compare--block">
-									<div className="submenu--block container">
-										<ul className="submenu--items--wrapper">
-												<li className="sub--item">
-												<a onClick={handleRisk} className="ng-bining">Job satisfaction</a>
-											</li>
-											<li className="sub--item active">
-												<a onClick={handleJob} className="ng-bining active">Health at risk</a>
-											</li>
-										</ul>										
-									</div>
-									<div class="line background-main-light"></div>
-								</div>
 								<div className="compare--block">
 								<SelectEconomic 
 								handleSearch={handleSearch} 
@@ -142,7 +130,7 @@ const updateDimension = ()=>{
 							</div>}			
 		
 						</div>
-					</div>
+					</div> 
 
 		</div>
 		)

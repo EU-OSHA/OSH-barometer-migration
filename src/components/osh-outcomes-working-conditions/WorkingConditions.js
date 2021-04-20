@@ -16,17 +16,17 @@ class WorkingConditions extends Component
 					<h2 className="title-section second-color">{this.props.literals.L20708}</h2>
 					<section className="card--grid xxs-w1 w3 center-text">
 						<div className="card--block--rounded">
-							<Link className="icon--card overall-opinion-icon" to={"/osh-outcomes-working-conditions/overall-opinion"}
+							<Link className="icon--card overall-opinion-icon" to={"/osh-outcomes-working-conditions/overall-opinion/job-satisfaction/"}
 								 // ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})"
 							></Link>
 							<h3 className="title--card main-color">
-								<Link to={"osh-outcomes-working-conditions/overall_opinion/job-satisfaction/AT/0/sector"}
+								<Link to={"/osh-outcomes-working-conditions/overall-opinion/job-satisfaction/"}
 									// ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})"
 								>{this.props.literals.L20709}</Link>
 							</h3>
 							<p>{this.props.literals.L20577}</p>
 							<p className="btn--card--block">
-								<Link to={"osh-outcomes-working-conditions/overall_opinion/job-satisfaction/AT/0/sector"}
+								<Link to={"/osh-outcomes-working-conditions/overall-opinion/job-satisfaction/"}
 									// ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})" 
 									className="btn--card main-color">{ReactHtmlParser(this.props.literals.L480)}
 								</Link>
