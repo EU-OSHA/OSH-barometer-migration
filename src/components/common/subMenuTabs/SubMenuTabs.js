@@ -6,7 +6,7 @@ const SubMenuTabs = props => {
     const [selectedTab, setSelectedTab] = useState(props.selectedTab);
     const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
 
-    const history = useHistory();gi
+    const history = useHistory();
 
     useEffect(() => {
         setSelectedTab(props.selectedTab)
@@ -22,6 +22,12 @@ const SubMenuTabs = props => {
         }
 
     }, [props.selectedTab, props.selectedSurvey]);
+
+    useEffect(() => {
+        if (window.innerWidth > 990) {
+            setIsSubMenuOpen(false);
+        }
+    }, [window.innerWidth])
 
     const onClickIndicator = (e, indicator) => {
 		e.preventDefault();
@@ -54,8 +60,8 @@ const SubMenuTabs = props => {
 
     const onClickSubMenu = (e) => {
 		e.preventDefault();
-        if (window.innerWidth < 768) {
-            setIsSubMenuOpen(!isSubMenuOpen)
+        if (window.innerWidth <= 990) {
+            setIsSubMenuOpen(!isSubMenuOpen);
         }
 	}
 
