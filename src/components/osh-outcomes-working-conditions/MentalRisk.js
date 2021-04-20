@@ -77,7 +77,7 @@ class MentalRisk extends Component
 					locationPath={this.state.currentPath}
 				/>
 
-				<div classname="line background-main-light"></div>
+				<div className="line background-main-light"></div>
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text" >
 					<div className="card--block--chart" >
 						<div className="chart--block with-filter" >

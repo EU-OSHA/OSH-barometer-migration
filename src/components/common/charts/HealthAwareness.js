@@ -122,7 +122,7 @@ class HealthAwareness extends Component {
 					backgroundColor: "rgba(255, 255, 255, 1)",
 					zIndex: 100,
 					borderWidth:1,
-					borderColor:"#CCC",
+					borderColor:"#529FA2",
                     style: {
                         opacity: 1,
                         zIndex: 100

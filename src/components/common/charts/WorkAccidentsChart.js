@@ -115,7 +115,12 @@ class WorkAccidentsChart extends Component {
             title: {
                 //useHTML: true,
                 text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-                align: 'left'
+                align: 'left',
+                widthAdjust: 0,
+                style: {
+                    zIndex: 1,
+                    lineHeight:36
+                }
             },
             credits: {
                 enabled: true,
@@ -220,9 +225,9 @@ class WorkAccidentsChart extends Component {
                 labels: {
                     format: this.props.percentage === true ? '{value}%' : `{value}`,
                     style: {
-                        fontFamily: 'OpenSans-bold',
+                        fontFamily: 'OpenSan-bold',
                         fontWeight: 'normal',
-                        fontSize:'12px',
+                        fontSize:'14px',
                         textOverflow: 'none'
                     }
                 }
@@ -309,6 +314,7 @@ class WorkAccidentsChart extends Component {
                             // },
                             tooltip: {					
                                 useHTML: true,
+                                borderColor:"#529FA2",
                                 style: {
                                     opacity: 1,
                                     zIndex: 100
@@ -378,7 +384,7 @@ class WorkAccidentsChart extends Component {
                             },
                             tooltip: {					
                                 useHTML: true,
-                                borderColor:"#00696C",
+                                borderColor:"#529FA2",
                                 style: {
                                     opacity: 1,
                                     zIndex: 100

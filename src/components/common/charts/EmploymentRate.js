@@ -164,6 +164,7 @@ class EmploymentRate extends Component {
                     useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor:"#529FA2",
 					zIndex: 100,
 					style: {
 						zIndex: 100

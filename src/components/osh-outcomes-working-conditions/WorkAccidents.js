@@ -57,14 +57,13 @@ class WorkAccidents extends Component
 			<div className="work-accidents">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
 				<form className="compare--block--form">
-				<SubMenuTabs 
-					literals={this.props.literals}
-					selectedTab={this.state.selectedTab}
-					callbackSelectedTab={this.callbackSelectedTab}
-					locationPath={this.state.currentPath}
-					subMenuTabs={this.state.indicatorTabs} 
-				/>
-
+					<SubMenuTabs 
+						literals={this.props.literals}
+						selectedTab={this.state.selectedTab}
+						callbackSelectedTab={this.callbackSelectedTab}
+						locationPath={this.state.currentPath}
+						subMenuTabs={this.state.indicatorTabs} 
+					/>
 				<div className="line background-main-light" />
 
 				{this.state.selectedTab == 'non-fatal-work-accidents' && (
@@ -78,11 +77,10 @@ class WorkAccidents extends Component
 						selectedCountry2={this.state.selectCountry2}
 					/>
 				)}
-
 				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
-					<div className="card--block--chart">
+					<div className="card--block--chart no-filters">
 						<div className="chart--block">
 						{this.state.selectedTab == 'non-fatal-work-accidents' ? (
 							<WorkAccidentsChart 

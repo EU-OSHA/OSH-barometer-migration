@@ -116,7 +116,7 @@ class IncomerPercapital extends Component {
 				tooltip: {
 					useHTML: true,
 					opacity: 1,
-					borderColor: '#16983e',
+					borderColor:"#529FA2",
 					backgroundColor: "rgba(255, 255, 255, 1)",
 					style: {
 						zIndex: 100
