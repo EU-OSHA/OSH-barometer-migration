@@ -154,21 +154,12 @@ export function getIndicatorCountries(charts = ['20012'], indicator, country) {
 }
 
 //Get countries available for social dialogue select
-export function getNationalStrategiesCountries(countries) {
+export function getNationalStrategiesCountries(country) {
     const URL = `${BASEURL}countries/getCountriesStrategiesPage?page=STRATEGY`;
 
     const response = axios.get(URL, {
         params: {
-            country: countries
-        },
-        paramsSerializer: params => {
-            let urlWithParams = new URLSearchParams();
-
-            if (params.country) {
-                countries.map((country) => urlWithParams.append('country', country))
-            }
-
-            return urlWithParams
+            country: country
         }
     })
     .then((res) => res.data);
