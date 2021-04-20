@@ -143,7 +143,8 @@ class ChartHuman extends Component {
 				// 	// 	}
 				// 	// }
 				// },
-				xAxis: {					
+				xAxis: {
+					lineWidth: 0,					
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -168,6 +169,8 @@ class ChartHuman extends Component {
 					type: 'category'
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					//max: this.props.yAxisMax,
 					//tickInterval: this.props.tick,
 					visible:false,

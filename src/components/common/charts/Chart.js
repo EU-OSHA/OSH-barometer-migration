@@ -162,6 +162,7 @@ class Chart extends Component {
 					},
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					
 					labels: {
@@ -185,7 +186,8 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
-					
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					reversedStacks: false,
 					reversed: this.props.reversed,
 					max: 100,
