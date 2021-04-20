@@ -5,7 +5,7 @@ import HighchartsReact from 'highcharts-react-official';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
 
 const xAxisColor = "#808080";
 class WorkAccidentsChart extends Component {
@@ -21,13 +21,57 @@ class WorkAccidentsChart extends Component {
                     align: 'left'
                 },
                 credits: {
-                    enabled: false
+                    enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
                 },
                 colors: this.props.colors,
                 chart: {
                     height: window.innerWidth > 768 ? 450 : 770,
                     type: this.props.type,
-                    backgroundColor: '#F0F0F0'
+                    backgroundColor: '#F0F0F0',
+                    events: {
+                        render: function() {
+                              var chart = this;
+                           if (!chart.customImage)
+                           {
+                               chart.customImage = chart.renderer.image(
+                                   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+                                   chart.chartWidth - 130,
+                                   chart.chartHeight - 37,
+                                   130,
+                                   37
+                               ).add();
+                           }
+                           else
+                           {
+                               chart.customImage.attr({
+                                   x: chart.chartWidth - 130,
+                                   y: chart.chartHeight - 37
+                               });
+                           }
+                    
+                           if (chart.fullscreen.isOpen) {
+                               chart.customImage.css({
+                                   display: 'block'
+                               });
+                               chart.container.className = 'highcharts-container full-screen';
+                             }
+                           else
+                           {
+                               chart.customImage.css({
+                                   display: ''
+                               });	
+                               chart.container.className = 'highcharts-container';
+                           }
+                        }					
+                    },
                 },
 				exporting: {
 					enabled: true,
@@ -74,13 +118,57 @@ class WorkAccidentsChart extends Component {
                 align: 'left'
             },
             credits: {
-                enabled: false
+                enabled: true,
+                text: "",
+                href: '',
+                style: {
+                    cursor: 'arrow'
+                },
+                position: {
+                    x: -130
+                }
             },
             colors: this.props.colors,
             chart: {
                 height: window.innerWidth > 768 ? 450 : 770,
                 type: this.props.type,
-                backgroundColor: '#F0F0F0'
+                backgroundColor: '#F0F0F0',
+                events: {
+                    render: function() {
+                          var chart = this;
+                       if (!chart.customImage)
+                       {
+                           chart.customImage = chart.renderer.image(
+                               'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+                               chart.chartWidth - 130,
+                               chart.chartHeight - 37,
+                               130,
+                               37
+                           ).add();
+                       }
+                       else
+                       {
+                           chart.customImage.attr({
+                               x: chart.chartWidth - 130,
+                               y: chart.chartHeight - 37
+                           });
+                       }
+                
+                       if (chart.fullscreen.isOpen) {
+                           chart.customImage.css({
+                               display: 'block'
+                           });
+                           chart.container.className = 'highcharts-container full-screen';
+                         }
+                       else
+                       {
+                           chart.customImage.css({
+                               display: ''
+                           });	
+                           chart.container.className = 'highcharts-container';
+                       }
+                    }					
+                },
             },
             exporting: {
                 enabled: true,
@@ -319,6 +407,15 @@ class WorkAccidentsChart extends Component {
 
     }
 
+    getCredits = (chart) => {
+        getDatasourceAndDates(chart).then((res)=>{
+            let text = res;
+            this.setState({
+                chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+            })
+        })		
+    }
+
     updateDimension = () => {
 		if (window.innerWidth > 768) {
 			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
@@ -329,21 +426,25 @@ class WorkAccidentsChart extends Component {
 
     componentDidMount() {
         this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
+        this.getCredits(this.props.chart);
 
         window.addEventListener('resize', this.updateDimension);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.type != this.props.type) {
-            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
+            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }});
+            this.getCredits(this.props.chart);
         }
 
         if (prevProps.selectedCountry1 != this.props.selectedCountry1) {
-            this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2)
+            this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
+            this.getCredits(this.props.chart);
         }
 
         if (prevProps.selectedCountry2 != this.props.selectedCountry2) {
-            this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2)
+            this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
+            this.getCredits(this.props.chart);
         }
     }
 

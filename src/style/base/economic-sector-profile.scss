@@ -4,6 +4,21 @@
     .card--block--chart{
       margin: 1rem;
       position: relative;
+      .highcharts-container{
+        svg {
+          image {
+            display:none
+          }
+          .highcharts-credits {
+            display: none
+          }
+        }
+        &.full-screen{
+          .highcharts-credits {
+            display: block
+          }
+        }
+      }
       .select-filter-chart-wrapper{
         width: 100%;
         top: -1.8rem;
