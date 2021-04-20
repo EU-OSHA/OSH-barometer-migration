@@ -6,7 +6,7 @@ const SubMenuTabs = props => {
     const [selectedTab, setSelectedTab] = useState(props.selectedTab);
     const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
 
-    const history = useHistory();gi
+    const history = useHistory();
 
     useEffect(() => {
         setSelectedTab(props.selectedTab)

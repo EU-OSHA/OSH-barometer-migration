@@ -139,7 +139,8 @@ class EmploymentRate extends Component {
 						'</ul>';
 					}
 				},
-				xAxis: {					
+				xAxis: {
+					lineWidth: 0,						
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -161,6 +162,8 @@ class EmploymentRate extends Component {
 					type: 'category'
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					max: 100,
 					tickInterval: this.props.tick,
 					title: {

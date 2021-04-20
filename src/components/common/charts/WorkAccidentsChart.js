@@ -140,7 +140,7 @@ class WorkAccidentsChart extends Component {
                 }
             },
             xAxis: {
-                //lineWidth: 0,
+                lineWidth: 0,
                 labels: {	
                     style: {
                         fontFamily: 'OpenSans-bold',
@@ -276,13 +276,15 @@ class WorkAccidentsChart extends Component {
                                         color: 'black',
                                         width: 2,
                                         value: 0.5,
-                                        id: 'break-eu'
+                                        id: 'break-eu',
+                                        zIndex:1
                                     },
                                     {
                                         color: 'black',
                                         width: 2,
                                         value: 27.5,
-                                        id: 'break-country'
+                                        id: 'break-country',
+                                        zIndex:1
                                     }
                                 ],
                             },

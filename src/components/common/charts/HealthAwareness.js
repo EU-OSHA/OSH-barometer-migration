@@ -38,6 +38,40 @@ class HealthAwareness extends Component {
                         }
                     }
                 },
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y: 4
+					}
+				},
+				legend:{
+					//reversed: this.props.legend
+					//verticalAlign: 'bottom',
+					symbolRadius: 0,
+					//layout: 'vertical',
+					itemMarginTop:4,
+					itemMarginBottom:4,
+					itemDistance: 5,
+					//width: 300,
+					itemStyle: {
+						fontFamily: 'OpenSans',
+						fontWeight: 'normal',
+						fontSize:'11px',
+						textOverflow: "ellipsis",
+						//width: 150
+					}
+				},
                 tooltip: {
                     useHtml: true,
                     opacity: 1,
@@ -58,17 +92,20 @@ class HealthAwareness extends Component {
                     }
                 },
                 xAxis: {
+                    lineWidth: 0,
                     max: this.props.yAxisMax,
                     plotLines: [
                         {
                             color: 'black',
                             width: '2',
-                            value: 0.5
+                            value: 0.5,
+                            zIndex:1
                         },
                         {
                             color: 'black',
                             width: '2',
-                            value: 29.5
+                            value: 29.5,
+                            zIndex:1
                         }
                     ],
                     labels: {
@@ -81,6 +118,8 @@ class HealthAwareness extends Component {
                     }
                 },
                 yAxis: {
+                    gridLineColor:'#FFF',
+                    gridLineWidth:2,
                     title: {
                         text: ''
                     },
