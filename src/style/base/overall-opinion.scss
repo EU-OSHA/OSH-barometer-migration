@@ -245,7 +245,7 @@ dvt-radar-chart[datasource-and-dates="datasourcesAndDates"]
 	}
  
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 
 	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement, .work-accidents {
 		.card--grid{
@@ -279,7 +279,7 @@ dvt-radar-chart[datasource-and-dates="datasourcesAndDates"]
 
 }
 
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 767px) {
 
 	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement, .work-accidents {
 		div[query="getJobSatisfactionHorizontalData"],
