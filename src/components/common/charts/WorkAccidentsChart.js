@@ -290,6 +290,7 @@ class WorkAccidentsChart extends Component {
                             },
                             tooltip: {					
                                 useHTML: true,
+                                borderColor:"#00696C",
                                 style: {
                                     opacity: 1,
                                     zIndex: 100

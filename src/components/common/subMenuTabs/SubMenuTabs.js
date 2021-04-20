@@ -23,6 +23,12 @@ const SubMenuTabs = props => {
 
     }, [props.selectedTab, props.selectedSurvey]);
 
+    useEffect(() => {
+        if (window.innerWidth > 990) {
+            setIsSubMenuOpen(false);
+        }
+    }, [window.innerWidth])
+
     const onClickIndicator = (e, indicator) => {
 		e.preventDefault();
 
@@ -54,8 +60,8 @@ const SubMenuTabs = props => {
 
     const onClickSubMenu = (e) => {
 		e.preventDefault();
-        if (window.innerWidth < 768) {
-            setIsSubMenuOpen(!isSubMenuOpen)
+        if (window.innerWidth <= 990) {
+            setIsSubMenuOpen(!isSubMenuOpen);
         }
 	}
 
