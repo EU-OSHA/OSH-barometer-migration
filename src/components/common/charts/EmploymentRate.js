@@ -107,22 +107,30 @@ class EmploymentRate extends Component {
 					symbolRadius: 0,
 					itemMarginTop:4,
 					itemMarginBottom:4,
-					//width: 300,
+					align: 'center',
+					//itemWidth: 96,
+					itemDistance: 1,
+
+					//width: 200,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'12px',
+						fontSize:'11px',
 						textOverflow: "ellipsis",
-						//width: 250
+						
 					}
 				},
 				plotOptions: {
+					borderColor: '#16983e',
+					//borderWidth: 3,
 					series: {
+						//pointStart: 50,
 						shadow: false,
 						outline: 0,
-						stacking: this.props.stacking
+						stacking: this.props.stacking,
 					},
 					bar: {
+						borderWidth: 0,
 						dataLabels: {
 							//useHTML: true,
 							align: 'left',
@@ -175,7 +183,8 @@ class EmploymentRate extends Component {
 						'</ul>';
 					}
 				},
-				xAxis: {					
+				xAxis: {
+					lineWidth: 0,						
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -197,7 +206,9 @@ class EmploymentRate extends Component {
 					type: 'category'
 				},
 				yAxis: {
-					max: this.props.yAxisMax,
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
+					max: 100,
 					tickInterval: this.props.tick,
 					title: {
 						enabled: false
@@ -276,17 +287,17 @@ class EmploymentRate extends Component {
 	}
 
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
 		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 	}
 

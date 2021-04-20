@@ -13,6 +13,8 @@ class LegalNotice extends Component
             footerPages: footerPages
         }
 	}
+
+	  
 	render()
 	{
 		return(

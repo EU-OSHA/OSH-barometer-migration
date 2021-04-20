@@ -103,6 +103,7 @@ class Chart extends Component {
 					}
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					
 					labels: {
@@ -123,6 +124,8 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
@@ -190,59 +193,59 @@ handleSelect = (e) => {
 	
 
 	componentDidMount() {
-		this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2,this.props.sector);
+		this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,this.props.sector);
 	}
 
 	componentDidUpdate(prevProps, prevState ) {
 
 			if (prevState.select != this.state.select){
 				if (this.state.select == 'sector'){
-				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2, this.props.sector)	
+				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, this.props.sector)	
 				}
 				if (this.state.select == 'gender'){
-				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2, null, this.props.gender);
+				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, null, this.props.gender);
 				}
 				if (this.state.select == 'age'){
-				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2, null, null,this.props.age);
+				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, null, null,this.props.age);
 				}
 			}
 			
 
 			if (this.state.select == 'sector'){
-				if (prevProps.pais1 != this.props.pais1) {
-					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2,this.props.sector)
+				if (prevProps.selectCountry1 != this.props.selectCountry1) {
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,this.props.sector)
 				}
-				if (prevProps.pais2 != this.props.pais2){
-					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.pais1,this.props.pais2,this.props.sector)
+				if (prevProps.selectCountry2 != this.props.selectCountry2){
+					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,this.props.sector)
 				}
 			}
 
 			if (this.state.select == 'gender'){
-				if (prevProps.pais1 != this.props.pais1) {
-					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2,null,this.props.gender)
+				if (prevProps.selectCountry1 != this.props.selectCountry1) {
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,this.props.gender)
 				}
-				if (prevProps.pais2 != this.props.pais2){
-					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.pais1,this.props.pais2,null,this.props.gender)
+				if (prevProps.selectCountry2 != this.props.selectCountry2){
+					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,null,this.props.gender)
 				}
 			}
 
 		
 			if (this.state.select == 'age'){
-				if (prevProps.pais1 != this.props.pais1) {
-					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2,null,null,this.props.age)
+				if (prevProps.selectCountry1 != this.props.selectCountry1) {
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,null,this.props.age)
 				}
-				if (prevProps.pais2 != this.props.pais2){
-					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.pais1,this.props.pais2,null,null,this.props.age)
+				if (prevProps.selectCountry2 != this.props.selectCountry2){
+					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
 				}
 			}
 
 			
 
-		// if (prevProps.pais1 != this.props.pais1) {
-		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2,null,null,this.props.age)
+		// if (prevProps.selectCountry1 != this.props.selectCountry1) {
+		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,null,this.props.age)
 		// }
-		// if (prevProps.pais2 != this.props.pais2) {
-		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.pais1,this.props.pais2,null,null,this.props.age)
+		// if (prevProps.selectCountry2 != this.props.selectCountry2) {
+		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
 		// }
 
 				
@@ -272,7 +275,7 @@ handleSelect = (e) => {
 					containerProps={{ className: 'chartContainer' }}
 				/>
 				{/* <div>
-					{this.props.indicator}-{this.props.chart}-{this.props.pais1}-{this.props.pais2}
+					{this.props.indicator}-{this.props.chart}-{this.props.selectCountry1}-{this.props.selectCountry2}
 				</div> */}
 			</div>
 		)

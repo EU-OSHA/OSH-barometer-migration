@@ -40,6 +40,7 @@ class Chart extends Component {
 				colors: this.props.colors,
 				chart: {
 					height:450,
+					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {
@@ -117,6 +118,7 @@ class Chart extends Component {
 					//layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
+					
 					//width: 300,
 					itemStyle: {
 						fontFamily: 'OpenSans',
@@ -130,14 +132,18 @@ class Chart extends Component {
 					series: {
 						shadow: false,
 						outline: 0,
-						stacking: this.props.stacking
+						stacking: this.props.stacking,
+						//pointPadding: 0.25
 					},
 					column: {
-						stacking: this.props.stackingColumn
+						stacking: this.props.stackingColumn,
+						borderWidth: 0,
+						pointPadding: 0.1
 					},
 					bar: {
 						minPointLength:3,
 						groupPadding:0.06,
+						borderWidth: 0,
 						pointWidth:this.props.stacking ? 50 : undefined,
 						dataLabels: {
 							align: 'left',
@@ -162,6 +168,7 @@ class Chart extends Component {
 					useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor: '#16983e',
 					zIndex: 100,
 					style: {
 						zIndex: 100
@@ -175,6 +182,7 @@ class Chart extends Component {
 					},
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					
 					labels: {
@@ -198,8 +206,11 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
+					reversedStacks: false,
 					reversed: this.props.reversed,
-					max: this.props.yAxisMax,
+					max: 100,
 					tickInterval: this.props.tick,
 					title: {
 						enabled: false
@@ -245,7 +256,6 @@ class Chart extends Component {
 		for (let serie in auxSeries) {
 			
 			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
 		}
 
 		this.setState({
@@ -265,17 +275,20 @@ class Chart extends Component {
 	}
 
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
 		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
+		}
+		if (prevProps.type != this.props.type){
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 	}
 
