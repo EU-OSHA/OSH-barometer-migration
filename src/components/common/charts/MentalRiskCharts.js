@@ -18,7 +18,7 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: "<h2 class='title--card'>"+this.props.chartTitle[`L${this.props.chartType[0].title}`]+"</h2>",
+                    text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
                     //text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
                     align: 'left',
 					widthAdjust: -100,
@@ -163,7 +163,9 @@ class MentalRiskCharts extends Component {
         this.props.callbackSelectedSurvey(e.target.value);
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
-        this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.chartTitle[`L${serie.title}`]+"</h2>" } } })
+        if (window.innerWidth > 768 ) {
+            this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
+        }
     }
     
     getLoadData = (chartType) => {
@@ -261,9 +263,10 @@ class MentalRiskCharts extends Component {
 
     updateDimension = () => {
 		if (window.innerWidth > 768) {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>"}} });
 		} else {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}} });
+            const shortTitle = this.props.literals[`L${this.props.tabIndicator}`]
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+shortTitle+"</h2>"}} });
 		}
 	}
 
@@ -278,7 +281,7 @@ class MentalRiskCharts extends Component {
         } else {
             this.props.callbackSelectedSurvey(this.props.chartType[0].type)
         }
-        
+        this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
     }
 
@@ -299,28 +302,28 @@ class MentalRiskCharts extends Component {
     render() {
         return (
             <React.Fragment>
-                {this.state.selectedTypeChart && (
-                    <React.Fragment>
-                        {this.state.typeCharts.length > 1 && (
-                            <div className="select-filter-chart">
-                                <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                    {this.state.typeCharts.map((type) => {
-                                        return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                    })}
-                                </select>
-                            </div>
-                        )}
-                     </React.Fragment>
-                )}
-                {!this.state.isLoading && (
-                    <div className='chart-container'>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={this.state.chartConfig}
-                            containerProps={{ className: 'chartContainer' }}
-                        />
-                    </div>
-                )}
+                    {this.state.selectedTypeChart && (
+                        <div className="select-filter-chart-wrapper">
+                            {this.state.typeCharts.length > 1 && (
+                                <div className="select-filter-chart">
+                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                                        {this.state.typeCharts.map((type) => {
+                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
+                                        })}
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    {!this.state.isLoading && (
+                        <div className='chart-container'>
+                            <HighchartsReact
+                                highcharts={Highcharts}
+                                options={this.state.chartConfig}
+                                containerProps={{ className: 'chartContainer' }}
+                            />
+                        </div>
+                    )}
             </React.Fragment>
         );
     }
