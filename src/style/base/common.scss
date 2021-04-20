@@ -984,10 +984,17 @@ a{
     list-style: none;
     margin-top: 2.2rem;
     padding: 0;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
     li{
       width: 50%;
       padding: 0rem 4rem 0rem 0;
       position: relative;
+      @media (max-width: 768px) {
+        width: 100%;
+        padding: 0;
+      }
       label{          
         font-family: 'OpenSans-Light';
         text-transform: uppercase;
@@ -1009,7 +1016,7 @@ a{
         &:after {
           opacity: 0.4;
           color: $gray !important;
-          top:45px;
+          top:3.5rem;
         }
       }
       &:after {
@@ -1024,6 +1031,9 @@ a{
         padding: 1rem;
         position: absolute;
         pointer-events: none;
+        @media (max-width: 768px) {
+          right: 0rem;
+        }
       }
       select{
         width: 100%;

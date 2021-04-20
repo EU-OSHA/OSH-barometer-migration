@@ -21,7 +21,7 @@ class MapChart extends Component {
 					map: require('@highcharts/map-collection/custom/europe.geo.json'),
 					spacingBottom: 20,
 					height: 800,
-					width: 800,
+					width: 1024,
 					backgroundColor: '#F0F0F0'
 				},
 			
@@ -49,12 +49,12 @@ class MapChart extends Component {
 				colorAxis: {
 							//min: 1,
 							type: 'logarithmic',
-							minColor: '#EEEECC',
-							maxColor: '#000055',
+							minColor: 'rgb(82 159 162 / 10%)',
+							maxColor: 'rgb(82 159 162 / 100%)',
 							stops: [
-								[0, '#EFEECC'],
-								[0.67, '#3333CC'],
-								[1, '#111155']
+								[0, 'rgb(82 159 162 / 10%)'],
+								[0.67, 'rgb(82 159 162 / 67%)'],
+								[1, 'rgb(82 159 162 / 100%)']
 							]
 						},
 						plotOptions: {
