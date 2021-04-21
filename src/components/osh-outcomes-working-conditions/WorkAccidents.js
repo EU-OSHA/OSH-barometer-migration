@@ -65,6 +65,8 @@ class WorkAccidents extends Component
 						callbackSelectedTab={this.callbackSelectedTab}
 						locationPath={this.state.currentPath}
 						subMenuTabs={this.state.indicatorTabs} 
+						selectCountry1={this.state.selectCountry1}
+						selectCountry2={this.state.selectCountry2}
 					/>
 				<div className="line background-main-light" />
 
