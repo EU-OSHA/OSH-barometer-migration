@@ -68,7 +68,7 @@ ReactDOM.render(
 					render={routeParams => <App literals={literals}><EconomicSectorProfile country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} 
 				/>
 				<Route
-					path="/generic-information/workforce-profile/:indicator/:subIndicator" 
+					path="/generic-information/workforce-profile/:indicator/" 
 					render={routeParams => <App literals={literals}><WorkforceProfile literals={literals} indicator={routeParams.match.params.indicator} subindicator={routeParams.match.params.subIndicator}/></App>} 
 				/>
 
