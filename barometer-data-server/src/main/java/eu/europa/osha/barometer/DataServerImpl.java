@@ -48,6 +48,14 @@ public class DataServerImpl {
 		{
 			countryToExclude = new ArrayList<String>();
 		}
+		if (chartID.indexOf("20090") > -1)
+		{
+			countryToExclude.add("AL");
+			countryToExclude.add("ME");
+			countryToExclude.add("MK");
+			countryToExclude.add("RS");
+			countryToExclude.add("TR");
+		}		
 		countryToExclude.add("UK");
 		countryToExclude.add("EU28");
 		countryToExclude.add("EU27_2020");		

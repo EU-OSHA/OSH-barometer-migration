@@ -84,6 +84,9 @@ class OSHStatistics extends Component
 	}
 
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22018 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.setState({ ...this.state, isFetching: true});
 		try {
 			getOSHCountries('MATRIX_STATISTICS' ,['UK'])
@@ -156,8 +159,9 @@ class OSHStatistics extends Component
 					<div className="matrix--elements--wrapper">
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
-								const id = `${index}-${data.country.code}`
-								return <Cards key={id} countryData={data} literals={literals} cardType={'statistics'} />
+								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
+								const id = `${index}-${data.country.code}-${position}`
+								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'statistics'} />
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>

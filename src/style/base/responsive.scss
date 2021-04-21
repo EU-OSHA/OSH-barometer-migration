@@ -1213,20 +1213,16 @@ and (max-width : 900px) {
     .compare--list{
       li{
       	width:100%;
+		padding: 0 0.5rem;
         label{ 
         	width:auto;        
           &:after{
           }
         }
-        select, dvt-select{
-        	width:58%;
-        	flex: 1;
-          font-size: 2rem;
-          option{
-            font-size: 1.4rem; 
-            &:checked{            
-            }
-          }
+        select, dvt-select, .select-component{
+			width:57%;
+			flex: 1;
+			//font-size: 2rem;
         }
       }
     }
@@ -1590,11 +1586,21 @@ and (max-width :767px)  {
           &:after{
           }
         }
-        select, dvt-select{
-        	width:60%;
-          font-size: 2rem;
+        select, dvt-select, .select-component{
+			width:60%;
+			font-size: 2rem;
+			border: 1px solid $aquamarine-light;
+			> div[class*=control]{
+				.css-g1d714-ValueContainer{
+					justify-content: left;
+				}
+			}
+			> div[class*="menu"]{
+				text-align: left;
+				font-size: 1.6rem;				
+			}
           option{
-            font-size: 1.4rem; 
+            font-size: 1.6rem; 
             &:checked{            
             }
           }
@@ -1861,19 +1867,18 @@ and (max-width :520px) {
           	content: '';
           }
         }
-        select, dvt-select{
-				  font-size: 1.8rem;
-				  display: inline-block;
-				  width: 100%;
-				  border: 1px solid;
-				  background: #FFF;
-				  padding: 1rem;
-				  margin: 0rem;
-          option{
-            font-size: 1.2rem; 
-            &:checked{            
-            }
-          }
+        select, dvt-select, .select-component{
+			font-size: 1.8rem;
+			display: inline-block;
+			width: 100%;
+			border: 1px solid;
+			background: #FFF;
+			padding: 0.4rem;
+			margin: 0rem;
+			border: 1px solid $aquamarine-light;
+			.css-g1d714-ValueContainer{
+				justify-content: center !important;
+			}
         }
       }
     }

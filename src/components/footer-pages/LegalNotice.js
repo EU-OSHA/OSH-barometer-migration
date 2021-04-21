@@ -13,6 +13,13 @@ class LegalNotice extends Component
             footerPages: footerPages
         }
 	}
+
+	componentDidMount()
+	{
+		// Update the title of the page
+		document.title = this.props.literals.L360 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
+	  
 	render()
 	{
 		return(

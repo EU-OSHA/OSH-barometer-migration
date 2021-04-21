@@ -85,12 +85,15 @@ class EUChallengesResponse extends Component
 	}
 
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.setState({ ...this.state, isFetching: true });
 		try {
 			getOSHCountries('MATRIX_STRATEGY', ['UK'])
 			.then((res) => {
-				this.setState({ countries: res.resultset })
 				if (res) {
+					this.setState({ countries: res.resultset })
 					const selectedCountry = this.state.countries.find((country) => country.code == this.props.match.params.country);
 					this.setState({ filters: {...this.state.filters, countries: [selectedCountry]} })
 				}
@@ -161,9 +164,11 @@ class EUChallengesResponse extends Component
 					<div className="matrix--elements--wrapper">
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
-								const id = `${index}-${data.country.code}`
+								const position = this.state.pageData.findIndex((pageData) => pageData == data);
+								const id = `${index}-${data.country.code}-${position}`
 								return <Cards 
 											key={id} 
+											idCard={id}
 											countryData={data} 
 											literals={literals} 
 											cardType={'challenges'} 

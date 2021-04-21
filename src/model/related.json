@@ -68,6 +68,34 @@
             }]
         }
     },
+    "osh-steering": {
+        "country-profile": {
+            "background": [{
+                "title": "L22002",
+                "text": "L22025",
+                "link": "osh-authorities({pCountry:'$scope.pCountry1'})",
+                "icon": "forum"
+            }],
+            "actors-and-stakeholders":[{
+                "title": "L22008",
+                "text": "L22041",
+                "link": "/osh-steering/social-dialogue",
+                "icon": "dialogue"
+            }],
+            "resources-and-timeframe":[{
+                "title": "L22017",
+                "text": "L22063",
+                "link": "enforcement-capacity({pCountry1:'$scope.pCountry1',pCountry2:'$scope.pCountry2'})",
+                "icon": "enforcement"
+              }],
+            "relationship-to-eu-strategic-framework":[{
+                "title": "L22002",
+                "text": "L22025",
+                "link": "osh-authorities({pCountry:'EU28'})",
+                "icon": "forum"
+            }]
+        }
+    },
     "osh-outcomes-working-conditions":{
         "work-accidents":{
             "non-fatal-work-accidents":[{
@@ -210,10 +238,20 @@
             "time-pressure":[{
                 "title": "L20674",
                 "text":"L20578",
-                "link": "osh-outcomes-working-conditions/working-conditions/mental-risk/working-hours/esener",
+                "link": "/osh-outcomes-working-conditions/mental-risk/working-hours/esener",
                 "icon": "mental-risk"
             }],
-            "poor-communication":[],
+            "poor-communication":[{
+                "title": "L20682",
+                "text": "L22058",
+                "link": "prevention-companies({pIndicator:'training-in-osh'})",
+                "icon": "prevention"
+              },{
+                "title": "L22015",
+                "text": "L22060",
+                "link": "worker-involvement({pSplit:'$scope.pSplit'})",
+                "icon": "workers"
+              }],
             "influence":[{
                 "title": "L22015",
                 "text":"L22060",

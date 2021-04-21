@@ -3,7 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -23,13 +23,57 @@ class IncomerPercapital extends Component {
 					}	
 				},
 				credits: {
-					enabled: false
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				colors: this.props.colors,
 				chart: {
 					height:500,
 					type: this.props.type,
-					backgroundColor: '#F0F0F0'
+					backgroundColor: '#F0F0F0',
+					events: {
+						render: function() {
+							  var chart = this;
+						   if (!chart.customImage)
+						   {
+							   chart.customImage = chart.renderer.image(
+								   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+								   chart.chartWidth - 130,
+								   chart.chartHeight - 37,
+								   130,
+								   37
+							   ).add();
+						   }
+						   else
+						   {
+							   chart.customImage.attr({
+								   x: chart.chartWidth - 130,
+								   y: chart.chartHeight - 37
+							   });
+						   }
+					
+						   if (chart.fullscreen.isOpen) {
+							   chart.customImage.css({
+								   display: 'block'
+							   });
+							   chart.container.className = 'highcharts-container full-screen';
+							 }
+						   else
+						   {
+							   chart.customImage.css({
+								   display: ''
+							   });	
+							   chart.container.className = 'highcharts-container';
+						   }
+						}					
+					},
 				},
 				exporting: {
 					enabled: true,
@@ -60,10 +104,11 @@ class IncomerPercapital extends Component {
 					//reversed: this.props.legend
 					itemMarginTop:4,
 					itemMarginBottom:4,
+					itemDistance: 5,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'12px',
+						fontSize:'11px',
 						textOverflow: "ellipsis",
 						//width: 250
 					}
@@ -71,6 +116,7 @@ class IncomerPercapital extends Component {
 				tooltip: {
 					useHTML: true,
 					opacity: 1,
+					borderColor:"#529FA2",
 					backgroundColor: "rgba(255, 255, 255, 1)",
 					style: {
 						zIndex: 100
@@ -85,12 +131,13 @@ class IncomerPercapital extends Component {
 						'</ul>';
 					}
 				},
+
 				plotOptions: {
 					series: {
 						stacking: this.props.stacking
-
 					},
 					line: {
+						borderWidth: 0,
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -100,7 +147,7 @@ class IncomerPercapital extends Component {
 					}
 				},
 				xAxis: {
-					
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					labels: {
 						formatter: function () {
@@ -119,6 +166,8 @@ class IncomerPercapital extends Component {
 					}
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
@@ -160,40 +209,58 @@ class IncomerPercapital extends Component {
 					let split = element.country;
 					if (!(split in auxSeries)) {
 						auxSeries[split] = []
-						
-					}auxSeries[split].push(element.value)
-					 
-				
-				});
 					
+					}auxSeries[split].push(element.value)
+
+					if (element.value == 0){
+					auxSeries[split].splice(1,auxSeries[split][0])
+					}
+				});
+
 		for (let serie in auxSeries) {
-			
-			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
+		series.push({ name: serie , data: auxSeries[serie]})
+		}
+		if (series.length == 3 ){
+			this.setState({chartConfig: {...this.state.chartConfing, xAxis: {...this.state.chartConfig.xAxis, categories},series:[...series], colors:['#f6a400','#529FA2','#003399']}})
+		}else if (series.length == 2){
+			this.setState({chartConfig:{...this.state.chartConfig, xAxis:{...this.state.chartConfig.xAxis, categories}, series:[...series], colors:this.props.colors.slice(0,2)}})
+		} else {
+			this.setState({ chartConfig: {...this.state.chartConfig, xAxis:{...this.state.chartConfig.xAxis, categories}, series: [...series], colors: this.props.colors }})
 		}
 
-		this.setState({
-			chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-		})
+		// this.setState({
+		// 	chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+		// })
 	});
 		
 	}
 
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
+	}
+
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
 		if (prevProps.chart != this.props.chart){
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+			this.getCredits(this.props.chart);
 		}
 		
 	}

@@ -85,6 +85,9 @@ class OSHAuthorities extends Component
 	}
 
 	 componentDidMount() {
+		// Update the title for the page
+		document.title = this.props.literals.L22002 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		//  TODO: possible change to API folder with fetch code - here goes the function call only / Calls for countries
 		this.setState({ ...this.state, isFetching: true });
 		try {
@@ -158,8 +161,10 @@ class OSHAuthorities extends Component
 					<div className="matrix--elements--wrapper">
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
-								const id = `${index}-${data.country.code}`
-								return <Cards key={id} countryData={data} literals={literals} cardType={'institution'}/>
+								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
+								const id = `${index}-${data.country.code}-${position}`
+
+								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'institution'}/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>

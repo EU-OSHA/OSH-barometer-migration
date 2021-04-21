@@ -31,10 +31,10 @@ class CountryCards extends Component{
 
         if(countryData.data !== undefined){
             if(page === 'socialDialogue'){
-                firstPercentage = countryData.data.E3Q350_1 != 0 ? Math.round(countryData.data.E3Q350_1*100)+"%" : "-";
-                secondPercentage = countryData.data.E3Q350_2 != 0 ? Math.round(countryData.data.E3Q350_2*100)+"%" : countryData.countryCode != "AT" ? "-" : "20%";
-                thirdPercentage = countryData.data.E3Q350_4 != 0 ? Math.round(countryData.data.E3Q350_4*100)+"%" : "-";
-                fourthPercentage = countryData.data.E3Q350_3 != 0 ? Math.round(countryData.data.E3Q350_3*100)+"%" : "-";
+                firstPercentage = countryData.data.E3Q350_1 != 0 ? Math.round(countryData.data.E3Q350_1)+"%" : "-";
+                secondPercentage = countryData.data.E3Q350_2 != 0 ? Math.round(countryData.data.E3Q350_2)+"%" : countryData.countryCode != "AT" ? "-" : "20%";
+                thirdPercentage = countryData.data.E3Q350_4 != 0 ? Math.round(countryData.data.E3Q350_4)+"%" : "-";
+                fourthPercentage = countryData.data.E3Q350_3 != 0 ? Math.round(countryData.data.E3Q350_3)+"%" : "-";
             }else{
                 firstPercentage = countryData.data["Job satisfaction"] != 0 ? Math.round(countryData.data["Job satisfaction"])+"%" : "-";
                 secondPercentage = countryData.data["Health affected by work"] != 0 ? Math.round(countryData.data["Health affected by work"])+"%" : "-";

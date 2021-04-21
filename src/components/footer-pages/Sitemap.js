@@ -1,3 +1,4 @@
+import { faWindowMinimize } from '@fortawesome/free-regular-svg-icons';
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,14 @@ class Sitemap extends Component
             menu: menu
         }
 	}
+
+	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L356 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
+		window.scrollTo(0, 0);
+	}
+
 
 	firstLevelElement(pElement) 
 	{
@@ -76,7 +85,7 @@ class Sitemap extends Component
 							</Link>
 						</li>
 						<li>
-							<Link to="privacy-policy">
+							<Link to="privacy-notice">
 								{ReactHtmlParser(this.props.literals.L359)}
 							</Link>
 						</li>

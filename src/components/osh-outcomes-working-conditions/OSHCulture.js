@@ -14,14 +14,34 @@ class OSHCulture extends Component
 
 		this.state = {
 			indicatorTabs: subTabs,
-			selectedTab: '',
-			chartDimension: 'column'
+			selectedTab: this.props.indicator,
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
+			currentPath: '/osh-outcomes-working-conditions/osh-culture/'
 		}
 		
 	}
 
-	handleSelectedTab = (callback) => {
+	updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartDimension: 'column' });
+		} else {
+			this.setState({ chartDimension: 'bar' })
+		}
+	}
+
+	callbackSelectedTab = (callback) => {
 		this.setState({ selectedTab: callback })
+	}
+
+	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
+		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension)
 	}
 	
 	render()
@@ -30,13 +50,19 @@ class OSHCulture extends Component
 			<div className="osh-culture">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture"]} />
 
-				<SubMenuTabs literals={this.props.literals} onSelectedTab={this.handleSelectedTab} subMenuTabs={this.state.indicatorTabs} />
+				<SubMenuTabs 
+					literals={this.props.literals} 
+					callbackSelectedTab={this.callbackSelectedTab} 
+					subMenuTabs={this.state.indicatorTabs}
+					selectedTab={this.state.selectedTab}
+					locationPath={this.state.currentPath}
+				/>
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart" >
 						<div className="chart--block">
 							{this.state.indicatorTabs.map((tab) => {
-								if (tab.literalTab == this.state.selectedTab) {
+								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
 									return (
 										<div key={tab.literalTab}>
 											<HealthAwareness
@@ -44,7 +70,7 @@ class OSHCulture extends Component
 												tabIndicator={tab.literalTab}
 												chartType={tab.chartType}
 												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-												type={'column'}
+												type={this.state.chartDimension}
 												percentage={true}
 											/>
 										</div>
@@ -56,7 +82,8 @@ class OSHCulture extends Component
 				</div>
 				
 				<Methodology />
-				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture","health-and-safety-discussed"]} />
+
+				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab]} />
 			</div>
 		)
 	}

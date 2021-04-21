@@ -4,6 +4,7 @@ import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
+import Related from '../common/Related';
 
 const API_ADDRESS = process.env.BASE_URL;
 class CountryProfile extends Component
@@ -13,7 +14,8 @@ class CountryProfile extends Component
 		this.state = {
 			countryProfileData1: {}, 
 			countryProfileData2: {}, 
-			openListClass: "", 
+			openListClass: "",
+			tabIndicators: false,
 			countriesSelect1: [], 
 			countriesSelect2: [], 
 			indicators: [],
@@ -45,7 +47,11 @@ class CountryProfile extends Component
 	}
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.retrieveCountryProfileData();
+		console.log(this.state.country1)
 	}
 
 	componentDidUpdate(prevProps, prevState){
@@ -61,23 +67,12 @@ class CountryProfile extends Component
 		if (prevState.country2 != this.state.country2) {
 			this.retrieveCountryProfileData();
 		}
+
 	}
 
-	openIndicatorsList = (event) => {
-		
-		if( window.innerWidth < 990 ){
-			
-			if(event.target.nodeName == "A"){
-			  var parentTag = event.target.offsetParent.nextSibling.parentNode.className;
-			} else if( event.target.nodeName == "LI" ){
-			  var parentTag = event.target.parentNode.className;
-			} 
-
-			if(parentTag.indexOf('open-list') < 0 ){
-				this.setState({openListClass: "open-list"});
-			} else {
-				this.setState({openListClass: ""});
-			}
+	openIndicatorsList = () => {
+		if (window.innerWidth < 768) {
+			this.setState({ tabIndicators: !this.state.tabIndicators })
 		}
 	}
 
@@ -231,10 +226,10 @@ class CountryProfile extends Component
 
 		if(this.state.indicators.length > 0){
 			indicatorTabs = (
-				<ul className={"submenu--items--wrapper "+this.state.openListClass}>
+				<ul className={`submenu--items--wrapper ${this.state.tabIndicators ? 'open-list' : ''}`}>
 					{
 						this.state.indicators.map((indicator, index) => (
-							<li key={index} onClick={this.openIndicatorsList(this)} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
+							<li key={index} onClick={this.openIndicatorsList} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
 								<Link to={"/osh-steering/country-profile/"+this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-')+"/"
 									+this.state.country1+"/"+(this.state.country2 != undefined ? this.state.country2 : "" )} 
 									onClick={this.changeIndicator(this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-'))}
@@ -283,6 +278,15 @@ class CountryProfile extends Component
 				</section>
 
 				<Methodology />
+
+				{(this.state.indicator == 'background' 
+					|| this.state.indicator == 'actors-and-stakeholders' 
+					|| this.state.indicator == 'resources-and-timeframe' 
+					|| this.state.indicator == 'relationship-to-eu-strategic-framework') 
+					&& (
+					<Related literals={this.props.literals} section={["osh-steering", "country-profile", this.state.indicator]} />
+				)}
+				
 			</div>
 		)
 	}

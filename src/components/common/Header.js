@@ -131,7 +131,7 @@ class Header extends Component
 	{
 		// Get the current pathname in an array
 		let pathname = location.pathname.split("/");
-		if (pID === pathname[1] || (pathname[1] == '' && pID == 'home') || (pathname[1] == 'about-detail-page' && pID == "about-tool"))
+		if (pID === pathname[1] || (pathname[1] == '' && pID == 'home') || (pathname[1] == 'country-report' && pID == "about-the-system"))
 		{
 			return 'main-menu-selected';
 		}
@@ -241,7 +241,7 @@ class Header extends Component
 					<section className="bar-header container-fluid">
 						<div className="header--top">
 							<div className="osh-barometer-legend">
-								<h1 className="main-title"><a to="home" title="OSH BAROMETER Home" href=""><span className="title">OSH BAROMETER</span> <span className="lead-title">Data Visualisation Tool</span></a></h1>
+								<h1 className="main-title"><a to="home" title="OSH BAROMETER Home" href="/"><span className="title">OSH BAROMETER</span> <span className="lead-title">Data Visualisation Tool</span></a></h1>
 							</div>
 							<div className="eu-osha-logo">
 								<a href="https://osha.europa.eu" role="link" title="EUOSHA corporate website" tabIndex="0" >

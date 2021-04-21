@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
@@ -6,19 +6,23 @@ import EmploymentRate from '../common/charts/EmploymentRate';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
-import IncomerPercapital from '../common/charts/IncomePerCapita'
+import IncomerPercapital from '../common/charts/IncomePerCapita';
+import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
 
 const EconomicSectorProfile = (props) => {
 
+	// Update the title of the page
+	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
+
 	//console.log('props', props);
-	
-	const [pais1,setPais1]=useState(props.country1);
-	const [pais2,stePais2]=useState("");
+
+	const [selectCountry1, setSelectCountry1]= useState(props.country1);
+	const [selectCountry2, setSelectCountry2]= useState(props.country2);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	
+	const [defaultValue,setDefaultValue]=useState('');
 
 
 	const selectEuro2 = (e) =>{
@@ -52,12 +56,12 @@ const EconomicSectorProfile = (props) => {
 		}
 	}
 
-	const handleSearch = (pais1) => {
-		setPais1(pais1);
+	const handleSearch = (selectCountry1) => {
+		setSelectCountry1(selectCountry1);
 	}
 
-	const handleSearch2 = (pais2)=>{
-		stePais2(pais2)
+	const handleSearch2 = (selectCountry2)=>{
+		setSelectCountry2(selectCountry2)
 	}
 
 		return(
@@ -74,7 +78,9 @@ const EconomicSectorProfile = (props) => {
 								handleSearch2={handleSearch2} 
 								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
 								literals={props.literals}
-							/>
+								selectedCountry1={selectCountry1}
+								selectedCountry2={selectCountry2}	
+								/>
 						</ul>
 					</form>
 					
@@ -98,11 +104,11 @@ const EconomicSectorProfile = (props) => {
 									title='Company Size'
 									colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
 									showDataLabel={true}
-									tick={20}
+									tick={40}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20089'}
 									indicator={'31'}
 									/>
@@ -125,12 +131,13 @@ const EconomicSectorProfile = (props) => {
 									tick={20}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20010'}
 									indicator={'32'}
 									stacking='percent'
 									reversed={false}
+									//reversedStacks={true}
 									/>
 								</div>
 								</div>
@@ -150,8 +157,8 @@ const EconomicSectorProfile = (props) => {
 									tick={20}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20011'}
 									indicator={'33'}
 									/>
@@ -178,14 +185,14 @@ const EconomicSectorProfile = (props) => {
 
 								<div className="chart--wrapper">
 								<ChartHuman
-									title='GDP per capita in ralation to EU27_2020 average'
+									title='GDP per capita in to relation EU27_2020 average'
 									colors={['#ffae00','#529FA2','#003399']}
 									showDataLabel={true}
 									//tick={20}
 									percentage='ft'
 									type='column'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={chart2}
 									indicator={indicator2}									
 									/>
@@ -223,13 +230,13 @@ const EconomicSectorProfile = (props) => {
 								<div className="chart--wrapper">
 								<IncomerPercapital
 									title='Income per capita'
-									colors={['#f6a400','#003399','#449fa2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+									colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
 									showDataLabel={true}
 									tick={5000}
 									percentage='€'
 									type='line'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={chart}
 									indicator={indicator}
 									/>

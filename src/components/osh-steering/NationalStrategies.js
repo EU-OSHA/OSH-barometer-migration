@@ -31,6 +31,9 @@ class NationalStrategies extends Component
 	}
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		getNationalStrategiesCountries()
 			.then((res) => {
 				// this.setState({ countries: res.resultset });

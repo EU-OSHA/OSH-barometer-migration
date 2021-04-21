@@ -3,7 +3,9 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
+
+import oshaLogo from '../../../style/img/EU-OSHA-en.png';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -25,45 +27,58 @@ class Chart extends Component {
 					}					
 				},
 				credits: {
-					enabled: false
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				colors: this.props.colors,
 				chart: {
 					height:450,
+					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
-					// events: {
-					// 	render: function() {
-					// 	  var chart = this;	
-					// 	  console.log(chart.yAxis[0].height);
-					// 	  if (!chart.customImage) {
-					// 			chart.customImage = chart.renderer.image(
-					// 			'https://www.highcharts.com/samples/graphics/sun.png',
-					// 			chart.plotLeft + chart.plotSizeX - 250,
-					// 			chart.plotTop + chart.plotSizeY - 130,
-					// 			130,
-					// 			130
-					// 			).add();
-					// 	  } else {
-					// 			chart.customImage.attr({
-					// 			x: chart.plotLeft + chart.plotSizeX - 50,
-					// 			y: chart.plotTop + chart.plotSizeY + 30
-					// 			});
-					// 	  }
-				  
-					// 	  if (!chart.fullscreen.isOpen) {
-					// 			chart.customImage.css({
-					// 			display: 'none'
-					// 			});
-					// 	  } else {								
-					// 			chart.customImage.css({
-					// 			display: 'block'
-					// 			});								
-					// 			// chart.legend.options.layout = "horizontal";
-					// 			console.log(chart.yAxis[0].height);	
-					// 	  }	
-					// 	}						
-					// },
+					events: {
+					 	render: function() {
+					 	  	var chart = this;
+							if (!chart.customImage)
+							{
+								chart.customImage = chart.renderer.image(
+									'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+									chart.chartWidth - 130,
+									chart.chartHeight - 37,
+									130,
+									37
+								).add();
+							}
+							else
+							{
+								chart.customImage.attr({
+									x: chart.chartWidth - 130,
+									y: chart.chartHeight - 37
+								});
+							}
+
+							if (chart.fullscreen.isOpen) {
+								chart.customImage.css({
+									display: 'block'
+								});
+								chart.container.className = 'highcharts-container full-screen';
+						  	}
+							else
+							{
+								chart.customImage.css({
+									display: ''
+								});	
+								chart.container.className = 'highcharts-container';
+							}
+					 	}					
+					},
 				},
 				exporting: {
 					enabled: true,
@@ -71,6 +86,12 @@ class Chart extends Component {
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					},
+					chartOptions:
+					{
+						credits: {
+							enabled: true
 						}
 					}
 				},
@@ -97,6 +118,7 @@ class Chart extends Component {
 					//layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
+					
 					//width: 300,
 					itemStyle: {
 						fontFamily: 'OpenSans',
@@ -110,14 +132,18 @@ class Chart extends Component {
 					series: {
 						shadow: false,
 						outline: 0,
-						stacking: this.props.stacking
+						stacking: this.props.stacking,
+						//pointPadding: 0.25
 					},
 					column: {
-						stacking: this.props.stackingColumn
+						stacking: this.props.stackingColumn,
+						borderWidth: 0,
+						pointPadding: 0.1
 					},
 					bar: {
 						minPointLength:3,
 						groupPadding:0.06,
+						borderWidth: 0,
 						pointWidth:this.props.stacking ? 50 : undefined,
 						dataLabels: {
 							align: 'left',
@@ -142,6 +168,7 @@ class Chart extends Component {
 					useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor:"#529FA2",
 					zIndex: 100,
 					style: {
 						zIndex: 100
@@ -155,6 +182,7 @@ class Chart extends Component {
 					},
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					
 					labels: {
@@ -178,8 +206,11 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
+					reversedStacks: false,
 					reversed: this.props.reversed,
-					max: this.props.yAxisMax,
+					max: 100,
 					tickInterval: this.props.tick,
 					title: {
 						enabled: false
@@ -225,7 +256,6 @@ class Chart extends Component {
 		for (let serie in auxSeries) {
 			
 			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
 		}
 
 		this.setState({
@@ -235,18 +265,34 @@ class Chart extends Component {
 		
 	}
 
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
+	}
+
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
+		// if (prevProps.type != this.props.type){
+		// 	this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
+		// }
+		// if (prevProps.title != this.props.title){
+		// 	this.setState({...chartConfig, title: {...chartConfig.title, text:this.props.title}})
+		// }
 	}
 
 	render() {
