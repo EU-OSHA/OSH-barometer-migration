@@ -7,6 +7,9 @@ import Carousel from 'react-bootstrap/Carousel';
 class Home extends Component
 {
 	componentDidMount(){
+
+		// Update the title of the page
+		document.title = 'OSH Barometer | Home';
       
 		function getWidth(){
 			if (typeof window.innerWidth != 'undefined') {
