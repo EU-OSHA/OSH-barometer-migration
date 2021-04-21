@@ -76,6 +76,9 @@ class WorkforceProfile extends Component
 	}
 
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22004 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363
+
 		this.getLoadData(this.state.countryName);
 	}
 

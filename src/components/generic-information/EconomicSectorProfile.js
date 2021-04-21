@@ -11,6 +11,9 @@ import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
 
 const EconomicSectorProfile = (props) => {
 
+	// Update the title of the page
+	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
+
 	//console.log('props', props);
 
 	const [selectCountry1, setSelectCountry1]= useState(props.country1);
@@ -19,7 +22,7 @@ const EconomicSectorProfile = (props) => {
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	const [defaultValue,setDefaultValue]=useState('')
+	const [defaultValue,setDefaultValue]=useState('');
 
 
 	const selectEuro2 = (e) =>{

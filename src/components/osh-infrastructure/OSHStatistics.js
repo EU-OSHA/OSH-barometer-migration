@@ -84,6 +84,9 @@ class OSHStatistics extends Component
 	}
 
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22018 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.setState({ ...this.state, isFetching: true});
 		try {
 			getOSHCountries('MATRIX_STATISTICS' ,['UK'])

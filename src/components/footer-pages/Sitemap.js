@@ -19,7 +19,10 @@ class Sitemap extends Component
 	}
 
 	componentDidMount(){
-		window.scrollTo(0, 0)
+		// Update the title of the page
+		document.title = this.props.literals.L356 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
+		window.scrollTo(0, 0);
 	}
 
 

@@ -7,6 +7,9 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 
 const OverallOpinion = (props) => {
+
+	// Update the title of the page
+	document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
 		
 	const [selectCountry1,setSelectCountry1]=useState('AT');
 	const [selectCountry2,setSelectCountry2]=useState('');
