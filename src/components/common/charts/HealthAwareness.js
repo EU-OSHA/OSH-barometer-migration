@@ -117,7 +117,7 @@ class HealthAwareness extends Component {
 					}
 				},
                 tooltip: {
-                    useHtml: true,
+                    useHTML: true,
                     opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
 					zIndex: 100,
@@ -133,7 +133,7 @@ class HealthAwareness extends Component {
 						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
 						'<li><strong class="tooltip-value up">Value: </strong> '+ this.y +'%</li>' +
 						'</ul>';
-                    }
+                    },
                 },
                 xAxis: {
                     lineWidth: 0,
