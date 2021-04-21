@@ -21,13 +21,13 @@ const OverallOpinion = (props) => {
     const [indicatorTabs, setIndicatorTabs] = useState([{ literalTab: '322' }, { literalTab: '323' }]);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [isSubMenuOpen,setIsSubMenuOpen]= useState(false)
+	const [sector, setSector]= useState('sector')
 
 useEffect(() => {
 updateDimension();
-
 window.addEventListener('resize',updateDimension);
 return ()=> window.removeEventListener('resize',updateDimension);
-}, [])
+}, [window.innerWidth])
 
  
 const updateDimension = () =>{
@@ -65,7 +65,10 @@ const callbackSelectedTab = (callback) => {
 					selectedTab={selectedTab}
 					callbackSelectedTab={callbackSelectedTab}
 					locationPath={currentPath}
-					subMenuTabs={indicatorTabs} 
+					subMenuTabs={indicatorTabs}
+					selectCountry1={selectCountry1}
+					selectCountry2={selectCountry2}
+					sector={sector}
 				/>
 				
 				 <div className="">						

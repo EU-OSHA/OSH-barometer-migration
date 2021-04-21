@@ -3,14 +3,11 @@ import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 import AdviceSection from '../common/AdviceSection';
 
-class WorkingConditions extends Component
-{
-	componentDidMount()
-	{
-		// Update the title of the page
-		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
-	}
-
+class WorkingConditions extends Component {
+			constructor(props){
+				super(props);
+			}
+	
 	render()
 	{
 		return(
