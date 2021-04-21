@@ -1,3 +1,7 @@
+//** print styles.
+$enable-print-styles: false !default;
+$print-page-size:  a4 !default;
+
 @import "~bootstrap/scss/bootstrap";
 @import './base/bootstrap-dvt-variables.scss';
 @import  './css/bootstrap-dvt.scss';
