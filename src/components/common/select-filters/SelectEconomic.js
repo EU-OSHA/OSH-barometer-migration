@@ -49,12 +49,22 @@ import { data } from 'jquery';
             setSelectCountry2(data.resultset);
           })
       } else {
-        getNationalStrategiesCountries([country1])
+        getNationalStrategiesCountries(country1)
           .then((data) => {
+            const countryData = data.resultset.find((element) => element.code == country2);
+            if (countryData) {
+              setDefaultValue2({ label: countryData.name, value: countryData.code })
+            } else {
+              setDefaultValue2({ label: 'Country', value: null })
+            }
             setSelectCountry2(data.resultset);
           })
-        getNationalStrategiesCountries([country2])
+        getNationalStrategiesCountries(country2)
           .then((data) => {
+            const countryData = data.resultset.find((element) => element.code == country1);
+            if (countryData) {
+              setDefaultValue({ label: countryData.name, value: countryData.code})
+            }
             setSelectCountry1(data.resultset)
           })
       }
@@ -83,8 +93,6 @@ import { data } from 'jquery';
       console.log('Error fetching selected country in Select box 1', error.message);
     }
   }
-
-  
 
   const getSelectIndicators2 = (country) => {
     try {
