@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import Methodology from '../common/Methodology';
+import Related from '../common/Related';
 import AdviceSection from '../common/AdviceSection';
 import Chart from '../common/charts/Chart';
 import RiskChart from '../common/charts/RiskChart';
@@ -22,6 +24,7 @@ const OverallOpinion = (props) => {
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [isSubMenuOpen,setIsSubMenuOpen]= useState(false)
 	const [sector, setSector]= useState('sector')
+	const [legend,setLegend]=useState(props.literals.L20582)
 
 useEffect(() => {
 updateDimension();
@@ -41,12 +44,22 @@ const updateDimension = () =>{
 	}
 
 }
-//console.log(currentPath)
+
 
 const callbackSelectedTab = (callback) => {
 	setSelectedTab( callback )
-}
 
+}
+	const handleSector =(sector)=> {
+		if(sector == 'sector'){
+			setLegend(props.literals.L20582)
+		}else if(sector == 'age'){
+			setLegend(props.literals.L20583)
+		}else{
+			setLegend(props.literals.L20581)
+		}
+		console.log(legend)
+	}
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
 	}
@@ -95,6 +108,9 @@ const callbackSelectedTab = (callback) => {
 											/> 
 										</div>
 									</div>
+									<div className="chart-legend">
+											{props.literals.L20580}
+											</div>
 								</div>								
 							</div>
 		
@@ -129,15 +145,23 @@ const callbackSelectedTab = (callback) => {
 												sector={[8,9,10,11,12,13]}
 												gender={[1,2,3]}
 												age={[1,2,3,4]}
+												handleSector={handleSector}
 											/> 
 										</div>
 									</div>
+									<div className="chart-legend">
+											{legend}
+											</div>
 								</div>								
 							</div>}			
 		
 						</div>
-					</div> 
+						
+				</div> 
 
+				<Methodology />
+
+				<Related literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion",props.indicator]} />
 		</div>
 		)
 	

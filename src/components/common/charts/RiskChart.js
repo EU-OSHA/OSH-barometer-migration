@@ -186,9 +186,11 @@ class Chart extends Component {
 
 	
 handleSelect = (e) => {
+	const sector = e.target.value
 	this.setState({
 		select: e.target.value
 	})
+	this.props.handleSector(sector);
 }
 	
 
@@ -270,9 +272,7 @@ handleSelect = (e) => {
 					options={this.state.chartConfig}
 					containerProps={{ className: 'chartContainer' }}
 				/>
-				{/* <div>
-					{this.props.indicator}-{this.props.chart}-{this.props.selectCountry1}-{this.props.selectCountry2}
-				</div> */}
+			
 			</div>
 		)
 	}
