@@ -15,15 +15,19 @@ public class IndicatorData {
 	public String getCountry() {
 		return country;
 	}
-	public void setCountry(String countryCode, String countryName) {
+	public void setCountry(String countryCode, String countryName, boolean pCountryCodeFirst) {
 		// EU27_2020 and EU28 do not need the country code before the country name
 		if (countryCode.equalsIgnoreCase("EU27_2020") || countryCode.equals("EU28"))
 		{
 			this.country = countryCode;
 		}
-		else
+		else if (pCountryCodeFirst)
 		{
 			this.country = "("+countryCode+") "+countryName;
+		}
+		else
+		{
+			this.country = countryName+" ("+countryCode+")";
 		}
 	}
 	

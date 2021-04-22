@@ -3,7 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -26,12 +26,56 @@ class EmploymentRate extends Component {
 				},
 				colors: this.props.colors, 
 				credits: {
-					enabled: false,
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				chart: {
 					height: 450,
 					type: this.props.type,
-					backgroundColor: '#F0F0F0'
+					backgroundColor: '#F0F0F0',
+					events: {
+						render: function() {
+							  var chart = this;
+						   if (!chart.customImage)
+						   {
+							   chart.customImage = chart.renderer.image(
+								   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+								   chart.chartWidth - 130,
+								   chart.chartHeight - 37,
+								   130,
+								   37
+							   ).add();
+						   }
+						   else
+						   {
+							   chart.customImage.attr({
+								   x: chart.chartWidth - 130,
+								   y: chart.chartHeight - 37
+							   });
+						   }
+
+						   if (chart.fullscreen.isOpen) {
+							   chart.customImage.css({
+								   display: 'block'
+							   });
+							   chart.container.className = 'highcharts-container full-screen';
+							 }
+						   else
+						   {
+							   chart.customImage.css({
+								   display: ''
+							   });	
+							   chart.container.className = 'highcharts-container';
+						   }
+						}					
+				   	},
 				},
 				exporting: {
 					enabled: true,
@@ -120,6 +164,7 @@ class EmploymentRate extends Component {
                     useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor:"#529FA2",
 					zIndex: 100,
 					style: {
 						zIndex: 100
@@ -140,7 +185,7 @@ class EmploymentRate extends Component {
 					}
 				},
 				xAxis: {
-					lineWidth: 0,					
+					lineWidth: 0,
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -164,7 +209,7 @@ class EmploymentRate extends Component {
 				yAxis: {
 					lineWidth: 0,
 					gridLineColor: '#FFF',
-                    gridLineWidth: 2,
+          gridLineWidth: 2,
 					max: 100,
 					tickInterval: this.props.tick,
 					title: {
@@ -183,6 +228,16 @@ class EmploymentRate extends Component {
 				series: []
 			}
 		}
+	}
+
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			//console.log('text',text);
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
 	}
 
 	getLoadData = (chart, indicator, country1, country2) => {
@@ -235,6 +290,7 @@ class EmploymentRate extends Component {
 
 	componentDidMount() {
 		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {

@@ -16,7 +16,8 @@ class WorkAccidents extends Component
 			selectCountry1: 'AT',
 			selectCountry2: '',
 			indicatorTabs: [{ literalTab: '310' }, { literalTab: '311' }],
-			selectedTab: 'non-fatal-work-accidents',
+			selectedTab: this.props.indicator,
+			currentPath: '/osh-outcomes-working-conditions/work-accidents/',
 			isSubMenuOpen: false,
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar'
 		}
@@ -29,8 +30,8 @@ class WorkAccidents extends Component
 		this.setState({ selectCountry2: callbackCountry2 })
 	}
 
-	handleSelectedTab = (callback) => {
-		this.setState({ selectedTab: this.props.literals[`L${callback}`].toLowerCase().replace(/ /g, '-') })
+	callbackSelectedTab = (callback) => {
+		this.setState({ selectedTab: callback })
 	}
 
 	updateDimension = () => {
@@ -40,19 +41,16 @@ class WorkAccidents extends Component
 			this.setState({ chartDimension: 'bar' })
 		}
 	}
-
+	
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22010 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		window.addEventListener('resize', this.updateDimension);
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.updateDimension)
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState != this.state) {
-			console.log(this.state)
-		}
 	}
 
 	render()
@@ -61,8 +59,15 @@ class WorkAccidents extends Component
 			<div className="work-accidents">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
 				<form className="compare--block--form">
-				<SubMenuTabs literals={this.props.literals} onSelectedTab={this.handleSelectedTab} subMenuTabs={this.state.indicatorTabs} />
-
+					<SubMenuTabs 
+						literals={this.props.literals}
+						selectedTab={this.state.selectedTab}
+						callbackSelectedTab={this.callbackSelectedTab}
+						locationPath={this.state.currentPath}
+						subMenuTabs={this.state.indicatorTabs} 
+						selectCountry1={this.state.selectCountry1}
+						selectCountry2={this.state.selectCountry2}
+					/>
 				<div className="line background-main-light" />
 
 				{this.state.selectedTab == 'non-fatal-work-accidents' && (
@@ -76,11 +81,10 @@ class WorkAccidents extends Component
 						selectedCountry2={this.state.selectCountry2}
 					/>
 				)}
-
 				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
-					<div className="card--block--chart">
+					<div className="card--block--chart no-filters">
 						<div className="chart--block">
 						{this.state.selectedTab == 'non-fatal-work-accidents' ? (
 							<WorkAccidentsChart 
@@ -115,7 +119,7 @@ class WorkAccidents extends Component
 			</form>
 				<Methodology />
 
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents", this.state.selectedTab ]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents", this.props.indicator ]} />
 				
 		</div>
 		)
@@ -124,6 +128,3 @@ class WorkAccidents extends Component
 
 WorkAccidents.displayName = 'WorkAccidents';
 export default WorkAccidents;
-
-
- 

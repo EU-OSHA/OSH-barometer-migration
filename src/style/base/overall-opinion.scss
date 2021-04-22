@@ -3,7 +3,7 @@
 	.submenu--block{
 		.submenu--items--wrapper{
 			//justify-content: flex-start;
-	    justify-content: center;
+	    	justify-content: center;
 			&.level2{
 				li{
 					&.active{
@@ -29,7 +29,7 @@
 		}
 	}
 	.card--grid{
-		margin: 4rem auto;
+		margin: 4rem auto 4rem;
 		.title-section{
 			span{
 			  padding-left: 12rem;
@@ -39,15 +39,17 @@
 			}
 		}
 		.card--block--chart{
-			position: relative;		  
+			position: relative;	
+			padding: 5rem 2rem 3rem 2rem;	  
 			.chart--submenu {
 			  top: 1rem;
 			  right:0rem;
 			}
 			.select-filter-chart{
-		    position: absolute;
-		    right: 6.5rem;
-		    top: 2.7rem;
+			position: absolute;
+			right: 3.1rem;
+			top: 1rem;
+			z-index: 10;
 		    //width: 25%;
 		    z-index: 10;
 				&:after{
@@ -243,19 +245,26 @@ dvt-radar-chart[datasource-and-dates="datasourcesAndDates"]
 	}
  
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 
-	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement{
+	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement, .work-accidents {
 		.card--grid{
+			margin-top: 0;
+			padding: 2rem !important;
+			margin-bottom: 0;	
 			.card--block--chart{ 
-		    margin: 0rem;
+		    	margin: 0rem;
 				h2{
 					padding: 1rem 0;
 				}
 				.select-filter-chart{
 					width: 35%;
 				}
-			}		
+			}
+			.chart-legend{
+				text-align: left;
+				padding: 2rem;
+			}	
 		}
 		.card--block--chart{ 
 			.chart--submenu {
@@ -270,9 +279,9 @@ dvt-radar-chart[datasource-and-dates="datasourcesAndDates"]
 
 }
 
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 767px) {
 
-	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement{
+	.overall-opinion, .prevention-companies, .mental-risk, .physical-risk, .worker-involvement, .work-accidents {
 		div[query="getJobSatisfactionHorizontalData"],
 		div[query="getMentalRiskHorizontalData"], 
 		div[query="getPhysicalRiskHorizontalData"]{
@@ -283,13 +292,23 @@ dvt-radar-chart[datasource-and-dates="datasourcesAndDates"]
 		.section--page{
 			padding: 2rem 0rem;
 		}
-		.card--block--chart{ 
-			h2{
-				padding: 1.5rem 0;
-			}
-	    border-radius: 0;
-			.select-filter-chart{
-				width: 55% !important;
+		.card--grid{
+			padding: 0rem !important;
+			margin-bottom: 0;		
+			.card--block--chart{ 
+				padding-top: 6rem;
+				border-radius: 0;
+				&.no-filters{
+					padding-top: 4rem;
+					border-radius: 0;
+					margin: 0;
+				}
+				h2{
+					padding: 1.5rem 0;
+				}	    
+				.select-filter-chart{
+					width: 55% !important;
+				}
 			}
 		}	
 	}

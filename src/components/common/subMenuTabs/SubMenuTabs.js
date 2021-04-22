@@ -1,60 +1,94 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
-class SubMenuTabs extends Component {
-    constructor(props) {
-        super(props);
+const SubMenuTabs = props => {
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+    const [selectedTab, setSelectedTab] = useState(props.selectedTab);
+    const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
+    const [country1,setCountry1]= useState(props.selectCountry1);
+    const [country2, setCountry2]= useState(props.selectCountry2)
+
+    const history = useHistory();
+    useEffect(() => {
+        setSelectedTab(props.selectedTab)
+        loadUrl();
+    }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2]);
+
+
+
+const loadUrl = ()=>{
+    if (props.selectedSurvey) {
+        history.push({
+            pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
+        })
+    } else{
+        history.push({
+            pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+        })
+    }
+}
+
+
+    useEffect(() => {
+        if (window.innerWidth > 990) {
+            setIsSubMenuOpen(false);
+        }
+    }, [window.innerWidth])
+
+    const onClickIndicator = (e, indicator) => {
+		e.preventDefault();
+
+        const newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
+        setSelectedTab(newIndicator);
+        props.callbackSelectedTab(newIndicator);
         
-        this.state = {
-            isSubMenuOpen: false,
-            selectedTab: this.props?.subMenuTabs[0].literalTab,
-            indicatorTabs: this.props.subMenuTabs
-        }
-    }
-
-    onClickIndicator = (e, indicator) => {
-		e.preventDefault();
-
-		this.setState({ selectedTab: `${indicator}` });
-	}
-
-    onClickSubMenu = (e) => {
-		e.preventDefault();
-        if (window.innerWidth < 768) {
-            this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen })
+        if (newIndicator != props.selectedTab) {
+            if (props.selectedSurvey) {
+                history.push({
+                    pathname: `${props.locationPath}${newIndicator}/${props.selectedSurvey}`
+                });
+            } else {
+                history.push({
+                    pathname: `${props.locationPath}${newIndicator}`
+                });
+            }
         }
 	}
 
-    componentDidMount() {
-        this.props.onSelectedTab(this.state.selectedTab);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.selectedTab != this.state.selectedTab) {
-            this.props.onSelectedTab(this.state.selectedTab);
+    const literalClass = (literal) => {
+        const translateLiteral = props.literals[`L${literal}`].toLowerCase().replace(/ /g, '-');
+        if (selectedTab == translateLiteral) {
+            return true
+        } else {
+            return false
         }
     }
-    
-    render() {
-        const props = this.props
-        return (
-            <div className="compare--block" >
-				<div className="submenu--block container">
-					<ul  className={`submenu--items--wrapper ${this.state.isSubMenuOpen ? 'open-list' : ''} `} >
-                        {this.state.indicatorTabs.map((indicator) => (
-                            <li onClick={this.onClickSubMenu} key={indicator.literalTab} className={`submenu--item ${this.state.selectedTab == indicator.literalTab ? 'active' : '' }`} >
-                                <a 
-                                    className={this.state.selectedTab == indicator.literalTab ? 'active' : ''} 
-                                    onClick={(e) => this.onClickIndicator(e, indicator.literalTab)} 
-                                    >
-                                    {this.props.literals[`L${indicator.literalTab}`]} 
-                                </a>
-                            </li>
-                        ))}
-					</ul>
-				</div>
+
+    const onClickSubMenu = (e) => {
+		e.preventDefault();
+        if (window.innerWidth <= 990) {
+            setIsSubMenuOpen(!isSubMenuOpen);
+        }
+	}
+
+    return (
+        <div className="compare--block" >
+			<div className="submenu--block container">
+				<ul  className={`submenu--items--wrapper ${isSubMenuOpen ? 'open-list' : ''} `} >
+                    {indicatorTabs.map((indicator) => (
+                        <li onClick={onClickSubMenu} key={indicator.literalTab} className={`submenu--item ${literalClass(indicator.literalTab) == true ? 'active' : '' }`} >
+                            <a 
+                                className={literalClass(indicator.literalTab) == true ? 'active' : ''} 
+                                onClick={(e) => onClickIndicator(e, indicator.literalTab)} 
+                                >
+                                {props.literals[`L${indicator.literalTab}`]} 
+                            </a>
+                        </li>
+                    ))}
+				</ul>
 			</div>
-        );
-    }
+		</div>
+    )
 }
 
 export default SubMenuTabs;

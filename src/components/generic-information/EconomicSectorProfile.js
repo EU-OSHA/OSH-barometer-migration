@@ -11,6 +11,9 @@ import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
 
 const EconomicSectorProfile = (props) => {
 
+	// Update the title of the page
+	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
+
 	//console.log('props', props);
 
 	const [selectCountry1, setSelectCountry1]= useState(props.country1);
@@ -19,26 +22,7 @@ const EconomicSectorProfile = (props) => {
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	const [defaultValue,setDefaultValue]=useState('')
-	
-
-	useEffect(()=>{
-		initCountryIndicators();
-	  },[]);
-
-
-	 // console.log(defaultValue)
- 		const initCountryIndicators = (country1, country2) => {
-			getIndicatorCountries(country1, country2)
-			  .then((data) => {
-				const datos= data.resultset.find(element=> (element.code) == selectCountry1)
-				const datos2 = datos.name
-			   setDefaultValue(datos2)
-			  // console.log(datos2)
-			   //setSelectCountry1(data.resultset);
-			  });		
-	  }
-
+	const [defaultValue,setDefaultValue]=useState('');
 
 
 	const selectEuro2 = (e) =>{
@@ -83,17 +67,24 @@ const EconomicSectorProfile = (props) => {
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />			
-				{/* FILTERS */}
-				<SelectEconomic 
-					handleSearch={handleSearch} 
-					handleSearch2={handleSearch2} 
-					charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
-					literals={props.literals}
-					selectedCountry1={selectCountry1}
-					selectedCountry2={selectCountry2}
-					countrySelect={{label:defaultValue,value:selectCountry1}}	
-				/>
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
+
+				<div className="compare--block container">
+					{/* FILTERS */}
+					<form className="compare--block--form">
+						<ul className="compare--list">
+							<SelectEconomic 
+								handleSearch={handleSearch} 
+								handleSearch2={handleSearch2} 
+								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+								literals={props.literals}
+								selectedCountry1={selectCountry1}
+								selectedCountry2={selectCountry2}	
+								/>
+						</ul>
+					</form>
+					
+				</div>
 				<div class="line background-main-light"></div>
 				<section className="container section--page">
 					<div className="card--grid xxs-w1 xs-w2 w3 center-text">

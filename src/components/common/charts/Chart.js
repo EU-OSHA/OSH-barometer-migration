@@ -3,7 +3,9 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
+
+import oshaLogo from '../../../style/img/EU-OSHA-en.png';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -25,7 +27,15 @@ class Chart extends Component {
 					}					
 				},
 				credits: {
-					enabled: false
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				colors: this.props.colors,
 				chart: {
@@ -33,38 +43,42 @@ class Chart extends Component {
 					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
-					// events: {
-					// 	render: function() {
-					// 	  var chart = this;	
-					// 	  console.log(chart.yAxis[0].height);
-					// 	  if (!chart.customImage) {
-					// 			chart.customImage = chart.renderer.image(
-					// 			'https://www.highcharts.com/samples/graphics/sun.png',
-					// 			chart.plotLeft + chart.plotSizeX - 250,
-					// 			chart.plotTop + chart.plotSizeY - 130,
-					// 			130,
-					// 			130
-					// 			).add();
-					// 	  } else {
-					// 			chart.customImage.attr({
-					// 			x: chart.plotLeft + chart.plotSizeX - 50,
-					// 			y: chart.plotTop + chart.plotSizeY + 30
-					// 			});
-					// 	  }
-				  
-					// 	  if (!chart.fullscreen.isOpen) {
-					// 			chart.customImage.css({
-					// 			display: 'none'
-					// 			});
-					// 	  } else {								
-					// 			chart.customImage.css({
-					// 			display: 'block'
-					// 			});								
-					// 			// chart.legend.options.layout = "horizontal";
-					// 			console.log(chart.yAxis[0].height);	
-					// 	  }	
-					// 	}						
-					// },
+					events: {
+					 	render: function() {
+					 	  	var chart = this;
+							if (!chart.customImage)
+							{
+								chart.customImage = chart.renderer.image(
+									'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+									chart.chartWidth - 130,
+									chart.chartHeight - 37,
+									130,
+									37
+								).add();
+							}
+							else
+							{
+								chart.customImage.attr({
+									x: chart.chartWidth - 130,
+									y: chart.chartHeight - 37
+								});
+							}
+
+							if (chart.fullscreen.isOpen) {
+								chart.customImage.css({
+									display: 'block'
+								});
+								chart.container.className = 'highcharts-container full-screen';
+						  	}
+							else
+							{
+								chart.customImage.css({
+									display: ''
+								});	
+								chart.container.className = 'highcharts-container';
+							}
+					 	}					
+					},
 				},
 				exporting: {
 					enabled: true,
@@ -72,6 +86,12 @@ class Chart extends Component {
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					},
+					chartOptions:
+					{
+						credits: {
+							enabled: true
 						}
 					}
 				},
@@ -113,7 +133,7 @@ class Chart extends Component {
 						shadow: false,
 						outline: 0,
 						stacking: this.props.stacking,
-
+						//pointPadding: 0.25
 					},
 					column: {
 						stacking: this.props.stackingColumn,
@@ -148,7 +168,7 @@ class Chart extends Component {
 					useHTML: true,
 					opacity: 1,
 					backgroundColor: "rgba(255, 255, 255, 1)",
-					borderColor: '#16983e',
+					borderColor:"#529FA2",
 					zIndex: 100,
 					style: {
 						zIndex: 100
@@ -186,8 +206,8 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
-					gridLineColor: '#FFF',
-                    gridLineWidth: 2,
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					reversedStacks: false,
 					reversed: this.props.reversed,
 					max: 100,
@@ -245,8 +265,18 @@ class Chart extends Component {
 		
 	}
 
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
+	}
+
 	componentDidMount() {
 		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -257,6 +287,12 @@ class Chart extends Component {
 		if (prevProps.selectCountry2 != this.props.selectCountry2) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
+		// if (prevProps.type != this.props.type){
+		// 	this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
+		// }
+		// if (prevProps.title != this.props.title){
+		// 	this.setState({...chartConfig, title: {...chartConfig.title, text:this.props.title}})
+		// }
 	}
 
 	render() {

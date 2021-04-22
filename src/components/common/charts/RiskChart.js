@@ -103,6 +103,7 @@ class Chart extends Component {
 					}
 				},
 				xAxis: {
+					lineWidth: 0,
 					categories: [this.props.data?.categories],
 					
 					labels: {
@@ -123,6 +124,8 @@ class Chart extends Component {
 					}
 				},
 				yAxis: {
+					gridLineColor:'#FFF',
+					gridLineWidth:2,
 					reversed: this.props.reversed,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
@@ -243,13 +246,9 @@ handleSelect = (e) => {
 		// }
 		// if (prevProps.selectCountry2 != this.props.selectCountry2) {
 		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
-		// }
+		// }		
 
-				
-		
 	}
-
-
 
 
 

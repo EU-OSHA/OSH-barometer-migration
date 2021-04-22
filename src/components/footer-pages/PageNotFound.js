@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 class PageNotFound extends Component
 {
+	componentDidMount()
+	{
+		// Update the title of the page
+		document.title = "Page not found - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
+
 	render()
 	{
 		return(

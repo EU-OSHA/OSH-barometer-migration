@@ -154,21 +154,12 @@ export function getIndicatorCountries(charts = ['20012'], indicator, country) {
 }
 
 //Get countries available for social dialogue select
-export function getNationalStrategiesCountries(countries) {
+export function getNationalStrategiesCountries(country) {
     const URL = `${BASEURL}countries/getCountriesStrategiesPage?page=STRATEGY`;
 
     const response = axios.get(URL, {
         params: {
-            country: countries
-        },
-        paramsSerializer: params => {
-            let urlWithParams = new URLSearchParams();
-
-            if (params.country) {
-                countries.map((country) => urlWithParams.append('country', country))
-            }
-
-            return urlWithParams
+            country: country
         }
     })
     .then((res) => res.data);
@@ -305,4 +296,41 @@ export function getChartDataRisk(chart, indicator, country1,country2, sector, ge
     return response;
 }
 
+// Get the datasource and the dates for the credits of the chart
+export function getDatasourceAndDates (chart)
+{
+    const URL = `${BASEURL}/metadata/getChartMetadata`;
+  
+    const response = axios.get(URL, {
+        params: {
+            chart            
+        },
+        paramsSerializer: params =>{
+            let urlWithParams = new URLSearchParams()
 
+            if(params.chart){
+                urlWithParams.append('chart',chart)
+            }
+
+            return urlWithParams;
+        }
+    }).then((res)=> {
+        let text = '';
+        for (let i = 0; i < res.data.resultset.length; i++)
+        {
+            if (i > 0)
+            {
+                text = text + '; ';
+            }
+            let metadata = res.data.resultset[i];
+            text = text + metadata.source + ', ' + metadata.yearFrom;
+            if (metadata.yearTo != null)
+            {
+                text = text + '-' + metadata.yearTo;
+            }
+        }
+        return text;
+    })
+
+    return response;
+}

@@ -79,7 +79,7 @@
             "actors-and-stakeholders":[{
                 "title": "L22008",
                 "text": "L22041",
-                "link": "social-dialogue",
+                "link": "/osh-steering/social-dialogue",
                 "icon": "dialogue"
             }],
             "resources-and-timeframe":[{
@@ -238,7 +238,7 @@
             "time-pressure":[{
                 "title": "L20674",
                 "text":"L20578",
-                "link": "osh-outcomes-working-conditions/working-conditions/mental-risk/working-hours/esener",
+                "link": "/osh-outcomes-working-conditions/mental-risk/working-hours/esener",
                 "icon": "mental-risk"
             }],
             "poor-communication":[{

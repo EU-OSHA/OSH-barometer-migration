@@ -43,6 +43,9 @@ class HealthPerception extends Component
 	} */
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22011 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		// Open a listener for and mousedown event on body page to close any of the dropdowns
 		document.addEventListener('mousedown', this.onHandleDropdown);
 		getHealthPerceptionCountries()

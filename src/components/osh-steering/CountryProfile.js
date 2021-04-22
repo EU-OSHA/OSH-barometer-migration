@@ -47,7 +47,11 @@ class CountryProfile extends Component
 	}
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.retrieveCountryProfileData();
+		console.log(this.state.country1)
 	}
 
 	componentDidUpdate(prevProps, prevState){

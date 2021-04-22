@@ -85,6 +85,9 @@ class OSHAuthorities extends Component
 	}
 
 	 componentDidMount() {
+		// Update the title for the page
+		document.title = this.props.literals.L22002 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		//  TODO: possible change to API folder with fetch code - here goes the function call only / Calls for countries
 		this.setState({ ...this.state, isFetching: true });
 		try {

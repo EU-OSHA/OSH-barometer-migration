@@ -4,20 +4,21 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select'
 import { data } from 'jquery';
 
- const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals, countrySelect}) => {
+ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selectedCountry2, indicator, charts, literals}) => {
 
   const [selectCountry1,setSelectCountry1]= useState([]);
   const [selectCountry2,setSelectCountry2]= useState([]);
   const [selectedClient,setSelectedClient]= useState(selectedCountry1);
   const [selectedClient2,setSelectedClient2]= useState(selectedCountry2);
   const [isLoading,setIsLoading] = useState(false);
-  const [defaultValue,setDefaultValue]=useState(countrySelect)
-
+  const [defaultValue, setDefaultValue]=useState({})
+  const [defaultValue2, setDefaultValue2]=useState({})
+  
   // on Component initialization, gets the indicators for each of the selects
   useEffect(()=>{
     initCountryIndicators(selectedCountry1, selectedCountry2);
-  },[]);
-console.log(defaultValue)
+  },[selectedCountry1, selectedCountry2]);
+
   const initCountryIndicators = (country1, country2) => {
     setIsLoading(true);
     try {
@@ -25,24 +26,45 @@ console.log(defaultValue)
         getIndicatorCountries(charts, indicator, country2)
           .then((data) => {
             const datos= data.resultset.find(element=> (element.code) == country1)
-          //  setDefaultValue({
-          //    label: datos.name,
-          //    value: datos.code
-          //  })
-          // console.log(defaultValue)
+           setDefaultValue({
+             label: datos.name,
+             value: datos.code
+           })
            setSelectCountry1(data.resultset);
           });
         getIndicatorCountries(charts, indicator, country1)
           .then((data) => {
+            const datos= data.resultset.find(element=> (element.code) == country2)
+            if (datos) {
+              setDefaultValue2({
+                label: datos.name,
+                value: datos.code
+              })
+            } else {
+              setDefaultValue2({
+                label: 'Country',
+                value: null
+              })
+            }
             setSelectCountry2(data.resultset);
           })
       } else {
-        getNationalStrategiesCountries([country1])
+        getNationalStrategiesCountries(country1)
           .then((data) => {
+            const countryData = data.resultset.find((element) => element.code == country2);
+            if (countryData) {
+              setDefaultValue2({ label: countryData.name, value: countryData.code })
+            } else {
+              setDefaultValue2({ label: 'Country', value: null })
+            }
             setSelectCountry2(data.resultset);
           })
-        getNationalStrategiesCountries([country2])
+        getNationalStrategiesCountries(country2)
           .then((data) => {
+            const countryData = data.resultset.find((element) => element.code == country1);
+            if (countryData) {
+              setDefaultValue({ label: countryData.name, value: countryData.code})
+            }
             setSelectCountry1(data.resultset)
           })
       }
@@ -52,8 +74,6 @@ console.log(defaultValue)
       setIsLoading(false);
     }
   }
-//console.log(defaultValue)
-
 
   const getSelectIndicators1 = (country) => {
     try {
@@ -92,6 +112,7 @@ console.log(defaultValue)
     }
   }
 
+  
    const handleSelectChange = value => {
     /**
      * Gets the selected country from select box 1 and sends it on the callback,
@@ -114,59 +135,43 @@ console.log(defaultValue)
     handleSearch2(country);
   }
 
-  const customStyles = {
-    menu: (provided, state) => ({
-      ...provided,
-      width: '300px',
-      borderBottom: '1px dotted pink',
-      color: 'black',
-      padding: 21,
-      display: 'flex'
-    }),
-    singleValue: (provided, state) => ({
-      ...provided,
-      color: "#f6a400",
-      fontSize: "20px",
-      fontWeight:"700",
-      fontFamily:"sans-serif",
-      textTransform: "uppercase"
-    })
-  }
+  // const customStyles = {
+  //   menu: (provided, state) => ({
+  //     ...provided,
+  //     width: '300px',
+  //     borderBottom: '1px dotted pink',
+  //     color: 'black',
+  //     padding: 21,
+  //     display: 'flex'
+  //   }),
+  //   singleValue: (provided, state) => ({
+  //     ...provided,
+  //     color: "#f6a400",
+  //     fontSize: "20px",
+  //     fontWeight:"700",
+  //     fontFamily:"sans-serif",
+  //     textTransform: "uppercase"
+  //   })
+  // }
 
-  const customStyles2 = {
-    menu: (provided, state) => ({
-      ...provided,
-      width: '300px',
-      borderBottom: '1px dotted pink',
-      color: 'black',
-      padding: 21,
-      display: 'flex'
-    }),
-    singleValue: (provided, state) => ({
-      ...provided,
-      color: "#529FA2",
-      fontSize: "20px",
-      fontWeight: "700",
-      fontFamily:"sans-serif",
-      textTransform: "uppercase"
-    })
-  }
-
-      
-       const customOptions = [
-         
-      {
-        value: 'pririrnjnjdn',
-        label: 'lslrems ms ccsc sjc  j sjdc zmc jac n ac kasc n',
-      }
-    ];
-      
-    const options = [
-      { name: 'John', id: 1 },
-      { name: 'Doe', id: 2 },
-    ];
-    
-    
+  // const customStyles2 = {
+  //   menu: (provided, state) => ({
+  //     ...provided,
+  //     width: '300px',
+  //     borderBottom: '1px dotted pink',
+  //     color: 'black',
+  //     padding: 21,
+  //     display: 'flex'
+  //   }),
+  //   singleValue: (provided, state) => ({
+  //     ...provided,
+  //     color: "#529FA2",
+  //     fontSize: "20px",
+  //     fontWeight: "700",
+  //     fontFamily:"sans-serif",
+  //     textTransform: "uppercase"
+  //   })
+  // }
     
   // Early Return 
   if (isLoading) {
@@ -174,45 +179,47 @@ console.log(defaultValue)
   }
 
   return (
-      <div className="compare--block container">
-        {/* FILTERS */}
-				<form className="compare--block--form">
-					<ul className="compare--list">
-						{/* 1ST COUNTRY FILTER */}
+    <div className="compare--block container">
+      {/* FILTERS */}
+        <form className="compare--block--form">
+          <ul className="compare--list">
+          {/* 1ST COUNTRY FILTER */}
             <li>
-              <label>{literals.L20609}</label>
-              <Select
-                  onChange={handleSelectChange}
-                  // styles={customStyles}
-                  defaultValue={defaultValue}
-                  // label='single'
-                  className="select-component select2-container"
-                  // isClearable
-                  // classNamePrefix="select"
-                  isSearchable
-                  options={selectCountry1.map(item=>({label: item.name, value: item.code}))}
-                  getOptionLabel={option => `(${option.value}) ${option.label}`}
-                  
-                />
-            </li>            
-            
-            {/* 2ND COUNTRY FILTER */}
-            <li>
-              <label>{literals.L20610}</label>
-              <Select
-                onChange={handleSelectChange2}
-                // styles={customStyles2}
-                defaultValue={{ label: "COUNTRY", value: null }}
+            <label>{literals.L20609}</label>
+
+            <Select
+                onChange={handleSelectChange}
+                // styles={customStyles}
+                value={defaultValue}
+                // label='single'
                 className="select-component select2-container"
-                // isClearable
+                // classNamePrefix="select"
                 isSearchable
-                options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
-                getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
-              />
-            </li>
-          </ul>
-        </form>
-      </div>
+                options={selectCountry1.map(item=>({label: item.name, value: item.code}))}
+                getOptionLabel={option => `(${option.value}) ${option.label}`}
+                
+                />
+            
+          </li>
+          {/* 2ND COUNTRY FILTER */}
+          <li>
+            <label>{literals.L20610}</label>
+
+            <Select
+              onChange={handleSelectChange2}
+              // styles={customStyles2}
+              value={defaultValue2}
+              className="select-component select2-container"
+            // isClearable
+              isSearchable
+              options={selectCountry2.map(item=>({label: item.name, value: item.code}))}
+              getOptionLabel={option => option.value == null ? option.label :`(${option.value}) ${option.label}`}
+            />
+          
+          </li>
+        </ul>
+      </form>
+    </div>
   );
 }
 
