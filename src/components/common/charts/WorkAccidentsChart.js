@@ -215,8 +215,8 @@ class WorkAccidentsChart extends Component {
                 }
             },
             yAxis: {
-                gridLineColor:'#FFF',
-                gridLineWidth:2,
+                gridLineColor: '#FFF',
+                gridLineWidth: 2,
                 startOnTick: true,
                 endOnTick: true,
                 title: {

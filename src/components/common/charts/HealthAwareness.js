@@ -179,8 +179,13 @@ class HealthAwareness extends Component {
                     max: 100,
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         stacking: 'normal',
+                        borderWidth: 0,
+                        pointStart: 0
+                    },
+                    series: {
+                        // stacking: 'normal',
                     }
                 },
                 series: {}

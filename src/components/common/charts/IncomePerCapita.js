@@ -166,8 +166,9 @@ class IncomerPercapital extends Component {
 					}
 				},
 				yAxis: {
-					gridLineColor:'#FFF',
-					gridLineWidth:2,
+					lineWidth: 0,
+					gridLineColor: '#FFF',
+          gridLineWidth: 2,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
