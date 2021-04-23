@@ -41,5 +41,25 @@
     { 
         "literalTab": "346", 
         "chartType": [{"type": "ewcs", "chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
+     },
+     {
+        "literalTab": "328",
+        "chartType": [{"type": "ewcs", "chart":"20053", "title": "22143", "chartIndicator": "71", "sector": null, "anwers": ["20","27"], "legend": "20598"}
+        ]
+     },
+     {
+        "literalTab": "329",
+        "chartType": [{"type": "ewcs", "chart":"20054", "title": "22144", "chartIndicator": "72", "sector": null, "anwers": ["26","27"], "legend": "20599"}
+        ]
+     },
+     {
+        "literalTab": "330",
+        "chartType": [{"type": "ewcs", "chart":"20055", "title": "22145", "chartIndicator": "73", "sector": null, "anwers": ["26","27"], "legend": "20600"}
+        ]
+     },
+     {
+        "literalTab": "331",
+        "chartType": [{"type": "ewcs", "chart":"20056", "title": "22146", "chartIndicator": "74", "sector": null, "anwers": ["26","27"], "legend": "20601"}
+        ]
      }
 ]

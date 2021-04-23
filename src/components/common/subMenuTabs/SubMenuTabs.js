@@ -41,6 +41,7 @@ const loadUrl = ()=>{
         const newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
         setSelectedTab(newIndicator);
         props.callbackSelectedTab(newIndicator);
+      
         
         if (newIndicator != props.selectedTab) {
             if (props.selectedSurvey) {
@@ -53,6 +54,9 @@ const loadUrl = ()=>{
                 });
             }
         }
+        // else if(newIndicator == props.selectedSurve){
+
+        // }
 	}
 
     const literalClass = (literal) => {
