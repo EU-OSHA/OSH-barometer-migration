@@ -271,11 +271,11 @@ class MentalRiskCharts extends Component {
                     });
 
                     for (let serie in auxSeries) {
-                            if (serie == 'Yes' || serie == 'Once or more' || serie == 'Mean') {
+                            if (serie == 'Yes' || serie == 'Once or more' || serie == 'Mean' || serie == 'At least 1/4 of the time') {
                                 const euValueSerie1 = {...auxSeries[serie][0], color: euColor}
                                 auxSeries[serie][0] = euValueSerie1
                             }
-                            if (serie == 'No' || serie == 'Never' ) {
+                            if (serie == 'No' || serie == 'Never' || serie == 'Less than 1/4 of the time' ) {
                                 const euValueSerie2 = {...auxSeries[serie][0], color: euColorLight}
                                 auxSeries[serie][0] = euValueSerie2
                             }

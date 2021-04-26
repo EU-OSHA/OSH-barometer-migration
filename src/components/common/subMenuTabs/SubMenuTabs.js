@@ -42,7 +42,10 @@ const loadUrl = ()=>{
         setSelectedTab(newIndicator);
         props.callbackSelectedTab(newIndicator);
       
-        
+        // if (newIndicator != props.selectedTab || newIndicator == props.selectedSurvey){
+        //     console.log("hola", newIndicator)
+        // }
+
         if (newIndicator != props.selectedTab) {
             if (props.selectedSurvey) {
                 history.push({
@@ -54,9 +57,7 @@ const loadUrl = ()=>{
                 });
             }
         }
-        // else if(newIndicator == props.selectedSurve){
-
-        // }
+        
 	}
 
     const literalClass = (literal) => {
