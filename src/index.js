@@ -58,7 +58,7 @@ const literals = require('./model/Literals.json');
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter >
+		<BrowserRouter basename="osh-barometer" >
 		<ScrollToTop>
 			<Switch>
 				<Route exact path="/" render={() => <App literals={literals}><Home literals={literals}/></App>} />
