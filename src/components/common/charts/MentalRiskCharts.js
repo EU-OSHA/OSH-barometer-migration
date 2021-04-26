@@ -161,7 +161,7 @@ class MentalRiskCharts extends Component {
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'normal',
+							fontWeight: 'bold',
 							fontSize:'12px',
                             color:xAxisColor
 						}
