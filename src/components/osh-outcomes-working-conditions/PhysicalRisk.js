@@ -22,7 +22,6 @@ class PhysicalRisk extends Component{
 				indicatorSubTabs1: [{ literalTab: '20654' }, { literalTab: '20655' },{ literalTab: '20656' }],
 				indicatorSubTabs: [{ literalTab: '328' }, { literalTab: '329' },{ literalTab: '330' },{ literalTab: '331' }],
 				selectedTab: this.props.indicator,
-				selectedTab2: 'smoke,-powder-or-dust',
 				chartLegend: '',
 				selectedSurvey:'',
 				currentPath: '/osh-outcomes-working-conditions/physical-risk/',
@@ -59,25 +58,25 @@ class PhysicalRisk extends Component{
 				this.setState({ chartLegend: '20598' });
 				break;
 			case 'vapours':
-				this.setState({selectedTab: 'vapours'});
+				this.setState({selectedTab: callback});
 				this.setState({ chartLegend: '20599' });
 				break;
 			case 'chemical-products':
-				this.setState({selectedTab: 'chemical-products'});
+				this.setState({selectedTab: callback});
 				this.setState({ chartLegend: '20600' });
 				break;
 			case 'infectious-materials':
-				this.setState({selectedTab: 'infectious-materials'});
+				this.setState({selectedTab: callback});
 				this.setState({ chartLegend: '20601' });
 				break;
 				case 'ergonomic-risks':
 					this.setState({visible: false})
 					this.setState({ chartLegend: '' });
-					this.setState({selectedTab: 'ergonomic-risks'});
+					this.setState({selectedTab: callback});
 				break;
 				case 'vibrations,-loud-noise-and-temperature':
 					this.setState({visible: false})
-					this.setState({selectedTab: 'vibrations,-loud-noise-and-temperature'});
+					this.setState({selectedTab: callback});
 				break;
 			default:
 				break;
@@ -103,9 +102,9 @@ class PhysicalRisk extends Component{
 
 	componentDidUpdate(prevProps) {
 	
-		if (prevProps.dataset != this.props.dataset) {
-		//	this.setState({ selectedSurvey: this.props.dataset })
-		}
+		// if (prevProps.dataset != this.props.dataset) {
+		// //	this.setState({ selectedSurvey: this.props.dataset })
+		// }
 
 		// if (prevProps.indicator != this.props.indicator) {
 		// 	this.setState({ selectedTab: this.props.indicator })
@@ -179,18 +178,7 @@ class PhysicalRisk extends Component{
 					<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 						<div className="card--block--chart with-filters">
 
-						{/* <MentalRiskCharts
-						literals={this.props.literals}
-						tabIndicator={"328"}
-						chartType={[{"type": "ewcs", "chart":"20053", "title": "22143", "chartIndicator": "71", "sector": null, "anwers": ["20","27"], "legend": "20598"} ]}
-						colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-						type={this.state.chartDimension}
-						percentage={true}
-						callbackLegend={this.callbackChartLegend}
-						callbackSelectedSurvey={this.callbackSelectedSurvey}
-						/> */}
-
-								
+													
 						{this.state.visible ? <div className="chart--block">
 						
 						<div className="card--block--chart--wrapper" >
@@ -228,8 +216,7 @@ class PhysicalRisk extends Component{
 
 					<Methodology />
 
-						{/* <Related literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk", this.props.indicator ]} /> */}
-
+						{this.state.visible ? <Related literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk", "exposure-to-dangerous-substances" ]} /> : null}
 
 			</div>
 		)
