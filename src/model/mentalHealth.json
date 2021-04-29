@@ -41,5 +41,31 @@
     { 
         "literalTab": "346", 
         "chartType": [{"type": "ewcs", "chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
+     },
+     { 
+        "literalTab": "20679", 
+        "chartType": [
+            {"type": "sector", "chart":"20102", "title": "720", "chartIndicator": "304", "sector": ["2","3","4","5","6","7","18","14"], "size": null, "answers": ["1"], "legend": "20603"},
+            {"type": "establishment size", "chart":"20102", "title": "720", "chartIndicator": "304", "sector": null, "size":["7","8","14","10","11"], "answers": ["1"], "legend": "20602"}
+        ]
+     },
+     { 
+        "literalTab": "20680", 
+        "chartType": [{"type": "ewcs", "chart":"20103", "title": "22148", "chartIndicator": "305", "sector": ["14"], "answers": ["28", "29", "30"], "legend": "20604"}]
+     },
+     { 
+        "literalTab": "20681", 
+        "chartType": [{"type": "ewcs", "chart":"", "title": "20681", "chartIndicator": "", "sector": null, "answers": ["1", "2"], "legend": "20605"}]
+     },
+     { 
+        "literalTab": "20682", 
+        "chartType": [{"type": "ewcs", "chart":"20104", "title": "22149", "chartIndicator": "360", "sector": ["14"], "answers": ["1", "2", "71"], "legend": "20606"}]
+     },
+     { 
+        "literalTab": "20683", 
+        "chartType": [
+            {"type": "sector", "chart":"20105", "title": "22149", "chartIndicator": "353", "sector": ["2","3","4","5","6","7","18","14"], "answers": ["1"], "legend": "20607"},
+            {"type": "establishment size", "chart":"20105", "title": "22150", "chartIndicator": "353", "sector": null, "size":["7","8","14","10","11"], "answers": ["1"], "legend": "20608"}
+                ]
      }
 ]
