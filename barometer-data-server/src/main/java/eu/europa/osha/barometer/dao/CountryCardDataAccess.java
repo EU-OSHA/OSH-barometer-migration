@@ -335,7 +335,6 @@ public class CountryCardDataAccess {
 					}
 					queryBuilder.append(") ");
 				}
-				
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 				System.out.println(queryBuilderTxt);
 				log.trace(queryBuilderTxt);
@@ -347,6 +346,10 @@ public class CountryCardDataAccess {
 		}
 		else if (chartID == 20101)
 		{
+			// The data for ESENER needs to be multiplied by 100
+			selectBuilder = new StringBuilder();
+			selectBuilder.append("select t1.text, n.country_code, t.text, (v.value*100) ");
+			
 			// Physical Risk -> Ergonomic Risks ESENER
 			// Each country will have data for 4 different indicators
 			// 293 -> E3Q200_4
@@ -372,6 +375,56 @@ public class CountryCardDataAccess {
 		}
 		else if (chartID == 20106)
 		{
+			// The data for ESENER needs to be multiplied by 100
+			selectBuilder = new StringBuilder();
+			selectBuilder.append("select i.name, n.country_code, t.text, (v.value*100) ");
+			
+			// Worker involvement ESENER
+			// Each country will have 5 different indicators
+			// 355 -> E3Q350_2
+			// 357 -> E3Q350_4
+			// 353 -> E3Q306
+			// 361 -> E3Q357
+			// 359 -> E3Q353
+			// Each indicator will load the value for different answers
+			Map<String, List<String>> indicatorAnswers = new HashMap<String, List<String>>();
+			indicatorAnswers.put("355", Arrays.asList("1"));
+			indicatorAnswers.put("357", Arrays.asList("1"));
+			indicatorAnswers.put("353", Arrays.asList("1"));
+			indicatorAnswers.put("361", Arrays.asList("97","98"));
+			indicatorAnswers.put("359", Arrays.asList("34","20"));
+			
+			whereBuilder.append("and ibc.chart_id="+chartID+ " and p.activity_sector_id=14  ");
+			
+			for (String indicator: indicatorAnswers.keySet())
+			{
+				// Get the answers for the current indicator
+				List<String> answers = indicatorAnswers.get(indicator);
+				
+				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicator+" ");
+				
+				if (answers != null)
+				{
+					queryBuilder.append("and p.answer_id IN (");
+					for (int i = 0; i < answers.size(); i++)
+					{
+						if (i > 0)
+						{
+							queryBuilder.append(",");
+						}
+						queryBuilder.append(answers.get(i));
+					}
+					queryBuilder.append(") ");
+				}
+				
+				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
+				System.out.println(queryBuilderTxt);
+				log.trace(queryBuilderTxt);
+				
+				runQuery(data, queryBuilderTxt);
+				
+				queryBuilder = new StringBuilder();
+			}
 			
 		}
 		else if (chartID == 20069)
