@@ -14,6 +14,7 @@ class MentalRisk extends Component
 		
 		this.state = {
 			indicatorTabs: subTabs,
+			subMenuTabs: [{ literalTab: '20669' }, { literalTab: '20670' }, { literalTab: '20671' },{ literalTab: '20672' }, { literalTab: '20673' },{ literalTab: '20674' },{ literalTab: '20675' }],
 			selectedTab: this.props.indicator,
 			selectedSurvey: this.props.dataset,
 			chartLegend: '',
@@ -76,7 +77,7 @@ class MentalRisk extends Component
 					callbackSelectedTab={this.callbackSelectedTab} 
 					selectedTab={this.state.selectedTab} 
 					selectedSurvey={this.state.selectedSurvey} 
-					subMenuTabs={this.state.indicatorTabs}
+					subMenuTabs={this.state.subMenuTabs}
 					locationPath={this.state.currentPath}
 				/>
 

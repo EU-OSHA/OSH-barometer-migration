@@ -159,7 +159,7 @@ class Chart extends Component {
 			.then((res) => {
 				
 				res.resultset.forEach(element => {
-					//console.log(res.resultset)
+					console.log(sector)
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.split)
 					}//console.log(categories)
