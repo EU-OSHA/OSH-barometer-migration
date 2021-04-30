@@ -178,7 +178,6 @@ class PhysicalRisk extends Component{
 					<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 						<div className="card--block--chart with-filters">
 
-													
 						{this.state.visible ? <div className="chart--block">
 						
 						<div className="card--block--chart--wrapper" >
@@ -202,6 +201,13 @@ class PhysicalRisk extends Component{
 								})}
 							</div>
 							</div>: null}
+							<div className="chart--wrapper">
+								<SpiderChart
+								selectCountry1={this.state.selectCountry1}
+								selectCountry2={this.state.selectCountry2}
+								chart={'20049'}
+								/>
+							</div>
 
 						</div>
 
