@@ -18,6 +18,7 @@ class PhysicalRisk extends Component{
 			this.state= {
 				selectCountry1: 'AT',
 				selectCountry2: '',
+				chart:'20049',
 				indicatorTabs: subTabs,
 				indicatorSubTabs1: [{ literalTab: '20654' }, { literalTab: '20655' },{ literalTab: '20656' }],
 				indicatorSubTabs: [{ literalTab: '328' }, { literalTab: '329' },{ literalTab: '330' },{ literalTab: '331' }],
@@ -50,7 +51,6 @@ class PhysicalRisk extends Component{
 
 
 	callbackSelectedTab = (callback) => {
-
 		switch (callback) {
 			case 'exposure-to-dangerous-substances':
 				this.setState({visible: true})
@@ -73,10 +73,12 @@ class PhysicalRisk extends Component{
 					this.setState({visible: false})
 					this.setState({ chartLegend: '' });
 					this.setState({selectedTab: callback});
+					this.setState({chart:'20101'})
 				break;
 				case 'vibrations,-loud-noise-and-temperature':
 					this.setState({visible: false})
 					this.setState({selectedTab: callback});
+					this.setState({chart:'20049'})
 				break;
 			default:
 				break;
@@ -98,6 +100,7 @@ class PhysicalRisk extends Component{
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 		window.addEventListener('resize', this.updateDimension);
+		console.log(this.state.chart)
 	}
 
 	componentDidUpdate(prevProps) {
@@ -201,13 +204,16 @@ class PhysicalRisk extends Component{
 								})}
 							</div>
 							</div>: null}
-							<div className="chart--wrapper">
+							{this.state.visible == false && (<div className="chart--wrapper">
 								<SpiderChart
 								selectCountry1={this.state.selectCountry1}
 								selectCountry2={this.state.selectCountry2}
-								chart={'20049'}
+								colors={['#7b7b7d','#cbe2e3','#f6a400']}
+								//selectedTab={this.state.selectedTab}
+
+								chart={'20080'}
 								/>
-							</div>
+							</div>)}
 
 						</div>
 
