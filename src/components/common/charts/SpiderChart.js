@@ -14,11 +14,12 @@ class SpiderChart extends Component{
 			chartConfig: {
 				colors: this.props.colors,
 					chart: {
+				backgroundColor: '#F0F0F0',
 				polar: true,
 				type: 'line'
 				},
 					title: {
-				text: `<h2>Ergonomic risks</h2><br/>`,
+						text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
 				align: 'left'
 				//x: -180
 					},
@@ -28,64 +29,111 @@ class SpiderChart extends Component{
 					},
 		
 					xAxis: {
-						categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
+						//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
 						tickmarkPlacement: 'on',
 						lineWidth: 0
 					},
 					plotOptions: {
 						series: {
 							colors: this.props.colors,
+						},
+						line: {
+							dataLabels: {
+								enabled: this.props.showDataLabel === true ? true : false,
+								formatter: function () {
+									return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+								}
+							}
 						}
 					},
-		
 					yAxis: {
 				gridLineInterpolation: 'polygon',
 				lineWidth: 0,
 				min: 0
 					},
-		
 					tooltip: {
-							shared: true,
-							pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y} %</b><br/>',
-							headerFormat: '<b>hoallalala</b><br>',
-							//pointFormat: '{point.x} cm, {point.y} kg',
-							//clusterFormat: 'Clustered points: {point.clusterPointsAmount}'
+						 	useHTML: true,
+						//	shared: true,
+						// 	pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y} % </b><br>',
+						//	headerFormat: `<b>{series.name}</b><br>`,
+						// // formatter: function ()  {
+						// // 	return '<span style="color:{series.color}">:' + this.series.name +' <b> % </b><br>'
+						// // }
+						formatter: function () {
+							if (this.point.x == '0'){
+								return '<ul class="tooltip-item">'+
+								'<li> ' + 'Are you exposed to vibrations from tools or machinery?' + '</li>' +
+								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
+								'</ul>';
+							}else if (this.point.x == '1'){
+								return '<ul class="tooltip-item">'+
+								'<li> ' + 'Are you exposed to loud noise?' + '</li>' +
+								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
+								'</ul>';
+							}else if (this.point.x == '2'){
+								return '<ul class="tooltip-item">'+
+								'<li> ' + 'Are you exposed to high temperatures?' + '</li>' +
+								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
+								'</ul>';
+							}{
+								return '<ul class="tooltip-item">'+
+								'<li>' + 'Are you exposed to low temperatures?' + '</li>' +
+								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
+								'</ul>';
+							}
+							
+								
+
+						}
 					},
+					
 		
-					series: [{pointPlacement: 'on', color: '#f6a400'}, 
-					{pointPlacement: 'on',color: '#003399'},{pointPlacement: 'on',color: '#cbe2e3'}],
+					series: [
+					{pointPlacement: 'on'}, 
+					{pointPlacement: 'on'},
+					{pointPlacement: 'on', color:'#003399'}],
 				
 			},
-			selectedTab:this.props.selectedTab,
-			selectedTypeChart: ['20049','20080','20101']
-			
-
+			typeCharts:[],
+			selectedTypeChart: this.props.chartType[0].type
 		}
 	}
 
 	onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
-        //this.props.callbackSelectedSurvey(e.target.value);
+        this.props.callbackSelectedSurvey(e.target.value);
 
-        // const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
-        // if (window.innerWidth > 768 ) {
-        //     this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
-        // }
+        const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
+        if (window.innerWidth > 768 ) {
+            this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
+        }
     }
 
-	getLoadData = (chart, country1, country2) =>{
-		let categories =[];
-		if (chart == '20080'){
-		categories =['Positions','Sitting','Loads','Movements','Lifting and moving']
-		}else if (chart == '20049'){
-		categories =['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures']
-		}else {
-		categories =['Positions','Loads','Movements','Sitting']
-		}
-		let auxSeries = [];
-		let series = [];
+	getLoadData = (chartType) =>{
+		let categories = [];
+        let auxSeries = [];
+        let series = [];
+		let chart
+		const country1= this.props.selectCountry1;
+		const country2= this.props.selectCountry2;
+		
+		if (chartType.length > 1) {
+             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+            // this.props.callbackLegend(chart.legend);
+        } else {
+            chart = chartType[0];
+            this.setState({ selectedTypeChart: null });
+        }
 
-		getSpiderChart(chart, country1, country2)
+		if (chart.chart == '20080'){
+			categories =['Positions','Sitting','Loads','Movements','Lifting and moving']
+		}else if (chart.chart == '20049'){
+			categories =['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures']
+		}else {
+			categories =['Positions','Loads','Movements','Sitting']
+		}
+
+		getSpiderChart(chart.chart, country1, country2)
 		.then((res)=>{
 
 			res.resultset.forEach(element => {
@@ -96,7 +144,7 @@ class SpiderChart extends Component{
 				if (!(split in auxSeries)) {
 					auxSeries[split] = []
 				}
-					if(chart == '20080'){
+					if(chart.chart == '20080'){
 						auxSeries[split].push(
 							element.data['Does your work involve tiring or painful positions?'],
 							element.data['Does your work involve sitting?'],
@@ -104,7 +152,7 @@ class SpiderChart extends Component{
 							element.data['Does your work involve repetitve hand or arm movements?'],
 							element.data['Does your work involve lifting or moving people?']
 							)
-					}else if(chart == '20049'){
+					}else if(chart.chart == '20049'){
 						auxSeries[split].push(
 							element.data['Are you exposed to vibrations from tools or machinery?'],
 							element.data['Are you exposed to loud noise?'],
@@ -122,38 +170,68 @@ class SpiderChart extends Component{
 			});
 
 			for (let serie in auxSeries){
-				series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie] })
+				series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie]})
+				//console.log(auxSeries[serie])
 			}
-			console.log(series)
+			if (series.length == 3){
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']  }})
+			}else{
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}})
+			}
 			
-			this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}})
 		})
 
 	}
 
 
+	updateDimension = () => {
+		if (window.innerWidth > 768) {
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>"}} });
+		} else {
+            const shortTitle = this.props.literals[`L${this.props.tabIndicator}`]
+			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+shortTitle+"</h2>"}} });
+		}
+	}
+
+
 	componentDidMount(){
-		this.getLoadData(this.props.chart, this.props.selectCountry1, this.props.selectCountry2)
-		console.log(this.props.chart)
+		this.getLoadData(this.props.chartType);
+        //this.getCredits(this.props.chartType[0].chart);
+        if (this.props.chartType.length > 1) {
+            this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+        }
+
+        if (this.props.chartType[0].type == 'ewcs') {
+            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+        } else {
+            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+        }
+        this.updateDimension();
+        window.addEventListener('resize', this.updateDimension);
 	}
 
 	componentDidUpdate(prevProps,prevState){
 		if(prevProps.selectCountry1 != this.props.selectCountry1){
-			this.getLoadData(this.props.chart, this.props.selectCountry1, this.props.selectCountry2)
+			this.getLoadData(this.props.chartType)
 		}
 		if(prevProps.selectCountry2 != this.props.selectCountry2){
-			this.getLoadData(this.props.chart, this.props.selectCountry1, this.props.selectCountry2)
+			this.getLoadData(this.props.chartType)
 		}
-		if (prevProps.chart != this.props.chart){
-			this.getLoadData(this.props.chart, this.props.selectCountry1, this.props.selectCountry2)
-		}
+
+		if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
+            this.getLoadData(this.props.chartType);
+        }
+
+        if (prevProps.type != this.props.type) {
+            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
+        }
 	}
 
 	render()
 	{
 		return (
 			<>
-			{/* {this.state.selectedTypeChart && (
+			{this.state.selectedTypeChart && (
                         <div className="select-filter-chart-wrapper">
                             {this.state.typeCharts.length > 1 && (
                                 <div className="select-filter-chart">
@@ -165,7 +243,7 @@ class SpiderChart extends Component{
                                 </div>
                             )}
                         </div>
-                    )} */}
+                    )}
 				<div>
 					<HighchartsReact
 					highcharts={Highcharts}

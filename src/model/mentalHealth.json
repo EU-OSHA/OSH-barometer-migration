@@ -83,5 +83,18 @@
             {"type": "sector", "chart":"20105", "title": "22149", "chartIndicator": "353", "sector": ["2","3","4","5","6","7","18","14"], "answers": ["1"], "legend": "20607"},
             {"type": "establishment size", "chart":"20105", "title": "22150", "chartIndicator": "353", "sector": null, "size":["7","8","14","10","11"], "answers": ["1"], "legend": "20608"}
                 ]
+     },
+     { 
+        "literalTab": "20654", 
+        "chartType": [
+            {"type": "essener", "chart":"20049", "title": "20654", "chartIndicator": null, "sector": null, "answers": null, "legend": null}
+                ]
+     },
+     { 
+        "literalTab": "20656", 
+        "chartType": [
+            {"type": "essener", "chart":"20080", "title": "20656", "chartIndicator": null, "sector": null, "answers": null, "legend": null},
+            {"type": "ewcs", "chart":"20101", "title": "20656", "chartIndicator": null, "sector": null, "answers": null, "legend": null}
+                ]
      }
 ]

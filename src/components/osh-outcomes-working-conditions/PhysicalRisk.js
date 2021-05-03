@@ -73,12 +73,10 @@ class PhysicalRisk extends Component{
 					this.setState({visible: false})
 					this.setState({ chartLegend: '' });
 					this.setState({selectedTab: callback});
-					this.setState({chart:'20101'})
 				break;
 				case 'vibrations,-loud-noise-and-temperature':
 					this.setState({visible: false})
 					this.setState({selectedTab: callback});
-					this.setState({chart:'20049'})
 				break;
 			default:
 				break;
@@ -95,12 +93,18 @@ class PhysicalRisk extends Component{
 		}
 	}
 
+	
+
 	componentDidMount()
 	{
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 		window.addEventListener('resize', this.updateDimension);
-		console.log(this.state.chart)
+		if(this.state.selectedTab == 'smoke,-powder-or-dust'){
+			this.setState({visible: true})
+			this.setState({selectedTab: 'smoke,-powder-or-dust'})
+			this.setState({ chartLegend: '20598' });
+		}
 	}
 
 	componentDidUpdate(prevProps) {
@@ -203,17 +207,32 @@ class PhysicalRisk extends Component{
 									}
 								})}
 							</div>
+							
 							</div>: null}
-							{this.state.visible == false && (<div className="chart--wrapper">
-								<SpiderChart
-								selectCountry1={this.state.selectCountry1}
-								selectCountry2={this.state.selectCountry2}
-								colors={['#7b7b7d','#cbe2e3','#f6a400']}
-								//selectedTab={this.state.selectedTab}
-
-								chart={'20080'}
-								/>
-							</div>)}
+							{this.state.indicatorTabs.map((tab)=>{
+								if(this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab)
+								{
+									return (
+										<div className="chart--wrapper" key={tab.literalsTab}>
+										{this.state.visible == false && (<div className="chart--wrapper">
+										<SpiderChart
+										literals={this.props.literals}
+										tabIndicator={tab.literalTab}
+										selectCountry1={this.state.selectCountry1}
+										selectCountry2={this.state.selectCountry2}
+										showDataLabel={true}
+										colors={['#f6a400','#003399','#cbe2e3']}
+										selectedTab={this.state.selectedTab}
+										indicatorTabs={this.state.indicatorTabs}
+										chartType={tab.chartType}
+										//callbackLegend={this.callbackChartLegend}
+										callbackSelectedSurvey={this.callbackSelectedSurvey}
+										/>
+								</div>)}
+										</div>
+									)
+								}
+							})} 
 
 						</div>
 
