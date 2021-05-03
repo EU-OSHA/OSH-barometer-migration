@@ -86,7 +86,8 @@ class MentalRiskCharts extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					}
+					},
+                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
 				},
 				navigation: {
 					buttonOptions: {
@@ -228,7 +229,19 @@ class MentalRiskCharts extends Component {
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         if (window.innerWidth > 768 ) {
-            this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
+            this.setState({ 
+                chartConfig: {
+                    ...this.state.chartConfig, 
+                    title: {
+                        ...this.state.chartConfig.title, 
+                        text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
+                    },
+                    exporting: {
+                        ...this.state.chartConfig.exporting, 
+                        filename: this.props.literals[`L${serie.title}`].replace(/ /g, '_')
+                    }
+                } 
+            })
         }
     }
     
@@ -254,7 +267,7 @@ class MentalRiskCharts extends Component {
 
         this.setState({ ...this.state, isLoading: true });
         try {
-            getChartData(chart.chart, chart.chartIndicator, null, null, chart.sector, chart.answers)
+            getChartData(chart.chart, chart.chartIndicator, null, null, [chart.sector], chart.answers)
                 .then((data) => {
                     euSerie1 = data.resultset[0].value
                     euSerie2 = data.resultset[1].value
