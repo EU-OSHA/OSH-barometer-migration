@@ -62,15 +62,7 @@ class SpiderChart extends Component{
 								zIndex: 100
 							},
 							 
-						//	shared: true,
-						// 	pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y} % </b><br>',
-						//	headerFormat: `<b>{series.name}</b><br>`,
-						// // formatter: function ()  {
-						// // 	return '<span style="color:{series.color}">:' + this.series.name +' <b> % </b><br>'
-						// // }
 						formatter: function () {
-
-						
 							if (this.x == 'Vibrations from tools or machinery'){
 								return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
