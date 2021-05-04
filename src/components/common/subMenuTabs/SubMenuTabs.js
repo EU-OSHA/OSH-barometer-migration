@@ -41,7 +41,11 @@ const loadUrl = ()=>{
         const newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
         setSelectedTab(newIndicator);
         props.callbackSelectedTab(newIndicator);
-        
+      
+        // if (newIndicator != props.selectedTab || newIndicator == props.selectedSurvey){
+        //     console.log("hola", newIndicator)
+        // }
+
         if (newIndicator != props.selectedTab) {
             if (props.selectedSurvey) {
                 history.push({
@@ -53,6 +57,7 @@ const loadUrl = ()=>{
                 });
             }
         }
+        
 	}
 
     const literalClass = (literal) => {

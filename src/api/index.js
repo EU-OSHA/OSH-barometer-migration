@@ -339,3 +339,37 @@ export function getDatasourceAndDates (chart)
 
     return response;
 }
+
+
+// Get Spider Chart for Physical-Risk
+
+export function getSpiderChart(chart, country1, country2){
+    const URL = `${BASEURL}quantitative/getRadarChartData`
+
+    const response = axios.get(URL,{
+        params:{
+            chart,
+            country1,
+            country2
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.chart) {
+                urlWithParams.append('chart', params.chart);
+            }
+            if ( params.country1){
+                urlWithParams.append('country1', params.country1)
+            }
+            if ( params.country2){
+                urlWithParams.append('country2', params.country2)
+            }
+            return urlWithParams
+        }
+        
+    }).then((res)=>{
+        return res.data
+    })
+
+    return response;
+}

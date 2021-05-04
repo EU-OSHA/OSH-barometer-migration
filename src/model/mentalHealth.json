@@ -42,6 +42,22 @@
         "literalTab": "346", 
         "chartType": [{"type": "ewcs", "chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
      },
+     {
+        "literalTab": "328", 
+        "chartType": [{"type": "ewcs", "chart":"20053", "title": "22143", "chartIndicator": "71", "sector": null, "answers": ["26", "27"], "legend": "20598"}]
+     },
+     {
+        "literalTab": "329", 
+        "chartType": [{"type": "ewcs", "chart":"20054", "title": "22144", "chartIndicator": "72", "sector": null, "answers": ["26", "27"], "legend": "20599"}]
+     },
+     {
+        "literalTab": "330", 
+        "chartType": [{"type": "ewcs", "chart":"20055", "title": "22145", "chartIndicator": "73", "sector": null, "answers": ["26", "27"], "legend": "20600"}]
+     },
+     {
+        "literalTab": "331", 
+        "chartType": [{"type": "ewcs", "chart":"20056", "title": "22146", "chartIndicator": "74", "sector": null, "answers": ["26", "27"], "legend": "20601"}]
+     },
      { 
         "literalTab": "20679", 
         "chartType": [
@@ -66,6 +82,19 @@
         "chartType": [
             {"type": "sector", "chart":"20105", "title": "22149", "chartIndicator": "353", "sector": ["2","3","4","5","6","7","18","14"], "answers": ["1"], "legend": "20607"},
             {"type": "establishment size", "chart":"20105", "title": "22150", "chartIndicator": "353", "sector": null, "size":["7","8","14","10","11"], "answers": ["1"], "legend": "20608"}
+                ]
+     },
+     { 
+        "literalTab": "20654", 
+        "chartType": [
+            {"type": "essener", "chart":"20049", "title": "20654", "chartIndicator": null, "sector": null, "answers": null, "legend": null}
+                ]
+     },
+     { 
+        "literalTab": "20656", 
+        "chartType": [
+            {"type": "essener", "chart":"20080", "title": "20656", "chartIndicator": null, "sector": null, "answers": null, "legend": null},
+            {"type": "ewcs", "chart":"20101", "title": "20656", "chartIndicator": null, "sector": null, "answers": null, "legend": null}
                 ]
      }
 ]

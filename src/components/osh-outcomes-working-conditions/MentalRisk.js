@@ -17,6 +17,7 @@ class MentalRisk extends Component
 			subMenuTabs: [{ literalTab: '20669' }, { literalTab: '20670' }, { literalTab: '20671' },{ literalTab: '20672' }, { literalTab: '20673' },{ literalTab: '20674' },{ literalTab: '20675' }],
 			selectedTab: this.props.indicator,
 			selectedSurvey: this.props.dataset,
+			indicatorSubTabs: [{ literalTab: '340' }, { literalTab: '341' },{ literalTab: '342' },{ literalTab: '343' },{ literalTab: '344' },{ literalTab: '345' }],
 			chartLegend: '',
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
 			currentPath: '/osh-outcomes-working-conditions/mental-risk/'
@@ -46,7 +47,6 @@ class MentalRisk extends Component
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
-
 		window.addEventListener('resize', this.updateDimension);
 	}
 
@@ -77,7 +77,7 @@ class MentalRisk extends Component
 					callbackSelectedTab={this.callbackSelectedTab} 
 					selectedTab={this.state.selectedTab} 
 					selectedSurvey={this.state.selectedSurvey} 
-					subMenuTabs={this.state.subMenuTabs}
+					subMenuTabs={this.state.indicatorSubTabs}
 					locationPath={this.state.currentPath}
 				/>
 
