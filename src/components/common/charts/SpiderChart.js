@@ -53,6 +53,15 @@ class SpiderChart extends Component{
 					},
 					tooltip: {
 						 	useHTML: true,
+							opacity: 1,
+							backgroundColor: "rgba(255, 255, 255, 1)",
+							borderColor:"#529FA2",
+							fontSize:'12px',
+							zIndex: 100,
+							style: {
+								zIndex: 100
+							},
+							 
 						//	shared: true,
 						// 	pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y} % </b><br>',
 						//	headerFormat: `<b>{series.name}</b><br>`,
@@ -60,31 +69,57 @@ class SpiderChart extends Component{
 						// // 	return '<span style="color:{series.color}">:' + this.series.name +' <b> % </b><br>'
 						// // }
 						formatter: function () {
-							if (this.point.x == '0'){
-								return '<ul class="tooltip-item">'+
-								'<li> ' + 'Are you exposed to vibrations from tools or machinery?' + '</li>' +
-								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
-								'</ul>';
-							}else if (this.point.x == '1'){
-								return '<ul class="tooltip-item">'+
-								'<li> ' + 'Are you exposed to loud noise?' + '</li>' +
-								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
-								'</ul>';
-							}else if (this.point.x == '2'){
-								return '<ul class="tooltip-item">'+
-								'<li> ' + 'Are you exposed to high temperatures?' + '</li>' +
-								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
-								'</ul>';
-							}{
-								return '<ul class="tooltip-item">'+
-								'<li>' + 'Are you exposed to low temperatures?' + '</li>' +
-								'<li><strong>Country: </strong> ' + this.series.name +': '+ this.y +'%</li>' + '</li>' +
-								'</ul>';
-							}
-							
-								
 
-						}
+						
+							if (this.x == 'Vibrations from tools or machinery'){
+								return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : []	);
+							}else if (this.x == 'Loud noise'){
+								return ['<b>' + 'Are you exposed to loud noise?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : []	);
+							}else if (this.x == 'High temperatures'){
+								return ['<b>' + 'Are you exposed to high temperatures?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Low temperatures'){
+								return ['<b>' + 'Are you exposed to low temperatures?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Positions'){
+								return ['<b>' + 'Does your work involve tiring or <br>painful positions?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Loads'){
+								return ['<b>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Sitting'){
+								return ['<b>' + 'Does your work involve sitting?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Movements'){
+								return ['<b>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == 'Lifting and moving'){
+								return ['<b>' + 'Does your work involve lifting or <br>moving people?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}
+						},
+						//split: true,
+						shared:true
 					},
 					
 		
@@ -98,6 +133,7 @@ class SpiderChart extends Component{
 			selectedTypeChart: this.props.chartType[0].type
 		}
 	}
+
 
 	onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
