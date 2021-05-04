@@ -246,7 +246,7 @@ class MentalRiskCharts extends Component {
     }
     
     getLoadData = (chartType) => {
-        console.log('getLoadData');
+        //console.log('getLoadData');
         let categories = [];
         let auxSeries = [];
         let series = [];

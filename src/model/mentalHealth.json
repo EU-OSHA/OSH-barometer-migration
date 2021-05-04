@@ -41,5 +41,9 @@
     { 
         "literalTab": "346", 
         "chartType": [{"type": "ewcs", "chart":"20079", "title": "22142", "chartIndicator": "89", "sector": null, "answers": ["1", "2"], "legend": "20596"}]
+     },
+     { 
+        "literalTab": "322", 
+        "chartType": [{"type": "ewcs", "chart":"20040", "title": "22134", "chartIndicator": "65", "sector": null, "answers": ["10","11","12", "13"], "legend": "20580"}]
      }
 ]

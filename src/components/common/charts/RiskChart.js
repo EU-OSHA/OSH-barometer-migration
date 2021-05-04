@@ -177,10 +177,16 @@ class Chart extends Component {
 			series.push({ name: serie , data: auxSeries[serie] })
 			//console.log(categories)
 		}
-
-			this.setState({
-				chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-			})
+			
+			if(series.length == 3){
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']}
+				})
+			}else{
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+				})
+			}
 		});
 	}
 
