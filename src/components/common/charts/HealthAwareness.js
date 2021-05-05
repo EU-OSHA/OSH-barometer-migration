@@ -190,7 +190,7 @@ class HealthAwareness extends Component {
                 },
                 series: {}
             },
-            isLoading: false
+            isLoading: false,
         }
     }
 
@@ -201,7 +201,7 @@ class HealthAwareness extends Component {
 
         let euSeries1 = null;
         let euSeries2 = null;
-
+       
         this.setState({ ...this.state, isLoading: true });
 
         try {
@@ -260,7 +260,12 @@ class HealthAwareness extends Component {
         this.getCredits(this.props.chartType[0].chart);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+
+        // if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
+        //     this.getLoadData(this.props.chartType);
+        // }
+        
         if (prevProps.type != this.props.type) {
             this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
         }

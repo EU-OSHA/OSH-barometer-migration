@@ -241,7 +241,7 @@ class MentalRiskCharts extends Component {
         let euSerie1 = null;
         let euSerie2 = null;
         let chart = [];
-        console.log(chart)
+
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
