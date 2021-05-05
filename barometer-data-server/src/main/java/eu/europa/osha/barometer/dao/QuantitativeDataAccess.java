@@ -193,7 +193,7 @@ public class QuantitativeDataAccess {
 					
 					fillInFiltersInQuery(pQueryFilter.getCompanySize(), queryClauses, "scs.id", false);
 					
-					orderBuilder.append(", p.company_size_id ASC");
+					orderBuilder.append(", field (11, p.company_size_id) asc, field (10, p.company_size_id) asc, p.company_size_id ASC");
 				}
 				
 				fillInFiltersInQuery(pQueryFilter.getAnswer(), queryClauses, "p.answer_id", false);
