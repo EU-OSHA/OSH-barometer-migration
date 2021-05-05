@@ -203,9 +203,10 @@ class HealthAwareness extends Component {
         let euSeries2 = null;
 
         this.setState({ ...this.state, isLoading: true });
+        this.props.callbackLegend(chartType[0].legend);
 
         try {
-            getChartData(chartType[0].chart, chartType[0].chartIndicator, null, null, chartType[0].sector, chartType[0].answers)
+            getChartData(chartType[0].chart, chartType[0].chartIndicator, null, null, [chartType[0].sector], chartType[0].answers)
                 .then((data) => {
                     data.resultset.forEach(element => {
                         euSeries1 = data.resultset[0].value;
