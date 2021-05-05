@@ -14,6 +14,8 @@ class PhysicalRisk extends Component
 		return(
 			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} />
+
+				<h1>Prueba</h1>
 			</div>
 		)
 	}

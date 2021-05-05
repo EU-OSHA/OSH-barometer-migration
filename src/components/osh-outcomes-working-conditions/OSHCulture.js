@@ -16,7 +16,8 @@ class OSHCulture extends Component
 			indicatorTabs: subTabs,
 			selectedTab: this.props.indicator,
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
-			currentPath: '/osh-outcomes-working-conditions/osh-culture/'
+			currentPath: '/osh-outcomes-working-conditions/osh-culture/',
+			chartLegend:'',
 		}
 		
 	}
@@ -29,10 +30,18 @@ class OSHCulture extends Component
 		}
 	}
 
+	callbackChartLegend = (legend) => {
+		this.setState({ chartLegend: legend })
+	}
+
 	callbackSelectedTab = (callback) => {
 		this.setState({ selectedTab: callback })
 	}
 
+	callbackChartLegend = (legend) => {
+		this.setState({ chartLegend: legend });
+	}
+	
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
@@ -72,6 +81,7 @@ class OSHCulture extends Component
 												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
 												type={this.state.chartDimension}
 												percentage={true}
+												callbackLegend={this.callbackChartLegend}
 											/>
 										</div>
 									)
@@ -79,8 +89,23 @@ class OSHCulture extends Component
 							})}
 						</div>
 					</div>
+
+					{this.state.indicatorTabs.map((tab) => {
+								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
+									return (
+										<div key={tab.literalTab}>
+											{this.props.literals[`L${tab.legend}`]}
+											{tab.chartType.map((element) =>{
+												return (
+											<div className="chart-legend">{this.props.literals[`L${element.legend}`]} </div>	
+												)
+											})}
+										</div>
+									)
+								}
+							})}
+						
 				</div>
-				
 				<Methodology />
 
 				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab]} />

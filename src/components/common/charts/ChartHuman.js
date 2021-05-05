@@ -215,6 +215,7 @@ class ChartHuman extends Component {
 				yAxis: {
 					gridLineColor:'#FFF',
 					gridLineWidth:2,
+					lineWidth: 0,
 					//max: this.props.yAxisMax,
 					//tickInterval: this.props.tick,
 					visible:false,

@@ -179,13 +179,18 @@ class HealthAwareness extends Component {
                     max: 100,
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         stacking: 'normal',
+                        borderWidth: 0,
+                        pointStart: 0
+                    },
+                    series: {
+                        // stacking: 'normal',
                     }
                 },
                 series: {}
             },
-            isLoading: false
+            isLoading: false,
         }
     }
 
@@ -196,11 +201,12 @@ class HealthAwareness extends Component {
 
         let euSeries1 = null;
         let euSeries2 = null;
-
+       
         this.setState({ ...this.state, isLoading: true });
+        this.props.callbackLegend(chartType[0].legend);
 
         try {
-            getChartData(chartType[0].chart, chartType[0].chartIndicator, null, null, chartType[0].sector, chartType[0].answers)
+            getChartData(chartType[0].chart, chartType[0].chartIndicator, null, null, [chartType[0].sector], chartType[0].answers)
                 .then((data) => {
                     data.resultset.forEach(element => {
                         euSeries1 = data.resultset[0].value;
@@ -255,7 +261,12 @@ class HealthAwareness extends Component {
         this.getCredits(this.props.chartType[0].chart);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+
+        // if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
+        //     this.getLoadData(this.props.chartType);
+        // }
+        
         if (prevProps.type != this.props.type) {
             this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
         }

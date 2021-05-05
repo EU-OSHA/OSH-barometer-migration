@@ -5,7 +5,7 @@
 	transform: scale($w, $h);
   }
   
-  @media print {
+@media print {
 	.menu-tools-top,
 	.bar-main-menu,
 	.icon--card,
@@ -36,16 +36,16 @@
 	  content: '';
 	}
 	.matrix--content--elements {
-	  samp {
-		display: inline !important;
-	  }
-	  .text-part {
-		display: block !important;
-		page-break-before: auto;
-	  }
-	  .partial-text {
-		display: none;
-	  }
+		samp {
+			display: inline !important;
+		}
+		.text-part {
+			display: block !important;
+			page-break-before: auto;
+		}
+		.partial-text {
+			display: none;
+		}
 	}
 	.pagination--wrapper {
 	  page-break-before: auto;
@@ -873,7 +873,5 @@
 			}
 		}
 	}
-
-
-  }
+}
   

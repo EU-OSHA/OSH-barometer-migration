@@ -169,13 +169,14 @@ public class QuantitativeDataAccess {
 			}
 			else if (chartID == 20102 || chartID == 20105 || chartID == 20107)
 			{
+				// These charts show data for ESENER, the data needs to be multiplied by 100
 				orderBuilder.append("order by field(n.country_code, " + pQueryFilter.getCountryFilter() + ") asc, p.answer_id ASC");
 				
 				// The filter is answer and 
 				if (pQueryFilter.getSector() != null && pQueryFilter.getSector().size() > 0)
 				{
 					// Activity Sector
-					selectBuilder.append("select t1.text as Sector, n.country_code as countryCode, t.text as countryName, v.value as Value ");
+					selectBuilder.append("select t1.text as Sector, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
 					fromBuilder.append(", split_activity_sector sas, translation t1 ");
 					whereBuilder.append("and p.activity_sector_id=sas.id and sas.literal_id=t1.literal_id and t1.language='EN' ");
 					
@@ -186,13 +187,13 @@ public class QuantitativeDataAccess {
 				else if (pQueryFilter.getCompanySize() != null && pQueryFilter.getCompanySize().size() > 0)
 				{
 					// Company Size
-					selectBuilder.append("select t1.text as Size, n.country_code as countryCode, t.text as countryName, v.value as Value ");
+					selectBuilder.append("select t1.text as Size, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
 					fromBuilder.append(", split_company_size scs, translation t1 ");
 					whereBuilder.append("and p.company_size_id=scs.id and scs.literal_id=t1.literal_id and t1.language='EN' ");
 					
 					fillInFiltersInQuery(pQueryFilter.getCompanySize(), queryClauses, "scs.id", false);
 					
-					orderBuilder.append(", p.company_size_id ASC");
+					orderBuilder.append(", field (11, p.company_size_id) asc, field (10, p.company_size_id) asc, p.company_size_id ASC");
 				}
 				
 				fillInFiltersInQuery(pQueryFilter.getAnswer(), queryClauses, "p.answer_id", false);

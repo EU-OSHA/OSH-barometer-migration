@@ -177,18 +177,26 @@ class Chart extends Component {
 			series.push({ name: serie , data: auxSeries[serie] })
 			//console.log(categories)
 		}
-
-			this.setState({
-				chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-			})
+			
+			if(series.length == 3){
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']}
+				})
+			}else{
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+				})
+			}
 		});
 	}
 
 	
 handleSelect = (e) => {
+	const sector = e.target.value
 	this.setState({
 		select: e.target.value
 	})
+	this.props.handleSector(sector);
 }
 	
 
@@ -270,9 +278,7 @@ handleSelect = (e) => {
 					options={this.state.chartConfig}
 					containerProps={{ className: 'chartContainer' }}
 				/>
-				{/* <div>
-					{this.props.indicator}-{this.props.chart}-{this.props.selectCountry1}-{this.props.selectCountry2}
-				</div> */}
+			
 			</div>
 		)
 	}

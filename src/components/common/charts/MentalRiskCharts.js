@@ -86,7 +86,8 @@ class MentalRiskCharts extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					}
+					},
+                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
 				},
 				navigation: {
 					buttonOptions: {
@@ -144,10 +145,24 @@ class MentalRiskCharts extends Component {
                 xAxis: {
                     lineWidth: 0,
                     max: this.props.yAxisMax,
+                    plotLines: [
+                        {
+                            color: 'black',
+                            width: '2',
+                            value: 0.5,
+                            zIndex:1
+                        },
+                        {
+                            color: 'black',
+                            width: '2',
+                            value: 29.5,
+                            zIndex:1
+                        }
+                    ],
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'normal',
+							fontWeight: 'bold',
 							fontSize:'12px',
                             color:xAxisColor
 						}
@@ -159,6 +174,8 @@ class MentalRiskCharts extends Component {
                     title: {
                         text: ''
                     },
+                    gridLineColor: '#FFF',
+                    gridLineWidth: 2,
                     labels: {
 						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
 						style: {
@@ -171,9 +188,10 @@ class MentalRiskCharts extends Component {
                     max: 100
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         stacking: 'normal',
-                        pointStart: 0,
+                      borderWidth: 0,  
+                      pointStart: 0,
                         states: {
                             inactive: {
                                 opacity: 1
@@ -211,12 +229,24 @@ class MentalRiskCharts extends Component {
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         if (window.innerWidth > 768 ) {
-            this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
+            this.setState({ 
+                chartConfig: {
+                    ...this.state.chartConfig, 
+                    title: {
+                        ...this.state.chartConfig.title, 
+                        text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
+                    },
+                    exporting: {
+                        ...this.state.chartConfig.exporting, 
+                        filename: this.props.literals[`L${serie.title}`].replace(/ /g, '_')
+                    }
+                } 
+            })
         }
     }
     
     getLoadData = (chartType) => {
-        console.log('getLoadData');
+        //console.log('getLoadData');
         let categories = [];
         let auxSeries = [];
         let series = [];
@@ -227,15 +257,17 @@ class MentalRiskCharts extends Component {
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
-            this.props.callbackLegend(chart.legend);
+            // this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null });
         }
 
+        this.props.callbackLegend(chart.legend);
+
         this.setState({ ...this.state, isLoading: true });
         try {
-            getChartData(chart.chart, chart.chartIndicator, null, null, chart.sector, chart.answers)
+            getChartData(chart.chart, chart.chartIndicator, null, null, [chart.sector], chart.answers)
                 .then((data) => {
                     euSerie1 = data.resultset[0].value
                     euSerie2 = data.resultset[1].value
@@ -268,7 +300,7 @@ class MentalRiskCharts extends Component {
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}] ,categories} }})                        
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {...this.state.chartConfig.xAxis, plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}] ,categories} }})                        
                         // if (categories.length < 31) {
                         //     console.log('trigger 1.1', categories.length)
                         // }
@@ -279,7 +311,7 @@ class MentalRiskCharts extends Component {
                         // }
                         
                     } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})  
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {...this.state.chartConfig.xAxis,plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})  
                         // if (categories.length < 31) {
                         //     console.log('trigger 2.1', categories.length)
                         // }
@@ -289,7 +321,7 @@ class MentalRiskCharts extends Component {
                         //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
                         // }
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {...this.state.chartConfig.xAxis, plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})
                         // if (categories.length < 31) {
                         //     console.log('trigger 3.1', categories.length)
                         // }

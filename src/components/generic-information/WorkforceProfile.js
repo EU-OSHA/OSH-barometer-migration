@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import { getCountryDataMap } from '../../api'
 import MapChart from '../common/charts/MapChart';
 import images from '../../style/img/flag/images'
+import SelectForceProfile from '../common/subMenuTabs/SelectForceProfile'
 
 
 class WorkforceProfile extends Component
 { 
+	
 	constructor(props)
 	{
 		super(props);
 		//this.handleSearch = this.handleSearch.bind()
 		const {country} = this.props
+		
+		
 		this.state = {
+			currentPath:'/generic-information/workforce-profile/',
+			indicator: this.props.indicator,
 			title:"MEDIA AGE OF POPULATION",
 			country: this.props.country,
 			alert:"Not applied to Median Age",
@@ -89,6 +95,7 @@ class WorkforceProfile extends Component
 	}
 
 
+
 	refresh = ()=>{
 		
 		this.setState({
@@ -96,15 +103,15 @@ class WorkforceProfile extends Component
 			unselect: !this.state.unselect})
 	}
 
-	select = (e)=>{
-		const option = e.target.value;
+	callbackSelect = (option)=>{
+		
 		this.setState({select: option})
-
 		switch(option){
 			case "employment-rate" :
 				this.setState({disabled:""})
 				this.setState({title:'EMPLOYMENT RATE - AGEING WORKERS'})
 				this.setState({select: 'Ageing workers (55 to 64) employment rate'})
+				this.setState({indicator: 'employment-rate'})
 				break;
 				case "ageing-workers" :
 				this.setState({disabled:""})
@@ -122,6 +129,7 @@ class WorkforceProfile extends Component
 				this.setState({title:'UNEMPLOYMENT RATE'})
 				this.setState({alert:"Not applied to Unemployment rate"})
 				this.setState({select: 'Unemployment rate'})
+				this.setState({indicator: 'Unemployment-rate'})
 				break
 			case "Female":
 				this.setState({select: 'Total, male and female employment rate - Female'})
@@ -136,12 +144,9 @@ class WorkforceProfile extends Component
 				this.setState({title:'EMPLOYMENT RATE - TOTAL'})
 				break
 		}
-
 	}
 
 	
-
-
 
 	render()
 	{ 
@@ -150,50 +155,14 @@ class WorkforceProfile extends Component
 			<div className="workforce--page">
 
 				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} />
-
+				
 				<div className="filter--indicator--block container">
-					<ul className="indicators--group xs-row">
-						<li id="filter1">
-							<label htmlFor="indicatorSelect">{this.props.literals.L20623}</label> 
-							<select onChange={this.select} id="indicatorSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-model="selectedIndicator" data-ng-change="selectChange()">
-								<option value="median-age">{this.props.literals.L294}</option>
-								<option value="employment-rate">{this.props.literals.L20621}</option>
-								<option value="unemployment-rate">{this.props.literals.L291}</option>
-							</select>
-						</li>
-						<li id="filter2" data-ng-className="{'disabled':selectedIndicator == 'median-age' || selectedIndicator == 'unemployment-rate'}" className="disabled">
-							<label htmlFor="employeeGroupSelect" data-ng-bind="i18nLiterals.L20622">{this.props.literals.L20622}</label> 
-							
-							{this.state.disabled ? <select onChange={this.select} id="employeeGroupSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-disabled="selectedIndicator == 'median-age' || selectedIndicator== 'unemployment-rate'" data-ng-model="selectedSubIndicator" data-ng-change="selectChange()" disabled={this.state.disabled}>
-								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers">{this.props.literals.L295}</option>
-								{/* <option value="Female">{this.props.literals.L444}</option>
-								<option value="Male">{this.props.literals.L443}</option>
-								<option value="Total">{this.props.literals.L442}</option> */}
-							</select>
-							
-							 : <select onChange={this.select} id="employeeGroupSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-disabled="selectedIndicator == 'median-age' || selectedIndicator== 'unemployment-rate'" data-ng-model="selectedSubIndicator" data-ng-change="selectChange()" disabled={this.state.disabled}>
-								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers">{this.props.literals.L295}</option>
-								<option value="Female">{this.props.literals.L444}</option>
-								<option value="Male">{this.props.literals.L443}</option>
-								<option value="Total">{this.props.literals.L442}</option>
-							</select>}
-							{this.state.disabled ?<label data-ng-if="selectedIndicator == 'median-age'" className="alert-disabled ">{this.state.alert}</label>: true}
-						</li>
-						{/* COUNTRY FILTER JUST IN < 1024 PX */}
-						<li id="filter3" className="filter--dropdown--wrapper">
-							<label htmlFor="countrySelect">{this.props.literals.L20630}:</label>
-							{/*<label className="main-color  dropdwon-open" onClick="openSelect($event)"></label>*/}
-							<div className="filter--dropdown--list">
-								<p className="option-title" ng-click="openSelect($event)">{this.props.literals.L20630}</p>
-								<ul className="filter--dropdown--options">
-								<li data-ng-repeat="country in countries" className="">
-									<input id="country-filter-822" defaultChecked="!!country.param &amp;&amp; country.param ==country.country_code" ng-click="toggleCountryClick($event, $index)" type="checkbox" value="{&quot;country_code&quot;:&quot;EU27_2020&quot;,&quot;country_name&quot;:822}" /> 
-									<label data-ng-if="country.country_code == 'EU27_2020'" htmlFor="country-filter-822" data-ng-bind="i18nLiterals['L'+country.country_name]">EU27_2020</label>
-								</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
+					<SelectForceProfile 
+					callbackSelect={this.callbackSelect}
+					locationPath={this.state.currentPath}
+					literals={this.props.literals}
+					indicator={this.props.indicator} 
+					/>
 				</div>
 				<div className="line background-main-light"></div>
 				
@@ -383,3 +352,51 @@ class WorkforceProfile extends Component
 }
 WorkforceProfile.displayName = 'WorkforceProfile';
 export default WorkforceProfile;
+
+
+
+
+
+
+// <ul className="indicators--group xs-row">
+// 						<li id="filter1">
+// 							<label htmlFor="indicatorSelect">{this.props.literals.L20623}</label> 
+// 							<select onChange={this.select} id="indicatorSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-model="selectedIndicator" data-ng-change="selectChange()">
+// 								<option value="median-age">{this.props.literals.L294}</option>
+// 								<option value="employment-rate">{this.props.literals.L20621}</option>
+// 								<option value="unemployment-rate">{this.props.literals.L291}</option>
+// 							</select>
+// 						</li>
+// 						<li id="filter2" data-ng-className="{'disabled':selectedIndicator == 'median-age' || selectedIndicator == 'unemployment-rate'}" className="disabled">
+// 							<label htmlFor="employeeGroupSelect" data-ng-bind="i18nLiterals.L20622">{this.props.literals.L20622}</label> 
+							
+// 							{this.state.disabled ? <select onChange={this.select} id="employeeGroupSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-disabled="selectedIndicator == 'median-age' || selectedIndicator== 'unemployment-rate'" data-ng-model="selectedSubIndicator" data-ng-change="selectChange()" disabled={this.state.disabled}>
+// 								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers">{this.props.literals.L295}</option>
+// 								{/* <option value="Female">{this.props.literals.L444}</option>
+// 								<option value="Male">{this.props.literals.L443}</option>
+// 								<option value="Total">{this.props.literals.L442}</option> */}
+// 							</select>
+							
+// 							 : <select onChange={this.select} id="employeeGroupSelect" className="filter--dropdown--list ng-pristine ng-untouched ng-valid" data-ng-disabled="selectedIndicator == 'median-age' || selectedIndicator== 'unemployment-rate'" data-ng-model="selectedSubIndicator" data-ng-change="selectChange()" disabled={this.state.disabled}>
+// 								<option data-ng-bind="i18nLiterals.L295" value="ageing-workers">{this.props.literals.L295}</option>
+// 								<option value="Female">{this.props.literals.L444}</option>
+// 								<option value="Male">{this.props.literals.L443}</option>
+// 								<option value="Total">{this.props.literals.L442}</option>
+// 							</select>}
+// 							{this.state.disabled ?<label data-ng-if="selectedIndicator == 'median-age'" className="alert-disabled ">{this.state.alert}</label>: true}
+// 						</li>
+// 						{/* COUNTRY FILTER JUST IN < 1024 PX */}
+// 						<li id="filter3" className="filter--dropdown--wrapper">
+// 							<label htmlFor="countrySelect">{this.props.literals.L20630}:</label>
+// 							{/*<label className="main-color  dropdwon-open" onClick="openSelect($event)"></label>*/}
+// 							<div className="filter--dropdown--list">
+// 								<p className="option-title" ng-click="openSelect($event)">{this.props.literals.L20630}</p>
+// 								<ul className="filter--dropdown--options">
+// 								<li data-ng-repeat="country in countries" className="">
+// 									<input id="country-filter-822" defaultChecked="!!country.param &amp;&amp; country.param ==country.country_code" ng-click="toggleCountryClick($event, $index)" type="checkbox" value="{&quot;country_code&quot;:&quot;EU27_2020&quot;,&quot;country_name&quot;:822}" /> 
+// 									<label data-ng-if="country.country_code == 'EU27_2020'" htmlFor="country-filter-822" data-ng-bind="i18nLiterals['L'+country.country_name]">EU27_2020</label>
+// 								</li>
+// 								</ul>
+// 							</div>
+// 						</li>
+// 					</ul>
