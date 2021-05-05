@@ -38,6 +38,10 @@ class OSHCulture extends Component
 		this.setState({ selectedTab: callback })
 	}
 
+	callbackChartLegend = (legend) => {
+		this.setState({ chartLegend: legend });
+	}
+	
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
@@ -102,7 +106,6 @@ class OSHCulture extends Component
 							})}
 						
 				</div>
-				
 				<Methodology />
 
 				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab]} />
