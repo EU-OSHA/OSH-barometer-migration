@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import Methodology from '../common/Methodology';
+import Related from '../common/Related';
 import AdviceSection from '../common/AdviceSection';
 import Chart from '../common/charts/Chart';
 import RiskChart from '../common/charts/RiskChart';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
+import MentalRiskCharts from '../common/charts/MentalRiskCharts';
+
+const subTabs = require('../../model/mentalHealth.json');
 
 const OverallOpinion = (props) => {
 
@@ -17,16 +22,20 @@ const OverallOpinion = (props) => {
 	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
 	const [title, setTitle] = React.useState('')
+	const [legend, setLegend] = useState('')
+	const [subMenuTabs, setSubMenuTabs] = useState([{ literalTab: '322' }, { literalTab: '323' }])
 	const [selectedTab, setSelectedTab] = useState(props.indicator);
-    const [indicatorTabs, setIndicatorTabs] = useState([{ literalTab: '322' }, { literalTab: '323' }]);
+    const [indicatorTabs, setIndicatorTabs] = useState(subTabs);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [isSubMenuOpen,setIsSubMenuOpen]= useState(false)
 	const [sector, setSector]= useState('sector')
+	const [legend2,setLegend2]=useState(props.literals.L20582)
 
 useEffect(() => {
 updateDimension();
 window.addEventListener('resize',updateDimension);
 return ()=> window.removeEventListener('resize',updateDimension);
+
 }, [window.innerWidth])
 
  
@@ -39,14 +48,31 @@ const updateDimension = () =>{
 		setChange(false)
 		setTitle('Job satisfaction')
 	}
-
 }
-//console.log(currentPath)
+
+const callbackChartLegend = (legend) => {
+	setLegend( legend );
+}
+
+const callbackSelectedSurvey = (callback) => {
+	//this.setState({ selectedSurvey: callback });
+}
+
 
 const callbackSelectedTab = (callback) => {
 	setSelectedTab( callback )
-}
 
+}
+	const handleSector =(sector)=> {
+		if(sector == 'sector'){
+			setLegend(props.literals.L20582)
+		}else if(sector == 'age'){
+			setLegend(props.literals.L20583)
+		}else{
+			setLegend(props.literals.L20581)
+		}
+		console.log(legend)
+	}
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
 	}
@@ -54,6 +80,8 @@ const callbackSelectedTab = (callback) => {
 	const handleSearch2 = (selectCountry2)=>{
 		setSelectCountry2(selectCountry2)
 	}
+
+	
 
 
 		return(
@@ -65,7 +93,7 @@ const callbackSelectedTab = (callback) => {
 					selectedTab={selectedTab}
 					callbackSelectedTab={callbackSelectedTab}
 					locationPath={currentPath}
-					subMenuTabs={indicatorTabs}
+					subMenuTabs={subMenuTabs}
 					selectCountry1={selectCountry1}
 					selectCountry2={selectCountry2}
 					sector={sector}
@@ -77,8 +105,33 @@ const callbackSelectedTab = (callback) => {
 
 								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 									<div className="card--block--chart">
+									<div className="chart--block with-filter" >
+										<div className="card--block--chart--wrapper" >
+											{indicatorTabs.map((tab) => {
+												if (props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == selectedTab) {
+													return (
+														<div className="chart--wrapper" key={tab.literalTab} >
+															<MentalRiskCharts
+																literals={props.literals}
+																tabIndicator={tab.literalTab}
+																chartType={tab.chartType}
+																colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
+																type={dimension}
+																percentage={true}
+																callbackLegend={callbackChartLegend}
+																callbackSelectedSurvey={callbackSelectedSurvey}
+															/>
+														</div>
+													)
+												}
+											})}
+										</div>
+									</div>
+
+
+
 										<div className="chart--block">
-											<Chart
+											{/* <Chart
 											title={title}
 											colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
 											//showDataLabel={true}
@@ -92,9 +145,12 @@ const callbackSelectedTab = (callback) => {
 											//reversed={true}
 											chart={'20040'}
 											indicator={'65'}
-											/> 
+											/>  */}
 										</div>
 									</div>
+									<div className="chart-legend">
+											{props.literals.L20580}
+											</div>
 								</div>								
 							</div>
 		
@@ -115,7 +171,7 @@ const callbackSelectedTab = (callback) => {
 										<div className="chart--block">
 											<RiskChart
 												title='Do you think your health or safety is at risk because of your work?'
-												colors={['#f6a400','#003399','#cbe2e3','#ffe300','#449fa2','#f3c564','#16983e']}
+												colors={['#f6a400','#003399','#cbe2e3','#ffe300']}
 												showDataLabel={true}
 												tick={20}
 												percentage={true}
@@ -129,15 +185,23 @@ const callbackSelectedTab = (callback) => {
 												sector={[8,9,10,11,12,13]}
 												gender={[1,2,3]}
 												age={[1,2,3,4]}
+												handleSector={handleSector}
 											/> 
 										</div>
 									</div>
+									<div className="chart-legend">
+											{legend2}
+											</div>
 								</div>								
 							</div>}			
 		
 						</div>
-					</div> 
+						
+				</div> 
 
+				<Methodology />
+
+				<Related literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion",props.indicator]} />
 		</div>
 		)
 	

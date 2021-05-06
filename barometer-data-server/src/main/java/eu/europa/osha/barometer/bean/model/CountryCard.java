@@ -32,7 +32,9 @@ public class CountryCard {
 		double auxVal = Math.round(pValue*10);
 		
 		// If indicator is Job Satisfaction, and it has already been added, sum the two values
-		if (data.get(pIndicatorName) != null && pIndicatorName.equalsIgnoreCase("Job satisfaction"))
+		if (data.get(pIndicatorName) != null && (pIndicatorName.equalsIgnoreCase("Job satisfaction") || pIndicatorName.equalsIgnoreCase("E3Q353")
+				|| pIndicatorName.equalsIgnoreCase("E3Q357") || pIndicatorName.equalsIgnoreCase("Does your work involve tiring or painful positions?") 
+				|| pIndicatorName.equalsIgnoreCase("Does your work involve sitting?") || pIndicatorName.equalsIgnoreCase("Does your work involve repetitve hand or arm movements?")))
 		{
 			data.put(pIndicatorName, data.get(pIndicatorName)+(auxVal/10));
 		}
