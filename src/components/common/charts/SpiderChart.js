@@ -31,7 +31,9 @@ class SpiderChart extends Component{
 					xAxis: {
 						//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
 						tickmarkPlacement: 'on',
-						lineWidth: 0
+						lineWidth: 0,
+						gridLineColor: '#000000',
+						gridLineWidth: 0.25,
 					},
 					plotOptions: {
 						series: {
@@ -39,6 +41,12 @@ class SpiderChart extends Component{
 						},
 						line: {
 							dataLabels: {
+								style: {
+									textOutline: 0,
+									textShadow: false,
+									fontFamily: 'OpenSans-Bold',
+									fontSize:'14px'
+								},
 								enabled: this.props.showDataLabel === true ? true : false,
 								formatter: function () {
 									return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
@@ -48,6 +56,8 @@ class SpiderChart extends Component{
 					},
 					yAxis: {
 				gridLineInterpolation: 'polygon',
+				gridLineColor: '#000000',
+				gridLineWidth: 0.25,
 				lineWidth: 0,
 				min: 0
 					},
@@ -63,48 +73,88 @@ class SpiderChart extends Component{
 							},
 							 
 						formatter: function () {
-							if (this.x == 'Vibrations from tools or machinery'){
+							if (this.x == props.literals.L22153){
 								return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : []	);
-							}else if (this.x == 'Loud noise'){
+							}else if (this.x == props.literals.L22155){
 								return ['<b>' + 'Are you exposed to loud noise?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : []	);
-							}else if (this.x == 'High temperatures'){
+							}else if (this.x == props.literals.L22156){
 								return ['<b>' + 'Are you exposed to high temperatures?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Low temperatures'){
+							}else if (this.x == props.literals.L22154){
 								return ['<b>' + 'Are you exposed to low temperatures?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Positions'){
+							}else if (this.x == props.literals.L22161){
 								return ['<b>' + 'Does your work involve tiring or <br>painful positions?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Loads'){
+							}else if (this.x == props.literals.L22165){
 								return ['<b>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Sitting'){
+							}else if (this.x == props.literals.L22163){
 								return ['<b>' + 'Does your work involve sitting?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Movements'){
+							}else if (this.x == props.literals.L22164){
 								return ['<b>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
-							}else if (this.x == 'Lifting and moving'){
+							}else if (this.x == props.literals.L22162){
 								return ['<b>' + 'Does your work involve lifting or <br>moving people?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22171){
+								return ['<b>' + 'Did the employees have a role in the design and set-up <br>of the measures to address psychosocial risks?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22172){
+								return ['<b>' + 'Does your organisation have a health and <br>safety delegate or committee?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22173){
+								return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22174){
+								return ['<b>' + 'Are health and safety issues regularly discussed <br>in staff or team meetings? <br>(Regularly and Occasionally)' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22175){
+								return ['<b>' + 'How often controversies related to health and safety arise? <br>(Sum of often and sometimes)' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22176){
+								return ['<b>' + 'Does your organisation have a regular meeting <br>in which employees can express their views <br>about what is happening in the organisation?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22177){
+								return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+									this.points ? this.points.map(function (point) {
+											return point.series.name + ': ' + point.y + '% '+'<br>';
+										}) : [] );
+							}else if (this.x == props.literals.L22178){
+								return ['<b>' + 'Does your organisation have a health and safety <br>delegate or committee?' + '</b><br><br>'].concat(
 									this.points ? this.points.map(function (point) {
 											return point.series.name + ': ' + point.y + '% '+'<br>';
 										}) : [] );
@@ -154,11 +204,15 @@ class SpiderChart extends Component{
         }
 
 		if (chart.chart == '20080'){
-			categories =['Positions','Sitting','Loads','Movements','Lifting and moving']
+			categories =[this.props.literals.L22161,this.props.literals.L22163,this.props.literals.L22159,this.props.literals.L22164,this.props.literals.L22162]
 		}else if (chart.chart == '20049'){
-			categories =['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures']
-		}else {
-			categories =['Positions','Loads','Movements','Sitting']
+			categories =[this.props.literals.L22153,this.props.literals.L22155,this.props.literals.L22156,this.props.literals.L22154]
+		}else if (chart.chart == '20101') {
+			categories =[this.props.literals.L22157,this.props.literals.L22159,this.props.literals.L22158,this.props.literals.L22163]
+		}else if (chart.chart == '20106'){
+			categories =[this.props.literals.L22171,this.props.literals.L22172,this.props.literals.L22173,this.props.literals.L22174,this.props.literals.L22175]
+		}else if (chart.chart == '20069'){
+			categories=[this.props.literals.L22176,this.props.literals.L22177,this.props.literals.L22178]
 		}
 
 		getSpiderChart(chart.chart, country1, country2)
@@ -174,25 +228,39 @@ class SpiderChart extends Component{
 				}
 					if(chart.chart == '20080'){
 						auxSeries[split].push(
-							element.data['Does your work involve tiring or painful positions?'],
-							element.data['Does your work involve sitting?'],
-							element.data['Does your work involve carrying or moving heavy loads?'],
-							element.data['Does your work involve repetitve hand or arm movements?'],
-							element.data['Does your work involve lifting or moving people?']
+							element.data[this.props.literals.L347],
+							element.data[this.props.literals.L348],
+							element.data[this.props.literals.L349],
+							element.data[this.props.literals.L350],
+							element.data[this.props.literals.L351]
 							)
 					}else if(chart.chart == '20049'){
 						auxSeries[split].push(
-							element.data['Are you exposed to vibrations from tools or machinery?'],
-							element.data['Are you exposed to loud noise?'],
-							element.data['Are you exposed to high temperatures?'],
-							element.data['Are you exposed to low temperatures?'],
+							element.data[this.props.literals.L324],
+							element.data[this.props.literals.L325],
+							element.data[this.props.literals.L326],
+							element.data[this.props.literals.L327],
 							)
-					}else{
+					}else if(chart.chart == '20101'){
 						auxSeries[split].push(
-							element.data['Tiring or painful positions'],
-							element.data['Lifting or moving people or heavy loads'],
-							element.data['Repetitive hand or arm movements'],
+							element.data[this.props.literals.L20676],
+							element.data[this.props.literals.L20690],
+							element.data[this.props.literals.L20691],
 							element.data['Prolonged sitting'],
+							)
+					}else if(chart.chart == '20106'){
+						auxSeries[split].push(
+							element.data['E3Q306'],
+							element.data['E3Q350_4'],
+							element.data['E3Q350_2'],
+							element.data['E3Q357'],
+							element.data['E3Q353']
+							)
+					}else if(chart.chart == '20069'){
+						auxSeries[split].push(
+							element.data[this.props.literals.L332],
+							element.data[this.props.literals.L353],
+							element.data[this.props.literals.L352]
 							)
 					}
 			});
