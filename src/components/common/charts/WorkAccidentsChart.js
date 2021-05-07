@@ -181,7 +181,9 @@ class WorkAccidentsChart extends Component {
                     contextButton: {
                         menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
                     }
-                }
+                },
+                sourceWidth: this.props.chartSize,
+                filename: this.props.title.replace(/ /g, '_')
             },
             navigation: {
                 buttonOptions: {
