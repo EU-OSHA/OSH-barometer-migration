@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
+import { largeSize } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -80,7 +81,8 @@ class HealthAwareness extends Component {
                         contextButton: {
                             menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
                         }
-                    }
+                    },
+                    sourceWidth: largeSize
                 },
 				navigation: {
 					buttonOptions: {
