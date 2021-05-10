@@ -87,6 +87,7 @@ class MentalRiskCharts extends Component {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
 					},
+                    sourceWidth: 1300,
                     filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
 				},
 				navigation: {
