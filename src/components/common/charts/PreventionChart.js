@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
-import { largeSize } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -12,7 +11,7 @@ const xAxisColor = "#808080";
 const euColor = "#003399";
 const euColorLight = "#7f97ce";
 
-class MentalRiskCharts extends Component {
+class PreventionChart extends Component {
     constructor(props) {
         super(props);
 
@@ -87,9 +86,7 @@ class MentalRiskCharts extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					},
-                    sourceWidth: largeSize,
-                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
+					}
 				},
 				navigation: {
 					buttonOptions: {
@@ -147,24 +144,24 @@ class MentalRiskCharts extends Component {
                 xAxis: {
                     lineWidth: 0,
                     max: this.props.yAxisMax,
-                    plotLines: [
-                        {
-                            color: 'black',
-                            width: '2',
-                            value: 0.5,
-                            zIndex:1
-                        },
-                        {
-                            color: 'black',
-                            width: '2',
-                            value: 29.5,
-                            zIndex:1
-                        }
-                    ],
+                    // plotLines: [
+                    //     {
+                    //         color: 'black',
+                    //         width: '2',
+                    //         value: 0.5,
+                    //         zIndex:1
+                    //     },
+                    //     {
+                    //         color: 'black',
+                    //         width: '2',
+                    //         value: 29.5,
+                    //         zIndex:1
+                    //     }
+                    // ],
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'bold',
+							fontWeight: 'normal',
 							fontSize:'12px',
                             color:xAxisColor
 						}
@@ -187,11 +184,15 @@ class MentalRiskCharts extends Component {
 						}
                     },
                     min: 0,
-                    max: 100
+                    max: 100,
+                    //tickInterval:20,
                 },
                 plotOptions: {
                     column: {
-                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.1f}%'
+                        },
                       borderWidth: 0,  
                       pointStart: 0,
                         states: {
@@ -221,34 +222,25 @@ class MentalRiskCharts extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props.chartType[0].type
+            selectedTypeChart: this.props.chartType[0].type,
+            country1: this.props.selectedCountry1,
+            country2: this.props.selectedCountry2
         }
     }
     
     onChangeSelect = (e) => {
+        console.log(e.target.value)
         this.setState({ selectedTypeChart: e.target.value });
         this.props.callbackSelectedSurvey(e.target.value);
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         if (window.innerWidth > 768 ) {
-            this.setState({ 
-                chartConfig: {
-                    ...this.state.chartConfig, 
-                    title: {
-                        ...this.state.chartConfig.title, 
-                        text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
-                    },
-                    exporting: {
-                        ...this.state.chartConfig.exporting, 
-                        filename: this.props.literals[`L${serie.title}`].replace(/ /g, '_')
-                    }
-                } 
-            })
+            this.setState({ chartConfig: {...this.state.chartConfig, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" } } })
         }
     }
     
     getLoadData = (chartType) => {
-        //console.log('getLoadData');
+        //console.log('');
         let categories = [];
         let auxSeries = [];
         let series = [];
@@ -256,91 +248,48 @@ class MentalRiskCharts extends Component {
         let euSerie1 = null;
         let euSerie2 = null;
         let chart = [];
-
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
-            // this.props.callbackLegend(chart.legend);
+            this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null });
         }
 
-        this.props.callbackLegend(chart.legend);
-
         this.setState({ ...this.state, isLoading: true });
         try {
-            getChartData(chart.chart, chart.chartIndicator, null, null, [chart.sector], chart.answers)
+            getChartData(chart.chart, chart.chartIndicator, this.props.selectedCountry1, this.props.selectedCountry2, chart.sector, chart.answers, chart.size)
                 .then((data) => {
-                    euSerie1 = data.resultset[0].value
-                    euSerie2 = data.resultset[1].value
+                    //euSerie1 = data.resultset[0].value
+                    //euSerie2 = data.resultset[1].value
                    
 
                     data.resultset.forEach(element => {
-                        if (categories.indexOf(element.country) == -1) {
-                            categories.push(element.country)
+                        if (categories.indexOf(element.countryCode) == -1) {
+                            categories.push(element.split)
                         }
     
-                        let split = element.split;
+                        let split = element.countryCode;
                         if (!(split in auxSeries)) {
                             auxSeries[split] = []
                         }
                         
-                        auxSeries[split].push({ name: element.country, y: element.value });
+                        auxSeries[split].push(element.value );
                     });
 
-                    for (let serie in auxSeries) {
-                            if (serie == 'Yes' || serie == 'Once or more' || serie == 'Mean' || serie == 'At least 1/4 of the time') {
-                                const euValueSerie1 = {...auxSeries[serie][0], color: euColor}
-                                auxSeries[serie][0] = euValueSerie1
-                            }
-                            if (serie == 'No' || serie == 'Never' || serie == 'Less than 1/4 of the time' ) {
-                                const euValueSerie2 = {...auxSeries[serie][0], color: euColorLight}
-                                auxSeries[serie][0] = euValueSerie2
-                            }
-                        series.push({ name: serie, data: auxSeries[serie] });
-
+                    for (let serie in auxSeries){
+                        series.push({ name:serie , data: auxSeries[serie] })
                     }
-                       const arr = series.slice(0,1)
-                       const arr1 = series.slice(1,2)
-                       const arr2 = series.slice(2,3)
-                       const array = arr1.concat(arr,arr2).reverse()
 
-                    const reversedArray = [...series].reverse();
-                    if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {...this.state.chartConfig.xAxis, plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}] ,categories} }})                        
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 1.1', categories.length)
-                        // }
-                        
-                        // if (categories.length > 30) {
-                        //     console.log('trigger 1.2', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}] ,categories} }})                        
-                        // }
-                        
-                    } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {...this.state.chartConfig.xAxis,plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})  
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 2.1', categories.length)
-                        // }
+                    this.setState({
+                        chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors: this.props.colors}
+                    })
+                    
+                   if (series.length ==3){
+                       this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']}})
+                   }
 
-                        // if (categories.length > 30) {
-                        //     console.log('trigger 2.1', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
-                        // }
-                    } else if (series[0].name == 'Yes, but only some of them'){
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: array, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 3.1', categories.length)
-                        // }
-
-                        // if (categories.length > 31) {
-                        //     console.log('trigger 3.2', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})
-                        // }
-                    }else{
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
-                    }
                 });
         } catch (error) {
             console.log('error', error)    
@@ -393,6 +342,13 @@ class MentalRiskCharts extends Component {
         if (prevProps.type != this.props.type) {
             this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
         }
+
+        if (prevProps.selectedCountry1 != this.props.selectedCountry1){
+            this.getLoadData(this.props.chartType);
+        }
+        if (prevProps.selectedCountry2 != this.props.selectedCountry2){
+            this.getLoadData(this.props.chartType);
+        }
     }
 
     componentWillUnmount() {
@@ -429,4 +385,4 @@ class MentalRiskCharts extends Component {
     }
 }
 
-export default MentalRiskCharts;
+export default PreventionChart;

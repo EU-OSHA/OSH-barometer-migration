@@ -69,7 +69,7 @@ export function getOSHData(dataPage, filters) {
 }
 
 // get data for the charts
-export function getChartData(chart, indicator, country1, country2, sector, answers) {
+export function getChartData(chart, indicator, country1, country2, sector, answers, size) {
     const URL = `${BASEURL}quantitative/getChartData`
 
     const response = axios.get(URL, {
@@ -79,7 +79,8 @@ export function getChartData(chart, indicator, country1, country2, sector, answe
             country1,
             country2,
             sector,
-            answers
+            answers,
+            size
         },
         paramsSerializer: params => {
             let urlWithParams = new URLSearchParams();
@@ -101,11 +102,15 @@ export function getChartData(chart, indicator, country1, country2, sector, answe
             }
 
             if (params.sector) {
-                urlWithParams.append('sector', params.sector);
+                params.sector.map((sector) => urlWithParams.append('sector', sector)); 
             }
 
             if (params.answers) {
                 params.answers.map((answer) => urlWithParams.append('answer', answer));
+            }
+
+            if (params.size) {
+                params.size.map((size) => urlWithParams.append('size', size));
             }
 
             return urlWithParams
@@ -330,6 +335,40 @@ export function getDatasourceAndDates (chart)
             }
         }
         return text;
+    })
+
+    return response;
+}
+
+
+// Get Spider Chart for Physical-Risk
+
+export function getSpiderChart(chart, country1, country2){
+    const URL = `${BASEURL}quantitative/getRadarChartData`
+
+    const response = axios.get(URL,{
+        params:{
+            chart,
+            country1,
+            country2
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.chart) {
+                urlWithParams.append('chart', params.chart);
+            }
+            if ( params.country1){
+                urlWithParams.append('country1', params.country1)
+            }
+            if ( params.country2){
+                urlWithParams.append('country2', params.country2)
+            }
+            return urlWithParams
+        }
+        
+    }).then((res)=>{
+        return res.data
     })
 
     return response;
