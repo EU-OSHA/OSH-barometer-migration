@@ -1,3 +1,12 @@
-import { } from '../constants';
+import { SET_METHODOLOGY } from '../constants';
 
 // For each of the actions defined for redux, this file will export one function
+export function setMethodology(section, subsection, indicator) {
+    const action = {
+        type: SET_METHODOLOGY,
+        section,
+        subsection,
+        indicator: indicator
+    }
+    return action;
+}

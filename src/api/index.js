@@ -373,3 +373,58 @@ export function getSpiderChart(chart, country1, country2){
 
     return response;
 }
+
+// Get Indicators for a section in the methodology page
+export function getMethodologyIndicators (section)
+{
+    const URL = `${BASEURL}metadata/getMethodologyIndicators`
+
+    const response = axios.get(URL,{
+        params:{
+            section
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.section)
+            {
+                urlWithParams.append('section', params.section);
+            }
+            return urlWithParams
+        }
+    }).then((res)=>{
+        return res.data
+    })
+
+    return response;
+}
+
+// Get the methodology data for all the indicators for one section or for one indicator
+export function getMethodologyData (section, indicator)
+{
+    const URL = `${BASEURL}metadata/getMethodologyData`
+
+    const response = axios.get(URL,{
+        params:{
+            section,
+            indicator
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.section)
+            {
+                urlWithParams.append('section', params.section);
+            }
+            if (params.indicator)
+            {
+                urlWithParams.append('indicator', params.indicator);
+            }
+            return urlWithParams
+        }
+    }).then((res)=>{
+        return res.data
+    })
+
+    return response;
+}

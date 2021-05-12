@@ -15,7 +15,7 @@ class GeneralInformation extends Component
 	render()
 	{
 		return(
-			<div class="about-tool">
+			<div className="about-tool">
 				<div className="container">
 					<h1 className="title-section second-color text-center">{this.props.literals.L22019}</h1>
 					<h2>{this.props.literals.L20735}</h2>
