@@ -67,7 +67,7 @@ const EconomicSectorProfile = (props) => {
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} methodologyData={{section: 'generic-information', subsection: 'Economic and sector profile', indicator: 31}}/>
 
 				<div className="compare--block container">
 					{/* FILTERS */}

@@ -86,7 +86,7 @@ const callbackSelectedTab = (callback) => {
 
 		return(
 			<div className="overall-opinion">
-				<AdviceSection literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion"]} />
+				<AdviceSection literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Overall opinion', indicator: 65}} />
 				
 				<SubMenuTabs 
 					literals={props.literals}

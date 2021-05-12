@@ -125,7 +125,7 @@ class OSHStatistics extends Component
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} methodologyData={{section: 'osh-infrastructure', subsection: 'OSH statistics, surveys and research', indicator: 80}} />
 
 				<section className="container">
 

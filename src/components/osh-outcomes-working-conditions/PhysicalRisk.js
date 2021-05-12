@@ -126,7 +126,7 @@ class PhysicalRisk extends Component{
 	{
 		return(
 			<div className="physical-risk">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Physical risk', indicator: 67}} />
 					<form className="compare--block--form">
 
 					<div>

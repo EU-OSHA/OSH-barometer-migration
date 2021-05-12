@@ -19,7 +19,7 @@ class WorkingConditions extends Component {
 	{
 		return(
 			<div className="working-conditions">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","working-conditions"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","working-conditions"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Overall opinion', indicator: 65}} />
 
 				<section className="container-fluid background-gray section--page">
 					<div className="container">

@@ -57,7 +57,7 @@ class OSHCulture extends Component
 	{
 		return(
 			<div className="osh-culture">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'OSH culture and health awareness', indicator: 63}} />
 
 				<SubMenuTabs 
 					literals={this.props.literals} 

@@ -110,7 +110,7 @@ class SocialDialogue extends Component
 	{
 		return(
 			<div className="social-dialogue">
-				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} methodologyData={{section: 'osh-steering', subsection: 'Social dialogue', indicator: 354}} />
 
 				<EUCountryCard literals={this.props.literals} euData={this.state.euData} page={'socialDialogue'}/>
 

@@ -47,7 +47,7 @@ handleSearch2 = (callbackCountry2) => {
 	{
 		return(
 			<div className="worker-involvement">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","worker-involvement"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","worker-involvement"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Worker involvement', indicator: 75}} />
 
 				<form className="compare--block--form">
 

@@ -243,7 +243,7 @@ class CountryProfile extends Component
 
 		return(
 			<div className="country--profile--page">
-				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} methodologyData={{section: 'osh-steering', subsection: 'Structure of each National strategy', indicator: 46}} />
 
 				<div className="container">
 					<p className="btn--block-full left-text">

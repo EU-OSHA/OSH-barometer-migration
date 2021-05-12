@@ -133,7 +133,7 @@ class HealthPerception extends Component
 	{
 		return(
 			<div className="health-perception-workers">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","health-perception-of-workers"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","health-perception-of-workers"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Health perception of the workers', indicator: 57}} />
 
 				<EUCountryCard literals={this.props.literals} euData={this.state.euData} page={'healthPerception'}/>
 

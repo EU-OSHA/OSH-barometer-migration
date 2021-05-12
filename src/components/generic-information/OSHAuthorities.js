@@ -126,7 +126,7 @@ class OSHAuthorities extends Component
 	render() {
 		return(
 			<div className="osh-authority">
-				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} />
+				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} methodologyData={{section: 'generic-information', subsection: 'OSH authorities', indicator: 27}}/>
 
 				{/* FILTERS COMPONENT */}
 				<section className="container">

@@ -58,7 +58,7 @@ class WorkAccidents extends Component
 	{
 		return(
 			<div className="work-accidents">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Work accidents', indicator: 53}} />
 				<form className="compare--block--form">
 					<SubMenuTabs 
 						literals={this.props.literals}

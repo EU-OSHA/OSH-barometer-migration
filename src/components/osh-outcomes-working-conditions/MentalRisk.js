@@ -70,7 +70,7 @@ class MentalRisk extends Component
 	{
 		return(
 			<div className="mental-risk">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Mental risk', indicator: 83}} />
 
 				<SubMenuTabs 
 					literals={this.props.literals} 

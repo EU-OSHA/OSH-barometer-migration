@@ -88,7 +88,7 @@ class PreventionCompanies extends Component {
 	{
 		return(
 			<div className="prevention-companies">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection:'Prevention in companies', indicator: 304}} />
 
 				<SubMenuTabs 
 					literals={this.props.literals} 
