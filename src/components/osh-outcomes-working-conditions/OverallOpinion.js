@@ -199,7 +199,7 @@ const callbackSelectedTab = (callback) => {
 						
 				</div> 
 
-				<Methodology />
+				<Methodology literals={props.literals} section={'Working conditions - Overall opinion'} />
 
 				<Related literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion",props.indicator]} />
 		</div>

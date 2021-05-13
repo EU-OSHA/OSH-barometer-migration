@@ -146,7 +146,7 @@ class SocialDialogue extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Social dialogue'} />
 			</div>
 		)
 	}

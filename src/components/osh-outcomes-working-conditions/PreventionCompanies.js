@@ -202,10 +202,8 @@ class PreventionCompanies extends Component {
 					</div>
 				</div>
 
-
-
-				{/* <Methodology />
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies","risk-assessment"]} /> */}
+				<Methodology literals={this.props.literals} section={'Prevention in companies'} />
+				{/*<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies","risk-assessment"]} /> */}
 			</div>
 		)
 	}

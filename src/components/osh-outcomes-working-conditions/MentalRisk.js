@@ -112,7 +112,7 @@ class MentalRisk extends Component
 					</div>
 				</div>
 				
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Working conditions - Mental risk'} />
 
 				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.props.indicator]} />
 			</div>

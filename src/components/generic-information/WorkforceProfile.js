@@ -345,7 +345,7 @@ class WorkforceProfile extends Component
 						</div>
 					</section>
 				</section>
-				<Methodology />			
+				<Methodology literals={this.props.literals} section={'Workforce profile'} />			
 			</div>
 		)
 	}

@@ -106,7 +106,7 @@ class OSHCulture extends Component
 							})}
 						
 				</div>
-				<Methodology />
+				<Methodology literals={literals} section={'OSH culture and health awareness'} />
 
 				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab]} />
 			</div>

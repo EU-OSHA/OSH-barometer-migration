@@ -245,7 +245,7 @@ class PhysicalRisk extends Component{
 
 					</form>
 
-					<Methodology />
+					<Methodology literals={this.props.literals} section={'Working conditions - Physical risk'} />
 
 						{this.state.visible ? <Related literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk", "exposure-to-dangerous-substances" ]} /> : null}
 

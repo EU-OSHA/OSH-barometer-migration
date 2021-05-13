@@ -187,7 +187,7 @@ class OSHAuthorities extends Component
 				</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'OSH authorities'} />
 			</div>
 		)
 	}

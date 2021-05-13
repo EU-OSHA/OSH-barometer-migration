@@ -182,7 +182,7 @@ class HealthPerception extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Health perception of the workers'} />
 			</div>
 		)
 	}

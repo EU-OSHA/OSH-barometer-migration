@@ -183,7 +183,7 @@ class EUChallengesResponse extends Component
 
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Responses of national strategies to EU challenges'} />
 			</div>
 		)
 	}

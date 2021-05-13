@@ -254,7 +254,7 @@ const EconomicSectorProfile = (props) => {
 					</div>
 				</section>
 				
-				<Methodology />
+				<Methodology literals={props.literals} section={'Economic and sector profile'} />
 				
 				<Related literals={props.literals} section={["generic-information","economic-sector-profile"]} />
 

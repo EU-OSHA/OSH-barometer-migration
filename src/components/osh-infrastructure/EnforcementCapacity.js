@@ -17,7 +17,7 @@ class EnforcementCapacity extends Component
 			<div className="country--profile--page enforcement-capacity">
 				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity"]} methodologyData={{section: 'osh-infrastructure', subsection: 'Enforcement capacity', indicator: 285}} />
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Enforcement capacity'} />
 				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} />
 			</div>
 		)

@@ -172,7 +172,7 @@ class OSHStatistics extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'OSH statistics, surveys and research'} />
 			</div>
 		)
 	}
