@@ -28,21 +28,6 @@ class CountryProfileTextTab extends Component
 		}
 	}
 
-	componentDidMount() {
-		console.log('props', this.props);
-		console.log('state', this.state)
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevProps != this.props) {
-			console.log('on update props', this.props)
-		}
-
-		if (prevState != this.state) {
-			console.log('on update states', this.state)
-		}
-	}
-
     isOneCountrySelected = () => {
 		if(this.props.country2 !== undefined && this.props.country2 !== null
 			&& this.props.country2 !== ""){
