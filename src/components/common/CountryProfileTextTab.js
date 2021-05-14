@@ -9,14 +9,48 @@ class CountryProfileTextTab extends Component
     constructor(props){
         super(props);
         this.state = {
-            maxCharacters: 200
+            maxCharacters: this.props.maxCharacters ? this.props.maxCharacters : 200,
+			country1: this.props.country1 != undefined ? this.props.country1 : { code: 'AT', name: 'Austria' },
+			country2: this.props.country2 != undefined ? this.props.country2 : { code: 'BE', name: 'Belgium' }
         }
     }
+
+	// const country1 = this.props.country1 != undefined ? this.props.country1 : { code: "AT", name: "Austria" };
+		// const country2 = this.props.country2 != undefined ? this.props.country2 : { code: "BE", name: "Belgium" };
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.country1 != this.props.country1) {
+			this.setState({ country1: this.props.country1 })
+		}
+
+		if (prevProps.country2 != this.props.country2) {
+			this.setState({ country2: this.props.country2 })
+		}
+	}
+
+	componentDidMount() {
+		console.log('props', this.props);
+		console.log('state', this.state)
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps != this.props) {
+			console.log('on update props', this.props)
+		}
+
+		if (prevState != this.state) {
+			console.log('on update states', this.state)
+		}
+	}
 
     isOneCountrySelected = () => {
 		if(this.props.country2 !== undefined && this.props.country2 !== null
 			&& this.props.country2 !== ""){
-			return "no-full";
+				if (this.props.country2.code != '0') {
+					return "no-full";
+				} else {
+					return "full"
+				}
 		}else{
 			return "full";
 		}
@@ -101,48 +135,57 @@ class CountryProfileTextTab extends Component
         var secondCountryContainer =  "";
 
         if(this.props.country2 != undefined){
-            secondCountryContainer = (
-                <div className="column--item second">
-                    <div className="">
-                        <img className="flags--wrapper" src={`${images[country2.code.toLowerCase()]}`} alt={country2.name} />
-                    </div>
-                    <h2>{this.props.literals[tabName]}</h2>
-                    <div className="columm--item--content">
-                        { /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
-                        <p className="download-report">
-                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country2.name}.pdf`} 
-                            className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
-                        </p>
-                        <div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
-                        <div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
-                            {ReactHtmlParser(this.props.literals['L'+this.props.country2Text])}
-                        </div>
-                        <SeeMore text={this.props.literals['L'+this.props.country2Text]} maxCharacters={this.state.maxCharacters} 
-                            literals={this.props.literals} toggleText={this.toggleText} />
-                    </div>
-                </div>
-            )
+			if (this.props.country2.code != '0') {
+				secondCountryContainer = (
+					<div className="column--item second">
+						<div className="">
+							{this.props.page == 'enforcement' && (<img className="flags--wrapper" src={`${this.props.country2.code && images[this.props.country2.code.toLowerCase()]}`} alt={this.props.country2.name} />)}
+							{!this.props.page && (<img className="flags--wrapper" src={`${this.props.country2 && images[this.props.country2.code.toLowerCase()]}`} alt={this.props.country2 && this.props.country2.name} />)}
+						</div>
+						<h2>{this.props.literals[tabName]}</h2>
+						<div className="columm--item--content">
+							{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
+							<p className="download-report">
+								{!this.props.page && (
+									<a href={`/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country2.name}.pdf`}
+									className="download-pdf" target="_blank">{this.props.literals.L20640}</a> 
+								)}
+							</p>
+							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element) => <div className="partial-text"> {this.props.literals[`L${element}`]} </div>))}
+							<div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
+							<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
+								{ReactHtmlParser(this.props.literals['L'+this.props.country2Text])}
+							</div>
+							<SeeMore text={this.props.literals['L'+this.props.country2Text]} maxCharacters={this.state.maxCharacters} 
+								literals={this.props.literals} toggleText={this.toggleText} />
+						</div>
+					</div>
+				)
+			} 
         }
 
         return (
             <div className="column--grid--block" id={this.props.tab}>
                 <div className={"column--item first "+this.isOneCountrySelected()}>
                     <div className="">
-                        <img className="flags--wrapper" src={`${images[country1.code.toLowerCase()]}`} alt={country1.name} />
+						{this.props.page == 'enforcement' && (<img className="flags--wrapper" src={`${this.props.country1.code && images[this.props.country1.code.toLowerCase()]}`} alt={this.props.country1.name} />)}
+						{!this.props.page && (<img className="flags--wrapper" src={`${this.props.country1 && images[this.props.country1.code.toLowerCase()]}`} alt={this.props.country1 && this.props.country1.name} />)}
                     </div>
                     <h2>{this.props.literals[tabName]}</h2>
                     <div className="columm--item--content">
-                        <p className="download-report">
-                            <a href={`/osh-steering/country-profile/National-Strategies-Mapping_${country1.name}.pdf`} 
-                                className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
-                        </p>
+                        {!this.props.page && (
+							<p className="download-report">
+								<a href={`/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country1.name}.pdf`} 
+									className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
+                        	</p>
+						)}
+						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element) => <div className="partial-text"> {this.props.literals[`L${element}`]} </div>))}
                         <div className="partial-text" >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
                         <div className="complete-text" >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
                         <SeeMore text={this.props.literals['L'+this.props.country1Text]} maxCharacters={this.state.maxCharacters} 
                             literals={this.props.literals} toggleText={this.toggleText} />
                     </div>
                 </div>
-
                 {secondCountryContainer}
             </div>
         )
