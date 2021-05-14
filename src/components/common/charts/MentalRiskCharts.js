@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
+import { largeSize } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -87,6 +88,7 @@ class MentalRiskCharts extends Component {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
 					},
+                    sourceWidth: largeSize,
                     filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
 				},
 				navigation: {

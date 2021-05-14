@@ -10,7 +10,7 @@
     "setstaging": "cp conf/.env.staging ./.env",
     "setprod": "cp conf/.env.prod ./.env",
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "build": "parcel build src/index.html --public-url /osh-barometer/",
     "buildtest": "npm run clearcache && npm run settest && npm run build",
     "start": "npm run build && live-server dist",
     "buildstaging": "npm run clearcache && npm run setstaging && npm run build",
