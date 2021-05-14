@@ -1,5 +1,5 @@
 // Enforcement Capacity Sub menus
-export const enforcementCapacity = [
+export const enforcementCapacityTabs = [
     {
         literalTab: '20692',
         chartType: [{
