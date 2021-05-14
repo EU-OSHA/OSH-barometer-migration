@@ -5,8 +5,8 @@ const SubMenuTabs = props => {
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [selectedTab, setSelectedTab] = useState(props.selectedTab);
     const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
-    const [country1,setCountry1]= useState(props.selectCountry1);
-    const [country2, setCountry2]= useState(props.selectCountry2)
+    // const [country1,setCountry1]= useState(props.selectCountry1);
+    // const [country2, setCountry2]= useState(props.selectCountry2);
 
     const history = useHistory();
     useEffect(() => {
@@ -14,20 +14,30 @@ const SubMenuTabs = props => {
         loadUrl();
     }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2]);
 
+    const loadUrl = ()=>{
+        if (props.selectedSurvey) {
+            history.push({
+                pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
+            })
+        } else{
+            const country2 = props.selectCountry2 == undefined ? 0 : props.selectCountry2;
+            console.log('country2', country2)
 
-
-const loadUrl = ()=>{
-    if (props.selectedSurvey) {
-        history.push({
-            pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
-        })
-    } else{
-        history.push({
-            pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
-        })
+            if (props.selectedTab == '%-of-establishments-inspected') {
+                history.push({
+                    pathname: `${props.locationPath}establishments-inspected/${props.selectCountry1}/${country2}`
+                })
+            } else if (props.selectedTab == 'strategy/plan') {
+                history.push({
+                    pathname: `${props.locationPath}strategy-plan/${props.selectCountry1}/${country2}`
+                })
+            } else {
+                history.push({
+                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${country2}`
+                })
+            }
+        }
     }
-}
-
 
     useEffect(() => {
         if (window.innerWidth > 990) {
@@ -37,14 +47,17 @@ const loadUrl = ()=>{
 
     const onClickIndicator = (e, indicator) => {
 		e.preventDefault();
+        let newIndicator
+        if (indicator == '20692') {
+            newIndicator = 'establishments-inspected'
+        } else if (indicator == '336') {
+            newIndicator = 'strategy-plan'
+        } else {
+            newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
+        }
 
-        const newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
         setSelectedTab(newIndicator);
         props.callbackSelectedTab(newIndicator);
-      
-        // if (newIndicator != props.selectedTab || newIndicator == props.selectedSurvey){
-        //     console.log("hola", newIndicator)
-        // }
 
         if (newIndicator != props.selectedTab) {
             if (props.selectedSurvey) {
@@ -57,11 +70,18 @@ const loadUrl = ()=>{
                 });
             }
         }
-        
 	}
 
     const literalClass = (literal) => {
-        const translateLiteral = props.literals[`L${literal}`].toLowerCase().replace(/ /g, '-');
+        let translateLiteral;
+
+        if (literal == '20692') {
+            translateLiteral = 'establishments-inspected'
+        } else if (literal == '336') {
+            translateLiteral = 'strategy-plan'
+        } else {
+            translateLiteral = props.literals[`L${literal}`].toLowerCase().replace(/ /g, '-');
+        }
         if (selectedTab == translateLiteral) {
             return true
         } else {
