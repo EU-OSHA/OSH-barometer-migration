@@ -5,6 +5,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 
 import './style/App.scss';
+import CookiesComponent from './components/common/cookies/CookiesComponent';
 
 const App = (props) => 
 {
@@ -17,6 +18,8 @@ const App = (props) =>
 	}
 	return(
 		<div>
+			<CookiesComponent literals={props.literals} />
+
 			<Header literals={props.literals} child={child}/>
 
 			{props.children}
