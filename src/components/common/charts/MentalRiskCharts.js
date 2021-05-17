@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
 import { largeSize } from '../utils/chartConfig';
+import ReactHtmlParser from 'react-html-parser'
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -26,7 +27,9 @@ class MentalRiskCharts extends Component {
 					y:20,
 					style: {
 						zIndex: 1,
-						lineHeight:36
+						lineHeight:36,
+                        // position: 'absolute',
+                        // top: '-8px'
 					}
                 },
 				credits: {
@@ -362,7 +365,16 @@ class MentalRiskCharts extends Component {
 
     updateDimension = () => {
 		if (window.innerWidth > 768) {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>"}} });
+			this.setState({ 
+                chartConfig: {
+                    ...this.state.chartConfig, 
+                    chart: {...this.state.chartConfig.chart, height: 450},
+                    title: {
+                        ...this.state.chartConfig.title,
+                        // TODO: Deleted HTML Tags - attacked styles directly from css
+                        text: this.props.literals[`L${this.props.chartType[0].title}`]
+                    }}
+                });
 		} else {
             const shortTitle = this.props.literals[`L${this.props.tabIndicator}`]
 			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+shortTitle+"</h2>"}} });
