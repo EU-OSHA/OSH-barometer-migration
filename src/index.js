@@ -51,12 +51,30 @@ import PrivacyPolicy from './components/footer-pages/PrivacyPolicy';
 import Sitemap from './components/footer-pages/Sitemap';
 import ScrollToTop from './components/common/hook/ScrollToTop';
 
+//Matomo and Cookies
+import { Cookies, CookiesProvider, useCookies } from 'react-cookie';
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 
 const store = createStore(reducer);
-
 const literals = require('./model/Literals.json');
 
+const PIWIK = process.env.PIWIK != undefined ? process.env.PIWIK : "local" ;
+const DVT = process.env.DVT != undefined ? process.env.DVT : "local" ;
+var configuration = require('../src/components/common/cookies/cookiesConfig.json');
+var url = configuration.paths.piwik[PIWIK].protocol + ":" + configuration.paths.piwik[PIWIK].domain + ":" + configuration.paths.piwik[PIWIK].port + configuration.paths.piwik[PIWIK].path;
+var basePath = configuration.paths.enviroment[DVT].domain + ":" + configuration.paths.enviroment[DVT].port + "/";
+const instance = createInstance({
+    urlBase: basePath, //https://LINK.TO.DOMAIN',
+    siteId: configuration.paths.piwik[PIWIK].SiteId, //3
+    trackerUrl: url+'piwik.php', //'https://LINK.TO.DOMAIN/tracking.php', // optional, default value: `${urlBase}matomo.php`
+    srcUrl: url+'piwik.js', //'https://LINK.TO.DOMAIN/tracking.js', // optional, default value: `${urlBase}matomo.js`
+    disabled: false, // optional, false by default. Makes all tracking calls no-ops if set to true.
+    linkTracking: true, // optional, default value: true
+});
+
 ReactDOM.render(
+	<MatomoProvider value={instance}>
+	<CookiesProvider>
 	<Provider store={store}>
 		<BrowserRouter basename="osh-barometer" >
 		<ScrollToTop>
@@ -120,12 +138,14 @@ ReactDOM.render(
 				<Route exact path="/accessibility" render={() => <App literals={literals}><Accesibility literals={literals}/></App>} />
 				<Route exact path="/legal-notice" render={() => <App literals={literals}><LegalNotice literals={literals}/></App>} />
 				<Route exact path="/page-not-found" render={() => <App literals={literals}><PageNotFound literals={literals}/></App>} />
-				<Route exact path="/privacy-notice" render={() => <App literals={literals}><PrivacyPolicy literals={literals}/></App>} />
+				<Route exact path="/privacy-notice" render={() => <App literals={literals}><PrivacyPolicy literals={literals} /></App>} />
 				<Route exact path="/sitemap" render={() => <App literals={literals}><Sitemap literals={literals}/></App>} />
 
 			</Switch>
 			</ScrollToTop>		
 		</BrowserRouter>
-	</Provider>, 
+	</Provider>
+	</CookiesProvider>
+	</MatomoProvider>, 
 	document.getElementById('root')
 );
