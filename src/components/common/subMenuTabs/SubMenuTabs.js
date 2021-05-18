@@ -21,9 +21,13 @@ const loadUrl = ()=>{
         history.push({
             pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
         })
-    } else{
+    } else if (props.selectCountry1 && props.selectCountry2) {
         history.push({
             pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+        })
+    } else {
+        history.push({
+            pathname: `${props.locationPath}${props.selectedTab}`
         })
     }
 }
