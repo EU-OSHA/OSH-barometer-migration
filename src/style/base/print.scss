@@ -880,20 +880,20 @@
 			}
 		}
 	}
-}
 
-.section--related--content{
-	.related--content--wrapper{
-		.related-content-items{
-			flex-direction: column;			
-			.related-content-item{
-				padding: 0 2rem;
-				border-right: none;
-				.icon-related-item{
-					display: none;
-				}
-				.content-related-item{
-					width: 100%;
+	.section--related--content{
+		.related--content--wrapper{
+			.related-content-items{
+				flex-direction: column;			
+				.related-content-item{
+					padding: 0 2rem;
+					border-right: none;
+					.icon-related-item{
+						display: none;
+					}
+					.content-related-item{
+						width: 100%;
+					}
 				}
 			}
 		}
