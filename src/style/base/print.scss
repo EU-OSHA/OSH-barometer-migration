@@ -713,10 +713,20 @@
 	.health-perception-workers {
 	  .card--grid {
 		.card--block--chart {
-		  .chart--block {
+			margin:0;
+		  .chart--block {			
 			header {
 			  min-height: auto !important;
 			  display: block !important;
+			}
+			.highlited-data-list{
+				margin: 2rem 5.6rem;
+				li{
+					text-align: left;
+					span.country-data{
+
+					}
+				}
 			}
 		  }
 		}
@@ -804,7 +814,8 @@
 	.mental-risk,
 	.physical-risk,
 	.osh-culture,
-	.prevention-companies{
+	.prevention-companies, 
+	.enforcement-capacity{
 		.title--card {
 			min-height: auto;
 		}
