@@ -172,7 +172,7 @@ class SpiderChart extends Component{
 				
 			},
 			typeCharts:[],
-			selectedTypeChart: this.props.chartType[0].type
+			selectedTypeChart: this.props.dataset
 		}
 	}
 
@@ -196,7 +196,12 @@ class SpiderChart extends Component{
 		const country2= this.props.selectCountry2;
 		
 		if (chartType.length > 1) {
-             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+            chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+			if (this.state.selectedTypeChart == null && this.props.dataset != null)
+			{
+				this.setState({ selectedTypeChart: this.props.dataset });
+				chart = chartType.find((chart) => chart.type == this.props.dataset);
+			}
             // this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
@@ -298,7 +303,7 @@ class SpiderChart extends Component{
         }
 
         if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            this.props.callbackSelectedSurvey(this.props.chartType[1].type)
         } else {
             this.props.callbackSelectedSurvey(this.props.chartType[0].type)
         }
@@ -307,6 +312,15 @@ class SpiderChart extends Component{
 	}
 
 	componentDidUpdate(prevProps,prevState){
+		if (prevProps.chartType !=  this.props.chartType)
+		{
+			if (this.props.chartType.length > 1) {
+				this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+			}
+			this.getLoadData(this.props.chartType);
+            this.updateDimension();
+		}		
+
 		if(prevProps.selectCountry1 != this.props.selectCountry1){
 			this.getLoadData(this.props.chartType)
 		}
@@ -325,26 +339,27 @@ class SpiderChart extends Component{
 
 	render()
 	{
+		console.log('Render Spider selectedTypeChart', this.state.selectedTypeChart);
 		return (
 			<>
-			{this.state.selectedTypeChart && (
-                        <div className="select-filter-chart-wrapper">
-                            {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    )}
+				{ this.state.selectedTypeChart && (
+					<div className="select-filter-chart-wrapper">
+						{ this.state.typeCharts.length > 1 && (
+							<div className="select-filter-chart">
+								<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+									{ this.state.typeCharts.map((type) => {
+										return <option key={type} value={type} > {type.toUpperCase()} </option>
+									})}
+								</select>
+							</div>
+						)}
+					</div>
+				)}
 				<div>
 					<HighchartsReact
-					highcharts={Highcharts}
-					options={this.state.chartConfig}
-				/>
+						highcharts={Highcharts}
+						options={this.state.chartConfig}
+					/>
 				</div>
 			</>
 		)

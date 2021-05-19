@@ -7,34 +7,55 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
+import { physicalRiskTabs } from '../../model/subMenuTabs';
 
 const subTabs = require('../../model/mentalHealth.json')
 
-
-
 class PhysicalRisk extends Component{
-		constructor(props){
-			super(props);
-			this.state= {
-				selectCountry1: 'AT',
-				selectCountry2: '',
-				chart:'20049',
-				indicatorTabs: subTabs,
-				indicatorSubTabs1: [{ literalTab: '20654' }, { literalTab: '20655' },{ literalTab: '20656' }],
-				indicatorSubTabs: [{ literalTab: '328' }, { literalTab: '329' },{ literalTab: '330' },{ literalTab: '331' }],
-				selectedTab: this.props.indicator,
-				chartLegend: '',
-				selectedSurvey:'',
-				currentPath: '/osh-outcomes-working-conditions/physical-risk/',
-				isSubMenuOpen: false,
-				chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
-				visible: false,
-				
+	
+	constructor(props){
+		super(props);
+
+		let selectedTab='', selectedSubTab='', secondLevelTabs='';
+		for (let i = 0; i < physicalRiskTabs.length; i++)
+		{
+			if (physicalRiskTabs[i].url == props.tab)
+			{
+				selectedTab = physicalRiskTabs[i];
 			}
-			
 		}
 
+		// If the current tab has sub-tabs, set the selected one
+		if (selectedTab.subTabs != undefined)
+		{
+			secondLevelTabs = selectedTab.subTabs;
+			for (let i = 0; i < selectedTab.subTabs.length; i++)
+			{
+				if (selectedTab.subTabs[i].url == props.indicator)
+				{
+					selectedSubTab = selectedTab.subTabs[i];
+				}
+			}
+		}
 
+		this.state= {
+			selectCountry1: 'AT',
+			selectCountry2: '',
+			chart:'20049',
+			firstLevelTabs: physicalRiskTabs,
+			secondLevelTabs: secondLevelTabs,
+			selectedTab: selectedTab,
+			secondLevelSelectedTab: selectedSubTab,
+			chartLegend: '',
+			selectedSurvey:'',
+			currentPath: '/osh-outcomes-working-conditions/physical-risk/',
+			isSubMenuOpen: false,
+			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
+			showSecondLevel: secondLevelTabs == '' ? false : true,
+			dataset: props.dataset,
+			secondLevelIndicator: props.indicator ? props.indicator : 'vapours'
+		}
+	}
 
 	handleSearch = (callbackCountry1) => {
 		this.setState({ selectCountry1: callbackCountry1 })
@@ -45,45 +66,56 @@ class PhysicalRisk extends Component{
 	}
 
 	callbackSelectedSurvey = (callback) => {
-	
-		this.setState({ selectedSurvey: callback });
+		console.log('In callback selected survey', callback);
+		this.setState({ dataset: callback });
 	}
-
 
 	callbackSelectedTab = (callback) => {
-		switch (callback) {
-			case 'exposure-to-dangerous-substances':
-				this.setState({visible: true})
-				this.setState({selectedTab: 'smoke,-powder-or-dust'})
-				this.setState({ chartLegend: '20598' });
-				break;
-			case 'vapours':
-				this.setState({selectedTab: callback});
-				this.setState({ chartLegend: '20599' });
-				break;
-			case 'chemical-products':
-				this.setState({selectedTab: callback});
-				this.setState({ chartLegend: '20600' });
-				break;
-			case 'infectious-materials':
-				this.setState({selectedTab: callback});
-				this.setState({ chartLegend: '20601' });
-				break;
-				case 'ergonomic-risks':
-					this.setState({visible: false})
-					this.setState({ chartLegend: '' });
-					this.setState({selectedTab: callback});
-				break;
-				case 'vibrations,-loud-noise-and-temperature':
-					this.setState({visible: false})
-					this.setState({selectedTab: callback});
-				break;
-			default:
-				break;
+		if (callback == 'exposure-to-dangerous-substances')
+		{
+			this.setState({showSecondLevel: true});
+			for (let i = 0; i < this.state.firstLevelTabs.length; i++)
+			{
+				if (callback == this.state.firstLevelTabs[i].url)
+				{
+					let selectedTab = this.state.firstLevelTabs[i];
+					this.setState({ selectedTab: selectedTab });
+					this.setState({ secondLevelTabs: selectedTab.subTabs });
+					if (this.state.secondLevelSelectedTab == undefined || this.state.secondLevelSelectedTab == '')
+					{
+						this.setState({ secondLevelSelectedTab: selectedTab.subTabs[0] });
+					}
+				}
+			}
 		}
-		
+		else
+		{
+			this.setState({showSecondLevel: false});
+			for (let i = 0; i < this.state.firstLevelTabs.length; i++)
+			{
+				if (callback == this.state.firstLevelTabs[i].url)
+				{
+					this.setState({ selectedTab: this.state.firstLevelTabs[i] });
+				}
+			}
+		}	
+	}
+	
+	callbackChartLegend = (legend) => {
+		this.setState({ chartLegend: legend });
 	}
 
+	callbackSelectedIndicator = (callback) => {
+		// This function will be called when changing the indicator for Exposure to Dangerous Substances
+		this.setState({secondLevelIndicator: callback});
+		for (let i = 0; i < this.state.secondLevelTabs.length; i++)
+		{
+			if (callback == this.state.secondLevelTabs[i].url)
+			{
+				this.setState({ secondLevelSelectedTab: this.state.secondLevelTabs[i] });
+			}
+		}
+	}
 
 	updateDimension = ()=>{
 		if(window.innerWidth > 768){
@@ -93,29 +125,21 @@ class PhysicalRisk extends Component{
 		}
 	}
 
-	
-
 	componentDidMount()
 	{
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 		window.addEventListener('resize', this.updateDimension);
 		if(this.state.selectedTab == 'smoke,-powder-or-dust'){
-			this.setState({visible: true})
+			this.setState({showSecondLevel: true})
 			this.setState({selectedTab: 'smoke,-powder-or-dust'})
 			this.setState({ chartLegend: '20598' });
 		}
 	}
 
-	componentDidUpdate(prevProps) {
-	
-		// if (prevProps.dataset != this.props.dataset) {
-		// //	this.setState({ selectedSurvey: this.props.dataset })
-		// }
-
-		// if (prevProps.indicator != this.props.indicator) {
-		// 	this.setState({ selectedTab: this.props.indicator })
-		// }
+	componentDidUpdate(prevProps, prevState) {
+		console.log('Previous', prevState.dataset);
+		console.log('Current', this.state.dataset);
 	}
 
 	componentWillUnmount(){
@@ -124,131 +148,95 @@ class PhysicalRisk extends Component{
 
 	render()
 	{
+		console.log("Render Physical Risk ", this.state.dataset);
 		return(
 			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Physical risk', indicator: 67}} />
-					<form className="compare--block--form">
-
-					<div>
-					
-
-					{this.state.visible == false  ? <SubMenuTabs 
+				<div>
+					{<SubMenuTabs 
 						literals={this.props.literals}
-						selectedTab={this.state.selectedTab}
+						selectedTab={this.state.selectedTab.url}
 						callbackSelectedTab={this.callbackSelectedTab}
 						locationPath={this.state.currentPath}
-						subMenuTabs={this.state.indicatorSubTabs1} 
+						subMenuTabs={this.state.firstLevelTabs} 
 						selectCountry1={this.state.selectCountry1}
 						selectCountry2={this.state.selectCountry2}
-						/>  : <SubMenuTabs 
-						literals={this.props.literals}
-						selectedTab={'exposure-to-dangerous-substances'}
-						callbackSelectedTab={this.callbackSelectedTab}
-						locationPath={this.state.currentPath}
-						subMenuTabs={this.state.indicatorSubTabs1} 
-						selectCountry1={this.state.selectCountry1}
-						selectCountry2={this.state.selectCountry2}
-						/>}
-					</div>
-					<div>
+						selectedSurvey={this.state.dataset}
+					/>}
+				</div>
+				<div>
 					<div className="line background-main-light" />
-												{/******  Segundo subMenu***********/}
+					{/* If the current tab has another menu inside, display the menu. If not, show the Country Selects for Comparison*/}			
+					{ this.state.showSecondLevel ? <SubMenuTabs 
+							literals={this.props.literals}
+							selectedTab={this.state.secondLevelSelectedTab.url}
+							selectedSurvey={this.state.selectedSurvey} 
+							callbackSelectedTab={this.callbackSelectedIndicator}
+							locationPath={`${this.state.currentPath}exposure-to-dangerous-substances/`}
+							subMenuTabs={this.state.secondLevelTabs} 
+						/> : <SelectEconomic 
+							handleSearch={this.handleSearch} 
+							handleSearch2={this.handleSearch2} 
+							//charts={['20022']}
+							//indicator={'53'}
+							literals={this.props.literals}
+							selectedCountry1={this.state.selectCountry1}
+							selectedCountry2={this.state.selectCountry2}
+						/> 
+					}
+				</div>
 
-					
-					{ this.state.visible ? <SubMenuTabs 
-						literals={this.props.literals}
-						selectedTab={this.state.selectedTab}
-						selectedSurvey={this.state.selectedSurvey} 
-						callbackSelectedTab={this.callbackSelectedTab}
-						callbackSelectedSurvey={this.callbackSelectedSurvey}
-						locationPath={this.state.currentPath}
-						subMenuTabs={this.state.indicatorSubTabs} 
-						selectCountry1={this.state.selectCountry1}
-						selectCountry2={this.state.selectCountry2}
-						/> : null }
+				<div className="line background-main-light" />
+
+				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
+					<div className="card--block--chart with-filters">
+
+						{ this.state.showSecondLevel ? <div className="chart--block">
 						
-
-						{this.state.visible ? null :<SelectEconomic 
-						handleSearch={this.handleSearch} 
-						handleSearch2={this.handleSearch2} 
-						//charts={['20022']}
-						//indicator={'53'}
-						literals={this.props.literals}
-						selectedCountry1={this.state.selectCountry1}
-						selectedCountry2={this.state.selectCountry2}
-						/>}
-
-					</div>
-
-					<div className="line background-main-light" />
-
-					<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
-						<div className="card--block--chart with-filters">
-
-						{this.state.visible ? <div className="chart--block">
-						
-						<div className="card--block--chart--wrapper" >
-								{this.state.indicatorTabs.map((tab) => {
-									if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
-										return (
-											<div className="chart--wrapper" key={tab.literalTab} >
-												<MentalRiskCharts
-													literals={this.props.literals}
-													tabIndicator={tab.literalTab}
-													chartType={tab.chartType}
-													colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-													type={this.state.chartDimension}
-													percentage={true}
-													callbackLegend={this.callbackChartLegend}
-													callbackSelectedSurvey={this.callbackSelectedSurvey}
-												/>
-											</div>
-										)
-									}
-								})}
-							</div>
-							
-							</div>: null}
-							{this.state.indicatorTabs.map((tab)=>{
-								if(this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab)
-								{
-									return (
-										<div className="chart--wrapper" key={tab.literalsTab}>
-										{this.state.visible == false && (<div className="chart--wrapper">
-										<SpiderChart
+								<div className="card--block--chart--wrapper" >
+									<div className="chart--wrapper" >
+										{<MentalRiskCharts
+											literals={this.props.literals}
+											tabIndicator={this.state.secondLevelSelectedTab.literalTab}
+											chartType={this.state.secondLevelSelectedTab.chartType}
+											colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+											type={this.state.chartDimension}
+											percentage={true}
+											callbackLegend={this.callbackChartLegend}
+											callbackSelectedSurvey={this.callbackSelectedSurvey}
+										/>}
+									</div>
+								</div>							
+							</div> : <div className="chart--wrapper" >
+									{<SpiderChart
 										literals={this.props.literals}
-										tabIndicator={tab.literalTab}
+										tabIndicator={this.state.selectedTab.literalTab}
 										selectCountry1={this.state.selectCountry1}
 										selectCountry2={this.state.selectCountry2}
 										showDataLabel={true}
 										colors={['#f6a400','#003399','#cbe2e3']}
-										selectedTab={this.state.selectedTab}
+										selectedTab={this.state.selectedTab.url}
 										indicatorTabs={this.state.indicatorTabs}
-										chartType={tab.chartType}
+										chartType={this.state.selectedTab.chartType}
 										//callbackLegend={this.callbackChartLegend}
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
-										/>
-								</div>)}
-										</div>
-									)
-								}
-							})} 
-
-						</div>
-
-						<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
-						
+										dataset={this.state.dataset}
+									/>}
+								</div>
+						}
 					</div>
+					<div className="chart-legend">
+						{this.props.literals[`L${this.state.chartLegend}`]}						
 					</div>
-		
+				</div>
 
-					</form>
+				<Methodology literals={this.props.literals} section={'Working conditions - Physical risk'} indicator={this.state.showSecondLevel ? this.state.secondLevelSelectedTab.chartType[0].chartIndicator : null} 
+					dataset={this.state.showSecondLevel ? null : this.state.dataset} subsection={this.state.showSecondLevel ? null : this.props.tab} />
 
-					<Methodology literals={this.props.literals} section={'Working conditions - Physical risk'} />
-
-						{this.state.visible ? <Related literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk", "exposure-to-dangerous-substances" ]} /> : null}
-
+				{this.state.showSecondLevel ? 
+					<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk", "exposure-to-dangerous-substances" ]} /> 
+					: null
+				}
 			</div>
 		)
 	}

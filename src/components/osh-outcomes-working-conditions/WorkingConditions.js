@@ -62,18 +62,18 @@ class WorkingConditions extends Component {
 							</p>
 						</div>
 						<div className="card--block--rounded">
-							<Link className="icon--card physical-risk-icon" to={"/osh-outcomes-working-conditions/physical-risk/vibrations,-loud-noise-and-temperature"}
+							<Link className="icon--card physical-risk-icon" to={"/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature"}
 							//osh-outcomes-working-conditions/working-conditions/physical-risk-vibrations-loud-noise-and-temperature/AT/0
 
 								// ui-sref="physical-risk-vibrations-loud-noise-and-temperature({pIndicator: 'vibrations-loud-noise-and-temperature', pCountry1:country1, pCountry2: country2})"
 							></Link>
 							<h3 className="title--card main-color">
-								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations,-loud-noise-and-temperature"}
+								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature"}
 									// ui-sref="physical-risk-vibrations-loud-noise-and-temperature({pIndicator: 'vibrations-loud-noise-and-temperature', pCountry1:country1, pCountry2: country2})"
 								>{this.props.literals.L20711}</Link></h3>
 							<p>{this.props.literals.L20579}</p>
 							<p className="btn--card--block">
-								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations,-loud-noise-and-temperature"}
+								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature"}
 									// ui-sref="physical-risk-vibrations-loud-noise-and-temperature({pIndicator: 'vibrations-loud-noise-and-temperature', pCountry1:country1, pCountry2: country2})" 
 									className="btn--card main-color">
 									{ReactHtmlParser(this.props.literals.L480)}

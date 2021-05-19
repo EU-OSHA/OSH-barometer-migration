@@ -4,23 +4,39 @@ import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
-
-const subTabs = require('../../model/mentalHealth.json');
+import { mentalRisk } from '../../model/subMenuTabs';
 
 class MentalRisk extends Component
 {
 	constructor(props) {
 		super(props);
+
+		let selected = '';
+		let indicator = '';
+		for (let i = 0; i < mentalRisk.length; i++)
+		{
+			if (mentalRisk[i].url == props.indicator)
+			{
+				selected = mentalRisk[i];
+				for (let j = 0; j < selected.chartType.length; j++)
+				{
+					if (props.dataset == selected.chartType[j].type)
+					{
+						indicator = selected.chartType[j].chartIndicator;
+					}
+				}
+			}
+		}
 		
 		this.state = {
-			indicatorTabs: subTabs,
-			subMenuTabs: [{ literalTab: '20669' }, { literalTab: '20670' }, { literalTab: '20671' },{ literalTab: '20672' }, { literalTab: '20673' },{ literalTab: '20674' },{ literalTab: '20675' }],
-			selectedTab: this.props.indicator,
+			indicatorTabs: mentalRisk,
+			selectedTab: selected,
 			selectedSurvey: this.props.dataset,
-			indicatorSubTabs: [{ literalTab: '340' }, { literalTab: '341' },{ literalTab: '342' },{ literalTab: '343' },{ literalTab: '344' },{ literalTab: '345' }],
+			indicatorSubTabs: mentalRisk,
 			chartLegend: '',
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
-			currentPath: '/osh-outcomes-working-conditions/mental-risk/'
+			currentPath: '/osh-outcomes-working-conditions/mental-risk/',
+			methodologyIndicator: indicator
 		}
 	}
 
@@ -38,10 +54,24 @@ class MentalRisk extends Component
 
 	callbackSelectedSurvey = (callback) => {
 		this.setState({ selectedSurvey: callback });
+
+		for (let i = 0; i < this.state.selectedTab.chartType.length; i++)
+		{
+			if (this.state.selectedTab.chartType[i].type == callback)
+			{
+				this.setState({ methodologyIndicator: this.state.selectedTab.chartType[i].chartIndicator });
+			}
+		}
 	}
 
 	callbackSelectedTab = (callback) => {
-		this.setState({ selectedTab: callback })
+		for (let i = 0; i < this.state.indicatorTabs.length; i++)
+		{
+			if (callback == this.state.indicatorTabs[i].url)
+			{
+				this.setState({ selectedTab: this.state.indicatorTabs[i] });
+			}
+		}
 	}
 
 	componentDidMount() {
@@ -53,11 +83,11 @@ class MentalRisk extends Component
 	componentDidUpdate(prevProps) {
 
 		if (prevProps.dataset != this.props.dataset) {
-			this.setState({ selectedSurvey: this.props.dataset })
+			this.callbackSelectedSurvey(this.props.dataset);
 		}
 
 		if (prevProps.indicator != this.props.indicator) {
-			this.setState({ selectedTab: this.props.indicator })
+			this.callbackSelectedTab(this.props.indicator);
 		}
 
 	}
@@ -75,9 +105,9 @@ class MentalRisk extends Component
 				<SubMenuTabs 
 					literals={this.props.literals} 
 					callbackSelectedTab={this.callbackSelectedTab} 
-					selectedTab={this.state.selectedTab} 
+					selectedTab={this.state.selectedTab.url} 
 					selectedSurvey={this.state.selectedSurvey} 
-					subMenuTabs={this.state.indicatorSubTabs}
+					subMenuTabs={this.state.indicatorTabs}
 					locationPath={this.state.currentPath}
 				/>
 
@@ -86,14 +116,14 @@ class MentalRisk extends Component
 					<div className="card--block--chart" >
 						<div className="chart--block with-filter" >
 							<div className="card--block--chart--wrapper" >
-								{this.state.indicatorTabs.map((tab) => {
+								{/*this.state.indicatorTabs.map((tab) => {
 									if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
-										return (
-											<div className="chart--wrapper" key={tab.literalTab} >
+									return (*/}
+											<div className="chart--wrapper" >
 												<MentalRiskCharts
 													literals={this.props.literals}
-													tabIndicator={tab.literalTab}
-													chartType={tab.chartType}
+													tabIndicator={this.state.selectedTab.literalTab}
+													chartType={this.state.selectedTab.chartType}
 													colors={['#7b7b7d', '#cbe2e3','#f6a400']}
 													type={this.state.chartDimension}
 													percentage={true}
@@ -101,9 +131,9 @@ class MentalRisk extends Component
 													callbackSelectedSurvey={this.callbackSelectedSurvey}
 												/>
 											</div>
-										)
+										{/*})
 									}
-								})}
+								})*/}
 							</div>
 						</div>
 					</div>
@@ -112,9 +142,9 @@ class MentalRisk extends Component
 					</div>
 				</div>
 				
-				<Methodology literals={this.props.literals} section={'Working conditions - Mental risk'} />
+				<Methodology literals={this.props.literals} section={'Working conditions - Mental risk'} indicator={this.state.methodologyIndicator} />
 
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.props.indicator]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.state.selectedTab.url]} />
 			</div>
 		)
 	}

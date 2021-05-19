@@ -5,33 +5,35 @@ import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SpiderChart from '../common/charts/SpiderChart';
-
-const subTabs = require('../../model/mentalHealth.json')
+import { workerInvolvementTabs } from '../../model/subMenuTabs';
 
 class WorkerInvolvement extends Component {
-		constructor(props){
-			super(props);
-			this.state = {
-				selectCountry1: 'AT',
-				selectCountry2: '',
-				indicatorTabs: subTabs,
-				chartLegend: '',
-
-			}
-
+	
+	constructor(props){
+		super(props);
+		
+		this.state = {
+			selectCountry1: 'AT',
+			selectCountry2: '',
+			indicatorTabs: workerInvolvementTabs[0],
+			chartLegend: '',
+			dataset: props.split
 		}
 
-handleSearch = (callbackCountry1) => {
+	}
+
+	handleSearch = (callbackCountry1) => {
 		this.setState({ selectCountry1: callbackCountry1 })
 	}
 
-handleSearch2 = (callbackCountry2) => {
+	handleSearch2 = (callbackCountry2) => {
 		this.setState({ selectCountry2: callbackCountry2 })
 	}
+
 	callbackSelectedSurvey = (callback) => {
-	
-		this.setState({ selectedSurvey: callback });
+		this.setState({ dataset: callback });
 	}
+
 	callbackChartLegend = (legend) => {
 		this.setState({ chartLegend: legend });
 	}
@@ -40,7 +42,6 @@ handleSearch2 = (callbackCountry2) => {
 	{
 		// Update the title of the page
 		document.title = this.props.literals.L22015 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
-		console.log(this.state.indicatorTabs)
 	}
 
 	render()
@@ -71,46 +72,27 @@ handleSearch2 = (callbackCountry2) => {
 						<div className="card--block--chart with-filters">
 
 						 	<div className="chart--block">
-						 		{this.state.indicatorTabs.map((tab)=>{											 
-									if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == 'worker-involvement') {
-										return (
-											<div className="chart--wrapper" key={tab.literalsTab}>
-										
-												<SpiderChart
-													literals={this.props.literals}
-													tabIndicator={tab.literalTab}
-													selectCountry1={this.state.selectCountry1}
-													selectCountry2={this.state.selectCountry2}
-													showDataLabel={true}
-													colors={['#f6a400','#003399','#cbe2e3']}
-													selectedTab={'worker-involvemen'}
-													indicatorTabs={this.state.indicatorTabs}
-													chartType={tab.chartType}
-													callbackLegend={this.callbackChartLegend}
-													callbackSelectedSurvey={this.callbackSelectedSurvey}
-												/>
-											</div>
-										)
-									}								
-								})}
+								<div className="chart--wrapper" >							
+									<SpiderChart
+										literals={this.props.literals}
+										tabIndicator={this.state.indicatorTabs.literalTab}
+										selectCountry1={this.state.selectCountry1}
+										selectCountry2={this.state.selectCountry2}
+										showDataLabel={true}
+										colors={['#f6a400','#003399','#cbe2e3']}
+										chartType={this.state.indicatorTabs.chartType}
+										callbackLegend={this.callbackChartLegend}
+										callbackSelectedSurvey={this.callbackSelectedSurvey}
+									/>
+								</div>
 							</div>
 							<div className="chart-legend">
 								{this.props.literals[`L${this.state.chartLegend}`]} 
-							</div>
-							{/* {this.state.indicatorTabs.map((tab)=>{
-								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == 'worker-involvement') {
-								
-								return (
-									<div className="chart--wrapper" key={tab.literalsTab}>
-											 {tab.literalTab} 
-											 </div>
-								)}
-								})} */}
-						
+							</div>						
 						</div>
 					</div>
 				</form>
-				<Methodology literals={this.props.literals} section={'Worker involvement'} />
+				<Methodology literals={this.props.literals} section={'Worker involvement'} dataset={this.state.dataset} />
 			</div>
 		)
 	}

@@ -39,7 +39,6 @@ class Methodology extends Component
 {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 		}
 	}
@@ -47,7 +46,35 @@ class Methodology extends Component
 	getMethodologyData(pSection, pIndicatorID)
 	{
 		getMethodologyData(pSection, pIndicatorID).then((data) => {
-			this.setState({methodology: data.resultset});
+			if (this.props.dataset == undefined && this.props.subsection == undefined)
+			{
+				// The dataset is not defined, all the received indicators are going to be painted
+				this.setState({methodology: data.resultset});
+			}
+			else if (this.props.dataset != undefined && this.props.subsection != undefined)
+			{
+				// In the physical risk section, there are more than one spider chart and/or bar chart
+				if (this.props.subsection == 'vibrations-loud-noise-and-temperature')
+				{
+					// The indicators shown in the chart in Physical Risk -> Vibrations, loud noise and temperatures
+					const indicators = [67,68,69,70];
+					this.setState({ methodology: data.resultset.filter(indicator=> indicators.indexOf(indicator.indicatorID) > -1) });
+				}
+				else if (this.props.subsection == 'ergonomic-risks')
+				{
+					// The Physical Risk -> Ergonomic Risks chart has a Select to change the Dataset
+					let dataset = this.props.dataset == 'esener' ? this.props.dataset.toUpperCase() : 'European Working Conditions Survey (EWCS)';
+					// The indicators shown for both datasets in the chart
+					const indicators = [90,91,92,93,94,291,292,386];
+					this.setState({ methodology: data.resultset.filter(indicator=> (indicators.indexOf(indicator.indicatorID) > -1) && indicator.dataset==dataset) });
+				}
+			}
+			else
+			{
+				// The dataset is defined, the indicators displayed are the ones for the selected dataset
+				let dataset = this.props.dataset == 'esener' ? this.props.dataset.toUpperCase() : 'European Working Conditions Survey (EWCS)';
+				this.setState({ methodology: data.resultset.filter(indicator=> indicator.dataset==dataset) });
+			}
 		})
 	}
 
@@ -58,7 +85,7 @@ class Methodology extends Component
 
 	componentDidUpdate(prevProps)
 	{
-		if (this.props.indicator != prevProps.indicator)
+		if (this.props.indicator != prevProps.indicator || this.props.dataset != prevProps.dataset || this.props.subsection != prevProps.subsection)
 		{
 			this.getMethodologyData(this.props.section, this.props.indicator);
 		}
