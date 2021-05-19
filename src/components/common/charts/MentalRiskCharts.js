@@ -20,7 +20,10 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
+                    text: window.innerWidth > 768 ? 
+                        "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>" 
+                        : 
+                        "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>",
                     //text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
                     align: 'left',
 					widthAdjust: -50,
