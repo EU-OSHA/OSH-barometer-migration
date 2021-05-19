@@ -215,6 +215,15 @@ class MentalRiskCharts extends Component {
                                 }
                             }
                         }
+                    },
+                    bar: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        states: {
+                            inactive: {
+                                opacity: 1
+                            }
+                        }
                     }
                 },
                 series: []

@@ -19,23 +19,14 @@ const SubMenuTabs = props => {
             history.push({
                 pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
             })
-        } else{
-            const country2 = props.selectCountry2 == undefined ? 0 : props.selectCountry2;
-            console.log('country2', country2)
-
-            if (props.selectedTab == '%-of-establishments-inspected') {
-                history.push({
-                    pathname: `${props.locationPath}establishments-inspected/${props.selectCountry1}/${country2}`
-                })
-            } else if (props.selectedTab == 'strategy/plan') {
-                history.push({
-                    pathname: `${props.locationPath}strategy-plan/${props.selectCountry1}/${country2}`
-                })
-            } else {
-                history.push({
-                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${country2}`
-                })
-            }
+        } else if (props.selectCountry1 && props.selectCountry2) {
+            history.push({
+                pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+            })
+        } else {
+            history.push({
+                pathname: `${props.locationPath}${props.selectedTab}`
+            })
         }
     }
 
