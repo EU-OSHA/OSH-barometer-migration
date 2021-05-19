@@ -112,9 +112,11 @@ class CountryProfile extends Component
 	{
 		var indicatorTabs = "";
 		var selectedTabContent = "";
+		var indicatorID;
 
 		switch (this.state.indicator) {
 			case 'basic-information':
+				indicatorID = 46;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -128,6 +130,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'background':
+				indicatorID = 47;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -141,6 +144,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'characteristics-and-objectives':
+				indicatorID = 48;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -154,6 +158,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'details-and-activity':
+				indicatorID = 49;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -167,6 +172,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'actors-and-stakeholders':
+				indicatorID = 50;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -180,6 +186,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'resources-and-timeframe':
+				indicatorID = 98;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -193,6 +200,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'evaluation':
+				indicatorID = 51;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -206,6 +214,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'relationship-to-eu-strategic-framework':
+				indicatorID = 99;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -243,7 +252,7 @@ class CountryProfile extends Component
 
 		return(
 			<div className="country--profile--page">
-				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} methodologyData={{section: 'osh-steering', subsection: 'Structure of each National strategy', indicator: 46}} />
 
 				<div className="container">
 					<p className="btn--block-full left-text">
@@ -277,7 +286,7 @@ class CountryProfile extends Component
 					{selectedTabContent}					
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Structure of each National strategy'} indicator={indicatorID} />
 
 				{(this.state.indicator == 'background' 
 					|| this.state.indicator == 'actors-and-stakeholders' 

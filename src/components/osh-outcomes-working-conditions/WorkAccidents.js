@@ -56,9 +56,10 @@ class WorkAccidents extends Component
 
 	render()
 	{
+		let indicatorID = this.state.selectedTab == 'non-fatal-work-accidents' ? 53 : 54;
 		return(
 			<div className="work-accidents">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Work accidents', indicator: 53}} />
 				<form className="compare--block--form">
 					<SubMenuTabs 
 						literals={this.props.literals}
@@ -120,7 +121,7 @@ class WorkAccidents extends Component
 				</div>
 
 			</form>
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Work accidents'} indicator={indicatorID} />
 
 				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","work-accidents", this.props.indicator ]} />
 				

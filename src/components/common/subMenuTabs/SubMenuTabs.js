@@ -15,15 +15,35 @@ const SubMenuTabs = props => {
     }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2]);
 
     const loadUrl = ()=>{
-        if (props.selectedSurvey) {
-            history.push({
-                pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
-            })
-        } else if (props.selectCountry1 && props.selectCountry2) {
-            history.push({
-                pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
-            })
-        } else {
+        if (props.selectedTab != 'exposure-to-dangerous-substances' && props.locationPath.indexOf('exposure-to-dangerous-substances') == -1)
+        {
+            if (props.selectedTab == 'ergonomic-risks')
+            {
+                const country2 = props.selectCountry2 == undefined ? 0 : props.selectCountry2;
+                history.push({
+                    pathname: `${props.locationPath}ergonomic-risks/${props.selectedSurvey}/${props.selectCountry1}/${country2}`
+                })
+            }
+            else if (props.selectedSurvey && props.selectedTab != 'vibrations-loud-noise-and-temperature') {
+                history.push({
+                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
+                })
+            } else if (props.selectedSurvey) {
+                history.push({
+                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
+                })
+            } else if (props.selectCountry1 && props.selectCountry2) {
+                history.push({
+                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+                })
+            } else {
+                history.push({
+                    pathname: `${props.locationPath}${props.selectedTab}`
+                })
+            }
+        }
+        else if (props.locationPath.indexOf('exposure-to-dangerous-substances') > -1)
+        {
             history.push({
                 pathname: `${props.locationPath}${props.selectedTab}`
             })
@@ -44,7 +64,7 @@ const SubMenuTabs = props => {
         } else if (indicator == '336') {
             newIndicator = 'strategy-plan'
         } else {
-            newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
+            newIndicator = indicator;
         }
 
         setSelectedTab(newIndicator);
@@ -71,7 +91,7 @@ const SubMenuTabs = props => {
         } else if (literal == '336') {
             translateLiteral = 'strategy-plan'
         } else {
-            translateLiteral = props.literals[`L${literal}`].toLowerCase().replace(/ /g, '-');
+            translateLiteral = literal;
         }
         if (selectedTab == translateLiteral) {
             return true
@@ -92,10 +112,10 @@ const SubMenuTabs = props => {
 			<div className="submenu--block container">
 				<ul  className={`submenu--items--wrapper ${isSubMenuOpen ? 'open-list' : ''} `} >
                     {indicatorTabs.map((indicator) => (
-                        <li onClick={onClickSubMenu} key={indicator.literalTab} className={`submenu--item ${literalClass(indicator.literalTab) == true ? 'active' : '' }`} >
+                        <li onClick={onClickSubMenu} key={indicator.literalTab} className={`submenu--item ${literalClass(indicator.url) == true ? 'active' : '' }`} >
                             <a 
-                                className={literalClass(indicator.literalTab) == true ? 'active' : ''} 
-                                onClick={(e) => onClickIndicator(e, indicator.literalTab)} 
+                                className={literalClass(indicator.url) == true ? 'active' : ''} 
+                                onClick={(e) => onClickIndicator(e, indicator.url)} 
                                 >
                                 {props.literals[`L${indicator.literalTab}`]} 
                             </a>

@@ -167,7 +167,7 @@ class WorkforceProfile extends Component
 		return(
 			<div className="workforce--page">
 
-				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} />
+				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} methodologyData={{section: 'generic-information', subsection: 'Workforce profile', indicator: 37}} />
 				
 				<div className="filter--indicator--block container">
 					<SelectForceProfile 
@@ -358,7 +358,7 @@ class WorkforceProfile extends Component
 						</div>
 					</section>
 				</section>
-				<Methodology />			
+				<Methodology literals={this.props.literals} section={'Workforce profile'} />			
 			</div>
 		)
 	}

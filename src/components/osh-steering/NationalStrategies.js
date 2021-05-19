@@ -105,7 +105,7 @@ class NationalStrategies extends Component
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} methodologyData={{section: 'osh-steering', subsection: 'Structure of each National strategy', indicator: 46}}/>
 
 				<section className="filter--letter--section container">
 					<ul className="filter--letter--list">

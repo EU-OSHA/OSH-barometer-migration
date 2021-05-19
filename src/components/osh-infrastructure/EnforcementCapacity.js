@@ -15,11 +15,20 @@ class EnforcementCapacity extends Component {
 	constructor(props){
 		super(props);
 
+		let selected = '';
+		for (let i = 0; i < enforcementCapacityTabs.length; i++)
+		{
+			if (enforcementCapacityTabs[i].url == props.indicator)
+			{
+				selected = enforcementCapacityTabs[i];
+			}
+		}
+
 		this.state={
 			selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
 			selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
 			indicatorSubTabs: enforcementCapacityTabs,
-			selectedTab: this.props.indicator,
+			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
 			isSubMenuOpen: false,
 			filters: {
@@ -47,7 +56,14 @@ class EnforcementCapacity extends Component {
 	}
 
 	callbackSelectedTab = (callback) => {
-		this.setState({ selectedTab: callback })
+		for (let i = 0; i < this.state.indicatorSubTabs.length; i++)
+		{
+			if (this.state.indicatorSubTabs[i].url == callback)
+			{
+				this.setState({ selectedTab: this.state.indicatorSubTabs[i] });
+			}
+		}
+		// this.setState({ selectedTab: callback })
 	}
 
 	getStrategiesData = () => {
@@ -86,28 +102,28 @@ class EnforcementCapacity extends Component {
 				}
 
 				if (countriesData.length > 0) {
-					if (this.state.selectedTab == 'authority') {
+					if (this.state.selectedTab.url == 'authority') {
 						if (countriesData[indexCountry1] != undefined) {
 							this.setState({ countryText1: countriesData[indexCountry1].text1 })
 						}
 						if (countriesData[indexCountry2] != undefined) {
 							this.setState({ countryText2: countriesData[indexCountry2].text1 })
 						}
-					} else if (this.state.selectedTab == 'scope-of-the-labor-inspection') {
+					} else if (this.state.selectedTab.url == 'scope-of-the-labor-inspection') {
 						if (countriesData[indexCountry1] != undefined) {
 							this.setState({ countryText1: countriesData[indexCountry1].text2 })
 						}
 						if (countriesData[indexCountry2] != undefined) {
 							this.setState({ countryText2: countriesData[indexCountry2].text2 })
 						}
-					} else if (this.state.selectedTab == 'inspector-powers') {
+					} else if (this.state.selectedTab.url == 'inspector-powers') {
 						if (countriesData[indexCountry1] != undefined) {
 							this.setState({ countryText1: countriesData[indexCountry1].text3 })
 						}
 						if (countriesData[indexCountry2] != undefined) {
 							this.setState({ countryText2: countriesData[indexCountry2].text3 })
 						}
-					} else if (this.state.selectedTab == 'strategy-plan') {
+					} else if (this.state.selectedTab.url == 'strategy-plan') {
 						if (countriesData[indexCountry1] != undefined) {
 							this.setState({ countryText1: countriesData[indexCountry1].text4 })
 						}
@@ -120,10 +136,10 @@ class EnforcementCapacity extends Component {
 	}
 	
 	componentDidMount() {
-		if (this.state.selectedTab == 'authority' 
-			|| this.state.selectedTab == 'scope-of-the-labor-inspection' 
-			|| this.state.selectedTab == 'inspector-powers' 
-			|| this.state.selectedTab == 'strategy-plan') {
+		if (this.state.selectedTab.url == 'authority' 
+			|| this.state.selectedTab.url == 'scope-of-the-labor-inspection' 
+			|| this.state.selectedTab.url == 'inspector-powers' 
+			|| this.state.selectedTab.url == 'strategy-plan') {
 				this.getStrategiesData();
 			} 
 		
@@ -144,12 +160,12 @@ class EnforcementCapacity extends Component {
 	{
 		return(
 			<div className="country--profile--page enforcement-capacity">
-				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity"]} methodologyData={{section: 'osh-infrastructure', subsection: 'Enforcement capacity', indicator: 285}} />
 
 				<div>
 					<SubMenuTabs 
 						literals={this.props.literals}
-						selectedTab={this.state.selectedTab}
+						selectedTab={this.state.selectedTab.url}
 						callbackSelectedTab={this.callbackSelectedTab}
 						locationPath={this.state.currentPath}
 						subMenuTabs={this.state.indicatorSubTabs} 
@@ -177,8 +193,8 @@ class EnforcementCapacity extends Component {
 						} else {
 							auxText = propLiteral
 						}
-						if (auxText == this.state.selectedTab) {
-							if (this.state.selectedTab == 'establishments-inspected') {
+						if (auxText == this.state.selectedTab.url) {
+							if (this.state.selectedTab.url == 'establishments-inspected') {
 								return (
 									<div key={element.literalTab} className="card--block--chart">
 										<div className="chart--block with-filter" >
@@ -226,7 +242,7 @@ class EnforcementCapacity extends Component {
 					})}	
 				</div>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Enforcement capacity'} indicator={this.state.selectedTab.chartType != undefined ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.indicator }/>
 				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} />
 			</div>
 		)

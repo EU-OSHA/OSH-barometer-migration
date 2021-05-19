@@ -20,7 +20,7 @@ class MentalRiskCharts extends Component {
             chartConfig: {
                 title: {
                     text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
-                    //text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
+                    // text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
                     align: 'left',
 					widthAdjust: -50,
 					y:20,
@@ -385,11 +385,14 @@ class MentalRiskCharts extends Component {
             this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
         }
 
-        if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
-        } else {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
-        }
+        if (this.props.chartType.length > 1)
+        {
+            if (this.props.chartType[0].type == 'ewcs') {
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            } else {
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            }
+        }        
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
     }
@@ -397,6 +400,12 @@ class MentalRiskCharts extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
             this.getLoadData(this.props.chartType);
+        }
+
+        if (prevProps.chartType != this.props.chartType)
+        {            
+            this.getLoadData(this.props.chartType);
+            this.updateDimension();
         }
 
         if (prevProps.type != this.props.type) {

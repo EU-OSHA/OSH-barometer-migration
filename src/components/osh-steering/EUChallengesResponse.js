@@ -130,7 +130,7 @@ class EUChallengesResponse extends Component
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-steering","eu-challenges-response"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","eu-challenges-response"]} methodologyData={{section: 'osh-steering', subsection: 'Responses of national strategies to EU challenges', indicator: 52}} />
 
 				<section className="container">
 
@@ -183,7 +183,7 @@ class EUChallengesResponse extends Component
 
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Responses of national strategies to EU challenges'} />
 			</div>
 		)
 	}
