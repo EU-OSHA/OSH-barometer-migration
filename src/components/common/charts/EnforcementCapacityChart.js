@@ -5,7 +5,7 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData, getDatasourceAndDates } from '../../../api';
 
-import oshaLogo from '../../../style/img/EU-OSHA-en.png';
+import oshaLogo from './img/osha_logo-chart.svg';
 
 const euColor = '#003399';
 const euColorSeries = ['#003399', '#7f97ce'];

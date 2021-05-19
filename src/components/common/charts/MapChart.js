@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getCountryDataMap } from '../../../api'
-import { timers } from 'jquery';
+import { nodeName, timers } from 'jquery';
 
 
 
@@ -24,7 +24,7 @@ class MapChart extends Component {
 					width: 1024,
 					backgroundColor: '#F0F0F0'
 				},
-			
+
 				title: {
 					text: this.props.title
 				},
@@ -36,7 +36,38 @@ class MapChart extends Component {
 				colorAxis: {
 					tickPixelInterval: 100
 				},
-	
+				exporting: {
+					enabled: true,
+					y:-10,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					},
+					chartOptions:
+					{
+						credits: {
+							enabled: true
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y: 4
+					}
+				},
 				legend: {
 					layout: 'vertical',
 					align: 'right',
@@ -88,7 +119,14 @@ class MapChart extends Component {
 					
 					dataLabels: {
 						enabled: true,
-						color: '#000000',
+						color: '#000',
+						y:-7,
+						style: {
+							textShadow: false, 
+							textOutline: "#c7e2e3",
+							fontFamily: 'OpenSans-Bold',
+							fontSize:'14px'
+						},
 						formatter: function () {
 							if (this.point.value) {
 								return this.point.name;
@@ -96,8 +134,10 @@ class MapChart extends Component {
 						}
 					},
 					tooltip: {
+						y:-5,
+						enabled:false,
 						headerFormat: '',
-						pointFormat: '{point.name}'
+						pointFormat: '<strong style="font-size:14px;font-family:OpenSans-Bold">{point.name}</strong> <br>Median age of population: <strong style="font-size:14px;font-family:OpenSans-Bold">{point.value}</strong> Years'
 					}
 				}]
 			}
