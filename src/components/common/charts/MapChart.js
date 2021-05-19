@@ -120,7 +120,7 @@ class MapChart extends Component {
 					dataLabels: {
 						enabled: true,
 						color: '#000',
-						y:-10,
+						y:-7,
 						style: {
 							textShadow: false, 
 							textOutline: "#c7e2e3",
@@ -134,6 +134,7 @@ class MapChart extends Component {
 						}
 					},
 					tooltip: {
+						y:-5,
 						enabled:false,
 						headerFormat: '',
 						pointFormat: '<strong style="font-size:14px;font-family:OpenSans-Bold">{point.name}</strong> <br>Median age of population: <strong style="font-size:14px;font-family:OpenSans-Bold">{point.value}</strong> Years'
