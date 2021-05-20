@@ -1,4 +1,15 @@
 // Enforcement Capacity Sub menus
+export const workAccidents = [
+    {
+        url: "non-fatal-work-accidents",
+        literalTab: "310"
+    },
+    { 
+        url:"fatal-work-accidents",
+        literalTab: "311"
+    }
+]
+
 export const oshCulture = [
     {
         url: "health-and-safety-discussed",

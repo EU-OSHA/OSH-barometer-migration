@@ -172,7 +172,6 @@ class MapChart extends Component {
 				seriesObject.data.push(arry);	
 			}
 			series.push(seriesObject)
-			console.log('seriesObject', seriesObject)
 
 			this.setState({chartConfig: {...this.state.chartConfig, series }})
 		});		
