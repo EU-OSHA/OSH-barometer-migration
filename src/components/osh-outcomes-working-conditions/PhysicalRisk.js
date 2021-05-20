@@ -148,7 +148,6 @@ class PhysicalRisk extends Component{
 
 	render()
 	{
-		console.log("Render Physical Risk ", this.state.dataset);
 		return(
 			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Physical risk', indicator: 67}} />

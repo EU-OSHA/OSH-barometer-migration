@@ -31,6 +31,9 @@ $print-page-size:  a4 !default;
 @import './base/worker-involvement.scss';
 @import './base/working-conditions.scss';
 
+/****** OSH infrastructure ******/
+@import './base/enforcement-capacity.scss';
+
 /****** ABOUT THE SYSTEM ******/
 @import './base/about-tool.scss';
 @import './base/country-report.scss';
