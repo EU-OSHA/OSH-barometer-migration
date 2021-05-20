@@ -216,21 +216,24 @@ class Header extends Component
 	{
 		let breadcrumb = this.state.breadcrumb[this.props.child];
 		let breadcrumbElems = [];
-		if (breadcrumb.tree)
-		{
-			for (let i = 0; i < breadcrumb.tree.length; i++)
+		if(breadcrumb){
+			if (breadcrumb.tree)
 			{
-				breadcrumbElems.push(this.state.breadcrumb[breadcrumb.tree[i]]);
-			}			
+				for (let i = 0; i < breadcrumb.tree.length; i++)
+				{
+					breadcrumbElems.push(this.state.breadcrumb[breadcrumb.tree[i]]);
+				}			
+			}
+			return (
+				<p className="path" id="breadCrumbs">
+					{breadcrumbElems.map((elem, i) => 
+						this.breadcrumbItem(elem, i)
+					)}
+					<span>{breadcrumb.text}</span>
+				</p>
+			);
 		}
-		return (
-			<p className="path" id="breadCrumbs">
-				{breadcrumbElems.map((elem, i) => 
-					this.breadcrumbItem(elem, i)
-				)}
-				<span>{breadcrumb.text}</span>
-			</p>
-		);
+		
 	}
 
 	render()
