@@ -9,6 +9,7 @@ export function setMethodology(section, subsection, indicator) {
         subsection,
         indicator: indicator
     }
+    return action;
 }
 
 // For each of the actions defined for redux, this file will export one function
