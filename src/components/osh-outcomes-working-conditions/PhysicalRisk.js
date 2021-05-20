@@ -9,8 +9,6 @@ import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { physicalRiskTabs } from '../../model/subMenuTabs';
 
-const subTabs = require('../../model/mentalHealth.json')
-
 class PhysicalRisk extends Component{
 	
 	constructor(props){
@@ -66,7 +64,6 @@ class PhysicalRisk extends Component{
 	}
 
 	callbackSelectedSurvey = (callback) => {
-		console.log('In callback selected survey', callback);
 		this.setState({ dataset: callback });
 	}
 
@@ -137,9 +134,7 @@ class PhysicalRisk extends Component{
 		}
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log('Previous', prevState.dataset);
-		console.log('Current', this.state.dataset);
+	componentDidUpdate(prevProps) {
 	}
 
 	componentWillUnmount(){
