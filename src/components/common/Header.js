@@ -131,7 +131,7 @@ class Header extends Component
 	{
 		// Get the current pathname in an array
 		let pathname = location.pathname.split("/");
-		if (pID === pathname[1] || (pathname[1] == '' && pID == 'home') || (pathname[1] == 'country-report' && pID == "about-the-system"))
+		if (pID === pathname[2] || (pathname[2] == '' && pID == 'home') || (pathname[2] == 'country-report' && pID == "about-the-system"))
 		{
 			return 'main-menu-selected';
 		}
