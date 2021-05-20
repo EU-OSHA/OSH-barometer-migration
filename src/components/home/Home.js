@@ -15,6 +15,7 @@ const Home = props => {
 
 	const [countryUnlocked, setCountryUnlocked] = useState(true);
 	const [countrySelected, setCountrySelected] = useState(currentDefaultCountry.code != "0" && currentDefaultCountry.isCookie ? currentDefaultCountry.code : "0" );
+	// const [countrySelected, setCountrySelected] = useState( "0" );
 	const [selectDisabled, setSelectDisabled] = useState(cookies.get("selectedCountry") != undefined && countrySelected != "0" ? true : false);
 	console.log("countrySelected",countrySelected);
 	
@@ -202,8 +203,6 @@ const Home = props => {
 				cookies.set("selectedCountry", countrySelected);
 			}	
 		}
-
-		
 	}
 
 	return(
@@ -304,11 +303,12 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})">
+								{/* <Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})"> */}
+								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code}>
 								</Link>
 								<h3 className="title--card">
 									{/*<Link to="economic-sector-profile ({pCountry:pCountry1})">*/}
-									<Link to="/generic-information/economic-sector-profile/at">
+									<Link to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code}>
 									{props.literals.L22003}
 									</Link>
 								</h3>
@@ -316,7 +316,7 @@ const Home = props => {
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to="/generic-information/economic-sector-profile/at" className="btn-default btn-main-color btn-full">
+								<Link to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code} className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
@@ -325,7 +325,8 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card national-icon" to="national-strategies">
+								{/* <Link className="icon--card national-icon" to="national-strategies"> */}
+								<Link className="icon--card national-icon" to="/osh-steering/national-strategies">
 								</Link>
 								<h3 className="title--card">
 									<Link to="/osh-steering/national-strategies">
@@ -350,7 +351,8 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})">
+								{/* <Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})"> */}
+								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents">
 								</Link>
 								<h3 className="title--card">
 									{/* <Link to="work-accidents ({pCountry1:pCountry1})"> */}
@@ -371,7 +373,8 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card statistics-icon" to="osh-statistics">
+								{/* <Link className="icon--card statistics-icon" to="osh-statistics"> */}
+								<Link className="icon--card statistics-icon" to="/osh-infrastructure/osh-statistics/">
 								</Link>
 								<h3 className="title--card">
 									<Link to="/osh-infrastructure/osh-statistics/">
@@ -396,7 +399,8 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card working-conditons-icon" to="working-conditions">
+								{/* <Link className="icon--card working-conditons-icon" to="working-conditions"> */}
+								<Link className="icon--card working-conditons-icon" to="/osh-outcomes-working-conditions/working-conditions">
 								</Link>
 								<h3 className="title--card">
 									<Link to="/osh-outcomes-working-conditions/working-conditions">
@@ -415,7 +419,8 @@ const Home = props => {
 					<Carousel.Item className="carousel-item">
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
-								<Link className="icon--card people-group-icon" to="workforce-profile">
+								{/* <Link className="icon--card people-group-icon" to="workforce-profile"> */}
+								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile">
 								</Link>
 								<h3 className="title--card">
 									<Link to="/generic-information/workforce-profile" >

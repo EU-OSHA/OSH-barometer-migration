@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon} from 'react-share';
 import $ from "jquery";
 import ReactHtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
 
 const menu = require('../../model/menu.json');
 const breadcrumb = require('../../model/breadcrumb.json');
@@ -179,13 +180,22 @@ class Header extends Component
 		{
 			return null;
 		}
+
 		return (
 			<ul className="dropdown-menu">
 				{pLevels.filter(level=>level.link!=undefined).map(level=>
 					<li>
-						<Link to={level.link} id={level.id} accessKey={level.accesskey}>
-							<span>{this.props.literals[level.name]}</span>
-						</Link>
+						{
+							(level.id != "economic-sector-profile") ? 
+							<Link to={level.link} id={level.id} accessKey={level.accesskey}>
+								<span>{this.props.literals[level.name]}</span>
+							</Link> 
+							:
+							<Link to={level.link+this.props.defaultCountry.code} id={level.id} accessKey={level.accesskey}>
+								<span>{this.props.literals[level.name]}</span>
+							</Link>
+						}
+						
 					</li>
 				)}
 			</ul>
@@ -329,4 +339,10 @@ class Header extends Component
 	}
 }
 
-export default Header;
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default Header;
+export default connect(mapStateToProps, null )(Header);

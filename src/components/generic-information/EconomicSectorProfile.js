@@ -8,15 +8,17 @@ import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
 import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
+import { connect } from 'react-redux';
 
 const EconomicSectorProfile = (props) => {
 
 	// Update the title of the page
 	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
 
-	//console.log('props', props);
+	console.log('props', props);
 
-	const [selectCountry1, setSelectCountry1]= useState(props.country1);
+	// const [selectCountry1, setSelectCountry1]= useState(props.country1);
+	const [selectCountry1, setSelectCountry1]= useState(props.defaultCountry.code);
 	const [selectCountry2, setSelectCountry2]= useState(props.country2);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
@@ -263,5 +265,12 @@ const EconomicSectorProfile = (props) => {
 		)
 	
 }
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
-export default EconomicSectorProfile;
+// export default EconomicSectorProfile;
+export default connect(mapStateToProps, null )(EconomicSectorProfile);
