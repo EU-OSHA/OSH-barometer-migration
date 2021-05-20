@@ -15,7 +15,7 @@ class MapChart extends Component {
 		
 		this.handleSelect = this.handleSelect.bind(this)
 		this.state ={
-				select:"",
+			select:"",
 			chartConfig: {
 				chart: {
 					map: require('@highcharts/map-collection/custom/europe.geo.json'),
@@ -27,6 +27,10 @@ class MapChart extends Component {
 
 				title: {
 					text: this.props.title
+				},
+
+				tooltip: {
+					enabled: false
 				},
 
 				credits: {
@@ -78,45 +82,42 @@ class MapChart extends Component {
 					//y: 25
 				},
 				colorAxis: {
-							//min: 1,
-							type: 'logarithmic',
-							minColor: 'rgb(82 159 162 / 10%)',
-							maxColor: 'rgb(82 159 162 / 100%)',
-							stops: [
-								[0, 'rgb(82 159 162 / 10%)'],
-								[0.67, 'rgb(82 159 162 / 67%)'],
-								[1, 'rgb(82 159 162 / 100%)']
-							]
-						},
-						plotOptions: {
-							series: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								states:{
-									hover: {
-										//enabled: true,
-										//color:'#000000'
-									},
-									select: {
-										color: '#f6a400',
-										dashStyle: 'dot'
-									}
-
-								},
-								point: {
-									events: {
-										click: this.countrySelect = (e) =>  {
-											this.handleSelect(e)
-										}
-									}
-								}
+					//min: 1,
+					type: 'logarithmic',
+					minColor: 'rgb(82 159 162 / 10%)',
+					maxColor: 'rgb(82 159 162 / 100%)',
+					stops: [
+						[0, 'rgb(82 159 162 / 10%)'],
+						[0.67, 'rgb(82 159 162 / 67%)'],
+						[1, 'rgb(82 159 162 / 100%)']
+					]
+				},
+				plotOptions: {
+					series: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						states:{
+							hover: {
+								//enabled: true,
+								//color:'#000000'
+							},
+							select: {
+								color: '#f6a400',
+								dashStyle: 'dot'
 							}
 						},
-			
+						point: {
+							events: {
+								click: this.countrySelect = (e) =>  {
+									this.handleSelect(e)
+								}
+							}
+						}
+					}
+				},			
 				series: [{
 					//name: "country",
-					//data:[['de',4]	],
-					
+					//data:[['de',4]	],					
 					dataLabels: {
 						enabled: true,
 						color: '#000',
@@ -129,15 +130,15 @@ class MapChart extends Component {
 						},
 						formatter: function () {
 							if (this.point.value) {
-								return this.point.name;
+                                if(this.point["hc-key"] === "gr"){
+                                    return "EL";
+                                }else if(this.point["hc-key"] === "gb"){
+                                    return "UK";
+                                }else{
+                                    return this.point["hc-key"].toUpperCase();
+                                }
 							}
 						}
-					},
-					tooltip: {
-						y:-5,
-						enabled:false,
-						headerFormat: '',
-						pointFormat: '<strong style="font-size:14px;font-family:OpenSans-Bold">{point.name}</strong> <br>Median age of population: <strong style="font-size:14px;font-family:OpenSans-Bold">{point.value}</strong> Years'
 					}
 				}]
 			}
@@ -153,24 +154,28 @@ class MapChart extends Component {
 		let name = [];
 		getCountryDataMap(select)
 			.then((response)=> response)
-			.then((res) => {
-			//console.log(select)
-		let	seriesObject = {name: '', data:[]}
-				const option =	res.resultset.forEach((element)=>{
-						
-					//seriesObject.name.push(element.countryCode) 
-					datos.push(element.countryCode.toLowerCase(),element.data[select])
-					})
-					
-					for (let i = 0; i< datos.length; i += 2){
-						let arry = datos.slice(i,i+2)
-						seriesObject.data.push(arry);	
-						}
-					series.push(seriesObject)
+			.then((res) => 
+		{
+			let	seriesObject = {name: '', data:[]}
+			const option =	res.resultset.forEach((element)=>{						
+				let countryCode = element.countryCode.toLowerCase();
+				if(countryCode === "el"){
+					countryCode = "gr";
+				}else if(countryCode === "uk"){
+					countryCode = "gb";
+				}
+				datos.push(countryCode,element.data[select])
+			})
+				
+			for (let i = 0; i< datos.length; i += 2){
+				let arry = datos.slice(i,i+2)
+				seriesObject.data.push(arry);	
+			}
+			series.push(seriesObject)
+			console.log('seriesObject', seriesObject)
 
 			this.setState({chartConfig: {...this.state.chartConfig, series }})
-	});
-		
+		});		
 	}
 
 	componentDidMount() {
@@ -195,14 +200,8 @@ class MapChart extends Component {
 		}
 	}
 
-// url map
-//@highcharts/map-collection/custom/europe.geo.json
-
-
 	render()
-	{	
-		//mapa
-		
+	{		
 		return(
 			<div>
 				<HighchartsReact
