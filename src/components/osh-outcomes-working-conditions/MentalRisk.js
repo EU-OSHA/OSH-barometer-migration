@@ -40,14 +40,6 @@ class MentalRisk extends Component
 		}
 	}
 
-	updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ chartDimension: 'column' });
-		} else {
-			this.setState({ chartDimension: 'bar' })
-		}
-	}
-
 	callbackChartLegend = (legend) => {
 		this.setState({ chartLegend: legend });
 	}
@@ -77,7 +69,6 @@ class MentalRisk extends Component
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
-		window.addEventListener('resize', this.updateDimension);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -90,10 +81,6 @@ class MentalRisk extends Component
 			this.callbackSelectedTab(this.props.indicator);
 		}
 
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateDimension)
 	}
 
 	render()
@@ -125,7 +112,6 @@ class MentalRisk extends Component
 													tabIndicator={this.state.selectedTab.literalTab}
 													chartType={this.state.selectedTab.chartType}
 													colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-													type={this.state.chartDimension}
 													percentage={true}
 													callbackLegend={this.callbackChartLegend}
 													callbackSelectedSurvey={this.callbackSelectedSurvey}
