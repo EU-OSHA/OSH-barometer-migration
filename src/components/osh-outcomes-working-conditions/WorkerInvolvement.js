@@ -83,6 +83,7 @@ class WorkerInvolvement extends Component {
 										chartType={this.state.indicatorTabs.chartType}
 										callbackLegend={this.callbackChartLegend}
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
+										dataset={this.state.dataset}
 									/>
 								</div>
 							</div>
