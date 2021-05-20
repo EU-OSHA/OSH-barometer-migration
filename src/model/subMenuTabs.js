@@ -66,6 +66,9 @@ export const overallOpinion = [
     { 
         url:"job-satisfaction",
         literalTab: "322",
+        chartType: [
+            {title: "22134", chart: "20040", chartIndicator: "65", sector: ["14"], answers: ['10','11','12','13'], legend: "20580"}
+        ],
         indicator:"65"
     },
     { 

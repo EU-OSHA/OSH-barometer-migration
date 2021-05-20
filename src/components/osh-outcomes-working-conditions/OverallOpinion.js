@@ -39,9 +39,6 @@ const OverallOpinion = (props) => {
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
 
-	console.log('subMenuTabs', subMenuTabs);
-	console.log('subTabs', subTabs);
-
 	useEffect(() => {
 		updateDimension();
 		window.addEventListener('resize',updateDimension);
@@ -70,7 +67,13 @@ const OverallOpinion = (props) => {
 
 
 	const callbackSelectedTab = (callback) => {
-		setSelectedTab( callback )
+		for (let i = 0; i < subMenuTabs.length; i++)
+		{
+			if (subMenuTabs[i].url == callback)
+			{
+				setSelectedTab(subMenuTabs[i]);
+			}
+		}
 	}
 
 	const handleSector =(sector)=> {
@@ -81,7 +84,6 @@ const OverallOpinion = (props) => {
 		}else{
 			setLegend(props.literals.L20581)
 		}
-		console.log(legend)
 	}
 
 	const handleSearch = (selectCountry1) => {
@@ -106,6 +108,8 @@ const OverallOpinion = (props) => {
 				selectCountry2={selectCountry2}
 				sector={sector}
 			/>
+
+			<div className="line background-main-light" />
 				
 			<div className="">						
 				<div>
@@ -115,24 +119,18 @@ const OverallOpinion = (props) => {
 								<div className="card--block--chart">
 									<div className="chart--block with-filter" >
 										<div className="card--block--chart--wrapper" >
-											{indicatorTabs.map((tab) => {
-												if (props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == selectedTab) {
-													return (
-														<div className="chart--wrapper" key={tab.literalTab} >
-															<MentalRiskCharts
-																literals={props.literals}
-																tabIndicator={tab.literalTab}
-																chartType={tab.chartType}
-																colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
-																type={dimension}
-																percentage={true}
-																callbackLegend={callbackChartLegend}
-																callbackSelectedSurvey={callbackSelectedSurvey}
-															/>
-														</div>
-													)
-												}
-											})}
+											<div className="chart--wrapper" >
+												<MentalRiskCharts
+													literals={props.literals}
+													tabIndicator={selectedTab.literalTab}
+													chartType={selectedTab.chartType}
+													colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
+													type={dimension}
+													percentage={true}
+													callbackLegend={callbackChartLegend}
+													callbackSelectedSurvey={callbackSelectedSurvey}
+												/>
+											</div>
 										</div>
 									</div>
 								</div>
