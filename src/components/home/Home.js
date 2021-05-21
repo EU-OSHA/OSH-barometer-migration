@@ -5,7 +5,7 @@ import { connect, useStore } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
-import { setDefaultCountry } from '../../actions/';
+import { setDefaultCountry, setDefaultCountry2 } from '../../actions/';
 
 const Home = props => {
 	const store = useStore();
@@ -191,6 +191,13 @@ const Home = props => {
 			})
 
 			//TODO Implement redux for second country default
+			if(props.countryDefault2.code != "0" && props.countryDefault2.code === countrySelected){
+				props.setDefaultCountry2({
+					code: "0",
+					isCookie : false
+				})
+			}
+
 			// if(defaultCountry2.code != "0" && defaultCountry2.code == event.target.value){
 			// 	setDefaultCountry2({
 			// 		code: "0",
@@ -475,10 +482,11 @@ const Home = props => {
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 Home.displayName ='Home';
 
 // export default Home;
-export default withCookies(connect(mapStateToProps, { setDefaultCountry })(Home));
+export default withCookies(connect(mapStateToProps, { setDefaultCountry, setDefaultCountry2 })(Home));

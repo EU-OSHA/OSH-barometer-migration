@@ -9,6 +9,7 @@ import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 import { workAccidents } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 class WorkAccidents extends Component
 {
@@ -27,7 +28,9 @@ class WorkAccidents extends Component
 		this.state = {
 			// selectCountry1: 'AT',
 			selectCountry1: this.props.defaultCountry.code,
-			selectCountry2: '',
+			// selectCountry2: '',
+			selectCountry2: this.props.defaultCountry2.code,
+			defaultCountry2Selected: false,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
 			currentPath: '/osh-outcomes-working-conditions/work-accidents/',
@@ -41,6 +44,10 @@ class WorkAccidents extends Component
 
 	handleSearch2 = (callbackCountry2) => {
 		this.setState({ selectCountry2: callbackCountry2 })
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	callbackSelectedTab = (callback) => {
@@ -69,8 +76,16 @@ class WorkAccidents extends Component
 	}
 
 	componentDidUpdate(prevProps) {
+		console.log("componentDidUpdate");
 		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
 			this.setState({selectCountry1: this.props.defaultCountry.code});
+		}
+
+		if(!this.state.defaultCountry2Selected){
+			this.setState({ 
+				selectCountry2: this.props.defaultCountry2.code,
+				defaultCountry2Selected: true
+			});
 		}
 	}
 
@@ -156,9 +171,10 @@ class WorkAccidents extends Component
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 WorkAccidents.displayName = 'WorkAccidents';
 // export default WorkAccidents;
-export default connect(mapStateToProps, null )(WorkAccidents);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(WorkAccidents);

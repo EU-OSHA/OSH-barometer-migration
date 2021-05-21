@@ -9,6 +9,7 @@ import { enforcementCapacityTabs } from '../../model/subMenuTabs';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 import { getOSHData } from '../../api';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 class EnforcementCapacity extends Component {
 
@@ -25,9 +26,12 @@ class EnforcementCapacity extends Component {
 		}
 
 		this.state={
+			defaultCountrySelected: false,
+			defaultCountry2Selected: false,
 			selectCountry1: this.props.defaultCountry.code,
 			// selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
-			selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
+			// selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
+			selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '0',
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
@@ -54,6 +58,10 @@ class EnforcementCapacity extends Component {
 	handleSearch2 = (callbackCountry2) => {
 		this.setState({ selectCountry2: callbackCountry2 });
 		this.setState({ filters: { countries: [this.state.filters.countries[0], {code: callbackCountry2}]} })
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	callbackSelectedTab = (callback) => {
@@ -149,6 +157,7 @@ class EnforcementCapacity extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+		console.log("componentDidUpdate");
 
 		if (prevState.selectedTab != this.state.selectedTab 
 			|| prevState.selectCountry1 != this.state.selectCountry1 
@@ -158,6 +167,24 @@ class EnforcementCapacity extends Component {
 
 		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
 			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}else{
+			if(!this.state.defaultCountrySelected){
+				this.setState({ 
+					selectCountry1: this.props.defaultCountry.code,
+					defaultCountrySelected: true
+				});
+			}
+		}
+
+		if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code){
+			this.setState({ selectCountry2: this.props.defaultCountry2.code });
+		}else{
+			if(!this.state.defaultCountry2Selected){
+				this.setState({ 
+					selectCountry2: this.props.defaultCountry2.code,
+					defaultCountry2Selected: true
+				});
+			}
 		}
 	}
 
@@ -257,8 +284,9 @@ EnforcementCapacity.displayName = 'EnforcementCapacity';
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 // export default EnforcementCapacity;
-export default connect(mapStateToProps, null )(EnforcementCapacity);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(EnforcementCapacity);

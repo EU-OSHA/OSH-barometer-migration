@@ -9,6 +9,7 @@ import SelectEconomic from '../common/select-filters/SelectEconomic'
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { preventionInCompanies } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const subTabs = require('../../model/mentalHealth.json');
 
@@ -28,7 +29,9 @@ class PreventionCompanies extends Component {
 
 		this.state={
 			selectCountry1: this.props.defaultCountry.code,
-			selectCountry2: '',
+			// selectCountry2: '',
+			selectCountry2: this.props.defaultCountry2.code,
+			defaultCountry2Selected: false,
 			split: this.props.split,
 			subMenuTabs: preventionInCompanies,
 			selectMenu: [{ literalTab: '20679' }, { literalTab: '20683' }],
@@ -48,6 +51,10 @@ class PreventionCompanies extends Component {
 
 	handleSearch2 = (callbackCountry2) =>{
 		this.setState({ selectCountry2: callbackCountry2})
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	updateDimension = () => {
@@ -94,8 +101,17 @@ class PreventionCompanies extends Component {
 			this.callbackSelectedTab(this.props.indicator);
 		}
 
+		console.log("componentDidUpdate");
+
 		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
 			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
+
+		if(!this.state.defaultCountry2Selected){
+			this.setState({ 
+				selectCountry2: this.props.defaultCountry2.code,
+				defaultCountry2Selected: true
+			});
 		}
 
 	}
@@ -229,8 +245,9 @@ PreventionCompanies.displayName = 'PreventionCompanies';
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 // export default PreventionCompanies;
-export default connect(mapStateToProps, null )(PreventionCompanies);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(PreventionCompanies);

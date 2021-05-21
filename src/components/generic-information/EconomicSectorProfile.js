@@ -9,6 +9,7 @@ import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
 import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const EconomicSectorProfile = (props) => {
 
@@ -19,7 +20,8 @@ const EconomicSectorProfile = (props) => {
 
 	// const [selectCountry1, setSelectCountry1]= useState(props.country1);
 	const [selectCountry1, setSelectCountry1]= useState(props.defaultCountry.code);
-	const [selectCountry2, setSelectCountry2]= useState(props.country2);
+	// const [selectCountry2, setSelectCountry2]= useState(props.country2);
+	const [selectCountry2, setSelectCountry2]= useState(props.defaultCountry2.code);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
@@ -28,6 +30,7 @@ const EconomicSectorProfile = (props) => {
 
 	useEffect(() => {
 		setSelectCountry1(props.defaultCountry.code);
+		setSelectCountry2(props.defaultCountry2.code);
 	}, [props.defaultCountry.code])
 
 	const selectEuro2 = (e) =>{
@@ -66,7 +69,11 @@ const EconomicSectorProfile = (props) => {
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
-		setSelectCountry2(selectCountry2)
+		setSelectCountry2(selectCountry2);
+		props.setDefaultCountry2({
+			code: selectCountry2,
+			isCookie : false
+		})
 	}
 
 		return(
@@ -271,9 +278,10 @@ const EconomicSectorProfile = (props) => {
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
 // export default EconomicSectorProfile;
-export default connect(mapStateToProps, null )(EconomicSectorProfile);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(EconomicSectorProfile);

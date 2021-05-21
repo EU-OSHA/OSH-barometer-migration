@@ -10,6 +10,7 @@ import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const subTabs = require('../../model/mentalHealth.json');
 
@@ -29,7 +30,8 @@ const OverallOpinion = (props) => {
 		
 	// const [selectCountry1,setSelectCountry1]=useState('AT');
 	const [selectCountry1,setSelectCountry1]=useState(props.defaultCountry.code);
-	const [selectCountry2,setSelectCountry2]=useState('');
+	// const [selectCountry2,setSelectCountry2]=useState('');
+	const [selectCountry2,setSelectCountry2]=useState(props.defaultCountry2.code != "0" ? props.defaultCountry2.code : "");
 	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
 	const [title, setTitle] = React.useState('')
@@ -49,7 +51,8 @@ const OverallOpinion = (props) => {
 
 	useEffect(() => {
 		setSelectCountry1(props.defaultCountry.code);
-	}, [props.defaultCountry.code])
+		setSelectCountry2(props.defaultCountry2.code);
+	}, [props.defaultCountry.code, props.defaultCountry2.code])
 
  
 	const updateDimension = () =>{
@@ -98,6 +101,10 @@ const OverallOpinion = (props) => {
 
 	const handleSearch2 = (selectCountry2)=>{
 		setSelectCountry2(selectCountry2)
+		props.setDefaultCountry2({
+			code: selectCountry2,
+			isCookie : false
+		})
 	}
 
 	return(
@@ -199,9 +206,10 @@ const OverallOpinion = (props) => {
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 OverallOpinion.displayName = 'OverallOpinion';
 // export default OverallOpinion;
-export default connect(mapStateToProps, null )(OverallOpinion);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(OverallOpinion);
