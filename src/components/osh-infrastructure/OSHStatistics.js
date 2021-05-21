@@ -7,6 +7,8 @@ import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
 
+import { connect } from 'react-redux';
+
 const literals = require('../../model/Literals.json');
 
 class OSHStatistics extends Component
@@ -119,6 +121,21 @@ class OSHStatistics extends Component
 				this.setState({ ...this.state, isFetching: false })
 			}
 		}
+
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				defaultTags: true,
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
+		}
 	}
 
 	render()
@@ -178,4 +195,11 @@ class OSHStatistics extends Component
 	}
 }
 OSHStatistics.displayName = 'OSHStatistics';
-export default OSHStatistics;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default OSHStatistics;
+export default connect(mapStateToProps, null )(OSHStatistics);
