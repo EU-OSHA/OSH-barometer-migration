@@ -21,6 +21,7 @@ class OSHStatistics extends Component
 			matrixPageData: [],
 			pageOfItems: [],
 			isFetching: false,
+			defaultTags: false,
 			filters: {
 				countries: [],
 				checks: [],
