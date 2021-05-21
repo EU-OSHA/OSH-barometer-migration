@@ -15,19 +15,10 @@ class OSHCulture extends Component
 		this.state = {
 			indicatorTabs: subTabs,
 			selectedTab: this.props.indicator,
-			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
 			currentPath: '/osh-outcomes-working-conditions/osh-culture/',
 			chartLegend:'',
 		}
 		
-	}
-
-	updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ chartDimension: 'column' });
-		} else {
-			this.setState({ chartDimension: 'bar' })
-		}
 	}
 
 	callbackChartLegend = (legend) => {
@@ -46,11 +37,6 @@ class OSHCulture extends Component
 		// Update the title of the page
 		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 
-		window.addEventListener('resize', this.updateDimension);
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateDimension)
 	}
 	
 	render()
@@ -75,11 +61,10 @@ class OSHCulture extends Component
 									return (
 										<div key={tab.literalTab}>
 											<HealthAwareness
-												chartTitle={this.props.literals}
+												literals={this.props.literals}
 												tabIndicator={tab.literalTab}
 												chartType={tab.chartType}
 												colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-												type={this.state.chartDimension}
 												percentage={true}
 												callbackLegend={this.callbackChartLegend}
 											/>

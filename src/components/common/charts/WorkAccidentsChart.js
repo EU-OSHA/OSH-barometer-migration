@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
+import { getChartData, getDatasourceAndDates } from '../../../api';
+import { isFullscreen } from '../utils/Utils';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData, getDatasourceAndDates } from '../../../api';
 
 const xAxisColor = "#808080";
 class WorkAccidentsChart extends Component {
@@ -425,12 +426,45 @@ class WorkAccidentsChart extends Component {
     }
 
     updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}} });
-		} else {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}} });
-		}
-	}
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        if (width > 767) {
+            if (isFullscreen()) {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: height}
+                    }
+                });
+            } else {
+                this.setState({
+                  chartConfig: {
+                      ...this.state.chartConfig,
+                      chart: {...this.state.chartConfig.chart, height: 450}
+                  }
+                })
+            }
+        }
+
+        if (width < 768) {
+           if (isFullscreen()) {
+               this.setState({
+                   chartConfig: {
+                       ...this.state.chartConfig,
+                       chart: {...this.state.chartConfig.chart, height: height}
+                   }
+               })
+           } else {
+               this.setState({
+                   chartConfig: {
+                       ...this.state.chartConfig,
+                       chart: {...this.state.chartConfig.chart, height: 770}
+                   }
+               })
+           }
+        }
+    }
 
     componentDidMount() {
         this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
