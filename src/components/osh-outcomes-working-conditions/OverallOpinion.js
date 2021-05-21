@@ -9,6 +9,7 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
 
 const subTabs = require('../../model/mentalHealth.json');
 
@@ -26,7 +27,8 @@ const OverallOpinion = (props) => {
 		}
 	}
 		
-	const [selectCountry1,setSelectCountry1]=useState('AT');
+	// const [selectCountry1,setSelectCountry1]=useState('AT');
+	const [selectCountry1,setSelectCountry1]=useState(props.defaultCountry.code);
 	const [selectCountry2,setSelectCountry2]=useState('');
 	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
@@ -44,6 +46,10 @@ const OverallOpinion = (props) => {
 		window.addEventListener('resize',updateDimension);
 		return ()=> window.removeEventListener('resize',updateDimension);
 	}, [window.innerWidth])
+
+	useEffect(() => {
+		setSelectCountry1(props.defaultCountry.code);
+	}, [props.defaultCountry.code])
 
  
 	const updateDimension = () =>{
@@ -190,5 +196,12 @@ const OverallOpinion = (props) => {
 		)
 	
 }
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
 OverallOpinion.displayName = 'OverallOpinion';
-export default OverallOpinion;
+// export default OverallOpinion;
+export default connect(mapStateToProps, null )(OverallOpinion);

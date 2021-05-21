@@ -8,6 +8,7 @@ import PreventionChart from '../common/charts/PreventionChart';
 import SelectEconomic from '../common/select-filters/SelectEconomic'
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { preventionInCompanies } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
 
 const subTabs = require('../../model/mentalHealth.json');
 
@@ -26,7 +27,7 @@ class PreventionCompanies extends Component {
 		}
 
 		this.state={
-			selectCountry1: 'AT',
+			selectCountry1: this.props.defaultCountry.code,
 			selectCountry2: '',
 			split: this.props.split,
 			subMenuTabs: preventionInCompanies,
@@ -91,6 +92,10 @@ class PreventionCompanies extends Component {
 
 		if (prevProps.indicator != this.props.indicator) {
 			this.callbackSelectedTab(this.props.indicator);
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
 		}
 
 	}
@@ -221,4 +226,11 @@ class PreventionCompanies extends Component {
 	}
 }
 PreventionCompanies.displayName = 'PreventionCompanies';
-export default PreventionCompanies;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default PreventionCompanies;
+export default connect(mapStateToProps, null )(PreventionCompanies);

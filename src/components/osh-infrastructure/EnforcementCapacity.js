@@ -8,7 +8,7 @@ import EnforcementCapacityChart from '../common/charts/EnforcementCapacityChart'
 import { enforcementCapacityTabs } from '../../model/subMenuTabs';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 import { getOSHData } from '../../api';
-
+import { connect } from 'react-redux';
 
 class EnforcementCapacity extends Component {
 
@@ -25,7 +25,8 @@ class EnforcementCapacity extends Component {
 		}
 
 		this.state={
-			selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
+			selectCountry1: this.props.defaultCountry.code,
+			// selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
 			selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
@@ -153,7 +154,11 @@ class EnforcementCapacity extends Component {
 			|| prevState.selectCountry1 != this.state.selectCountry1 
 			|| prevState.selectCountry2 != this.state.selectCountry2) {
 				this.getStrategiesData();
-			}
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
 	}
 
 	render()
@@ -249,4 +254,11 @@ class EnforcementCapacity extends Component {
 	}
 }
 EnforcementCapacity.displayName = 'EnforcementCapacity';
-export default EnforcementCapacity;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default EnforcementCapacity;
+export default connect(mapStateToProps, null )(EnforcementCapacity);

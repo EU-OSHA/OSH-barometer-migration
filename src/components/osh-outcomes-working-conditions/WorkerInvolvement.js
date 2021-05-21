@@ -6,6 +6,7 @@ import Related from '../common/Related';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SpiderChart from '../common/charts/SpiderChart';
 import { workerInvolvementTabs } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
 
 class WorkerInvolvement extends Component {
 	
@@ -13,7 +14,7 @@ class WorkerInvolvement extends Component {
 		super(props);
 		
 		this.state = {
-			selectCountry1: 'AT',
+			selectCountry1: this.props.defaultCountry.code,
 			selectCountry2: '',
 			indicatorTabs: workerInvolvementTabs[0],
 			chartLegend: '',
@@ -42,6 +43,12 @@ class WorkerInvolvement extends Component {
 	{
 		// Update the title of the page
 		document.title = this.props.literals.L22015 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
+
+	componentDidUpdate(prevProps){
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
 	}
 
 	render()
@@ -99,4 +106,11 @@ class WorkerInvolvement extends Component {
 	}
 }
 WorkerInvolvement.displayName = 'WorkerInvolvement';
-export default WorkerInvolvement;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default WorkerInvolvement;
+export default connect(mapStateToProps, null )(WorkerInvolvement);

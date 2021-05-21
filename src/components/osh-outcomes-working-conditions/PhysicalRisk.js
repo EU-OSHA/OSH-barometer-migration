@@ -8,6 +8,7 @@ import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { physicalRiskTabs } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
 
 const subTabs = require('../../model/mentalHealth.json')
 
@@ -39,7 +40,8 @@ class PhysicalRisk extends Component{
 		}
 
 		this.state= {
-			selectCountry1: 'AT',
+			// selectCountry1: 'AT',
+			selectCountry1: this.props.defaultCountry.code,
 			selectCountry2: '',
 			chart:'20049',
 			firstLevelTabs: physicalRiskTabs,
@@ -140,6 +142,10 @@ class PhysicalRisk extends Component{
 	componentDidUpdate(prevProps, prevState) {
 		console.log('Previous', prevState.dataset);
 		console.log('Current', this.state.dataset);
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
 	}
 
 	componentWillUnmount(){
@@ -241,4 +247,11 @@ class PhysicalRisk extends Component{
 	}
 }
 PhysicalRisk.displayName = 'PhysicalRisk';
-export default PhysicalRisk;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default PhysicalRisk;
+export default connect(mapStateToProps, null )(PhysicalRisk);

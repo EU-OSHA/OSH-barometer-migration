@@ -26,6 +26,9 @@ const EconomicSectorProfile = (props) => {
 	const [indicator2,setIndicator2]=useState('35');
 	const [defaultValue,setDefaultValue]=useState('');
 
+	useEffect(() => {
+		setSelectCountry1(props.defaultCountry.code);
+	}, [props.defaultCountry.code])
 
 	const selectEuro2 = (e) =>{
 		const indicator = e.target.value

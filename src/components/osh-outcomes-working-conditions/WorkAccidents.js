@@ -8,6 +8,7 @@ import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 import { workAccidents } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
 
 class WorkAccidents extends Component
 {
@@ -24,7 +25,8 @@ class WorkAccidents extends Component
 		}
 
 		this.state = {
-			selectCountry1: 'AT',
+			// selectCountry1: 'AT',
+			selectCountry1: this.props.defaultCountry.code,
 			selectCountry2: '',
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
@@ -64,6 +66,12 @@ class WorkAccidents extends Component
 		document.title = this.props.literals.L22010 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 
 		window.addEventListener('resize', this.updateDimension);
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({selectCountry1: this.props.defaultCountry.code});
+		}
 	}
 
 	componentWillUnmount() {
@@ -146,5 +154,11 @@ class WorkAccidents extends Component
 	}
 }
 
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
 WorkAccidents.displayName = 'WorkAccidents';
-export default WorkAccidents;
+// export default WorkAccidents;
+export default connect(mapStateToProps, null )(WorkAccidents);
