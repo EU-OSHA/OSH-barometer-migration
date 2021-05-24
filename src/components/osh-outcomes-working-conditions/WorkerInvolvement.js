@@ -7,6 +7,8 @@ import Related from '../common/Related';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SpiderChart from '../common/charts/SpiderChart';
 import { workerInvolvementTabs } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 // This component will take care of updating the URL for the current page if necessary
 const ChangeDataset = props => {
@@ -34,10 +36,13 @@ class WorkerInvolvement extends Component {
 	
 	constructor(props){
 		super(props);
-		
+
 		this.state = {
-			selectCountry1: 'AT',
-			selectCountry2: '',
+			// selectCountry1: 'BE',
+			selectCountry1: this.props.defaultCountry.code != "0" ? this.props.defaultCountry.code : 'AT',
+			// selectCountry2: '',
+			selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '',
+			defaultCountry2Selected: false,
 			indicatorTabs: workerInvolvementTabs[0],
 			chartLegend: '',
 			dataset: props.split ? props.split : 'esener'
@@ -51,6 +56,10 @@ class WorkerInvolvement extends Component {
 
 	handleSearch2 = (callbackCountry2) => {
 		this.setState({ selectCountry2: callbackCountry2 })
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	callbackSelectedSurvey = (callback) => {
@@ -65,6 +74,20 @@ class WorkerInvolvement extends Component {
 	{
 		// Update the title of the page
 		document.title = this.props.literals.L22015 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
+
+	componentDidUpdate(prevProps){
+		// console.log("this.props",this.props);
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
+
+		if(!this.state.defaultCountry2Selected){
+			this.setState({ 
+				selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '',
+				defaultCountry2Selected: true
+			});
+		}
 	}
 
 	render()
@@ -123,4 +146,12 @@ class WorkerInvolvement extends Component {
 	}
 }
 WorkerInvolvement.displayName = 'WorkerInvolvement';
-export default WorkerInvolvement;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+}
+
+// export default WorkerInvolvement;
+export default connect(mapStateToProps, { setDefaultCountry2 } )(WorkerInvolvement);

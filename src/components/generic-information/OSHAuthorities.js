@@ -6,7 +6,7 @@ import Cards from '../common/cards/Cards';
 import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
-
+import { connect } from 'react-redux';
 
 const literals = require('../../model/Literals.json');
 class OSHAuthorities extends Component
@@ -20,6 +20,7 @@ class OSHAuthorities extends Component
 			pageOfItems: [],
 			searchBarText: '',
 			isFetching: false,
+			defaultTags: false,
 			filters: {
 					countries: [],
 					checks: [],
@@ -104,8 +105,8 @@ class OSHAuthorities extends Component
 		} finally {
 			this.setState({ ...this.state, isFetching: false })
 		}
-
 	 }
+
 	 componentDidUpdate(prevProps, prevState) {
 		 // If any modification happens to the filter state, it updates with the new values
 		if (prevState.filters != this.state.filters) {
@@ -120,6 +121,21 @@ class OSHAuthorities extends Component
 			} finally {
 				this.setState({ ...this.state, isFetching: false })
 			}
+		}
+
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				defaultTags: true,
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
 		}
 	 }
 
@@ -193,4 +209,11 @@ class OSHAuthorities extends Component
 	}
 }
 OSHAuthorities.displayName = 'OSHAuthorities';
-export default OSHAuthorities;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default OSHAuthorities;
+export default connect(mapStateToProps, null )(OSHAuthorities);

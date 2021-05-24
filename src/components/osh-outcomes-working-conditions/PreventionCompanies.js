@@ -8,6 +8,8 @@ import PreventionChart from '../common/charts/PreventionChart';
 import SelectEconomic from '../common/select-filters/SelectEconomic'
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { preventionInCompanies } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const subTabs = require('../../model/mentalHealth.json');
 
@@ -26,8 +28,10 @@ class PreventionCompanies extends Component {
 		}
 
 		this.state={
-			selectCountry1: 'AT',
-			selectCountry2: '',
+			selectCountry1: this.props.defaultCountry.code,
+			// selectCountry2: '',
+			selectCountry2: this.props.defaultCountry2.code,
+			defaultCountry2Selected: false,
 			split: this.props.split,
 			subMenuTabs: preventionInCompanies,
 			selectMenu: [{ literalTab: '20679' }, { literalTab: '20683' }],
@@ -47,6 +51,10 @@ class PreventionCompanies extends Component {
 
 	handleSearch2 = (callbackCountry2) =>{
 		this.setState({ selectCountry2: callbackCountry2})
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	updateDimension = () => {
@@ -91,6 +99,19 @@ class PreventionCompanies extends Component {
 
 		if (prevProps.indicator != this.props.indicator) {
 			this.callbackSelectedTab(this.props.indicator);
+		}
+
+		console.log("componentDidUpdate");
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
+
+		if(!this.state.defaultCountry2Selected){
+			this.setState({ 
+				selectCountry2: this.props.defaultCountry2.code,
+				defaultCountry2Selected: true
+			});
 		}
 
 	}
@@ -221,4 +242,12 @@ class PreventionCompanies extends Component {
 	}
 }
 PreventionCompanies.displayName = 'PreventionCompanies';
-export default PreventionCompanies;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+}
+
+// export default PreventionCompanies;
+export default connect(mapStateToProps, { setDefaultCountry2 } )(PreventionCompanies);
