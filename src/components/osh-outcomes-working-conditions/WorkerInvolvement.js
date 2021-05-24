@@ -7,15 +7,19 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SpiderChart from '../common/charts/SpiderChart';
 import { workerInvolvementTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 class WorkerInvolvement extends Component {
 	
 	constructor(props){
 		super(props);
-		
+
 		this.state = {
-			selectCountry1: this.props.defaultCountry.code,
-			selectCountry2: '',
+			// selectCountry1: 'BE',
+			selectCountry1: this.props.defaultCountry.code != "0" ? this.props.defaultCountry.code : 'AT',
+			// selectCountry2: '',
+			selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '',
+			defaultCountry2Selected: false,
 			indicatorTabs: workerInvolvementTabs[0],
 			chartLegend: '',
 			dataset: props.split
@@ -29,6 +33,10 @@ class WorkerInvolvement extends Component {
 
 	handleSearch2 = (callbackCountry2) => {
 		this.setState({ selectCountry2: callbackCountry2 })
+		this.props.setDefaultCountry2({
+			code: callbackCountry2,
+			isCookie : false
+		})
 	}
 
 	callbackSelectedSurvey = (callback) => {
@@ -46,8 +54,16 @@ class WorkerInvolvement extends Component {
 	}
 
 	componentDidUpdate(prevProps){
+		// console.log("this.props",this.props);
 		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
 			this.setState({ selectCountry1: this.props.defaultCountry.code });
+		}
+
+		if(!this.state.defaultCountry2Selected){
+			this.setState({ 
+				selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '',
+				defaultCountry2Selected: true
+			});
 		}
 	}
 
@@ -109,8 +125,9 @@ WorkerInvolvement.displayName = 'WorkerInvolvement';
 
 function mapStateToProps(state){
     const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const {defaultCountry2} = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
 // export default WorkerInvolvement;
-export default connect(mapStateToProps, null )(WorkerInvolvement);
+export default connect(mapStateToProps, { setDefaultCountry2 } )(WorkerInvolvement);

@@ -15,7 +15,7 @@ const CookiesComponent = (props) => {
     const { pushInstruction } = useMatomo();
 
     useEffect(() => {
-        console.log("cookies CookiesComponent",cookies);
+        // console.log("cookies CookiesComponent",cookies);
 
         if(cookies.mtm_consent_removed === undefined && cookies.mtm_cookie_consent === undefined){
             // console.log("cookies for MTM not yet added");
@@ -35,7 +35,7 @@ const CookiesComponent = (props) => {
                         fetch('https://iplist.cc/api/')
                         .then(response => response.json())
                         .then(coordinates => {
-                            console.log("coordinates",coordinates);
+                            // console.log("coordinates",coordinates);
                             var availableCountries = ["AT","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LT","LU","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK"];
                             if (availableCountries.indexOf(coordinates.countrycode) > -1)
                             {
@@ -111,7 +111,7 @@ const CookiesComponent = (props) => {
 }
 
 function mapStateToProps(state){
-    console.log('state',state);
+    // console.log('state',state);
     const {defaultCountry} = state;
     return { defaultCountry: defaultCountry };
 }

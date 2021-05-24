@@ -191,12 +191,14 @@ const Home = props => {
 			})
 
 			//TODO Implement redux for second country default
-			if(props.countryDefault2.code != "0" && props.countryDefault2.code === countrySelected){
-				props.setDefaultCountry2({
-					code: "0",
-					isCookie : false
-				})
-			}
+			if(props.countryDefault2 != undefined){
+				if(props.countryDefault2.code != "0" && props.countryDefault2.code === countrySelected){
+					props.setDefaultCountry2({
+						code: "0",
+						isCookie : false
+					})
+				}
+			}			
 
 			// if(defaultCountry2.code != "0" && defaultCountry2.code == event.target.value){
 			// 	setDefaultCountry2({
