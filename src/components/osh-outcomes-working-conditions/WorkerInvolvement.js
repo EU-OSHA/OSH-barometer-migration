@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment, useState } from 'react';
+import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
@@ -8,6 +9,28 @@ import SpiderChart from '../common/charts/SpiderChart';
 import { workerInvolvementTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
 import { setDefaultCountry2 } from '../../actions/';
+
+// This component will take care of updating the URL for the current page if necessary
+const ChangeDataset = props => {
+	const history = useHistory();
+	const url ='/osh-outcomes-working-conditions/worker-involvement/';
+
+	const loadUrl = () => {
+		let newUrl = props.country2 ? `${url}${props.dataset}/${props.country1}/${props.country2}` : `${url}${props.dataset}/${props.country1}`;
+		// Check if the URL needs to be changed
+		if (history.location.pathname != newUrl)
+		{
+			history.push({
+				pathname: `${newUrl}`
+			})
+		}
+	}
+
+	loadUrl();
+	return (
+		null
+	)
+}
 
 class WorkerInvolvement extends Component {
 	
@@ -22,7 +45,7 @@ class WorkerInvolvement extends Component {
 			defaultCountry2Selected: false,
 			indicatorTabs: workerInvolvementTabs[0],
 			chartLegend: '',
-			dataset: props.split
+			dataset: props.split ? props.split : 'esener'
 		}
 
 	}
@@ -95,7 +118,8 @@ class WorkerInvolvement extends Component {
 						<div className="card--block--chart with-filters">
 
 						 	<div className="chart--block">
-								<div className="chart--wrapper" >							
+								<div className="chart--wrapper" >
+									<ChangeDataset dataset={this.state.dataset} country1={this.state.selectCountry1} country2={this.state.selectCountry2} />
 									<SpiderChart
 										literals={this.props.literals}
 										tabIndicator={this.state.indicatorTabs.literalTab}

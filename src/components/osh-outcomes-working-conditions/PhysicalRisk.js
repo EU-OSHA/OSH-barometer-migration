@@ -11,8 +11,6 @@ import { physicalRiskTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
 import { setDefaultCountry2 } from '../../actions/';
 
-const subTabs = require('../../model/mentalHealth.json')
-
 class PhysicalRisk extends Component{
 	
 	constructor(props){
@@ -74,7 +72,6 @@ class PhysicalRisk extends Component{
 	}
 
 	callbackSelectedSurvey = (callback) => {
-		console.log('In callback selected survey', callback);
 		this.setState({ dataset: callback });
 	}
 
