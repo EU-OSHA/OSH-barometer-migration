@@ -173,27 +173,40 @@ public class QuantitativeDataAccess {
 				orderBuilder.append("order by field(n.country_code, " + pQueryFilter.getCountryFilter() + ") asc, p.answer_id ASC");
 				
 				// The filter is answer and 
-				if (pQueryFilter.getSector() != null && pQueryFilter.getSector().size() > 0)
+				if (chartID != 20107)
 				{
-					// Activity Sector
-					selectBuilder.append("select t1.text as Sector, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
-					fromBuilder.append(", split_activity_sector sas, translation t1 ");
-					whereBuilder.append("and p.activity_sector_id=sas.id and sas.literal_id=t1.literal_id and t1.language='EN' ");
-					
-					fillInFiltersInQuery(pQueryFilter.getSector(), queryClauses, "sas.id", false);
-					
-					orderBuilder.append(", field (p.activity_sector_id, 2,3,4,6,7,18,14) ASC");
+					if (pQueryFilter.getSector() != null && pQueryFilter.getSector().size() > 0)
+					{
+						// Activity Sector
+						selectBuilder.append("select t1.text as Sector, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
+						fromBuilder.append(", split_activity_sector sas, translation t1 ");
+						whereBuilder.append("and p.activity_sector_id=sas.id and sas.literal_id=t1.literal_id and t1.language='EN' ");
+						
+						fillInFiltersInQuery(pQueryFilter.getSector(), queryClauses, "sas.id", false);
+						
+						orderBuilder.append(", field (p.activity_sector_id, 2,3,4,6,7,18,14) ASC");
+					}
+					else if (pQueryFilter.getCompanySize() != null && pQueryFilter.getCompanySize().size() > 0)
+					{
+						// Company Size
+						selectBuilder.append("select t1.text as Size, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
+						fromBuilder.append(", split_company_size scs, translation t1 ");
+						whereBuilder.append("and p.company_size_id=scs.id and scs.literal_id=t1.literal_id and t1.language='EN' ");
+						
+						fillInFiltersInQuery(pQueryFilter.getCompanySize(), queryClauses, "scs.id", false);
+						
+						orderBuilder.append(", field (11, p.company_size_id) asc, field (10, p.company_size_id) asc, p.company_size_id ASC");
+					}
 				}
-				else if (pQueryFilter.getCompanySize() != null && pQueryFilter.getCompanySize().size() > 0)
+				else
 				{
-					// Company Size
-					selectBuilder.append("select t1.text as Size, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
-					fromBuilder.append(", split_company_size scs, translation t1 ");
-					whereBuilder.append("and p.company_size_id=scs.id and scs.literal_id=t1.literal_id and t1.language='EN' ");
+					// Activity Sector, but the query will return the Answer
+					// Activity Sector
+					selectBuilder.append("select t1.text as Answer, n.country_code as countryCode, t.text as countryName, (v.value*100) as Value ");
+					fromBuilder.append(", split_answer a, translation t1 ");
+					whereBuilder.append("and p.answer_id=a.id and a.literal_id=t1.literal_id and t1.language='EN' ");
 					
-					fillInFiltersInQuery(pQueryFilter.getCompanySize(), queryClauses, "scs.id", false);
-					
-					orderBuilder.append(", field (11, p.company_size_id) asc, field (10, p.company_size_id) asc, p.company_size_id ASC");
+					fillInFiltersInQuery(pQueryFilter.getSector(), queryClauses, "p.activity_sector_id", false);
 				}
 				
 				fillInFiltersInQuery(pQueryFilter.getAnswer(), queryClauses, "p.answer_id", false);
