@@ -154,12 +154,7 @@ class IncomerPercapital extends Component {
 					categories: [this.props.data?.categories],
 					labels: {
 						formatter: function () {
-							if ([this.value] != 'EU27_2020') {
-								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
-							}
-							else {
-								return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>"
-							}
+							return "<span style='color:#808080'>" + [this.value] + "</span>"
 						},
 						style: {
 							fontFamily: 'OpenSans-bold',
@@ -171,7 +166,7 @@ class IncomerPercapital extends Component {
 				yAxis: {
 					lineWidth: 0,
 					gridLineColor: '#FFF',
-          gridLineWidth: 2,
+          			gridLineWidth: 2,
 					max: this.props.yAxisMax,
 					tickInterval: this.props.tick,
 					title: {
