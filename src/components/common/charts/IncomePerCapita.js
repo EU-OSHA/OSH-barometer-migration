@@ -50,6 +50,9 @@ class IncomerPercapital extends Component {
 								   130,
 								   37
 							   ).add();
+							   	chart.customImage.attr({
+									class:'osha-logo'
+								});
 						   }
 						   else
 						   {
