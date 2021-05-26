@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import {getSpiderChart} from '../../../api'
+import { isFullscreen } from '../utils/Utils';
+
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 require('highcharts/highcharts-more')(Highcharts);
@@ -283,13 +285,57 @@ class SpiderChart extends Component{
 
 	}
 
-
 	updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 450}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>"}} });
-		} else {
-            const shortTitle = this.props.literals[`L${this.props.tabIndicator}`]
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+shortTitle+"</h2>"}} });
+		const width = window.innerWidth;
+		const height = window.innerHeight;
+		const title = "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
+		const tabTitle = "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>"
+
+		if (width > 767) {
+			if (isFullscreen()) {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {...this.state.chartConfig.chart, height: height}
+					}
+				});
+			} else {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {
+							...this.state.chartConfig.chart, 
+							height: 450, 
+						},
+						title: {
+							...this.state.chartConfig.title,
+							text: title
+						}
+					}
+				})
+			}
+		}
+
+		if (width < 768) {
+			if (isFullscreen()) {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {...this.state.chartConfig.chart, height: height}
+					}
+				});
+			} else {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {...this.state.chartConfig.chart, height: 770},
+						title: {
+							...this.state.chartConfig.title,
+							text: tabTitle
+						}
+					}
+				})
+			}
 		}
 	}
 

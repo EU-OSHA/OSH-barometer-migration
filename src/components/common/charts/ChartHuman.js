@@ -21,16 +21,17 @@ class ChartHuman extends Component {
 		this.state = {
 			chartConfig: {
 				styledMode: true,
-				title: {
+    			title: {
 					//useHTML: true,
-					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+					text: "<h2 class='title--card'>"+props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 20,
 					y:44,
 					style: {
 						zIndex: 1,
 						lineHeight:33
-					}
+					},
+					margin: 30
 				},
 				data: {
 					enablePolling: true,
@@ -49,44 +50,53 @@ class ChartHuman extends Component {
 					}
 				},
 				chart: {
-					//height: 400,
+					height: 500,
 					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {
 						render: function() {
-							  var chart = this;
-						   if (!chart.customImage)
-						   {
-							   chart.customImage = chart.renderer.image(
-								   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
-								   chart.chartWidth - 130,
-								   chart.chartHeight - 37,
-								   130,
-								   37
-							   ).add();
-						   }
-						   else
-						   {
-							   chart.customImage.attr({
-								   x: chart.chartWidth - 130,
-								   y: chart.chartHeight - 37
-							   });
-						   }
+							var chart = this;
+							this.series.forEach(function(series) {
+								series.data[0].dataLabel.attr({
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (chart.chartHeight-200)
+								});					  
+							})
 
-						   if (chart.fullscreen.isOpen) {
-							   chart.customImage.css({
-								   display: 'block'
-							   });
-							   chart.container.className = 'highcharts-container full-screen';
-							 }
+						   	if (!chart.customImage)
+						   	{
+							   	chart.customImage = chart.renderer.image(
+									'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+									chart.chartWidth - 130,
+									chart.chartHeight - 37,
+									130,
+									37
+							   	).add();
+								chart.customImage.attr({
+									class:'osha-logo'
+								});
+						   	}
 						   else
-						   {
-							   chart.customImage.css({
-								   display: ''
-							   });	
-							   chart.container.className = 'highcharts-container';
-						   }
+							{
+								chart.customImage.attr({
+									x: chart.chartWidth - 130,
+									y: chart.chartHeight - 37
+								});
+							}
+
+							if (chart.fullscreen.isOpen) {
+								chart.customImage.css({
+									display: 'block'
+								});
+								chart.container.className = 'highcharts-container full-screen';
+							}
+							else
+							{
+								chart.customImage.css({
+									display: ''
+								});	
+								chart.container.className = 'highcharts-container';
+							}
 						}					
 				   	},
 				},
@@ -94,7 +104,7 @@ class ChartHuman extends Component {
 					enabled: true,
 					buttons: {
 						contextButton: {
-							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadCSV", "downloadXLS"]							
 						}
 					}
 				},
@@ -116,20 +126,35 @@ class ChartHuman extends Component {
 					}
 				},
 				legend:{
-					//reversed: this.props.legend
-					//verticalAlign: 'bottom',
 					symbolRadius: 0,
-					//layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
 					itemDistance: 5,
-					//width: 300,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:'11px',
 						textOverflow: "ellipsis",
-						//width: 150
+					},
+					margin: 20
+				},
+				plotOptions: {
+					series: {
+						dataLabels: {
+							enabled: true,
+							color: '#58585A',
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'14px'
+							},
+						},
+						events: {
+							legendItemClick: function(e) {
+								e.preventDefault();
+							}
+						},
 					}
 				},
 				tooltip: {					
@@ -151,47 +176,12 @@ class ChartHuman extends Component {
 						'</ul>';
 					}
 				},
-				// plotOptions: {
-				// 	series: {
-				// 		shadow: false,
-				// 		outline: 0,
-				// 		stacking: this.props.stacking
-				// 	},
-				// 	// bar: {
-				// 	// 	dataLabels: {
-				// 	// 		style: {
-				// 	// 			textOutline: 0,
-				// 	// 			textShadow: false,
-				// 	// 			fontFamily: 'OpenSans-Bold',
-				// 	// 			fontSize:'14px'
-				// 	// 		},
-				// 	// 		enabled: this.props.showDataLabel === true ? true : false,
-				// 	// 		formatter: function () {
-				// 	// 			return '<span style="color:' + this.point.color + '">' + this.y + '%</span>';
-				// 	// 		}
-				// 	// 	},
-				// 	// 	grouping: false
-				// 	// },
-				// 	// bar: {
-				// 	// 	style: {
-				// 	// 		textOutline: 0,
-				// 	// 		textShadow: false,
-				// 	// 		fontFamily: 'OpenSans-Bold',
-				// 	// 		fontSize:'14px'
-				// 	// 	},
-				// 	// 	dataLabels: {
-				// 	// 		enabled: this.props.showDataLabel === true ? true : false,
-				// 	// 		formatter: function () {
-				// 	// 			return '<span style="color:' + this.point.color + '">' + this.y + '€</span>';
-				// 	// 		}
-				// 	// 	}
-				// 	// }
-				// },
 				xAxis: {
+					opposite: true,
 					lineWidth: 0,					
 					labels: {
 						formatter: function () {
-							if ([this.value] == 'EU27_2020') {
+							if ([this.value] == 'EU27_2020' || this.pos == (this.chart.series.length - 1)) {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
 							}
 							else {
@@ -221,14 +211,6 @@ class ChartHuman extends Component {
 					visible:false,
 					title: {
 						enabled: false
-					},
-					labels: {
-						//format: this.props.percentage === true ? '{value} %' : `{value} ${this.props.percentage}`,
-						style: {
-							fontFamily: 'OpenSans-bold',
-							fontWeight: 'normal',
-							fontSize:'12px'
-						}
 					}
 				},
 				series: []
@@ -237,34 +219,27 @@ class ChartHuman extends Component {
 	}
 
 	getLoadData = (chart, indicator, country1, country2) => {
-		let categories = [];
-		let auxSeries = [];
 		let series = [];
-		let split =[];
-		let value=[];
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
-				//console.log('res',res.resultset);
 				let i = 0;
+				let numberOfItems = res.resultset.length;
 				res.resultset.forEach(element => {
 					if (element.split == null)
 					{
-						// There is no split, series and the categories will be the same
-						//console.log('country', element.countryCode);
-						//console.log('value',element.value);
-						
-						if( element.countryCode == "EU27_2020" ){
+						// There is no split, series and the categories will be the same						
+						if ( element.countryCode == "EU27_2020" ){
 							series.push({
 								name: element.country,
 								//type: 'column',
 								color:euColor,
-								pointWidth: 70,
+								pointWidth: numberOfItems > 2 ? 60 : 70,
 								//pointPadding: 0.15,
 								borderColor: 'transparent',
 								borderWidth: 0,
 								data: [{
-									name:element.value, 
+									name:element.countryCode, 
 									y: element.value, 
 									x: i, 
 									color: {
@@ -279,17 +254,17 @@ class ChartHuman extends Component {
 									}									
 								}]
 							});
-						}else{
+						} else {
 							if( i == 0){
 								series.push({
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 70,
+									pointWidth: numberOfItems > 2 ? 60 : 70,
 									 //pointPadding: 1,
 									 borderColor: 'transparent',
 									// borderWidth: 0,
-									data: [{name:element.value, y: element.value, x: i, 
+									data: [{name:element.countryCode, y: element.value, x: i, 
 										color: {
 											pattern: {
 												image: humanOrange,
@@ -304,14 +279,14 @@ class ChartHuman extends Component {
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: 70,
-									pointPadding: 0.25,
+									pointWidth: numberOfItems > 2 ? 60 : 70,
+									// pointPadding: 0.25,
 									borderColor: 'transparent',
 									borderWidth: 0,
 									data: [{
-										name:element.value, 
+										name:element.countryCode, 
 										y: element.value, 
-										x: i, 
+										// x: i, 
 										color: {
 											pattern: {
 												image: humanGreen,
@@ -327,17 +302,15 @@ class ChartHuman extends Component {
 					}					
 				});
 
-		this.setState({
-			chartConfig: {...this.state.chartConfig,  series}
-		})
-	});
-		
+				this.setState({
+					chartConfig: {...this.state.chartConfig,  series}
+				})
+			});		
 	}
 
 	getCredits = (chart) => {
 		getDatasourceAndDates(chart).then((res)=>{
 			let text = res;
-			//console.log('text',text);
 			this.setState({
 				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
 			})
@@ -349,18 +322,32 @@ class ChartHuman extends Component {
 		this.getCredits(this.props.chart);
 	}
 
-	componentDidUpdate(prevProps) {
-		//console.log(prevProps ,'-----------------',this.props.selectCountry1)
+	componentDidUpdate(prevProps, prevState) {
+
 		if (prevProps.selectCountry1 != this.props.selectCountry1) {
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
 		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			// Check if it's the first time that the country2 is set 
+			if (prevProps.selectCountry2 == undefined || prevProps.selectCountry2=='0')
+			{
+				let series = [];
+				this.setState({
+					chartConfig: {...this.state.chartConfig, series}
+				});
+			}
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
+
 		if (prevProps.chart != this.props.chart){
 			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
 			this.getCredits(this.props.chart);
+		}
+
+		if (prevState.chartConfig.series != this.state.chartConfig.series)
+		{
+			this.forceUpdate();
 		}
 	}
 
