@@ -82,29 +82,43 @@ public class QualitativeDataImpl {
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		QualitativeDataAccess da = new QualitativeDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<MatrixPageData> matrix;
-		
-		if (page.equalsIgnoreCase("MATRIX_AUTHORITY") || page.equalsIgnoreCase("MATRIX_STATISTICS") || page.equalsIgnoreCase("MATRIX_STRATEGY"))
+		QualitativeDataAccess da = null;
+		List<MatrixPageData> matrix = null;
+		QueryInfo qInfo = null;
+		try
 		{
-			filter.setPageType(page);
-			matrix = da.getMatrixPageData("matrix", filter);
+			da = new QualitativeDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			if (page.equalsIgnoreCase("MATRIX_AUTHORITY") || page.equalsIgnoreCase("MATRIX_STATISTICS") || page.equalsIgnoreCase("MATRIX_STRATEGY"))
+			{
+				filter.setPageType(page);
+				matrix = da.getMatrixPageData("matrix", filter);
+			}
+			else if (page.equalsIgnoreCase("STRATEGY") || page.equalsIgnoreCase("STRATEGY_ENFOR_CAPACITY") || page.equalsIgnoreCase("STRATEGY_REGULATION"))
+			{
+				filter.setPageType(page);
+				matrix = da.getMatrixPageData("strategies", filter);
+			}
+			else
+			{
+				return generateErrorResponse(new Exception("No valid matrix page definded"));
+			}
+			
+			qInfo = new QueryInfo(matrix.size(), System.currentTimeMillis() - t0);
 		}
-		else if (page.equalsIgnoreCase("STRATEGY") || page.equalsIgnoreCase("STRATEGY_ENFOR_CAPACITY") || page.equalsIgnoreCase("STRATEGY_REGULATION"))
+		catch (Exception e)
 		{
-			filter.setPageType(page);
-			matrix = da.getMatrixPageData("strategies", filter);
+			generateErrorResponse(e);
 		}
-		else
+		finally
 		{
-			return generateErrorResponse(new Exception("No valid matrix page definded"));
-		}		
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(matrix.size(), System.currentTimeMillis() - t0);
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(matrix, qInfo);
 	}
@@ -124,23 +138,37 @@ public class QualitativeDataImpl {
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		QualitativeDataAccess da = new QualitativeDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<Indicator> indicators;
-		
-		if (page.equalsIgnoreCase("STRATEGY") || page.equalsIgnoreCase("STRATEGY_ENFOR_CAPACITY") || page.equalsIgnoreCase("STRATEGY_REGULATION"))
+		QualitativeDataAccess da = null;
+		List<Indicator> indicators = null;
+		QueryInfo qInfo = null;
+		try
 		{
-			indicators = da.getStrategiesPageIndicators(page);
+			da = new QualitativeDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			if (page.equalsIgnoreCase("STRATEGY") || page.equalsIgnoreCase("STRATEGY_ENFOR_CAPACITY") || page.equalsIgnoreCase("STRATEGY_REGULATION"))
+			{
+				indicators = da.getStrategiesPageIndicators(page);
+			}
+			else
+			{
+				return generateErrorResponse(new Exception("No valid strategies page definded"));
+			}
+			
+			qInfo = new QueryInfo(indicators.size(), System.currentTimeMillis() - t0);
 		}
-		else
+		catch (Exception e)
 		{
-			return generateErrorResponse(new Exception("No valid strategies page definded"));
-		}		
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(indicators.size(), System.currentTimeMillis() - t0);
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(indicators, qInfo);
 	}
