@@ -5,6 +5,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
 import { largeSize } from '../utils/chartConfig';
 import ReactHtmlParser from 'react-html-parser'
+import zipcelx from 'zipcelx';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -92,7 +93,50 @@ class MentalRiskCharts extends Component {
 						}
 					},
                     sourceWidth: largeSize,
-                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
+                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_'),
+                    menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                const series = [{value: 'Category', type:'string'}];
+                                const auxSeries = this.series;
+                                const categories = [];
+                                const seriesData = [];
+
+                                console.log('auxSeries', auxSeries)
+
+                                auxSeries.map((element) => {
+                                    series.push({value: element.name, type: typeof element.name})
+                                })
+
+                                auxSeries.forEach((element) => element.data.map(
+                                    (innerEl) => {
+                                        categories.push({value: innerEl.options.name, type: typeof innerEl.options.name});
+                                        seriesData.push({value: innerEl.options.y, type: typeof innerEl.options.y});
+                                        // const arrayObj1 = {value: innerEl.options.name, type: typeof innerEl.options.name};
+                                        // const arrayObj2 = {value: innerEl.options.y, type: typeof innerEl.options.y};
+                                        // const obj2 = ;
+                                        // categories.push(Object.assign({...arrayObj1}, arrayObj2))
+                                        // categories = [{value: innerEl.options.name, type: typeof innerEl.options.name}, {value: innerEl.options.y, type: typeof innerEl.options.y}]
+                                    }
+                                ))
+
+                                console.log('categories', categories)
+                                console.log('seriesData', seriesData)
+                                console.log('series', series);
+                                const config = {
+                                    filename: this.title.textStr.replace(/ /g, '_'),
+                                    sheet: {
+                                        data: [
+                                            series,
+                                            categories,
+                                            seriesData
+                                        ]
+                                    }
+                                }
+                                zipcelx(config)
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {
