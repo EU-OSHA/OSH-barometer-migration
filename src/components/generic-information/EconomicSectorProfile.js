@@ -26,7 +26,6 @@ const EconomicSectorProfile = (props) => {
 	const [indicator2,setIndicator2]=useState('35');
 
 	useEffect(() => {
-		console.log('In use effect', props);
 		if (props.country1)
 		{
 			setSelectCountry1(props.country1);

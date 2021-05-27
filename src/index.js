@@ -97,15 +97,21 @@ ReactDOM.render(
 				<Route exact path="/osh-steering/social-dialogue" render={() => <App literals={literals}><SocialDialogue literals={literals}/></App>} />
 
 				<Route exact path="/osh-outcomes-working-conditions/health-perception" render={() => <App literals={literals}><HealthPerception literals={literals}/></App>} />
-				<Route 
-					path="/osh-outcomes-working-conditions/mental-risk/:indicator/:dataset" 
-					render={routeParams => <App literals={literals}><MentalRisk literals={literals} indicator={routeParams.match.params.indicator} dataset={routeParams.match.params.dataset}/></App>} 
-				/>
+
 				<Route
 					path="/osh-outcomes-working-conditions/osh-culture/:indicator" 
 					render={routeParams => <App literals={literals}><OSHCulture literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
 				/>
-				<Route exact path="/osh-outcomes-working-conditions/overall-opinion/:indicator/:country1?/:country2?" render={routeParams => <App literals={literals}><OverallOpinion country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals} indicator={routeParams.match.params.indicator}  /></App>} />
+
+				<Route 
+					path="/osh-outcomes-working-conditions/overall-opinion/:indicator/:country1?/:country2?" 
+					render={routeParams => <App literals={literals}><OverallOpinion country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals} indicator={routeParams.match.params.indicator}  /></App>} 
+				/>
+
+				<Route 
+					path="/osh-outcomes-working-conditions/mental-risk/:indicator/:dataset" 
+					render={routeParams => <App literals={literals}><MentalRisk literals={literals} indicator={routeParams.match.params.indicator} dataset={routeParams.match.params.dataset}/></App>} 
+				/>
 				
 				<Route 
 					path="/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature/:country1?/:country2?" 
@@ -125,6 +131,7 @@ ReactDOM.render(
 					render={routeParams => <App literals={literals}><PreventionCompanies literals={literals} indicator={routeParams.match.params.indicator} 
 					split={routeParams.match.params.split} country1={routeParams.match.params.country1 } country2={routeParams.match.params.country2} /></App>} 
 				/>
+				
 				<Route 
 					path="/osh-outcomes-working-conditions/work-accidents/:indicator?/:country1?/:country2?" 
 					render={routeParams => <App literals={literals}><WorkAccidents literals={literals} indicator={routeParams.match.params.indicator}  country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} /></App>} 

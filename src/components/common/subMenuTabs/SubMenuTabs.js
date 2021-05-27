@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
 const SubMenuTabs = props => {
+
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [selectedTab, setSelectedTab] = useState(props.selectedTab);
     const [indicatorTabs, setIndicatorTabs] = useState(props.subMenuTabs);
@@ -12,7 +13,7 @@ const SubMenuTabs = props => {
     useEffect(() => {
         setSelectedTab(props.selectedTab)
         loadUrl();
-    }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2]);
+    }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2, props.split]);
 
     const loadUrl = ()=>{
         if (props.selectedTab != 'exposure-to-dangerous-substances' && props.locationPath.indexOf('exposure-to-dangerous-substances') == -1)
@@ -28,14 +29,18 @@ const SubMenuTabs = props => {
                 history.push({
                     pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
                 })
-            } else if (props.selectedSurvey) {
-                history.push({
-                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
-                })
             } else if (props.selectCountry1 && props.selectCountry2) {
-                history.push({
-                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
-                })
+                if (props.split){
+                    history.push({
+                        pathname: `${props.locationPath}${props.selectedTab}/${props.split}/${props.selectCountry1}/${props.selectCountry2}`
+                    })
+                }
+                else
+                {
+                    history.push({
+                        pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+                    })
+                }                
             } else {
                 history.push({
                     pathname: `${props.locationPath}${props.selectedTab}`

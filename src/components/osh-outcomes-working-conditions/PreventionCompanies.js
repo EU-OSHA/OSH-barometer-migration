@@ -27,10 +27,13 @@ class PreventionCompanies extends Component {
 			}
 		}
 
+		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
+		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+
 		this.state={
-			selectCountry1: this.props.defaultCountry.code,
+			selectCountry1: country1,
 			// selectCountry2: '',
-			selectCountry2: this.props.defaultCountry2.code,
+			selectCountry2: country2,
 			defaultCountry2Selected: false,
 			split: this.props.split,
 			subMenuTabs: preventionInCompanies,
@@ -70,7 +73,7 @@ class PreventionCompanies extends Component {
 	}
 
 	callbackSelectedSurvey = (callback) => {
-		this.setState({ selectedSurvey: callback })
+		this.setState({ split: callback == 'establishment size' ? 'size' : callback})
 	}
 
 	callbackSelectedTab = (callback) => {
@@ -101,13 +104,13 @@ class PreventionCompanies extends Component {
 			this.callbackSelectedTab(this.props.indicator);
 		}
 
-		console.log("componentDidUpdate");
 
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
+			console.log('Props.country1 is undefined', prevProps, this.props);
 			this.setState({ selectCountry1: this.props.defaultCountry.code });
 		}
 
-		if(!this.state.defaultCountry2Selected){
+		if(!this.state.defaultCountry2Selected && !this.props.country2){
 			this.setState({ 
 				selectCountry2: this.props.defaultCountry2.code,
 				defaultCountry2Selected: true
@@ -135,6 +138,7 @@ class PreventionCompanies extends Component {
 					locationPath={this.state.currentPath}
 					selectCountry1={this.state.selectCountry1}
 					selectCountry2= {this.state.selectCountry2}
+					split={this.state.split}
 				/>
 				<div className="line background-main-light" />
 

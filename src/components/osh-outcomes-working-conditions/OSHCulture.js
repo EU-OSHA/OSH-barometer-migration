@@ -75,6 +75,7 @@ class OSHCulture extends Component
 						<div className="chart--block">
 							<div>
 								<HealthAwareness
+									literals={this.props.literals}
 									chartTitle={this.props.literals[`L${this.state.selectedTab.chartType[0].title}`]}
 									tabIndicator={this.state.selectedTab.literalTab}
 									chartType={this.state.selectedTab.chartType}

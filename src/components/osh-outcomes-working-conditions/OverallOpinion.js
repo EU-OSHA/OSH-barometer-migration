@@ -27,11 +27,12 @@ const OverallOpinion = (props) => {
 			selected = overallOpinion[i];
 		}
 	}
-		
-	// const [selectCountry1,setSelectCountry1]=useState('AT');
-	const [selectCountry1,setSelectCountry1]=useState(props.defaultCountry.code);
-	// const [selectCountry2,setSelectCountry2]=useState('');
-	const [selectCountry2,setSelectCountry2]=useState(props.defaultCountry2.code != "0" ? props.defaultCountry2.code : "");
+
+	let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
+	let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+
+	const [selectCountry1,setSelectCountry1]=useState(country1);
+	const [selectCountry2,setSelectCountry2]=useState(country2);
 	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
 	const [title, setTitle] = React.useState('')
@@ -50,8 +51,25 @@ const OverallOpinion = (props) => {
 	}, [window.innerWidth])
 
 	useEffect(() => {
-		setSelectCountry1(props.defaultCountry.code);
-		setSelectCountry2(props.defaultCountry2.code);
+		if (props.country1)
+		{
+			setSelectCountry1(props.country1);
+		}
+		else if (props.defaultCountry.code != '0')
+		{
+			setSelectCountry1(props.defaultCountry.code);
+		}
+	
+		if (props.country2)
+		{
+			setSelectCountry2(props.country2);
+		}
+		else
+		{
+			setSelectCountry2(props.defaultCountry2.code);
+		}
+		/*setSelectCountry1(props.defaultCountry.code);
+		setSelectCountry2(props.defaultCountry2.code);*/
 	}, [props.defaultCountry.code, props.defaultCountry2.code])
 
  
@@ -205,8 +223,8 @@ const OverallOpinion = (props) => {
 }
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
+    const { defaultCountry } = state;
+	const { defaultCountry2 } = state;
     return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 

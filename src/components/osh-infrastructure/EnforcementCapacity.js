@@ -25,13 +25,16 @@ class EnforcementCapacity extends Component {
 			}
 		}
 
+		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
+		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+
 		this.state={
 			defaultCountrySelected: false,
 			defaultCountry2Selected: false,
-			selectCountry1: this.props.defaultCountry.code,
+			selectCountry1: country1,
 			// selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
 			// selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
-			selectCountry2: this.props.defaultCountry2.code != "0" ? this.props.defaultCountry2.code : '0',
+			selectCountry2: country2,
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
@@ -157,18 +160,16 @@ class EnforcementCapacity extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log("componentDidUpdate");
-
 		if (prevState.selectedTab != this.state.selectedTab 
 			|| prevState.selectCountry1 != this.state.selectCountry1 
 			|| prevState.selectCountry2 != this.state.selectCountry2) {
 				this.getStrategiesData();
 		}
 
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
 			this.setState({ selectCountry1: this.props.defaultCountry.code });
-		}else{
-			if(!this.state.defaultCountrySelected){
+		}else {
+			if(!this.state.defaultCountrySelected && !this.props.country1){
 				this.setState({ 
 					selectCountry1: this.props.defaultCountry.code,
 					defaultCountrySelected: true
@@ -176,10 +177,10 @@ class EnforcementCapacity extends Component {
 			}
 		}
 
-		if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code){
+		if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code && !this.props.country2){
 			this.setState({ selectCountry2: this.props.defaultCountry2.code });
 		}else{
-			if(!this.state.defaultCountry2Selected){
+			if(!this.state.defaultCountry2Selected && !this.props.country2){
 				this.setState({ 
 					selectCountry2: this.props.defaultCountry2.code,
 					defaultCountry2Selected: true

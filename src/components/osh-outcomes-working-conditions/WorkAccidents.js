@@ -25,11 +25,14 @@ class WorkAccidents extends Component
 			}
 		}
 
+		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
+		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+
 		this.state = {
 			// selectCountry1: 'AT',
-			selectCountry1: props.country1,
+			selectCountry1: country1,
 			// selectCountry2: '',
-			selectCountry2: props.country2,
+			selectCountry2: country2,
 			defaultCountry2Selected: false,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
