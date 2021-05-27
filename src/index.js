@@ -126,8 +126,8 @@ ReactDOM.render(
 					split={routeParams.match.params.split} country1={routeParams.match.params.country1 } country2={routeParams.match.params.country2} /></App>} 
 				/>
 				<Route 
-					path="/osh-outcomes-working-conditions/work-accidents/:indicator?" 
-					render={routeParams => <App literals={literals}><WorkAccidents literals={literals} indicator={routeParams.match.params.indicator} /></App>} 
+					path="/osh-outcomes-working-conditions/work-accidents/:indicator?/:country1?/:country2?" 
+					render={routeParams => <App literals={literals}><WorkAccidents literals={literals} indicator={routeParams.match.params.indicator}  country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} /></App>} 
 				/>
 				<Route 
 					path="/osh-outcomes-working-conditions/worker-involvement/:split?/:country1?/:country2?" 

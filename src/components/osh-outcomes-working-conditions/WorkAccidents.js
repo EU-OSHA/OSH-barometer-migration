@@ -27,9 +27,9 @@ class WorkAccidents extends Component
 
 		this.state = {
 			// selectCountry1: 'AT',
-			selectCountry1: this.props.defaultCountry.code,
+			selectCountry1: props.country1,
 			// selectCountry2: '',
-			selectCountry2: this.props.defaultCountry2.code,
+			selectCountry2: props.country2,
 			defaultCountry2Selected: false,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
@@ -76,12 +76,11 @@ class WorkAccidents extends Component
 	}
 
 	componentDidUpdate(prevProps) {
-		console.log("componentDidUpdate");
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code){
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
 			this.setState({selectCountry1: this.props.defaultCountry.code});
 		}
 
-		if(!this.state.defaultCountry2Selected){
+		if(!this.state.defaultCountry2Selected && !this.props.country2){
 			this.setState({ 
 				selectCountry2: this.props.defaultCountry2.code,
 				defaultCountry2Selected: true
@@ -170,8 +169,8 @@ class WorkAccidents extends Component
 }
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
+    const { defaultCountry } = state;
+	const { defaultCountry2 } = state;
     return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
 }
 
