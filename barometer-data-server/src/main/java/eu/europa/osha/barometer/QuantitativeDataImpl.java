@@ -53,51 +53,65 @@ private static final Logger log = LogManager.getLogger(QualitativeDataImpl.class
 		}	
 		
 		ThreadContext.push(String.valueOf(++access));
-		QuantitativeDataAccess da = new QuantitativeDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		QueryFilter queryFilter = new QueryFilter();
-		queryFilter.setChart(chart);
-		if (indicator != null && indicator.size() > 0)
+		QuantitativeDataAccess da = null;
+		List<IndicatorData> data = null;
+		QueryInfo qInfo = null;
+		try
 		{
-			queryFilter.setIndicator(indicator);
+			da = new QuantitativeDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			QueryFilter queryFilter = new QueryFilter();
+			queryFilter.setChart(chart);
+			if (indicator != null && indicator.size() > 0)
+			{
+				queryFilter.setIndicator(indicator);
+			}
+			if (country1 != null && country1.length() > 0)
+			{
+				queryFilter.setCountry1(country1);
+			}
+			if (country2 != null && country2.length() > 0)
+			{
+				queryFilter.setCountry2(country2);
+			}		
+			if (sector != null && sector.size() > 0)
+			{
+				queryFilter.setSector(sector);
+			}
+			if (gender != null && gender.size() > 0)
+			{
+				queryFilter.setGender(gender);
+			}
+			if (answer != null && answer.size() > 0)
+			{
+				queryFilter.setAnswer(answer);
+			}
+			if (ageGroup != null && ageGroup.size() > 0)
+			{
+				queryFilter.setAgeGroup(ageGroup);
+			}
+			if (companySize != null && companySize.size() > 0)
+			{
+				queryFilter.setCompanySize(companySize);
+			}
+			
+			data = da.getIndicatorData(queryFilter);
+			
+			qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
 		}
-		if (country1 != null && country1.length() > 0)
+		catch (Exception e)
 		{
-			queryFilter.setCountry1(country1);
+			generateErrorResponse(e);
 		}
-		if (country2 != null && country2.length() > 0)
+		finally
 		{
-			queryFilter.setCountry2(country2);
+			if (da != null)
+			{
+				da.close();
+			}
 		}		
-		if (sector != null && sector.size() > 0)
-		{
-			queryFilter.setSector(sector);
-		}
-		if (gender != null && gender.size() > 0)
-		{
-			queryFilter.setGender(gender);
-		}
-		if (answer != null && answer.size() > 0)
-		{
-			queryFilter.setAnswer(answer);
-		}
-		if (ageGroup != null && ageGroup.size() > 0)
-		{
-			queryFilter.setAgeGroup(ageGroup);
-		}
-		if (companySize != null && companySize.size() > 0)
-		{
-			queryFilter.setCompanySize(companySize);
-		}
-		
-		List<IndicatorData> data;
-		
-		data = da.getIndicatorData(queryFilter);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
 		
 		return generateResponse(data, qInfo);
 	}
@@ -119,29 +133,43 @@ private static final Logger log = LogManager.getLogger(QualitativeDataImpl.class
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		CountryCardDataAccess da = new CountryCardDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		QueryFilter queryFilter = new QueryFilter();
-		queryFilter.setChart(chart);
-		
-		if (country1 != null && country1.length() > 0)
+		CountryCardDataAccess da = null;
+		List<CountryCard> data = null;
+		QueryInfo qInfo = null;
+		try
 		{
-			queryFilter.setCountry1(country1);
+			da = new CountryCardDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			QueryFilter queryFilter = new QueryFilter();
+			queryFilter.setChart(chart);
+			
+			if (country1 != null && country1.length() > 0)
+			{
+				queryFilter.setCountry1(country1);
+			}
+			
+			if (country2 != null && country2.length() > 0)
+			{
+				queryFilter.setCountry2(country2);
+			}
+			
+			data = da.getRadarChartData(queryFilter);
+			
+			qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
 		}
-		
-		if (country2 != null && country2.length() > 0)
+		catch (Exception e)
 		{
-			queryFilter.setCountry2(country2);
+			generateErrorResponse(e);
 		}
-		
-		List<CountryCard> data;
-		
-		data = da.getRadarChartData(queryFilter);		
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(data, qInfo);
 	}
@@ -162,24 +190,38 @@ private static final Logger log = LogManager.getLogger(QualitativeDataImpl.class
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		CountryCardDataAccess da = new CountryCardDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		QueryFilter queryFilter = new QueryFilter();
-		queryFilter.setChart(chart);
-		
-		if (country != null && country.size() > 0)
+		CountryCardDataAccess da = null;
+		List<CountryCard> data = null;
+		QueryInfo qInfo = null;
+		try
 		{
-			queryFilter.setCountries(country);
+			da = new CountryCardDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			QueryFilter queryFilter = new QueryFilter();
+			queryFilter.setChart(chart);
+			
+			if (country != null && country.size() > 0)
+			{
+				queryFilter.setCountries(country);
+			}
+			
+			data = da.getCountryCardData(queryFilter);		
+			
+			qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
 		}
-		
-		List<CountryCard> data;
-		
-		data = da.getCountryCardData(queryFilter);		
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(data, qInfo);
 	}

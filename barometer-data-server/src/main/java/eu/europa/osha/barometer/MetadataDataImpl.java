@@ -45,14 +45,30 @@ private static final Logger log = LogManager.getLogger(DataServerImpl.class);
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		MetadataDataAccess da = new MetadataDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<ChartMetadata> metadata = da.getChartMetadata(chart);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(metadata.size(), System.currentTimeMillis() - t0);
+		MetadataDataAccess da = null;
+		List<ChartMetadata> metadata = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MetadataDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			metadata = da.getChartMetadata(chart);
+			
+			qInfo = new QueryInfo(metadata.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(metadata, qInfo);
 	}
@@ -73,14 +89,30 @@ private static final Logger log = LogManager.getLogger(DataServerImpl.class);
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		MethodologyDataAccess da = new MethodologyDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<IndicatorMethodology> methodology = da.getMethodologyIndicators(section);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(methodology.size(), System.currentTimeMillis() - t0);
+		MethodologyDataAccess da = null;
+		List<IndicatorMethodology> methodology = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MethodologyDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			methodology = da.getMethodologyIndicators(section);
+			
+			qInfo = new QueryInfo(methodology.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(methodology, qInfo);
 	}
@@ -102,14 +134,31 @@ private static final Logger log = LogManager.getLogger(DataServerImpl.class);
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		MethodologyDataAccess da = new MethodologyDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<IndicatorMethodology> methodologyData = da.getMethodologyData(section, indicator);
+		MethodologyDataAccess da = null;
+		List<IndicatorMethodology> methodologyData = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MethodologyDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			methodologyData = da.getMethodologyData(section, indicator);
+			
+			qInfo = new QueryInfo(methodologyData.size(), System.currentTimeMillis() - t0);
 		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(methodologyData.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(methodologyData, qInfo);
 	}
