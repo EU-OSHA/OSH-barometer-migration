@@ -207,6 +207,8 @@ class EnforcementCapacity extends Component {
 						/>
 				</div>
 
+				<div class="line background-main-light"></div>
+
 				<div>
 					<SelectEconomic 
 						handleSearch={this.handleSearch} 
@@ -216,6 +218,8 @@ class EnforcementCapacity extends Component {
 						selectedCountry2={this.state.selectCountry2}
 						/>
 				</div>
+
+				<div class="line background-main-light"></div>
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1">
 					{this.state.indicatorSubTabs.map((element) => {
@@ -238,7 +242,7 @@ class EnforcementCapacity extends Component {
 														subtitle={this.props.literals[`L${element.chartType[0].subTitle}`]}
 														colors={['#f6a400','#f3c564', '#449fa2', '#cbe2e3']}
 														// showDataLabel={false}
-														// tick={20}
+														tick={20}
 														percentage={true}
 														type={'column'}
 														selectCountry1={this.state.selectCountry1}

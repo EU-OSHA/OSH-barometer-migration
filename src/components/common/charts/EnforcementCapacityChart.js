@@ -151,6 +151,12 @@ class EnforcementCapacityChart extends Component {
 						stacking: this.props.stackingColumn,
 						dataLabels: {
 							enabled: true,
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'12px'
+							},
 							formatter: function (){
 								return this.point.split
 							}
@@ -205,7 +211,6 @@ class EnforcementCapacityChart extends Component {
 					
 					labels: {
 						formatter: function () {
-							//console.log(this.value +'-------------'+ this.pos);
 							if ([this.value] == 'EU27_2020') {
 								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
 							}else{
@@ -277,7 +282,7 @@ class EnforcementCapacityChart extends Component {
 						const index = categories.findIndex((categ) => categ == element.countryCode)
 						if (element.countryCode == categories.find((category) => category == element.countryCode)) {
 							auxSeries[split].push({
-								name: element.countryCode,
+								name: element.country,
 								split: element.split,
 								color: this.props.colors[euInternalColors],
 								y: element.value, 
@@ -287,7 +292,7 @@ class EnforcementCapacityChart extends Component {
 						}
 					} else {
 						auxSeries[split].push({
-							name: element.countryCode,
+							name: element.country,
 							split: element.split,
 							color: euColorSeries[serieInternalColors],
 							y: element.value, 
@@ -297,18 +302,18 @@ class EnforcementCapacityChart extends Component {
 					}
 				});
 			
-			for (let serie in auxSeries) {
-				const findColor = categories.findIndex((el) => el == serie);
-				if (serie == 'EU27_2020') {
-					series.push({ name: serie, data: auxSeries[serie], color: euColorSeries[0]})
-				} else {
-					series.push({ name: serie, data: auxSeries[serie], color: seriesColor[findColor] })
+				for (let serie in auxSeries) {
+					const findColor = categories.findIndex((el) => el == serie);
+					if (serie == 'EU27_2020') {
+						series.push({ name: serie, data: auxSeries[serie], color: euColorSeries[0]})
+					} else {
+						series.push({ name: auxSeries[serie][0].name, data: auxSeries[serie], color: seriesColor[findColor] })
+					}
 				}
-			}
 
-			this.setState({
-				chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
-			})
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
+				})
 		});
 	}
 
