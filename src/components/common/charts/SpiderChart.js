@@ -50,9 +50,18 @@ class SpiderChart extends Component{
 								fontFamily: 'OpenSans-Bold',
 								fontSize:'14px'
 							},
+							allowOverlap: true,
+							padding: 10,
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
-								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+								if (this.series.name == 'EU27_2020' || this.series.name == 'EU28')
+								{
+									return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+								}
+								else
+								{
+									return null;
+								}
 							}
 						}
 					}
@@ -276,7 +285,7 @@ class SpiderChart extends Component{
 				//console.log(auxSeries[serie])
 			}
 			if (series.length == 3){
-				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']  }})
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']  }})
 			}else{
 				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}})
 			}
