@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import Related from '../common/Related';
 import AdviceSection from '../common/AdviceSection';
-import Chart from '../common/charts/Chart';
 import RiskChart from '../common/charts/RiskChart';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
@@ -11,8 +9,6 @@ import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
 import { setDefaultCountry2 } from '../../actions/';
-
-const subTabs = require('../../model/mentalHealth.json');
 
 const OverallOpinion = (props) => {
 
@@ -39,7 +35,7 @@ const OverallOpinion = (props) => {
 	const [legend, setLegend] = useState('')
 	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
 	const [selectedTab, setSelectedTab] = useState(selected);
-    const [indicatorTabs, setIndicatorTabs] = useState(subTabs);
+    // const [indicatorTabs, setIndicatorTabs] = useState(overallOpinion);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
@@ -60,13 +56,13 @@ const OverallOpinion = (props) => {
 			setSelectCountry1(props.defaultCountry.code);
 		}
 	
-		if (props.country2)
-		{
-			setSelectCountry2(props.country2);
-		}
-		else
+		if (props.defaultCountry2.code)
 		{
 			setSelectCountry2(props.defaultCountry2.code);
+		}
+		else if (props.country2)
+		{
+			setSelectCountry2(props.country2);
 		}
 		/*setSelectCountry1(props.defaultCountry.code);
 		setSelectCountry2(props.defaultCountry2.code);*/
@@ -187,16 +183,14 @@ const OverallOpinion = (props) => {
 								<div className="card--block--chart">
 									<div className="chart--block">
 										<RiskChart
-											title='Do you think your health or safety is at risk because of your work?'
-											colors={['#f6a400','#003399','#cbe2e3','#ffe300']}
+											title={props.literals.L22135}
+											colors={['#f6a400','#003399']}
 											showDataLabel={true}
 											tick={20}
 											percentage={true}
 											type={dimension}
-											//stackingColumn='percent'
 											selectCountry1={selectCountry1}
 											selectCountry2={selectCountry2}
-											//reversed={true}
 											chart={'20041'}
 											indicator={'66'}
 											sector={[8,9,10,11,12,13]}
