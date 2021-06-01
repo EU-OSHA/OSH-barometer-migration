@@ -159,10 +159,9 @@ class Chart extends Component {
 			.then((res) => {
 				
 				res.resultset.forEach(element => {
-					//console.log(res.resultset)
 					if (categories.indexOf(element.countryCode) == -1) {
 						categories.push(element.split)
-					}//console.log(categories)
+					}
 					
 					let split = element.countryCode;
 					if (!(split in auxSeries)) {
@@ -170,12 +169,10 @@ class Chart extends Component {
 						
 					}auxSeries[split].push(element.value)
 					 
-				});//console.log(auxSeries)
+				});
 					
 		for (let serie in auxSeries) {
-			
 			series.push({ name: serie , data: auxSeries[serie] })
-			//console.log(categories)
 		}
 			
 			if(series.length == 3){

@@ -14,19 +14,12 @@ class MentalRisk extends Component
 		
 		this.state = {
 			indicatorTabs: subTabs,
+			subMenuTabs: [{ literalTab: '20669' }, { literalTab: '20670' }, { literalTab: '20671' },{ literalTab: '20672' }, { literalTab: '20673' },{ literalTab: '20674' },{ literalTab: '20675' }],
 			selectedTab: this.props.indicator,
 			selectedSurvey: this.props.dataset,
+			indicatorSubTabs: [{ literalTab: '340' }, { literalTab: '341' },{ literalTab: '342' },{ literalTab: '343' },{ literalTab: '344' },{ literalTab: '345' }],
 			chartLegend: '',
-			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
 			currentPath: '/osh-outcomes-working-conditions/mental-risk/'
-		}
-	}
-
-	updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ chartDimension: 'column' });
-		} else {
-			this.setState({ chartDimension: 'bar' })
 		}
 	}
 
@@ -45,8 +38,6 @@ class MentalRisk extends Component
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
-
-		window.addEventListener('resize', this.updateDimension);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -61,10 +52,6 @@ class MentalRisk extends Component
 
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateDimension)
-	}
-
 	render()
 	{
 		return(
@@ -76,7 +63,7 @@ class MentalRisk extends Component
 					callbackSelectedTab={this.callbackSelectedTab} 
 					selectedTab={this.state.selectedTab} 
 					selectedSurvey={this.state.selectedSurvey} 
-					subMenuTabs={this.state.indicatorTabs}
+					subMenuTabs={this.state.indicatorSubTabs}
 					locationPath={this.state.currentPath}
 				/>
 
@@ -94,7 +81,6 @@ class MentalRisk extends Component
 													tabIndicator={tab.literalTab}
 													chartType={tab.chartType}
 													colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-													type={this.state.chartDimension}
 													percentage={true}
 													callbackLegend={this.callbackChartLegend}
 													callbackSelectedSurvey={this.callbackSelectedSurvey}

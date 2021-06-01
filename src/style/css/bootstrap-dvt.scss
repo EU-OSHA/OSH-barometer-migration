@@ -2770,7 +2770,8 @@ tbody.collapse.in {
         background-color: transparent;
         cursor: not-allowed; }
   .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: $gray-lighter;
+    background-color: $white;
+    border: none;
     border-color: #337ab7; }
   .nav .nav-divider {
     height: 1px;

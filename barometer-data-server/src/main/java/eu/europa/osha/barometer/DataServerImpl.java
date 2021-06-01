@@ -61,14 +61,31 @@ public class DataServerImpl {
 		countryToExclude.add("EU27_2020");		
 		
 		ThreadContext.push(String.valueOf(++access));
-		DataAccess da = new DataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<Country> countriesList = da.getIndicatorCountries(chartID, countryToExclude);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		DataAccess da = null;
+		List<Country> countriesList = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new DataAccess();
+
+			long t0 = System.currentTimeMillis();
+			
+			countriesList = da.getIndicatorCountries(chartID, countryToExclude);
+			
+			qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(countriesList, qInfo);
 	}
@@ -97,14 +114,31 @@ public class DataServerImpl {
 		countryToExclude.add("UK");
 		
 		ThreadContext.push(String.valueOf(++access));
-		DataAccess da = new DataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<Country> countriesList = da.getCountriesMatrixPage(page, countryToExclude);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		DataAccess da = null;
+		List<Country> countriesList = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new DataAccess();
+
+			long t0 = System.currentTimeMillis();
+			
+			countriesList = da.getCountriesMatrixPage(page, countryToExclude);
+			
+			qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(countriesList, qInfo);
 	}
@@ -135,14 +169,30 @@ public class DataServerImpl {
 		countryToExclude.add("UK");
 		
 		ThreadContext.push(String.valueOf(++access));
-		DataAccess da = new DataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<Country> countriesList = da.getCountriesStrategiesPage(page, countryToExclude);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		DataAccess da = null;
+		List<Country> countriesList = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new DataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			countriesList = da.getCountriesStrategiesPage(page, countryToExclude);
+			
+			qInfo = new QueryInfo(countriesList.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(countriesList, qInfo);
 	}

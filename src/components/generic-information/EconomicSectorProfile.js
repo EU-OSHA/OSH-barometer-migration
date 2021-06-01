@@ -170,34 +170,28 @@ const EconomicSectorProfile = (props) => {
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
 								<div className="select-filter-chart">
-								{/* ngIf: chart == 'GDP' */}
-								<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
-									<option value="35">Purchasing Power Standards (PPS)</option>
-									<option value="278">Euro (€)</option>
-								</select>
-
+									<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
+										<option value="35">{props.literals.L20743}</option>
+										<option value="278">{props.literals.L20742}</option>
+									</select>
 								</div>
 							</div>
 							<div className="chart--block with-filter">
 								<div className="card--block--chart--wrapper">
-								{/* <ul className="chart--submenu"></ul> */}
-								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
-
-								<div className="chart--wrapper">
-								<ChartHuman
-									title='GDP per capita in to relation EU27_2020 average'
-									colors={['#ffae00','#529FA2','#003399']}
-									showDataLabel={true}
-									//tick={20}
-									percentage='ft'
-									type='column'
-									selectCountry1={selectCountry1}
-									selectCountry2={selectCountry2}
-									chart={chart2}
-									indicator={indicator2}									
-									/>
-									<div className="legend-text-block"></div>
-								</div>
+									<div className="chart--wrapper">
+										<ChartHuman
+											title={props.literals.L22195}
+											colors={['#ffae00','#529FA2','#003399']}
+											showDataLabel={true}
+											percentage='ft'
+											type='column'
+											selectCountry1={selectCountry1}
+											selectCountry2={selectCountry2}
+											chart={chart2}
+											indicator={indicator2}									
+										/>
+										<div className="legend-text-block" />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -205,52 +199,33 @@ const EconomicSectorProfile = (props) => {
 						{/* INCOME PER CAPITA */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart"  >
-
-								<select className="ng-pristine ng-untouched " onChange={selectEuro}>
-									<option value="36">Purchasing Power Standards (PPS)</option>
-									<option value="279">Euro (€)</option>
-								</select>
-
+								<div className="select-filter-chart" >
+									<select className="ng-pristine ng-untouched " onChange={selectEuro}>
+										<option value="36">{props.literals.L20743}</option>
+										<option value="279">{props.literals.L20742}</option>
+									</select>
 								</div>
 							</div>
 							<div className="chart--block with-filter">
 								<div className="card--block--chart--wrapper" >
-
-								<ul className="chart--submenu " >
-									{/* <li><a className="maximize-button" title="Maximize" role="button"><label className="sr-only " >Maximize</label></a></li>
-									<li className="dropdown-toggle" ><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" >
-										<li><a  className="">Export as image</a></li>
-										<li><a className="">Download raw data</a></li>
-									</ul> */}
-								</ul>
-
-								{/* <h2 className="title--card  ">Income per capita</h2> */}
-								<div className="chart--wrapper">
-								<IncomerPercapital
-									title='Income per capita'
-									colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
-									showDataLabel={true}
-									tick={5000}
-									percentage='€'
-									type='line'
-									selectCountry1={selectCountry1}
-									selectCountry2={selectCountry2}
-									chart={chart}
-									indicator={indicator}
-									/>
-
-
-									<div className="legend-text-block">
-									
+									<div className="chart--wrapper">
+										<IncomerPercapital
+											title={props.literals.L293}
+											colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+											showDataLabel={true}
+											tick={5000}
+											percentage='€'
+											type='line'
+											selectCountry1={selectCountry1}
+											selectCountry2={selectCountry2}
+											chart={chart}
+											indicator={indicator}
+										/>
+										<div className="legend-text-block" />
 									</div>
 								</div>
-								</div>
-								{/* DATASETS 17 - 36 y 3 - 279 */}
 							</div>
 						</div>
-						{/* END CONTENT */}
 					</div>
 				</section>
 				

@@ -269,7 +269,7 @@ public class CountryCardDataAccess {
 			return data;
 		}
 		
-		whereBuilder.append("and n.country_code in (" + pQueryFilter.getCountryFilter() + ")");
+		whereBuilder.append("and n.country_code in (" + pQueryFilter.getCountryFilter() + ") ");
 		
 		
 		if (chartID == 20049)
@@ -286,7 +286,7 @@ public class CountryCardDataAccess {
 			
 			for (int i = 0; i < indicators.length; i++)
 			{
-				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i]);
+				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i] + " order by field (n.country_code,"+pQueryFilter.getCountryFilter()+") ASC");
 				
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 				System.out.println(queryBuilderTxt);
@@ -313,7 +313,9 @@ public class CountryCardDataAccess {
 			indicatorAnswers.put("93", Arrays.asList("14","16"));
 			indicatorAnswers.put("92", Arrays.asList("26"));
 			indicatorAnswers.put("94", Arrays.asList("26"));
-			indicatorAnswers.put("91", Arrays.asList("14","16"));
+			indicatorAnswers.put("91", Arrays.asList("14","16"));			
+
+			whereBuilder.append("and ibc.chart_id="+chartID+" ");
 			
 			for (String indicator: indicatorAnswers.keySet())
 			{
@@ -333,7 +335,7 @@ public class CountryCardDataAccess {
 						}
 						queryBuilder.append(answers.get(i));
 					}
-					queryBuilder.append(") ");
+					queryBuilder.append(") order by field (n.country_code,"+pQueryFilter.getCountryFilter()+") ASC");
 				}
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 				System.out.println(queryBuilderTxt);
@@ -362,7 +364,7 @@ public class CountryCardDataAccess {
 			
 			for (int i = 0; i < indicators.length; i++)
 			{
-				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i]);
+				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i] + " order by field (n.country_code,"+pQueryFilter.getCountryFilter()+") ASC");
 				
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 				System.out.println(queryBuilderTxt);
@@ -414,7 +416,7 @@ public class CountryCardDataAccess {
 						}
 						queryBuilder.append(answers.get(i));
 					}
-					queryBuilder.append(") ");
+					queryBuilder.append(") order by field (n.country_code,"+pQueryFilter.getCountryFilter()+") ASC");
 				}
 				
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
@@ -440,7 +442,7 @@ public class CountryCardDataAccess {
 			
 			for (int i = 0; i < indicators.length; i++)
 			{
-				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i]);
+				queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i] + " order by field (n.country_code,"+pQueryFilter.getCountryFilter()+") ASC");
 				
 				String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 				System.out.println(queryBuilderTxt);

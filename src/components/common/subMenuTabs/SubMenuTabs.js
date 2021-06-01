@@ -21,9 +21,13 @@ const loadUrl = ()=>{
         history.push({
             pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
         })
-    } else{
+    } else if (props.selectCountry1 && props.selectCountry2) {
         history.push({
             pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+        })
+    } else {
+        history.push({
+            pathname: `${props.locationPath}${props.selectedTab}`
         })
     }
 }
@@ -41,7 +45,11 @@ const loadUrl = ()=>{
         const newIndicator = props.literals[`L${indicator}`].toLowerCase().replace(/ /g, '-');
         setSelectedTab(newIndicator);
         props.callbackSelectedTab(newIndicator);
-        
+      
+        // if (newIndicator != props.selectedTab || newIndicator == props.selectedSurvey){
+        //     console.log("hola", newIndicator)
+        // }
+
         if (newIndicator != props.selectedTab) {
             if (props.selectedSurvey) {
                 history.push({
@@ -53,6 +61,7 @@ const loadUrl = ()=>{
                 });
             }
         }
+        
 	}
 
     const literalClass = (literal) => {
