@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
-import { largeSize } from '../utils/chartConfig';
+import { largeSize, xlsxCustomExport } from '../utils/chartConfig';
 import { isFullscreen } from '../utils/Utils';
 
 require('highcharts/modules/exporting')(Highcharts);
@@ -93,7 +93,14 @@ class MentalRiskCharts extends Component {
 						}
 					},
                     sourceWidth: largeSize,
-                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_')
+                    filename: this.props.literals[`L${this.props.chartType[0].title}`].replace(/ /g, '_'),
+                    menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Category', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {
