@@ -11,6 +11,11 @@ const xlsxCustomExport = (categoryName, seriesArray, chartTitle, noCategory) => 
     const series = [{value: categoryName, type: typeof categoryName}];
     const auxSeries = seriesArray;
     const auxCategory = [];
+    let title = chartTitle.replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img, '').replace(/ /g, '_').toLowerCase();
+
+    if (title.length > 200) {
+        title = title.substring(0, 180);
+    }
 
     if (!noCategory) {
         auxSeries.map((element) => {
@@ -42,7 +47,7 @@ const xlsxCustomExport = (categoryName, seriesArray, chartTitle, noCategory) => 
     }
 
     const config = {
-        filename: chartTitle.replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img, '').replace(/ /g, '_').toLowerCase(),
+        filename: title,
         sheet: {
             data: [
                 series,
