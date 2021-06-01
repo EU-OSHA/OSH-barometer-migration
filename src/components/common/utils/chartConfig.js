@@ -8,10 +8,6 @@ const largeSize = 1300
 
 // Custom xlsx Library Export
 const xlsxCustomExport = (categoryName, seriesArray, chartTitle) => {
-    console.log('category', categoryName)
-    console.log('seriesArray', seriesArray)
-    console.log('chartTitle', chartTitle)
-
     const series = [{value: categoryName, type: typeof categoryName}];
     const auxSeries = seriesArray;
     const auxCategory = [];
@@ -36,7 +32,7 @@ const xlsxCustomExport = (categoryName, seriesArray, chartTitle) => {
     });
 
     const config = {
-        filename: chartTitle.replace(/ /g, '_').toLowerCase(),
+        filename: chartTitle.replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img, '').replace(/ /g, '_').toLowerCase(),
         sheet: {
             data: [
                 series,
