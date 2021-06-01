@@ -30,9 +30,7 @@ class MentalRiskCharts extends Component {
 					y:20,
 					style: {
 						zIndex: 1,
-						lineHeight:36,
-                        // position: 'absolute',
-                        // top: '-8px'
+						lineHeight:36
 					}
                 },
 				credits: {
