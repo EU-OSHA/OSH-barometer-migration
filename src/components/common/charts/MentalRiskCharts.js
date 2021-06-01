@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
 import { largeSize, xlsxCustomExport } from '../utils/chartConfig';
+import { isFullscreen } from '../utils/Utils';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -19,7 +20,10 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
+                    text: window.innerWidth > 768 ? 
+                        "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>" 
+                        : 
+                        "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>",
                     //text: this.props.chartTitle[`L${this.props.chartType[0].title}`],
                     align: 'left',
 					widthAdjust: -50,
@@ -44,7 +48,7 @@ class MentalRiskCharts extends Component {
 				},
                 chart: {
                     height: window.innerWidth > 768 ? 450 : 770,
-                    type: this.props.type,
+                    type: window.innerWidth > 768 ? 'column' : 'bar',
                     backgroundColor: '#F0F0F0',
                     events: {
                         render: function() {
@@ -224,6 +228,15 @@ class MentalRiskCharts extends Component {
                                 }
                             }
                         }
+                    },
+                    bar: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        states: {
+                            inactive: {
+                                opacity: 1
+                            }
+                        }
                     }
                 },
                 series: []
@@ -370,21 +383,57 @@ class MentalRiskCharts extends Component {
     }
 
     updateDimension = () => {
-		if (window.innerWidth > 768) {
-			this.setState({ 
-                chartConfig: {
-                    ...this.state.chartConfig, 
-                    chart: {...this.state.chartConfig.chart, height: 450},
-                    title: {
-                        ...this.state.chartConfig.title,
-                        // TODO: Deleted HTML Tags - attacked styles directly from css
-                        text: this.props.literals[`L${this.props.chartType[0].title}`]
-                    }}
+        const width = window.innerWidth;
+        const height = window.innerHeight;   
+
+        if (width > 767) {
+            const title = this.props.literals[`L${this.props.chartType[0].title}`];
+            if (isFullscreen()) {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: height},
+                    }
                 });
-		} else {
-            const shortTitle = this.props.literals[`L${this.props.tabIndicator}`]
-			this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, height: 770}, title: {...this.state.chartConfig.title, text: "<h2 class='title--card'>"+shortTitle+"</h2>"}} });
-		}
+            } else {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
+                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
+                    }
+                });
+            }
+        }
+
+        if (width < 768) {
+            const tabTitle = this.props.literals[`L${this.props.tabIndicator}`];
+            if (isFullscreen()) {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: height},
+                    }
+                });
+            } else {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: 785, type: 'bar'},
+                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${tabTitle}</h2>`}
+                    }
+                });
+            }
+        }
+
+        if (width < 400) {
+            this.setState({
+                chartConfig: {
+                    ...this.state.chartConfig,
+                    chart: {...this.state.chartConfig.chart, height: 1300},
+                }
+            });
+        }        
 	}
 
     componentDidMount() {
@@ -399,7 +448,7 @@ class MentalRiskCharts extends Component {
         } else {
             this.props.callbackSelectedSurvey(this.props.chartType[0].type)
         }
-        this.updateDimension();
+
         window.addEventListener('resize', this.updateDimension);
     }
 

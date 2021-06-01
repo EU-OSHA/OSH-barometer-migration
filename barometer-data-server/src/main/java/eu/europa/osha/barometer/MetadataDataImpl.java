@@ -15,9 +15,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
 
 import eu.europa.osha.barometer.bean.model.ChartMetadata;
+import eu.europa.osha.barometer.bean.model.IndicatorMethodology;
 import eu.europa.osha.barometer.bean.response.DataServerResponse;
 import eu.europa.osha.barometer.bean.response.QueryInfo;
 import eu.europa.osha.barometer.dao.MetadataDataAccess;
+import eu.europa.osha.barometer.dao.MethodologyDataAccess;
 
 @Path("metadata")
 @Produces(MediaType.APPLICATION_JSON)
@@ -43,17 +45,125 @@ private static final Logger log = LogManager.getLogger(DataServerImpl.class);
 		}
 		
 		ThreadContext.push(String.valueOf(++access));
-		MetadataDataAccess da = new MetadataDataAccess();
-		long t0 = System.currentTimeMillis();
 		
-		List<ChartMetadata> metadata = da.getChartMetadata(chart);
-		
-		da.close();
-		
-		QueryInfo qInfo = new QueryInfo(metadata.size(), System.currentTimeMillis() - t0);
+		MetadataDataAccess da = null;
+		List<ChartMetadata> metadata = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MetadataDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			metadata = da.getChartMetadata(chart);
+			
+			qInfo = new QueryInfo(metadata.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
 		
 		return generateResponse(metadata, qInfo);
 	}
+	
+	@GET
+	@Path("getMethodologyIndicators")
+	public String getMethodologyIndicators(
+											@Context UriInfo uriInfo,
+											@QueryParam("section") String section
+										)
+	{
+		log.trace("getMethodologyIndicators");
+		log.trace(uriInfo.getQueryParameters());
+		
+		if (section == null || section.equalsIgnoreCase("") || section.length() == 0)
+		{
+			return generateErrorResponse(new Exception("No section defined"));
+		}
+		
+		ThreadContext.push(String.valueOf(++access));
+		
+		MethodologyDataAccess da = null;
+		List<IndicatorMethodology> methodology = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MethodologyDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			methodology = da.getMethodologyIndicators(section);
+			
+			qInfo = new QueryInfo(methodology.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
+		
+		return generateResponse(methodology, qInfo);
+	}
+	
+	@GET
+	@Path("getMethodologyData")
+	public String getMethodologyData(
+											@Context UriInfo uriInfo,
+											@QueryParam("section") String section,
+											@QueryParam("indicator") Integer indicator
+										)
+	{
+		log.trace("getMethodologyIndicators");
+		log.trace(uriInfo.getQueryParameters());
+		
+		if (section == null || section.equalsIgnoreCase("") || section.length() == 0)
+		{
+			return generateErrorResponse(new Exception("No section defined"));
+		}
+		
+		ThreadContext.push(String.valueOf(++access));
+		
+		MethodologyDataAccess da = null;
+		List<IndicatorMethodology> methodologyData = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new MethodologyDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			methodologyData = da.getMethodologyData(section, indicator);
+			
+			qInfo = new QueryInfo(methodologyData.size(), System.currentTimeMillis() - t0);
+		
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
+		
+		return generateResponse(methodologyData, qInfo);
+	}
+	
+	
 	
 	private String generateResponse(Object pResponseData, QueryInfo pQueryInfo)
 	{

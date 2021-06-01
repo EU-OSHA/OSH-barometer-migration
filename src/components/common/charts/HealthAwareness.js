@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
 import { largeSize } from '../utils/chartConfig';
+import { isFullscreen } from '../utils/Utils';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -15,7 +16,9 @@ class HealthAwareness extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: "<h2 class='title--card'>"+ this.props.chartTitle[`L${this.props.chartType[0].title}`] + "</h3>",
+                    text: window.innerWidth > 768 ? 
+                    "<h3 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h3>" :
+                    "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"<h2>",
                     align: 'left',
                     y: 20,
                     style: {
@@ -35,8 +38,8 @@ class HealthAwareness extends Component {
 					}
                 },
                 chart: {
-                    height: 450,
-                    type: this.props.type,
+                    height: window.innerWidth > 768 ? 450 : 770,
+                    type:  window.innerWidth > 768 ? 'column' : 'bar',
                     backgroundColor: '#F0F0F0',
                     events: {
                         render: function() {
@@ -186,8 +189,14 @@ class HealthAwareness extends Component {
                         borderWidth: 0,
                         pointStart: 0
                     },
-                    series: {
-                        // stacking: 'normal',
+                    bar: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        states: {
+                            inactive: {
+                                opacity: 1
+                            }
+                        }
                     }
                 },
                 series: {}
@@ -258,20 +267,68 @@ class HealthAwareness extends Component {
         })		
     }
 
+    updateDimension = () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        if (width > 767) {
+            const title = this.props.literals[`L${this.props.chartType[0].title}`];
+            if (isFullscreen()) {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: height},
+                    }
+                });
+            } else {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
+                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
+                    }
+                });
+            }
+        }
+
+        if (width < 768) {
+            const tabTitle = this.props.literals[`L${this.props.tabIndicator}`];
+            if (isFullscreen()) {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: height},
+                    }
+                });
+            } else {
+                this.setState({
+                    chartConfig: {
+                        ...this.state.chartConfig,
+                        chart: {...this.state.chartConfig.chart, height: 785, type: 'bar'},
+                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${tabTitle}</h2>`}
+                    }
+                });
+            }
+        }
+
+        if (width < 400) {
+            this.setState({
+                chartConfig: {
+                    ...this.state.chartConfig,
+                    chart: {...this.state.chartConfig.chart, height: 1300},
+                }
+            });
+        }        
+	}
+
     componentDidMount() {
         this.getLoadData(this.props.chartType);
         this.getCredits(this.props.chartType[0].chart);
+        window.addEventListener('resize', this.updateDimension);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
-        // if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
-        //     this.getLoadData(this.props.chartType);
-        // }
-        
-        if (prevProps.type != this.props.type) {
-            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
-        }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimension);
     }
     
     render() {
