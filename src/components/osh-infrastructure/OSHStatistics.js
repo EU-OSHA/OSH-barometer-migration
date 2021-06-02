@@ -133,9 +133,11 @@ class OSHStatistics extends Component
 
 		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
 			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
-			this.setState({
-				filters: {...this.state.filters, countries: [countryDefault]}
-			});
+			if(countryDefault != undefined){
+				this.setState({
+					filters: {...this.state.filters, countries: [countryDefault]}
+				});
+			}
 		}
 	}
 
