@@ -71,7 +71,8 @@
     "react-select": "^4.3.0",
     "react-share": "^4.4.0",
     "redux": "^4.0.5",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "zipcelx": "^1.6.2"
   },
   "devDependencies": {
     "parcel-plugin-static-files-copy": "^2.6.0",
