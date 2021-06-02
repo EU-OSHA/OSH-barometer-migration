@@ -4,6 +4,12 @@ import ReactHtmlParser from 'react-html-parser';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
 
+//Generic Information
+import AuthoritiesReport from './country-report-sections/AuthoritiesReport';
+
+//OSH Infrastructure
+import StatisticsReport from './country-report-sections/StatisticsReport';
+
 class CountryReport extends Component
 {
 	constructor(props)
@@ -46,7 +52,7 @@ class CountryReport extends Component
 										<h2>{this.props.literals[`L${this.state.selectedCountryName}`]}</h2>
 										{/* -- FILTERS -- */}
 										<form>
-											<label for="report-country">Select one country</label>
+											<label htmlFor="report-country">Select one country</label>
 											<select id="report-country" onChange={this.changeCountry} value={this.state.selectedCountryCode}>
 												<option value="AT">(AT) Austria</option>
 												<option value="BE">(BE) Belgium</option>
@@ -154,7 +160,7 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
-										TODO - Add the content of the OSH Authorities page for the current country
+										<AuthoritiesReport country={this.state.selectedCountryCode} literals={this.props.literals}/>
 									</div>
 								</section>
 								{/* -- ECONOMIC AND SECTOR PROFILE -- */}
@@ -360,7 +366,7 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
-										{/* TODO -- Add the data for OSH Statistics */}										
+										<StatisticsReport country={this.state.selectedCountryCode} literals={this.props.literals} />								
 									</div>
 								</section>
 							</td>
