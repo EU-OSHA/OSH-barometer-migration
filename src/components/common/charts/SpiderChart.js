@@ -3,6 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import {getSpiderChart} from '../../../api'
 import { isFullscreen } from '../utils/Utils';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -19,6 +20,16 @@ class SpiderChart extends Component{
 				backgroundColor: '#F0F0F0',
 				polar: true,
 				type: 'line'
+				},
+				exporting: {
+					enabled: true,
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Indicator', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 					title: {
 						text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
