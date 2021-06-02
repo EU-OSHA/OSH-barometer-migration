@@ -151,7 +151,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22025}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the OSH Authorities Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
 										TODO - Add the content of the OSH Authorities page for the current country
@@ -166,7 +166,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<div>{ReactHtmlParser(this.props.literals.L22028)}</div>
 										<span>{this.props.literals.L20696} {this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Economic Sector Profile Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
 										TODO - Add the charts and the tables for Economic Sector Profile
@@ -193,7 +193,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<div>{ReactHtmlParser(this.props.literals.L22030)}</div>
 										<span>{this.props.literals.L20696} {this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Workforce Profile Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add a table with the data for the current country and EU27_2020 in Workforce Profile */}
 								</section>
@@ -206,7 +206,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22038}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the National Strategies Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for the current country in National Startegies */}
 								</section>
@@ -219,7 +219,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22041}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Social Dialogue Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for the current country in Social Dialogue */}
 								</section>
@@ -232,7 +232,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22050}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for Work Accidents */}
 								</section>
@@ -245,7 +245,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22052}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for Health Perception */}
 								</section>
@@ -259,7 +259,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22054}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for OSH Culture */}
 								</section>
@@ -273,12 +273,12 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22054}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L20709}</h4>
 									<p>{this.props.literals.L20577}</p>
 									<span>{this.props.literals.L20704}</span>
-									<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+									<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									{/* TODO -- Add the charts for Overall Opinion */}
 								</section>
 								{/* -- WORKING CONDITIONS - MENTAL RISK */}
@@ -288,7 +288,7 @@ class CountryReport extends Component
 									<p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</p>
 									{/* TODO -- Add the charts for Mental Risks */}
 								</section>
@@ -300,7 +300,7 @@ class CountryReport extends Component
 										<p>
 											<span>{this.props.literals.L20700}</span>
 											<span>{this.props.literals.L20704}</span>
-											<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+											<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 										</p>
 									</div>
 									{/* TODO -- Add the charts for Physical Risks */}
@@ -315,7 +315,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22058}</p>
 										<span>{this.props.literals.L20702}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for Prevention in Companies */}
 								</section>
@@ -329,7 +329,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22060}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L22015}</h4>
 									{/* TODO -- Add the charts for Worker involvement */}
@@ -344,7 +344,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22063}</p>
 										<p>{ReactHtmlParser(this.props.literals.L20699)}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for Enforcement Capacity */}
 								</section>
@@ -357,7 +357,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22065}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
 										{/* TODO -- Add the data for OSH Statistics */}										
