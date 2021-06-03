@@ -79,7 +79,7 @@ class IncomerPercapital extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
@@ -280,4 +280,8 @@ class IncomerPercapital extends Component {
 	}
 }
 
+IncomerPercapital.defaultProps = {
+	fullCountryReport: true,
+	title: ''
+}
 export default IncomerPercapital;

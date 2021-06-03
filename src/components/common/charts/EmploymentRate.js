@@ -81,7 +81,7 @@ class EmploymentRate extends Component {
 				   	},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -320,6 +320,11 @@ class EmploymentRate extends Component {
 			</div>
 		)
 	}
+}
+
+EmploymentRate.defaultProps = {
+	fullCountryReport: true,
+	title: ''
 }
 
 export default EmploymentRate;
