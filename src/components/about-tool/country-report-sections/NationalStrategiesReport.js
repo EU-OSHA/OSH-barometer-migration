@@ -64,7 +64,6 @@ class NationalStrategiesReport extends Component
     }
 
     render(){
-        console.log(this.state);
         return (
             <div>
                 <header>

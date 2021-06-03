@@ -18,6 +18,7 @@ import HealthPerceptionReport from './country-report-sections/HealthPerceptionRe
 import NationalStrategiesReport from './country-report-sections/NationalStrategiesReport';
 
 //OSH Infrastructure
+import EnforcementCapacityReport from './country-report-sections/EnforcementCapacityReport';
 import StatisticsReport from './country-report-sections/StatisticsReport';
 
 class CountryReport extends Component
@@ -365,6 +366,8 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for Enforcement Capacity */}
+									<EnforcementCapacityReport country={this.state.selectedCountryCode} literals={this.props.literals} />
+
 								</section>
 								{/* -- OSH-STATISTICS -- */}
 								<section className={"enforcement-capacity "+this.state.selectedCountryCode}>
