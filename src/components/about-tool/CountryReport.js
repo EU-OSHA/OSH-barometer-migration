@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
-import Chart from '../common/charts/Chart';
-import EmploymentRate from '../common/charts/EmploymentRate';
-import ChartHuman from '../common/charts/ChartHuman';
-import IncomerPercapital from '../common/charts/IncomePerCapita';
 
 //Generic Information
 import AuthoritiesReport from './country-report-sections/AuthoritiesReport';
+import EconomicSectorReport from './country-report-sections/EconomicSectorReport';
 import WorkforceProfileReport from './country-report-sections/WorkforceProfileReport';
 
 // Steering of OSH
@@ -190,138 +187,15 @@ class CountryReport extends Component
 									</div>
 									<div className="content-page">
 										TODO - Add the charts and the tables for Economic Sector Profile
-										{/* Company Size */}
-										<div className="box-rounded" >
-											<div className="card--block--chart--wrapper" >
-												<h2 className="title--card" >{this.props.literals.L288}</h2>
-												<Chart 
-													colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
-													showDataLabel={true}
-													tick={40}
-													percentage={true}
-													type='bar'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20089'}
-													indicator={'31'}
-													fullCountryReport={false}
-												/>
-											</div>
-										</div>
-										{/* Employment per sector */}
-										<div className="box-rounded" >
-											<div className="card--block--chart--wrapper" >
-												<h2 className="title--card" >{this.props.literals.L289}</h2>
-												<Chart
-													colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
-													showDataLabel={false}
-													tick={20}
-													percentage={true}
-													type='bar'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20010'}
-													indicator={'32'}
-													stacking='percent'
-													reversed={false}
-													fullCountryReport={false}
-												/>
-											</div>
-										</div>
-										{/* Activity Sector */}
+										{/* Activity Sector 1 */}
+										<EconomicSectorReport country={this.state.selectedCountryCode} sectorIndicator={1} literals={this.props.literals} />
 										{/* Create a functional component in order to create the table, so it can be reused by other charts and sections */}
 									</div>
 								</section>
 								<section className={"economic-sector-profile indicator2 "+this.state.selectedCountryCode}>
 									<div className="content-page">
-										{/* Employment Rate */}
-										<div className="box-rounded" >
-											<div className="card--block--chart--wrapper" >
-												<h2 className="title--card" >{this.props.literals.L290}</h2>
-													<EmploymentRate
-														colors={['#f6a400','#529FA2']}
-														showDataLabel={true}
-														tick={20}
-														percentage={true}
-														type='bar'
-														selectCountry1={this.state.selectedCountryCode}
-														selectCountry2={'EU27_2020'}
-														chart={'20011'}
-														indicator={'33'}
-														fullCountryReport={false}
-														/>
-											</div>
-										</div>
-										{/* GDP per Capita */}
-										<div className="box-rounded" >
-											<div className="card--block--chart--wrapper" >
-												<h2 className="title--card" >{this.props.literals.L22195}</h2>
-												<ChartHuman
-													colors={['#ffae00','#529FA2','#003399']}
-													showDataLabel={true}
-													percentage='ft'
-													type='column'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20013'}
-													indicator={'35'}
-													fullCountryReport={false}									
-												/>
-											</div>
-										</div>
-										{/* GDP per Capita EURO */}
-										<div className="box-rounded" >
-											<div>
-												<h2 className="title--card" >{this.props.literals.L22195}</h2>
-												<ChartHuman
-													colors={['#ffae00','#529FA2','#003399']}
-													showDataLabel={true}
-													percentage='ft'
-													type='column'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20087'}
-													indicator={'278'}
-													fullCountryReport={false}
-													/>
-											</div>
-										</div>
-										{/* Income per Capita */}
-										<div className="box-rounded" >
-											<div>
-												<h2 className="title--card" >{this.props.literals.L293}</h2>
-												<IncomerPercapital
-													colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
-													showDataLabel={true}
-													tick={5000}
-													percentage='€'
-													type='line'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20013'}
-													indicator={'35'}
-													fullCountryReport={false}
-												/>
-											</div>
-										</div>
-										{/* Income per Capita EURO */}
-										<div className="box-rounded" >
-											<div className="card--block--chart--wrapper" >
-												<h2 className="title--card" >{this.props.literals.L293}</h2>
-												<IncomerPercapital
-													colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
-													showDataLabel={true}
-													tick={5000}
-													percentage='€'
-													type='line'
-													selectCountry1={this.state.selectedCountryCode}
-													selectCountry2={'EU27_2020'}
-													chart={'20087'}
-													indicator={'278'}
-													fullCountryReport={false}
-												/>
-											</div>
-										</div>
+										{/* Activity Sector 2 */}
+										<EconomicSectorReport country={this.state.selectedCountryCode} sectorIndicator={2} literals={this.props.literals} />
 									</div>
 								</section>
 								{/* -- WORKFORCE PROFILE -- */}
