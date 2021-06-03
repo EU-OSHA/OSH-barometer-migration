@@ -8,6 +8,9 @@ import fullReportIcon from '../../style/img/full-report-icon.png';
 import AuthoritiesReport from './country-report-sections/AuthoritiesReport';
 import WorkforceProfileReport from './country-report-sections/WorkforceProfileReport';
 
+// Steering of OSH
+import SocialDialogueReport from './country-report-sections/SocialDialogueReport';
+
 //OSH Infrastructure
 import StatisticsReport from './country-report-sections/StatisticsReport';
 
@@ -228,7 +231,7 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for the current country in Social Dialogue */}
+									<SocialDialogueReport literals={this.props.literals} country={this.state.selectedCountryCode} />
 								</section>
 								{/* -- WORK ACCIDENTS -- */}
 								<section className={"work-accidents "+this.state.selectedCountryCode}>

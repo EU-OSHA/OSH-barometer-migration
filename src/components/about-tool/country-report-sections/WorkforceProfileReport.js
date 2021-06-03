@@ -21,7 +21,6 @@ class WorkforceProfileReport extends Component
 			
             let countryData = {};
             res.resultset.forEach(element =>{
-                console.log(element);
                 countryData[element.countryCode] = element.data;
             });
             this.setState({countryData : countryData});
