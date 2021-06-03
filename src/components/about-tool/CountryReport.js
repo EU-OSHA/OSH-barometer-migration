@@ -11,6 +11,9 @@ import WorkforceProfileReport from './country-report-sections/WorkforceProfileRe
 // Steering of OSH
 import SocialDialogueReport from './country-report-sections/SocialDialogueReport';
 
+// OSH Outcomes and working conditions
+import HealthPerceptionReport from './country-report-sections/HealthPerceptionReport';
+
 //OSH Infrastructure
 import StatisticsReport from './country-report-sections/StatisticsReport';
 
@@ -257,7 +260,7 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for Health Perception */}
+									<HealthPerceptionReport literals={this.props.literals} country={this.state.selectedCountryCode} />
 								</section>
 								{/* -- OSH CULTURE -- */}
 								<section className={"osh-culture "+this.state.selectedCountryCode}>
