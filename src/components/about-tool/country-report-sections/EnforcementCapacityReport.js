@@ -45,7 +45,6 @@ class EnforcementCapacityReport extends Component
     }
 
     isDataUndefined = (text) => {
-        console.log("isDataUndefined",text);
         if(text === undefined){
             return <div>{this.props.literals.L20706}</div>
         }else{
@@ -54,8 +53,6 @@ class EnforcementCapacityReport extends Component
     }
 
     render(){
-
-        console.log("this.state",this.state);
 
         return(
             <div>
