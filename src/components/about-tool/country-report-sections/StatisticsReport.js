@@ -52,8 +52,6 @@ class StatisticsReport extends Component
     }
 
     render(){
-        console.log("this.state.matrixPageData",this.state.matrixPageData);
-
         return(
             <div>
                 {

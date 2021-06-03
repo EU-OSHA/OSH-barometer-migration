@@ -14,6 +14,9 @@ import SocialDialogueReport from './country-report-sections/SocialDialogueReport
 // OSH Outcomes and working conditions
 import HealthPerceptionReport from './country-report-sections/HealthPerceptionReport';
 
+//Steering of OSH
+import NationalStrategiesReport from './country-report-sections/NationalStrategiesReport';
+
 //OSH Infrastructure
 import StatisticsReport from './country-report-sections/StatisticsReport';
 
@@ -218,10 +221,12 @@ class CountryReport extends Component
 									</div>
 									<div className="intro-page">
 										<p>{this.props.literals.L22038}</p>
-										<span>{this.props.literals.L20704}</span>
+										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for the current country in National Startegies */}
+									<NationalStrategiesReport country={this.state.selectedCountryCode} literals={this.props.literals} 
+										countryName={this.state.selectedCountryName}/>
 								</section>
 								{/* -- SOCIAL DIALOGUE -- */}
 								<section className={"social-dialogue "+this.state.selectedCountryCode}>

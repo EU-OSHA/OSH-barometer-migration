@@ -172,6 +172,28 @@ export function getNationalStrategiesCountries(country) {
     return response
 }
 
+export function getCountryProfileData(country){
+    const URL = `${BASEURL}qualitative/getMatrixPageData?page=STRATEGY`
+
+    const response = axios.get(URL, {
+        params: {
+            country: country
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.country) {
+                urlWithParams.append('country', country);
+            }
+
+            return urlWithParams
+        }
+    })
+    .then((response) => response.data);
+
+    return response
+}
+
 //Get countries available for social dialogue select
 export function getSocialDialogueCountries() {
     const URL = `${BASEURL}countries/getIndicatorCountries?chart=20090`;
