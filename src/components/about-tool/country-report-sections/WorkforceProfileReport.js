@@ -35,7 +35,7 @@ class WorkforceProfileReport extends Component
         {
             return(
                 <tr>
-                    <td><img className="flags" src={flag} /><span class="data">{country}</span></td>
+                    <td><img className="flags" src={flag} /><span className="data">{country}</span></td>
                     <td>
                         <span>{this.props.literals.L20615}</span>
                         <span className="data">{currentCountryData['Median age of population']} years</span>
