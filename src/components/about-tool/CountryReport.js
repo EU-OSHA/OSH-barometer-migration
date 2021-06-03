@@ -8,6 +8,22 @@ import EmploymentRate from '../common/charts/EmploymentRate';
 import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
 
+//Generic Information
+import AuthoritiesReport from './country-report-sections/AuthoritiesReport';
+import WorkforceProfileReport from './country-report-sections/WorkforceProfileReport';
+
+// Steering of OSH
+import SocialDialogueReport from './country-report-sections/SocialDialogueReport';
+
+// OSH Outcomes and working conditions
+import HealthPerceptionReport from './country-report-sections/HealthPerceptionReport';
+
+//Steering of OSH
+import NationalStrategiesReport from './country-report-sections/NationalStrategiesReport';
+
+//OSH Infrastructure
+import StatisticsReport from './country-report-sections/StatisticsReport';
+
 class CountryReport extends Component
 {
 	constructor(props)
@@ -50,7 +66,7 @@ class CountryReport extends Component
 										<h2>{this.props.literals[`L${this.state.selectedCountryName}`]}</h2>
 										{/* -- FILTERS -- */}
 										<form>
-											<label for="report-country">Select one country</label>
+											<label htmlFor="report-country">Select one country</label>
 											<select id="report-country" onChange={this.changeCountry} value={this.state.selectedCountryCode}>
 												<option value="AT">(AT) Austria</option>
 												<option value="BE">(BE) Belgium</option>
@@ -155,10 +171,10 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22025}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the OSH Authorities Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
-										TODO - Add the content of the OSH Authorities page for the current country
+										<AuthoritiesReport country={this.state.selectedCountryCode} literals={this.props.literals}/>
 									</div>
 								</section>
 								{/* -- ECONOMIC AND SECTOR PROFILE -- */}
@@ -170,7 +186,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<div>{ReactHtmlParser(this.props.literals.L22028)}</div>
 										<span>{this.props.literals.L20696} {this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Economic Sector Profile Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
 										TODO - Add the charts and the tables for Economic Sector Profile
@@ -303,9 +319,9 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<div>{ReactHtmlParser(this.props.literals.L22030)}</div>
 										<span>{this.props.literals.L20696} {this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Workforce Profile Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add a table with the data for the current country and EU27_2020 in Workforce Profile */}
+									<WorkforceProfileReport literals={this.props.literals} country={this.state.selectedCountryCode} />
 								</section>
 								{/* -- NATIONAL STRATEGIES -- */}
 								<section className={"national-strategies "+this.state.selectedCountryCode}>
@@ -315,10 +331,12 @@ class CountryReport extends Component
 									</div>
 									<div className="intro-page">
 										<p>{this.props.literals.L22038}</p>
-										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the National Strategies Section selected</span>
+										<span>{this.props.literals.L20704} </span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for the current country in National Startegies */}
+									<NationalStrategiesReport country={this.state.selectedCountryCode} literals={this.props.literals} 
+										countryName={this.state.selectedCountryName}/>
 								</section>
 								{/* -- SOCIAL DIALOGUE -- */}
 								<section className={"social-dialogue "+this.state.selectedCountryCode}>
@@ -329,9 +347,9 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22041}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Social Dialogue Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for the current country in Social Dialogue */}
+									<SocialDialogueReport literals={this.props.literals} country={this.state.selectedCountryCode} />
 								</section>
 								{/* -- WORK ACCIDENTS -- */}
 								<section className={"work-accidents "+this.state.selectedCountryCode}>
@@ -342,7 +360,7 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22050}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for Work Accidents */}
 								</section>
@@ -355,9 +373,9 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22052}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for Health Perception */}
+									<HealthPerceptionReport literals={this.props.literals} country={this.state.selectedCountryCode} />
 								</section>
 								{/* -- OSH CULTURE -- */}
 								<section className={"osh-culture "+this.state.selectedCountryCode}>
@@ -369,7 +387,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22054}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for OSH Culture */}
 								</section>
@@ -383,12 +401,12 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22054}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L20709}</h4>
 									<p>{this.props.literals.L20577}</p>
 									<span>{this.props.literals.L20704}</span>
-									<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+									<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									{/* TODO -- Add the charts for Overall Opinion */}
 								</section>
 								{/* -- WORKING CONDITIONS - MENTAL RISK */}
@@ -398,7 +416,7 @@ class CountryReport extends Component
 									<p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</p>
 									{/* TODO -- Add the charts for Mental Risks */}
 								</section>
@@ -410,7 +428,7 @@ class CountryReport extends Component
 										<p>
 											<span>{this.props.literals.L20700}</span>
 											<span>{this.props.literals.L20704}</span>
-											<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+											<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 										</p>
 									</div>
 									{/* TODO -- Add the charts for Physical Risks */}
@@ -425,7 +443,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22058}</p>
 										<span>{this.props.literals.L20702}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the charts for Prevention in Companies */}
 								</section>
@@ -439,7 +457,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22060}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L22015}</h4>
 									{/* TODO -- Add the charts for Worker involvement */}
@@ -454,7 +472,7 @@ class CountryReport extends Component
 										<p>{this.props.literals.L22063}</p>
 										<p>{ReactHtmlParser(this.props.literals.L20699)}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									{/* TODO -- Add the data for Enforcement Capacity */}
 								</section>
@@ -467,10 +485,10 @@ class CountryReport extends Component
 									<div className="intro-page">
 										<p>{this.props.literals.L22065}</p>
 										<span>{this.props.literals.L20704}</span>
-										<span>{this.props.literals.L20705} TODO - Add link to methodology with the Work Accidents Section selected</span>
+										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
-										{/* TODO -- Add the data for OSH Statistics */}										
+										<StatisticsReport country={this.state.selectedCountryCode} literals={this.props.literals} />								
 									</div>
 								</section>
 							</td>
