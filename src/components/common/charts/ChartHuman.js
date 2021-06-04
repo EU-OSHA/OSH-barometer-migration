@@ -101,7 +101,7 @@ class ChartHuman extends Component {
 				   	},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadCSV", "downloadXLS"]							
@@ -367,4 +367,8 @@ class ChartHuman extends Component {
 	}
 }
 
+ChartHuman.defaultProps = {
+	fullCountryReport: true,
+	title: ''
+}
 export default ChartHuman;

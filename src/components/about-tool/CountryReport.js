@@ -6,6 +6,7 @@ import fullReportIcon from '../../style/img/full-report-icon.png';
 
 //Generic Information
 import AuthoritiesReport from './country-report-sections/AuthoritiesReport';
+import EconomicSectorReport from './country-report-sections/EconomicSectorReport';
 import WorkforceProfileReport from './country-report-sections/WorkforceProfileReport';
 
 // Steering of OSH
@@ -187,18 +188,15 @@ class CountryReport extends Component
 									</div>
 									<div className="content-page">
 										TODO - Add the charts and the tables for Economic Sector Profile
-										{/* Company Size */}
-										{/* Activity Sector */}
+										{/* Activity Sector 1 */}
+										<EconomicSectorReport country={this.state.selectedCountryCode} sectorIndicator={1} literals={this.props.literals} />
 										{/* Create a functional component in order to create the table, so it can be reused by other charts and sections */}
 									</div>
 								</section>
 								<section className={"economic-sector-profile indicator2 "+this.state.selectedCountryCode}>
 									<div className="content-page">
-										{/* Employment Rate */}
-										{/* GDP per Capita */}
-										{/* GDP per Capita EURO */}
-										{/* Income per Capita */}
-										{/* Income per Capita EURO */}
+										{/* Activity Sector 2 */}
+										<EconomicSectorReport country={this.state.selectedCountryCode} sectorIndicator={2} literals={this.props.literals} />
 									</div>
 								</section>
 								{/* -- WORKFORCE PROFILE -- */}
