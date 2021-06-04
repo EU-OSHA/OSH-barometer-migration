@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import SpiderChart from '../common/charts/SpiderChart';
+import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
+import { largeSize, mediumSize } from '../common/utils/chartConfig';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
 
@@ -252,7 +254,33 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the charts for Work Accidents */}
+									<div className="box-rounded">
+										<WorkAccidentsChart 
+										title={this.props.literals.L310}
+										showDataLabel={true}
+										percentage={true}
+										type={'line'}
+										chart={'20022'}
+										indicator={'53'}
+										selectedCountry1={this.state.selectedCountryCode}
+										selectedCountry2="EU27_2020"
+										colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
+										chartSize={mediumSize}
+										/>
+										{/* TODO TABLE WITH DATA */}
+									</div>
+									<div className="box-rounded">
+										<WorkAccidentsChart 
+										title={this.props.literals.L22196}
+										showDataLabel={true}
+										type="column"
+										chart={'20023'}
+										indicator={'54'}
+										colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
+										chartSize={largeSize}
+										/>
+										{/* TODO TABLE WITH DATA */}
+									</div>
 								</section>
 								{/* -- HEALTH PERCEPTION -- */}
 								<section className={"health-perception "+this.state.selectedCountryCode}>
@@ -393,7 +421,6 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for Enforcement Capacity */}
 									<EnforcementCapacityReport country={this.state.selectedCountryCode} literals={this.props.literals} />
 
 								</section>
