@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import SpiderChart from '../common/charts/SpiderChart';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
 
@@ -349,7 +350,36 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L22015}</h4>
-									{/* TODO -- Add the charts for Worker involvement */}
+									<div className="box-rounded">
+										<SpiderChart
+											literals={this.props.literals}
+											tabIndicator={'L20645'}
+											selectCountry1={this.state.selectedCountryCode}
+											showDataLabel={true}
+											colors={['#f6a400','#003399','#cbe2e3']}
+											chartType={[
+												{type: "esener", chart:"20106", title: "20645", chartIndicator: null, sector: null, answers: null, legend: null}
+											]}
+											dataset={'esener'}
+											exportingEnabled={false}
+											backgroundColor={'#E4EFEF'}
+										/>
+									</div>
+									<div className="box-rounded">
+										<SpiderChart
+											literals={this.props.literals}
+											tabIndicator={'L20646'}
+											selectCountry1={this.state.selectedCountryCode}
+											showDataLabel={true}
+											colors={['#f6a400','#003399','#cbe2e3']}
+											chartType={[
+												{type: "ewcs", chart:"20069", title: "20646", chartIndicator: null, sector: null, answers: null, legend: null}
+											]}
+											dataset={'ewcs'}
+											exportingEnabled={false}
+											backgroundColor={'#E4EFEF'}
+										/>
+									</div>
 								</section>
 								{/* -- ENFORCEMENT CAPACITY */}
 								<section className={"enforcement-capacity "+this.state.selectedCountryCode}>

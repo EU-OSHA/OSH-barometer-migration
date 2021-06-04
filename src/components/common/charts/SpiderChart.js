@@ -19,7 +19,7 @@ class SpiderChart extends Component{
 					enabled: false
 				},
 				chart: {
-					backgroundColor: '#F0F0F0',
+					backgroundColor: props.backgroundColor? props.backgroundColor : '#F0F0F0',
 					polar: true,
 					type: 'line'
 				},
@@ -27,7 +27,10 @@ class SpiderChart extends Component{
 					text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
 					align: 'left'
 					//x: -180
-				},					
+				},
+				exporting: {
+					enabled: this.props.exportingEnabled
+				},				
 				pane: {
 						size: '100%'
 				},		
@@ -356,11 +359,14 @@ class SpiderChart extends Component{
             this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
         }
 
-        if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[1].type)
-        } else {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
-        }
+        if (this.props.callbackSelectedSurvey)
+		{
+			if (this.props.chartType[0].type == 'ewcs') {
+				this.props.callbackSelectedSurvey(this.props.chartType[1].type)
+			} else {
+				this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+			}
+		}		
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
 	}

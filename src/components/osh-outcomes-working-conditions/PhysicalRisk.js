@@ -236,6 +236,7 @@ class PhysicalRisk extends Component{
 										//callbackLegend={this.callbackChartLegend}
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
 										dataset={this.state.dataset}
+										exportingEnabled={true}
 									/>}
 								</div>
 						}
