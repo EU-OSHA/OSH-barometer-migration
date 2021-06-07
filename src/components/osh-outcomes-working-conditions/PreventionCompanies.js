@@ -173,6 +173,7 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
+														exportingEnabled={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'training-in-osh' && (
@@ -185,6 +186,7 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
+														exportingEnabled={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'risk-assessment' && (

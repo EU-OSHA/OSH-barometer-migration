@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import SpiderChart from '../common/charts/SpiderChart';
 import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
+import RiskChart from '../common/charts/RiskChart';
+import MentalRiskCharts from '../common/charts/MentalRiskCharts';
+import { overallOpinion } from '../../model/subMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
@@ -323,9 +326,99 @@ class CountryReport extends Component
 									</div>
 									<h4 className="header3">{this.props.literals.L20709}</h4>
 									<p>{this.props.literals.L20577}</p>
-									<span>{this.props.literals.L20704}</span>
+									<span>{this.props.literals.L20704} </span>
 									<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
-									{/* TODO -- Add the charts for Overall Opinion */}
+									{/* <!-- Job satisfaction --> */}
+									<div className="box-rounded overall">
+										<MentalRiskCharts
+											literals={this.props.literals}
+											tabIndicator="322"
+											chartType={overallOpinion[0].chartType}
+											colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
+											type="column"
+											percentage={true}
+											exportingEnabled={false}
+											// callbackLegend={callbackChartLegend}
+											// callbackSelectedSurvey={callbackSelectedSurvey}
+										/>
+										<div className="chart-legend">{this.props.literals.L20580}</div>
+										{/* TODO TABLE WITH DATA */}
+									</div>
+
+									{/* <!-- Health at Risk - Sector --> */}
+									<div className="box-rounded overall">
+										<RiskChart
+											title={`${this.props.literals.L22135} - ${this.props.literals.L20648}`}
+											colors={['#f6a400','#003399']}
+											showDataLabel={true}
+											tick={20}
+											percentage={true}
+											type="column"
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											chart={'20041'}
+											indicator={'66'}
+											sector={[8,9,10,11,12,13]}
+											gender={[1,2,3]}
+											age={[1,2,3,4]}
+											showSelect={false}
+											selectedIndicator="sector"
+											exportingEnabled={false}
+											// handleSector={handleSector}
+										/>
+										<div className="chart-legend">{this.props.literals.L20582}</div>
+										{/* TODO TABLE WITH DATA */}
+									</div>
+
+									{/* <!-- Health at Risk - Gender --> */}
+    								<div className="box-rounded overall">
+										<RiskChart
+											title={`${this.props.literals.L22135} - ${this.props.literals.L20649}`}
+											colors={['#f6a400','#003399']}
+											showDataLabel={true}
+											tick={20}
+											percentage={true}
+											type="column"
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											chart={'20041'}
+											indicator={'66'}
+											sector={[8,9,10,11,12,13]}
+											gender={[1,2,3]}
+											age={[1,2,3,4]}
+											showSelect={false}
+											selectedIndicator="gender"
+											exportingEnabled={false}
+											// handleSector={handleSector}
+										/>
+										<div className="chart-legend">{this.props.literals.L20582}</div>
+										{/* TODO TABLE WITH DATA */}
+									</div>
+
+									{/* <!-- Health at Risk - Age --> */}
+    								<div className="box-rounded overall">
+										<RiskChart
+											title={`${this.props.literals.L22135} - ${this.props.literals.L20650}`}
+											colors={['#f6a400','#003399']}
+											showDataLabel={true}
+											tick={20}
+											percentage={true}
+											type="column"
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											chart={'20041'}
+											indicator={'66'}
+											sector={[8,9,10,11,12,13]}
+											gender={[1,2,3]}
+											age={[1,2,3,4]}
+											showSelect={false}
+											selectedIndicator="age"
+											exportingEnabled={false}
+											// handleSector={handleSector}
+										/>
+										<div className="chart-legend">{this.props.literals.L20582}</div>
+										{/* TODO TABLE WITH DATA */}
+									</div>
 								</section>
 								{/* -- WORKING CONDITIONS - MENTAL RISK */}
 								<section className={"working-conditions mental-risk "+this.state.selectedCountryCode}>

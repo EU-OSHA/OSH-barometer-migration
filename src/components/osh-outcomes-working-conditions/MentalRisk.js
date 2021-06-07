@@ -115,6 +115,7 @@ class MentalRisk extends Component
 													percentage={true}
 													callbackLegend={this.callbackChartLegend}
 													callbackSelectedSurvey={this.callbackSelectedSurvey}
+													exportingEnabled={true}
 												/>
 											</div>
 										{/*})

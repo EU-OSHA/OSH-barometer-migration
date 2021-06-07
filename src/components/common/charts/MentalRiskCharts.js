@@ -86,7 +86,8 @@ class MentalRiskCharts extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					// enabled: true,
+                    enabled: this.props.exportingEnabled,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -279,7 +280,9 @@ class MentalRiskCharts extends Component {
             this.setState({ selectedTypeChart: null });
         }
 
-        this.props.callbackLegend(chart.legend);
+        if(this.props.callbackLegend != undefined){
+            this.props.callbackLegend(chart.legend);
+        }
 
         this.setState({ ...this.state, isLoading: true });
         try {
