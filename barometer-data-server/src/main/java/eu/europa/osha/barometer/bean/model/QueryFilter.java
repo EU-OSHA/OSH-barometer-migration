@@ -16,6 +16,8 @@ public class QueryFilter {
 	private List<String> sector;
 	private List<String> gender;
 	private List<String> companySize;
+
+	private String split;
 	
 	public boolean filtersByCountry()
 	{
@@ -125,5 +127,13 @@ public class QueryFilter {
 
 	public void setCompanySize(List<String> companySize) {
 		this.companySize = companySize;
+	}
+
+	public String getSplit() {
+		return split;
+	}
+
+	public void setSplit(String split) {
+		this.split = split;
 	}
 }
