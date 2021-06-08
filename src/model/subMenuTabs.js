@@ -123,6 +123,13 @@ export const mentalRisk = [
             {type: "esener", title: "22141", chart: "20100", chartIndicator: "327", sector: ["14"], answers: ["1", "2"], legend: "20595"},
             {type: "ewcs", title: "22184", chart: "20078", chartIndicator: "88", sector: ["14"], answers: ["24", "25"], legend: "20594"}
         ]
+    },
+    {
+        url:"discrimination",
+        literalTab: "346",
+        chartType: [
+            {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", sector: ["14"], answers: ["1","2"], legend: "20596"}
+        ]
     }
 ]
 
