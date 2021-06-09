@@ -74,7 +74,7 @@ public class TableDataAccess {
 		ArrayList<String> paramValues = new ArrayList<String>();
 		
 		// START SELECT STATEMENT
-		if (queryFilter.getSplit() == null)
+		if (queryFilter.getSplit() == null || queryFilter.getSplit().equalsIgnoreCase("none"))
 		{
 			// The table will only have columns for the countries and values
 			queryBuilder.append("select n.country_code as countryCode, t.text as countryName, v.value as value ");
