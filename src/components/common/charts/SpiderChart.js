@@ -40,14 +40,7 @@ class SpiderChart extends Component{
 					//x: -180
 				},					
 				pane: {
-						size: '100%'
-				},		
-				xAxis: {
-					//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
-					tickmarkPlacement: 'on',
-					lineWidth: 0,
-					gridLineColor: '#000000',
-					gridLineWidth: 0.25,
+					size: '99%'
 				},
 				plotOptions: {
 					series: {
@@ -77,12 +70,20 @@ class SpiderChart extends Component{
 						}
 					}
 				},
+				legend: {
+					margin: 20
+				},
 				xAxis: {
-					//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
 					tickmarkPlacement: 'on',
 					lineWidth: 0,
 					gridLineColor: '#000000',
-					gridLineWidth: 0.25
+					gridLineWidth: 0.25,
+					labels: {
+						style: {
+							fontSize: '12px',
+							color: 'black'
+						}
+					}
 				},
 				yAxis: {
 					gridLineInterpolation: 'polygon',
@@ -332,7 +333,7 @@ class SpiderChart extends Component{
 						...this.state.chartConfig,
 						chart: {
 							...this.state.chartConfig.chart, 
-							height: 450, 
+							height: 600, 
 						},
 						title: {
 							...this.state.chartConfig.title,
