@@ -6,6 +6,7 @@ require('highcharts/modules/export-data')(Highcharts);
 import { getChartData, getDatasourceAndDates } from '../../../api';
 
 import oshaLogo from '../../../style/img/EU-OSHA-en.png';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -91,6 +92,13 @@ class Chart extends Component {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
 					},
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Size', this.series, this.title.textStr);
+                            }
+                        }
+                    },
 					chartOptions:
 					{
 						credits: {

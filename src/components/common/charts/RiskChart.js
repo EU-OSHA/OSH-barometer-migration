@@ -4,6 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartDataRisk, getChartDataGender, getChartDataAge } from '../../../api';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 const euColor = 'blue';
 const country1Color = '#5c5c5c';
@@ -34,7 +35,14 @@ class Chart extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					}
+					},
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Category', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {
