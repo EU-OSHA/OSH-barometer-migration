@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import EnforcementCapacityChart from '../../common/charts/EnforcementCapacityChart';
+import ChartDataTable from './ChartDataTable';
 import { getOSHData } from '../../../api';
 
 class EnforcementCapacityReport extends Component
@@ -72,6 +73,17 @@ class EnforcementCapacityReport extends Component
                         sector={["14"]}
                         answers={["1","2"]}
                         stackingColumn={'normal'}
+                    />
+                    <ChartDataTable
+                        literals={this.props.literals} 
+                        country={this.props.country}
+                        chartID={20107}
+                        split={'answer'} 
+                        columns={['Country', 'Yes (%)', 'No (%)']}
+                        showDecimals={true}
+                        countryDisplay={'before'}
+                        sector={["14"]}
+                        answers={["1","2"]}
                     />
 
                     {/* TODO Table with data in a different component */}

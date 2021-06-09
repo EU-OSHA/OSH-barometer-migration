@@ -8,6 +8,7 @@ import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { mentalRisk } from '../../model/subMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
+import ChartDataTable from './country-report-sections/ChartDataTable';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
 
@@ -519,6 +520,15 @@ class CountryReport extends Component
 											exportingEnabled={false}
 											backgroundColor={'#E4EFEF'}
 										/>
+										<ChartDataTable 
+											literals={this.props.literals} 
+											country={this.state.selectedCountryCode}
+											chartID={20106}
+											split={'indicator'} 
+											columns={['Indicator', 'Country', 'Value (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
 									</div>
 									<div className="box-rounded">
 										<SpiderChart
@@ -533,6 +543,15 @@ class CountryReport extends Component
 											dataset={'ewcs'}
 											exportingEnabled={false}
 											backgroundColor={'#E4EFEF'}
+										/>
+										<ChartDataTable 
+											literals={this.props.literals} 
+											country={this.state.selectedCountryCode}
+											chartID={20069}
+											split={'indicator'} 
+											columns={['Indicator', 'Country', 'Value (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
 										/>
 									</div>
 								</section>
