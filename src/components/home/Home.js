@@ -10,14 +10,14 @@ import { setDefaultCountry, setDefaultCountry2 } from '../../actions/';
 const Home = props => {
 	const store = useStore();
 	const currentDefaultCountry = store.getState().defaultCountry;
-	console.log("currentDefaultCountry",currentDefaultCountry);
+	// console.log("currentDefaultCountry",currentDefaultCountry);
 	const { cookies } = props;
 
 	const [countryUnlocked, setCountryUnlocked] = useState(true);
 	const [countrySelected, setCountrySelected] = useState(currentDefaultCountry.code != "0" && currentDefaultCountry.isCookie ? currentDefaultCountry.code : "0" );
 	// const [countrySelected, setCountrySelected] = useState( "0" );
 	const [selectDisabled, setSelectDisabled] = useState(cookies.get("selectedCountry") != undefined && countrySelected != "0" ? true : false);
-	console.log("countrySelected",countrySelected);
+	// console.log("countrySelected",countrySelected);
 	
 	// const [cookies, setCookie, removeCookie] = useCookies([]);
 	// console.log("props",props);
@@ -123,8 +123,8 @@ const Home = props => {
 
 	//Update when defaultCountrySelected (redux) changes
 	useEffect(() => {
-		console.log("Component did update", cookies);
-		console.log("currentDefaultCountry",currentDefaultCountry);
+		// console.log("Component did update", cookies);
+		// console.log("currentDefaultCountry",currentDefaultCountry);
 		if(currentDefaultCountry.code != "0" && currentDefaultCountry.isCookie){
 			setCountrySelected(currentDefaultCountry.code);
 		}
@@ -155,7 +155,7 @@ const Home = props => {
 
 	function saveCountry(event) {
 		var removed = false;
-		console.log("saveCountry home",event);
+		// console.log("saveCountry home",event);
 		setCountryUnlocked(!countryUnlocked);
 
 		if(cookies.get("selectedCountry") != undefined){
