@@ -174,6 +174,7 @@ class PreventionCompanies extends Component {
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
 														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'training-in-osh' && (
@@ -187,6 +188,7 @@ class PreventionCompanies extends Component {
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
 														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'risk-assessment' && (

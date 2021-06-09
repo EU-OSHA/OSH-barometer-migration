@@ -167,6 +167,7 @@ class MentalRiskCharts extends Component {
                         }
                     ],
                     labels: {
+                        // staggerLines: 1,
                         style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'bold',
@@ -235,13 +236,16 @@ class MentalRiskCharts extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props.chartType[0].type
+            selectedTypeChart: this.props.selectedIndicator != undefined ? this.props.selectedIndicator :  this.props.chartType[0].type
         }
     }
     
     onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
-        this.props.callbackSelectedSurvey(e.target.value);
+
+        if(this.props.callbackSelectedSurvey != undefined){
+            this.props.callbackSelectedSurvey(e.target.value);
+        }        
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         if (window.innerWidth > 768 ) {
@@ -394,7 +398,8 @@ class MentalRiskCharts extends Component {
                     chartConfig: {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
-                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
+                        title: {...this.state.chartConfig.title, text: this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
+                        // title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
                     }
                 });
             }
@@ -414,6 +419,7 @@ class MentalRiskCharts extends Component {
                     chartConfig: {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 785, type: 'bar'},
+                        // title: {...this.state.chartConfig.title, text: this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : <h2 class='title--card'>${tabTitle}</h2>}
                         title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${tabTitle}</h2>`}
                     }
                 });
@@ -440,9 +446,13 @@ class MentalRiskCharts extends Component {
         if (this.props.chartType.length > 1)
         {
             if (this.props.chartType[0].type == 'ewcs') {
-                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                if(this.props.callbackSelectedSurvey != undefined){
+                    this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                }
             } else {
-                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                if(this.props.callbackSelectedSurvey != undefined){
+                    this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                }
             }
         }        
         this.updateDimension();
@@ -470,20 +480,39 @@ class MentalRiskCharts extends Component {
     }
     
     render() {
+
+        let selectDiv;
+		if(this.props.showSelect){
+            selectDiv = (
+                <div className="select-filter-chart-wrapper">
+                    {this.state.typeCharts.length > 1 && (
+                        <div className="select-filter-chart">
+                            <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                                {this.state.typeCharts.map((type) => {
+                                    return <option key={type} value={type} > {type.toUpperCase()} </option>
+                                })}
+                            </select>
+                        </div>
+                    )}
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
                     {this.state.selectedTypeChart && (
-                        <div className="select-filter-chart-wrapper">
-                            {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
+                        selectDiv
+                        // <div className="select-filter-chart-wrapper">
+                        //     {this.state.typeCharts.length > 1 && (
+                        //         <div className="select-filter-chart">
+                        //             <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                        //                 {this.state.typeCharts.map((type) => {
+                        //                     return <option key={type} value={type} > {type.toUpperCase()} </option>
+                        //                 })}
+                        //             </select>
+                        //         </div>
+                        //     )}
+                        // </div>
                     )}
                     {!this.state.isLoading && (
                         <div className='chart-container'>

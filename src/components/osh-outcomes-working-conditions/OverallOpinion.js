@@ -158,6 +158,7 @@ const OverallOpinion = (props) => {
 													callbackLegend={callbackChartLegend}
 													callbackSelectedSurvey={callbackSelectedSurvey}
 													exportingEnabled={true}
+													showSelect={true}
 												/>
 											</div>
 										</div>

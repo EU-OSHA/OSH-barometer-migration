@@ -6,6 +6,7 @@ import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
 import RiskChart from '../common/charts/RiskChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
+import { mentalRisk } from '../../model/subMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
@@ -425,11 +426,44 @@ class CountryReport extends Component
 									<h4 className="header3">{this.props.literals.L20710}</h4>
 									<p>{this.props.literals.L20578}</p>
 									<p>
-										<span>{this.props.literals.L20700}</span>
-										<span>{this.props.literals.L20704}</span>
+										<span>{this.props.literals.L20700} </span>
+										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</p>
-									{/* TODO -- Add the charts for Mental Risks */}
+									{
+										mentalRisk.map((tab) => {
+											let chartTypes = tab.chartType;
+											let length = chartTypes.length;
+											return chartTypes.map((chartType) => {
+												let title;
+												if(length === 1){
+													title = `${this.props.literals['L'+chartType.title]}`;
+												}else{
+													title = (chartType.type === "esener") ? `${this.props.literals['L'+chartType.title]} -  ${this.props.literals.L20645}` 
+														: `${this.props.literals['L'+chartType.title]} -  ${this.props.literals.L20646}` ;
+												}
+												return (
+													<div className="box-rounded mental" key={`${tab.url}-${chartType.type}`}>
+														<MentalRiskCharts
+															reportTitle={title}
+															literals={this.props.literals}
+															tabIndicator={tab.literalTab}
+															chartType={tab.chartType}
+															colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+															percentage={true}
+															exportingEnabled={false}
+															showSelect={false}
+															selectedIndicator={chartType.type}
+														/>
+														<div className="chart-legend">
+															{this.props.literals['L'+chartType.legend]}
+														</div>
+														{/* TODO Table of data */}
+													</div>
+												)
+											})
+										})
+									}
 								</section>
 								{/* -- WORKING CONDITIONS - PHYSICAL RISK */}
 								<section className={"working-conditions physical-risk "+this.state.selectedCountryCode}>
