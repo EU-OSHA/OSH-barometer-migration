@@ -3,6 +3,7 @@ import Chart from '../../common/charts/Chart';
 import ChartHuman from '../../common/charts/ChartHuman';
 import EmploymentRate from '../../common/charts/EmploymentRate';
 import IncomerPercapital from '../../common/charts/IncomePerCapita';
+import ChartDataTable from './ChartDataTable';
 
 class EconomicSectorReport extends Component {
     constructor(props) {
@@ -34,6 +35,16 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20089}
+                                split={'size'} 
+                                sameRow={true}
+                                columns={['Company size', 'Country', 'Value (%)', 'Country', 'Value(%)']}
+                                showDecimals={true}
+                                countryDisplay={'code'}
+                            />
                         </div>
                         {/* Employment per sector */}
                         <div className="box-rounded" >
@@ -54,6 +65,16 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20010}
+                                split={'sector'} 
+                                sameRow={true}
+                                columns={['Sector', 'Country', 'Value (%)', 'Country', 'Value(%)']}
+                                showDecimals={true}
+                                countryDisplay={'code'}
+                            />
                         </div>
                     </React.Fragment>
                 ) : (
@@ -75,6 +96,15 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20011}
+                                split={'none'} 
+                                columns={['Country', 'Value (%)']}
+                                showDecimals={true}
+                                countryDisplay={'before'}
+                            />
                         </div>
                         {/* GDP per Capita */}
                         <div className="box-rounded" >
@@ -92,6 +122,15 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}									
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20013}
+                                split={'none'} 
+                                columns={['Country', 'Value (%)']}
+                                showDecimals={true}
+                                countryDisplay={'before'}
+                            />
                         </div>
                         {/* GDP per Capita EURO */}
                         <div className="box-rounded" >
@@ -109,6 +148,15 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20087}
+                                split={'none'} 
+                                columns={['Country', 'Value (%)']}
+                                showDecimals={true}
+                                countryDisplay={'before'}
+                            />
                         </div>
                         {/* Income per Capita */}
                         <div className="box-rounded" >
@@ -127,6 +175,15 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20014}
+                                split={'year'} 
+                                columns={['Country', 'Year', 'Income']}
+                                showDecimals={true}
+                                countryDisplay={'before'}
+                            />
                         </div>
                         {/* Income per Capita EURO */}
                         <div className="box-rounded" >
@@ -145,6 +202,15 @@ class EconomicSectorReport extends Component {
                                     fullCountryReport={false}
                                 />
                             </div>
+                            <ChartDataTable
+                                literals={this.props.literals} 
+                                country={this.props.country}
+                                chartID={20088}
+                                split={'year'} 
+                                columns={['Country', 'Year', 'Income']}
+                                showDecimals={true}
+                                countryDisplay={'before'}
+                            />
                         </div>
                     </React.Fragment>   
                 )}

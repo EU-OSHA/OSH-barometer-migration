@@ -189,9 +189,24 @@ class ChartDataTable extends Component
                 ))}
             </tr>
         }
+        else if (this.props.split == 'year')
+        {
+            if (this.props.sameRow && this.props.sameRow === true)
+            {
+
+            }
+            else
+            {
+                row = <tr><th>{tableRow.country}</th><td>{tableRow.split}</td><td>{tableRow.value}</td></tr>
+            }
+        }
         else if (this.props.sameRow && this.props.sameRow === true)
         {
             row = <tr><th>{tableRow.split}</th><td>{tableRow.country1}</td><td>{tableRow.value1}</td><td>{tableRow.country2}</td><td>{tableRow.value2}</td></tr>
+        }
+        else if (this.props.split == 'none')
+        {
+            row = <tr><th>{tableRow.country}</th><td>{tableRow.value}</td></tr>
         }
 
         return row;
