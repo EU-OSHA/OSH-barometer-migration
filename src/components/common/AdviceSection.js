@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import { setMethodology } from '../../actions/';
 
 const adviceText = require('../../model/adviceSection.json');
+
 class AdviceSection extends Component
 {
 
 	constructor(props)
     {
         super(props);
+		
+		if (props.methodologyData != undefined)
+		{
+			props.methodology(props.methodologyData.section, props.methodologyData.subsection, props.methodologyData.indicator);
+		}		
         
         // Get the elements for the current section
         let rel = adviceText;
@@ -19,6 +27,7 @@ class AdviceSection extends Component
            items: rel			
         }
     }
+
     indicatorIcons(pItem)
     {
         return pItem.icon;		
@@ -66,4 +75,11 @@ class AdviceSection extends Component
 	}
 }
 
-export default AdviceSection;
+function mapDispatchToProps (dispatch)
+{
+	return {
+		methodology: (section, subsection, indicator) => dispatch(setMethodology(section, subsection, indicator))
+	};
+}
+
+export default connect(null, mapDispatchToProps)(AdviceSection);

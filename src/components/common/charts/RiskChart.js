@@ -99,7 +99,19 @@ class Chart extends Component {
 
 					},
 					column: {
-						stacking: this.props.stackingColumn
+						stacking: this.props.stackingColumn,
+						dataLabels: {
+							enabled: this.props.showDataLabel === true ? true : false,
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'14px'
+							},
+							formatter: function () {
+								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+							}
+						}
 					},
 					bar: {
 						dataLabels: {
@@ -185,7 +197,7 @@ class Chart extends Component {
 			
 			if(series.length == 3){
 				this.setState({
-					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']}
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']}
 				})
 			}else{
 				this.setState({

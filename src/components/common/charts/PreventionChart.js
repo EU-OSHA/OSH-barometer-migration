@@ -200,15 +200,27 @@ class PreventionChart extends Component {
                     column: {
                         dataLabels: {
                             enabled: true,
-                            format: '{point.y:.1f}%'
+                            overflow: 'none',
+                            crop: false,
+                            allowOverlap: true,
+                            style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'12px'
+							},
+							formatter: function () {
+								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+							},
                         },
-                      borderWidth: 0,  
-                      pointStart: 0,
+                        borderWidth: 0,  
+                        pointStart: 0,
                         states: {
                             inactive: {
                                 opacity: 1
                             }
                         },
+                        pointPadding: 0.15,
                         point: {
                             events: {
                                 mouseOver: function () {
@@ -296,7 +308,7 @@ class PreventionChart extends Component {
                     })
                     
                    if (series.length ==3){
-                       this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']}})
+                       this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']}})
                    }
 
                 });

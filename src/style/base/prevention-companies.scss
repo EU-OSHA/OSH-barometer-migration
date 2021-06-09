@@ -4,6 +4,22 @@
 			margin: 4rem 0 0;
 		} 	
 	}
+
+	.highcharts-container{
+        svg {
+			image {
+            	display:none
+          	}
+          	.highcharts-credits {
+            	display: none
+          	}
+        }
+        &.full-screen{
+          	.highcharts-credits {
+            	display: block
+          	}
+        }
+    }
 }
 
 

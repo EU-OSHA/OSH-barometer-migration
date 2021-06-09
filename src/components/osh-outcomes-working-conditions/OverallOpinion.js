@@ -1,68 +1,104 @@
 import React, { useState, useEffect } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import Related from '../common/Related';
 import AdviceSection from '../common/AdviceSection';
-import Chart from '../common/charts/Chart';
 import RiskChart from '../common/charts/RiskChart';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
-
-const subTabs = require('../../model/mentalHealth.json');
+import { overallOpinion } from '../../model/subMenuTabs';
+import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const OverallOpinion = (props) => {
 
 	// Update the title of the page
 	document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
-		
-	const [selectCountry1,setSelectCountry1]=useState('AT');
-	const [selectCountry2,setSelectCountry2]=useState('');
-	const [visible, setVisible]=useState(true)
+
+	let selected = '';
+	for (let i = 0; i < overallOpinion.length; i++)
+	{
+		if (overallOpinion[i].url == props.indicator)
+		{
+			selected = overallOpinion[i];
+		}
+	}
+
+	let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
+	let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+
+	const [selectCountry1,setSelectCountry1]=useState(country1);
+	const [selectCountry2,setSelectCountry2]=useState(country2);
 	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
 	const [change, setChange]=useState(true)
 	const [title, setTitle] = React.useState('')
 	const [legend, setLegend] = useState('')
-	const [subMenuTabs, setSubMenuTabs] = useState([{ literalTab: '322' }, { literalTab: '323' }])
-	const [selectedTab, setSelectedTab] = useState(props.indicator);
-    const [indicatorTabs, setIndicatorTabs] = useState(subTabs);
+	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
+	const [selectedTab, setSelectedTab] = useState(selected);
+    // const [indicatorTabs, setIndicatorTabs] = useState(overallOpinion);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
-	const [isSubMenuOpen,setIsSubMenuOpen]= useState(false)
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
 
-useEffect(() => {
-updateDimension();
-window.addEventListener('resize',updateDimension);
-return ()=> window.removeEventListener('resize',updateDimension);
+	useEffect(() => {
+		updateDimension();
+		window.addEventListener('resize',updateDimension);
+		return ()=> window.removeEventListener('resize',updateDimension);
+	}, [window.innerWidth])
 
-}, [window.innerWidth])
+	useEffect(() => {
+		if (props.country1)
+		{
+			setSelectCountry1(props.country1);
+		}
+		else if (props.defaultCountry.code != '0')
+		{
+			setSelectCountry1(props.defaultCountry.code);
+		}
+	
+		if (props.defaultCountry2.code)
+		{
+			setSelectCountry2(props.defaultCountry2.code);
+		}
+		else if (props.country2)
+		{
+			setSelectCountry2(props.country2);
+		}
+		/*setSelectCountry1(props.defaultCountry.code);
+		setSelectCountry2(props.defaultCountry2.code);*/
+	}, [props.defaultCountry.code, props.defaultCountry2.code])
 
  
-const updateDimension = () =>{
-	if (window.innerWidth > 768 ){
-		setDimension('column')
-		setTitle('How satisfied are you with working conditions in your main paid job?')
-	}else{
-		setDimension('bar'),
-		setChange(false)
-		setTitle('Job satisfaction')
+	const updateDimension = () =>{
+		if (window.innerWidth > 768 ){
+			setDimension('column')
+			setTitle('How satisfied are you with working conditions in your main paid job?')
+		}else{
+			setDimension('bar'),
+			setChange(false)
+			setTitle('Job satisfaction')
+		}
 	}
-}
 
-const callbackChartLegend = (legend) => {
-	setLegend( legend );
-}
+	const callbackChartLegend = (legend) => {
+		setLegend( legend );
+	}
 
-const callbackSelectedSurvey = (callback) => {
-	//this.setState({ selectedSurvey: callback });
-}
+	const callbackSelectedSurvey = (callback) => {
+		//this.setState({ selectedSurvey: callback });
+	}
 
 
-const callbackSelectedTab = (callback) => {
-	setSelectedTab( callback )
+	const callbackSelectedTab = (callback) => {
+		for (let i = 0; i < subMenuTabs.length; i++)
+		{
+			if (subMenuTabs[i].url == callback)
+			{
+				setSelectedTab(subMenuTabs[i]);
+			}
+		}
+	}
 
-}
 	const handleSector =(sector)=> {
 		if(sector == 'sector'){
 			setLegend(props.literals.L20582)
@@ -71,140 +107,121 @@ const callbackSelectedTab = (callback) => {
 		}else{
 			setLegend(props.literals.L20581)
 		}
-		console.log(legend)
 	}
+
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
 		setSelectCountry2(selectCountry2)
+		props.setDefaultCountry2({
+			code: selectCountry2,
+			isCookie : false
+		})
 	}
 
-	
-
-
-		return(
-			<div className="overall-opinion">
-				<AdviceSection literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion"]} />
+	return(
+		<div className="overall-opinion">
+			<AdviceSection literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Overall opinion', indicator: 65}} />
 				
-				<SubMenuTabs 
-					literals={props.literals}
-					selectedTab={selectedTab}
-					callbackSelectedTab={callbackSelectedTab}
-					locationPath={currentPath}
-					subMenuTabs={subMenuTabs}
-					selectCountry1={selectCountry1}
-					selectCountry2={selectCountry2}
-					sector={sector}
-				/>
+			<SubMenuTabs 
+				literals={props.literals}
+				selectedTab={selectedTab.url}
+				callbackSelectedTab={callbackSelectedTab}
+				locationPath={currentPath}
+				subMenuTabs={subMenuTabs}
+				selectCountry1={selectCountry1}
+				selectCountry2={selectCountry2}
+				sector={sector}
+			/>
+
+			<div className="line background-main-light" />
 				
-				 <div className="">						
+			<div className="">						
+				<div>
+					{(selectedTab.url == 'job-satisfaction') ? (
 						<div>
-						{(selectedTab == 'job-satisfaction') ?<div>
-
-								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
-									<div className="card--block--chart">
+							<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
+								<div className="card--block--chart">
 									<div className="chart--block with-filter" >
 										<div className="card--block--chart--wrapper" >
-											{indicatorTabs.map((tab) => {
-												if (props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == selectedTab) {
-													return (
-														<div className="chart--wrapper" key={tab.literalTab} >
-															<MentalRiskCharts
-																literals={props.literals}
-																tabIndicator={tab.literalTab}
-																chartType={tab.chartType}
-																colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
-																type={dimension}
-																percentage={true}
-																callbackLegend={callbackChartLegend}
-																callbackSelectedSurvey={callbackSelectedSurvey}
-															/>
-														</div>
-													)
-												}
-											})}
+											<div className="chart--wrapper" >
+												<MentalRiskCharts
+													literals={props.literals}
+													tabIndicator={selectedTab.literalTab}
+													chartType={selectedTab.chartType}
+													colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
+													type={dimension}
+													percentage={true}
+													callbackLegend={callbackChartLegend}
+													callbackSelectedSurvey={callbackSelectedSurvey}
+												/>
+											</div>
 										</div>
 									</div>
-
-
-
-										<div className="chart--block">
-											{/* <Chart
-											title={title}
-											colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
-											//showDataLabel={true}
+								</div>
+								<div className="chart-legend">
+									{props.literals.L20580}
+								</div>
+							</div>
+						</div>
+					):(
+						<div>
+							<div className="compare--block">
+								<SelectEconomic 
+									handleSearch={handleSearch} 
+									handleSearch2={handleSearch2} 
+									charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+									literals={props.literals}
+									selectedCountry1={selectCountry1}
+									selectedCountry2={selectCountry2}
+								/>
+							</div>
+							<div class="line background-main-light"></div>
+							<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
+								<div className="card--block--chart">
+									<div className="chart--block">
+										<RiskChart
+											title={props.literals.L22135}
+											colors={['#f6a400','#003399']}
+											showDataLabel={true}
 											tick={20}
 											percentage={true}
 											type={dimension}
-											stackingColumn='percent'
-											//selectCountry1={'AT'}
-											//selectCountry2={'0'}
-											stacking={true}
-											//reversed={true}
-											chart={'20040'}
-											indicator={'65'}
-											/>  */}
-										</div>
+											selectCountry1={selectCountry1}
+											selectCountry2={selectCountry2}
+											chart={'20041'}
+											indicator={'66'}
+											sector={[8,9,10,11,12,13]}
+											gender={[1,2,3]}
+											age={[1,2,3,4]}
+											handleSector={handleSector}
+										/>
 									</div>
-									<div className="chart-legend">
-											{props.literals.L20580}
-											</div>
-								</div>								
-							</div>
-		
-							:<div>
-								<div className="compare--block">
-								<SelectEconomic 
-								handleSearch={handleSearch} 
-								handleSearch2={handleSearch2} 
-								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
-								literals={props.literals}
-								selectedCountry1={selectCountry1}
-								selectedCountry2={selectCountry2}	
-								/>
 								</div>
-								<div class="line background-main-light"></div>
-								<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
-									<div className="card--block--chart">
-										<div className="chart--block">
-											<RiskChart
-												title='Do you think your health or safety is at risk because of your work?'
-												colors={['#f6a400','#003399','#cbe2e3','#ffe300']}
-												showDataLabel={true}
-												tick={20}
-												percentage={true}
-												type={dimension}
-												//stackingColumn='percent'
-												selectCountry1={selectCountry1}
-												selectCountry2={selectCountry2}
-												//reversed={true}
-												chart={'20041'}
-												indicator={'66'}
-												sector={[8,9,10,11,12,13]}
-												gender={[1,2,3]}
-												age={[1,2,3,4]}
-												handleSector={handleSector}
-											/> 
-										</div>
-									</div>
-									<div className="chart-legend">
-											{legend2}
-											</div>
-								</div>								
-							</div>}			
-		
+								<div className="chart-legend">
+									{legend2}
+								</div>
+							</div>
 						</div>
-						
-				</div> 
-
-				<Methodology />
+					)}						
+				</div>
+			</div>
+			<Methodology literals={props.literals} section={'Working conditions - Overall opinion'} indicator={selectedTab.indicator} />
 
 				<Related literals={props.literals} section={["osh-outcomes-working-conditions","overall-opinion",props.indicator]} />
 		</div>
 		)
 	
 }
+
+function mapStateToProps(state){
+    const { defaultCountry } = state;
+	const { defaultCountry2 } = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+}
+
 OverallOpinion.displayName = 'OverallOpinion';
-export default OverallOpinion;
+// export default OverallOpinion;
+export default connect(mapStateToProps, { setDefaultCountry2 } )(OverallOpinion);

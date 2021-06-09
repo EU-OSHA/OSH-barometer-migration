@@ -40,37 +40,37 @@ class WorkAccidentsChart extends Component {
                     backgroundColor: '#F0F0F0',
                     events: {
                         render: function() {
-                              var chart = this;
-                           if (!chart.customImage)
-                           {
-                               chart.customImage = chart.renderer.image(
-                                   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
-                                   chart.chartWidth - 130,
-                                   chart.chartHeight - 37,
-                                   130,
-                                   37
-                               ).add();
-                           }
-                           else
-                           {
-                               chart.customImage.attr({
-                                   x: chart.chartWidth - 130,
-                                   y: chart.chartHeight - 37
-                               });
-                           }
+                            var chart = this;
+                            if (!chart.customImage)
+                            {
+                                chart.customImage = chart.renderer.image(
+                                    'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+                                    chart.chartWidth - 130,
+                                    chart.chartHeight - 37,
+                                    130,
+                                    37
+                                ).add();
+                            }
+                            else
+                            {
+                                chart.customImage.attr({
+                                    x: chart.chartWidth - 130,
+                                    y: chart.chartHeight - 37
+                                });
+                            }
                     
-                           if (chart.fullscreen.isOpen) {
-                               chart.customImage.css({
-                                   display: 'block'
-                               });
-                               chart.container.className = 'highcharts-container full-screen';
-                             }
-                           else
-                           {
-                               chart.customImage.css({
-                                   display: ''
-                               });	
-                               chart.container.className = 'highcharts-container';
+                            if (chart.fullscreen.isOpen) {
+                                chart.customImage.css({
+                                    display: 'block'
+                                });
+                                chart.container.className = 'highcharts-container full-screen';
+                            }
+                            else
+                            {
+                                chart.customImage.css({
+                                    display: ''
+                                });	
+                                chart.container.className = 'highcharts-container';
                            }
                         }					
                     },

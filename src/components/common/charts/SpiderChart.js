@@ -16,10 +16,8 @@ class SpiderChart extends Component{
 		this.state = {
 			chartConfig: {
 				colors: this.props.colors,
-					chart: {
-				backgroundColor: '#F0F0F0',
-				polar: true,
-				type: 'line'
+				credits: {
+					enabled: false
 				},
 				exporting: {
 					enabled: true,
@@ -31,161 +29,179 @@ class SpiderChart extends Component{
                         }
                     }
 				},
-					title: {
-						text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
-				align: 'left'
-				//x: -180
+				chart: {
+					backgroundColor: '#F0F0F0',
+					polar: true,
+					type: 'line'
+				},
+				title: {
+					text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
+					align: 'left'
+					//x: -180
+				},					
+				pane: {
+					size: '99%'
+				},
+				plotOptions: {
+					series: {
+						colors: this.props.colors,
 					},
-					
-					pane: {
-							size: '100%'
-					},
-		
-					xAxis: {
-						//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
-						tickmarkPlacement: 'on',
-						lineWidth: 0,
-						gridLineColor: '#000000',
-						gridLineWidth: 0.25,
-					},
-					plotOptions: {
-						series: {
-							colors: this.props.colors,
-						},
-						line: {
-							dataLabels: {
-								style: {
-									textOutline: 0,
-									textShadow: false,
-									fontFamily: 'OpenSans-Bold',
-									fontSize:'14px'
-								},
-								enabled: this.props.showDataLabel === true ? true : false,
-								formatter: function () {
+					line: {
+						dataLabels: {
+							style: {
+								textOutline: 0,
+								textShadow: false,
+								fontFamily: 'OpenSans-Bold',
+								fontSize:'14px'
+							},
+							allowOverlap: true,
+							padding: 10,
+							enabled: this.props.showDataLabel === true ? true : false,
+							formatter: function () {
+								if (this.series.name == 'EU27_2020' || this.series.name == 'EU28')
+								{
 									return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
+								}
+								else
+								{
+									return null;
 								}
 							}
 						}
+					}
+				},
+				legend: {
+					margin: 20
+				},
+				xAxis: {
+					tickmarkPlacement: 'on',
+					lineWidth: 0,
+					gridLineColor: '#000000',
+					gridLineWidth: 0.25,
+					labels: {
+						style: {
+							fontSize: '12px',
+							color: 'black'
+						}
+					}
+				},
+				yAxis: {
+					gridLineInterpolation: 'polygon',
+					gridLineColor: '#000000',
+					gridLineWidth: 0.25,
+					lineWidth: 0,
+					min: 0
+				},
+				tooltip: {
+					useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor:"#529FA2",
+					fontSize:'12px',
+					zIndex: 100,
+					style: {
+						zIndex: 100
 					},
-					yAxis: {
-				gridLineInterpolation: 'polygon',
-				gridLineColor: '#000000',
-				gridLineWidth: 0.25,
-				lineWidth: 0,
-				min: 0
-					},
-					tooltip: {
-						 	useHTML: true,
-							opacity: 1,
-							backgroundColor: "rgba(255, 255, 255, 1)",
-							borderColor:"#529FA2",
-							fontSize:'12px',
-							zIndex: 100,
-							style: {
-								zIndex: 100
-							},
 							 
-						formatter: function () {
-							if (this.x == props.literals.L22153){
-								return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : []	);
-							}else if (this.x == props.literals.L22155){
-								return ['<b>' + 'Are you exposed to loud noise?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : []	);
-							}else if (this.x == props.literals.L22156){
-								return ['<b>' + 'Are you exposed to high temperatures?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22154){
-								return ['<b>' + 'Are you exposed to low temperatures?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22161){
-								return ['<b>' + 'Does your work involve tiring or <br>painful positions?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22165){
-								return ['<b>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22163){
-								return ['<b>' + 'Does your work involve sitting?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22164){
-								return ['<b>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22162){
-								return ['<b>' + 'Does your work involve lifting or <br>moving people?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22171){
-								return ['<b>' + 'Did the employees have a role in the design and set-up <br>of the measures to address psychosocial risks?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22172){
-								return ['<b>' + 'Does your organisation have a health and <br>safety delegate or committee?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22173){
-								return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22174){
-								return ['<b>' + 'Are health and safety issues regularly discussed <br>in staff or team meetings? <br>(Regularly and Occasionally)' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22175){
-								return ['<b>' + 'How often controversies related to health and safety arise? <br>(Sum of often and sometimes)' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22176){
-								return ['<b>' + 'Does your organisation have a regular meeting <br>in which employees can express their views <br>about what is happening in the organisation?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22177){
-								return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}else if (this.x == props.literals.L22178){
-								return ['<b>' + 'Does your organisation have a health and safety <br>delegate or committee?' + '</b><br><br>'].concat(
-									this.points ? this.points.map(function (point) {
-											return point.series.name + ': ' + point.y + '% '+'<br>';
-										}) : [] );
-							}
-						},
-						//split: true,
-						shared:true
+					formatter: function () {
+						if (this.x == props.literals.L22153){
+							return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : []	);
+						}else if (this.x == props.literals.L22155){
+							return ['<b>' + 'Are you exposed to loud noise?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : []	);
+						}else if (this.x == props.literals.L22156){
+							return ['<b>' + 'Are you exposed to high temperatures?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22154){
+							return ['<b>' + 'Are you exposed to low temperatures?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22161){
+							return ['<b>' + 'Does your work involve tiring or <br>painful positions?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22165){
+							return ['<b>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22163){
+							return ['<b>' + 'Does your work involve sitting?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22164){
+							return ['<b>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22162){
+							return ['<b>' + 'Does your work involve lifting or <br>moving people?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22171){
+							return ['<b>' + 'Did the employees have a role in the design and set-up <br>of the measures to address psychosocial risks?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22172){
+							return ['<b>' + 'Does your organisation have a health and <br>safety delegate or committee?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22173){
+							return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22174){
+							return ['<b>' + 'Are health and safety issues regularly discussed <br>in staff or team meetings? <br>(Regularly and Occasionally)' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22175){
+							return ['<b>' + 'How often controversies related to health and safety arise? <br>(Sum of often and sometimes)' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22176){
+							return ['<b>' + 'Does your organisation have a regular meeting <br>in which employees can express their views <br>about what is happening in the organisation?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22177){
+							return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}else if (this.x == props.literals.L22178){
+							return ['<b>' + 'Does your organisation have a health and safety <br>delegate or committee?' + '</b><br><br>'].concat(
+								this.points ? this.points.map(function (point) {
+										return point.series.name + ': ' + point.y + '% '+'<br>';
+									}) : [] );
+						}
 					},
-					
-		
-					series: [
+					//split: true,
+					shared:true
+				},
+				series: [
 					{pointPlacement: 'on'}, 
 					{pointPlacement: 'on'},
-					{pointPlacement: 'on', color:'#003399'}],
-				
+					{pointPlacement: 'on', color:'#003399'}
+				],
 			},
 			typeCharts:[],
-			selectedTypeChart: this.props.chartType[0].type
+			selectedTypeChart: this.props.dataset
 		}
 	}
 
@@ -209,7 +225,12 @@ class SpiderChart extends Component{
 		const country2= this.props.selectCountry2;
 		
 		if (chartType.length > 1) {
-             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+            chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
+			if (this.state.selectedTypeChart == null && this.props.dataset != null)
+			{
+				this.setState({ selectedTypeChart: this.props.dataset });
+				chart = chartType.find((chart) => chart.type == this.props.dataset);
+			}
             // this.props.callbackLegend(chart.legend);
         } else {
             chart = chartType[0];
@@ -283,7 +304,7 @@ class SpiderChart extends Component{
 				//console.log(auxSeries[serie])
 			}
 			if (series.length == 3){
-				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#cbe2e3','#003399']  }})
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']  }})
 			}else{
 				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}})
 			}
@@ -312,7 +333,7 @@ class SpiderChart extends Component{
 						...this.state.chartConfig,
 						chart: {
 							...this.state.chartConfig.chart, 
-							height: 450, 
+							height: 600, 
 						},
 						title: {
 							...this.state.chartConfig.title,
@@ -355,7 +376,7 @@ class SpiderChart extends Component{
         }
 
         if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            this.props.callbackSelectedSurvey(this.props.chartType[1].type)
         } else {
             this.props.callbackSelectedSurvey(this.props.chartType[0].type)
         }
@@ -364,6 +385,15 @@ class SpiderChart extends Component{
 	}
 
 	componentDidUpdate(prevProps,prevState){
+		if (prevProps.chartType !=  this.props.chartType)
+		{
+			if (this.props.chartType.length > 1) {
+				this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
+			}
+			this.getLoadData(this.props.chartType);
+            this.updateDimension();
+		}		
+
 		if(prevProps.selectCountry1 != this.props.selectCountry1){
 			this.getLoadData(this.props.chartType)
 		}
@@ -384,24 +414,24 @@ class SpiderChart extends Component{
 	{
 		return (
 			<>
-			{this.state.selectedTypeChart && (
-                        <div className="select-filter-chart-wrapper">
-                            {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    )}
+				{ this.state.selectedTypeChart && (
+					<div className="select-filter-chart-wrapper">
+						{ this.state.typeCharts.length > 1 && (
+							<div className="select-filter-chart">
+								<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+									{ this.state.typeCharts.map((type) => {
+										return <option key={type} value={type} > {type.toUpperCase()} </option>
+									})}
+								</select>
+							</div>
+						)}
+					</div>
+				)}
 				<div>
 					<HighchartsReact
-					highcharts={Highcharts}
-					options={this.state.chartConfig}
-				/>
+						highcharts={Highcharts}
+						options={this.state.chartConfig}
+					/>
 				</div>
 			</>
 		)

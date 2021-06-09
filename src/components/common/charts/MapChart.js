@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getCountryDataMap } from '../../../api'
-import { timers } from 'jquery';
+import { nodeName, timers } from 'jquery';
 
 
 
@@ -24,7 +24,7 @@ class MapChart extends Component {
 					width: 1024,
 					backgroundColor: '#F0F0F0'
 				},
-			
+
 				title: {
 					text: this.props.title
 				},
@@ -40,7 +40,38 @@ class MapChart extends Component {
 				colorAxis: {
 					tickPixelInterval: 100
 				},
-	
+				exporting: {
+					enabled: true,
+					y:-10,
+					buttons: {
+						contextButton: {
+							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
+						}
+					},
+					chartOptions:
+					{
+						credits: {
+							enabled: true
+						}
+					}
+				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y: 4
+					}
+				},
 				legend: {
 					layout: 'vertical',
 					align: 'right',
@@ -89,7 +120,14 @@ class MapChart extends Component {
 					//data:[['de',4]	],					
 					dataLabels: {
 						enabled: true,
-						color: '#000000',
+						color: '#000',
+						y:-7,
+						style: {
+							textShadow: false, 
+							textOutline: "#c7e2e3",
+							fontFamily: 'OpenSans-Bold',
+							fontSize:'14px'
+						},
 						formatter: function () {
 							if (this.point.value) {
                                 if(this.point["hc-key"] === "gr"){
@@ -134,7 +172,6 @@ class MapChart extends Component {
 				seriesObject.data.push(arry);	
 			}
 			series.push(seriesObject)
-			console.log('seriesObject', seriesObject)
 
 			this.setState({chartConfig: {...this.state.chartConfig, series }})
 		});		

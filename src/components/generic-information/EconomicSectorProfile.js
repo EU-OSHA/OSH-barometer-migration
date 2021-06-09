@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
@@ -7,37 +8,72 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
-import { getIndicatorCountries, getIndicatorCountries1 } from '../../api';
+import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const EconomicSectorProfile = (props) => {
 
 	// Update the title of the page
 	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
 
-	//console.log('props', props);
+	const history = useHistory();
 
-	const [selectCountry1, setSelectCountry1]= useState(props.country1);
-	const [selectCountry2, setSelectCountry2]= useState(props.country2);
+	const [selectCountry1, setSelectCountry1] = useState(props.defaultCountry.code);
+	const [selectCountry2, setSelectCountry2] = useState(props.defaultCountry2.code);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	const [defaultValue,setDefaultValue]=useState('');
 
+	useEffect(() => {
+		if (props.country1)
+		{
+			setSelectCountry1(props.country1);
+		}
+		else if (props.defaultCountry.code != '0')
+		{
+			setSelectCountry1(props.defaultCountry.code);
+		}
+	
+		if (props.country2)
+		{
+			setSelectCountry2(props.country2);
+		}
+		else
+		{
+			setSelectCountry2(props.defaultCountry2.code);
+		}
+	}, [props.defaultCountry.code])
+
+	const updateURL = (country1, country2) =>
+	{
+		let url = '/generic-information/economic-sector-profile';
+		if (country1)
+		{
+			url = `${url}/${country1}`;
+		}
+		if (country2 && country2 != '0')
+		{
+			url = `${url}/${country2}`;
+		}
+		history.push({
+			pathname: url
+		})
+	}
 
 	const selectEuro2 = (e) =>{
 		const indicator = e.target.value
-	   if(indicator == "278"){
-		const Chart =  "20087"
-	   setIndicator2("278");
-	   setChart2("20087");
-	   } else
-	   {
-		   const Chart = "20013"
-		   const indicator= "35"
-		   setChart2(Chart);
-		   setIndicator2(indicator);
-	   }  
+		if(indicator == "278"){
+			const Chart =  "20087"
+		setIndicator2("278");
+		setChart2("20087");
+		} else
+		{
+			const Chart = "20013"
+			const indicator= "35"
+			setChart2(Chart);
+			setIndicator2(indicator);
+		}  
    }
 	
 
@@ -58,16 +94,22 @@ const EconomicSectorProfile = (props) => {
 
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
+		updateURL(selectCountry1, selectCountry2);
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
-		setSelectCountry2(selectCountry2)
+		setSelectCountry2(selectCountry2);
+		props.setDefaultCountry2({
+			code: selectCountry2,
+			isCookie : false
+		});
+		updateURL(selectCountry1, selectCountry2);
 	}
 
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} methodologyData={{section: 'generic-information', subsection: 'Economic and sector profile', indicator: 31}}/>
 
 				<div className="compare--block container">
 					{/* FILTERS */}
@@ -229,7 +271,7 @@ const EconomicSectorProfile = (props) => {
 					</div>
 				</section>
 				
-				<Methodology />
+				<Methodology literals={props.literals} section={'Economic and sector profile'} />
 				
 				<Related literals={props.literals} section={["generic-information","economic-sector-profile"]} />
 
@@ -238,5 +280,13 @@ const EconomicSectorProfile = (props) => {
 		)
 	
 }
+
+function mapStateToProps(state){
+    const { defaultCountry } = state;
+	const { defaultCountry2 } = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+}
+
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
-export default EconomicSectorProfile;
+// export default EconomicSectorProfile;
+export default connect(mapStateToProps, { setDefaultCountry2 } )(EconomicSectorProfile);

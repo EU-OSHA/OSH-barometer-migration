@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import $ from "jquery";
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import { getCountryDataMap } from '../../api'
@@ -86,6 +87,18 @@ class WorkforceProfile extends Component
 		document.title = this.props.literals.L22004 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363
 
 		this.getLoadData(this.state.countryName);
+
+		
+		$(window).scroll(function(){
+			var element = $( ".survey--map--block" );
+			var offset = element.offset();       
+			if($(this).scrollTop()>=offset.top){
+			  $( ".survey--map--block" ).addClass('fixed');
+			} else {
+			  $( ".survey--map--block" ).removeClass('fixed');
+			}
+			
+		  });
 	}
 
 	componentDidUpdate(prevProps,prevState){
@@ -154,7 +167,7 @@ class WorkforceProfile extends Component
 		return(
 			<div className="workforce--page">
 
-				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} />
+				<AdviceSection literals={this.props.literals} section={["generic-information","workforce-profile"]} methodologyData={{section: 'generic-information', subsection: 'Workforce profile', indicator: 37}} />
 				
 				<div className="filter--indicator--block container">
 					<SelectForceProfile 
@@ -345,7 +358,7 @@ class WorkforceProfile extends Component
 						</div>
 					</section>
 				</section>
-				<Methodology />			
+				<Methodology literals={this.props.literals} section={'Workforce profile'} />			
 			</div>
 		)
 	}
