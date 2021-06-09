@@ -149,7 +149,7 @@ public class TableDataAccess {
 			}
 			else if (queryFilter.getSplit().equalsIgnoreCase("age"))
 			{
-				queryBuilder.append(", split_gender s, translation t2 ");
+				queryBuilder.append(", split_age_group s, translation t2 ");
 			}
 		}
 		// END FROM STATEMENT

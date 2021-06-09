@@ -207,7 +207,7 @@ private static final Logger log = LogManager.getLogger(QualitativeDataImpl.class
 			if (country != null && country.size() > 0)
 			{
 				queryFilter.setCountries(country);
-			}
+			}			
 			
 			data = da.getCountryCardData(queryFilter);		
 			
