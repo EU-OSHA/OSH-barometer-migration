@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HealthAwareness from '../../common/charts/HealthAwareness';
+import ChartDataTable from './ChartDataTable';
 
 import { oshCulture } from '../../../model/subMenuTabs';
 
@@ -28,6 +29,18 @@ class OshCultureReport extends Component {
                                 fullCountryReport={true}
                             />
                             <p>{this.props.literals[`L${chart.legend}`]}</p>
+                            <ChartDataTable
+                                literals={this.props.literals}
+                                country={this.state.country}
+                                chartID={chart.chart}
+                                split={'answer'}
+                                sameRow={true}
+                                columns={chart.columns}
+                                answer={chart.answers}
+                                sector={chart.sector}
+                                showDecimals={true}
+                                countryDisplay={'after'}
+                            />
                         </div>
                     )
                 }))}

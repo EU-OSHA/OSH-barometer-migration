@@ -230,7 +230,6 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the data for the current country in National Startegies */}
 									<NationalStrategiesReport country={this.state.selectedCountryCode} literals={this.props.literals} 
 										countryName={this.state.selectedCountryName}/>
 								</section>

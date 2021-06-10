@@ -15,49 +15,49 @@ export const oshCulture = [
         url: "health-and-safety-discussed",
         literalTab: "20664",
         chartType: [
-            {title: "22129", chart: "20091", chartIndicator: "358", sector: ["14"], answers: ["97", "98", "99"], legend: "20570"}
+            {title: "22129", chart: "20091", chartIndicator: "358", sector: ["14"], answers: ["97", "98", "99"], legend: "20570", columns:['Country','Regularly (%)','Occasionally (%)','Practically never (%)']}
         ]
     },
     { 
         url:"action-plan-to-prevent-stress",
         literalTab: "20665",
         chartType: [
-            {title: "457", chart: "20092", chartIndicator: "328", sector: ["14"], answers: ["1", "2"], legend: "20571"}
+            {title: "457", chart: "20092", chartIndicator: "328", sector: ["14"], answers: ["1", "2"], legend: "20571", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"procedure-against-bullying",
         literalTab: "20666",
         chartType: [
-            {title: "458", chart: "20093", chartIndicator: "329", sector: ["14"], answers: ["1", "2"], legend: "20572"}
+            {title: "458", chart: "20093", chartIndicator: "329", sector: ["14"], answers: ["1", "2"], legend: "20572", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"procedures-to-deal-with-threats",
         literalTab: "20667",
         chartType: [
-            {title: "22132", chart: "20094", chartIndicator: "330", sector: ["14"], answers: ["1", "2"], legend: "20573"}
+            {title: "22132", chart: "20094", chartIndicator: "330", sector: ["14"], answers: ["1", "2"], legend: "20573", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"measures-to-reduce-work-pressure",
         literalTab: "20668",
         chartType: [
-            {title: "22133", chart: "20095", chartIndicator: "331", sector: ["14"], answers: ["1", "2"], legend: "20574"}
+            {title: "22133", chart: "20095", chartIndicator: "331", sector: ["14"], answers: ["1", "2"], legend: "20574", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"use-of-personal-protective-equipment",
         literalTab: "320",
         chartType: [
-            {title: "22126", chart: "20038", chartIndicator: "63", sector: ["14"], answers: ["6", "7", "32"], legend: "20575"}
+            {title: "22126", chart: "20038", chartIndicator: "63", answers: ["6", "7", "32"], legend: "20575", columns:['Country','Yes and always (%)','Yes, but not required (%)','No, not required (%)']}
         ]
     },
     { 
         url:"information-about-risks",
         literalTab: "321",
         chartType: [
-            {title: "22127", chart: "20039", chartIndicator: "64", sector: ["14"], answers: ["8", "9"], legend: "20576"}
+            {title: "22127", chart: "20039", chartIndicator: "64", answers: ["8", "9"], legend: "20576", columns:['Country','Yes (%)','No (%)']}
         ]
     }
 ]
