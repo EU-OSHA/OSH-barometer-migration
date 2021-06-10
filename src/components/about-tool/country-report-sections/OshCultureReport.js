@@ -8,15 +8,9 @@ class OshCultureReport extends Component {
         super(props);
 
         this.state = {
-            country: this.props.country,
-            chartLegend: ''
+            country: this.props.country
         }
     }
-
-    callbackChartLegend = (legend) => {
-        // this.setState({ chartLegend: legend })
-		// console.log('chart legend', legend)
-	}
 
     render() {
         return (
@@ -31,7 +25,6 @@ class OshCultureReport extends Component {
                                 chartType={[chart]}
                                 colors={['#7b7b7d', '#cbe2e3','#449fa2']}
                                 type={'column'}
-                                callbackLegend={this.callbackChartLegend}
                                 fullCountryReport={true}
                             />
                             <p>{this.props.literals[`L${chart.legend}`]}</p>
