@@ -195,10 +195,8 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="content-page">
-										TODO - Add the charts and the tables for Economic Sector Profile
 										{/* Activity Sector 1 */}
 										<EconomicSectorReport country={this.state.selectedCountryCode} sectorIndicator={1} literals={this.props.literals} />
-										{/* Create a functional component in order to create the table, so it can be reused by other charts and sections */}
 									</div>
 								</section>
 								<section className={"economic-sector-profile indicator2 "+this.state.selectedCountryCode}>
@@ -272,7 +270,16 @@ class CountryReport extends Component
 										colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
 										chartSize={mediumSize}
 										/>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20022}
+											split={'year'}
+											sameRow={true}
+											columns={['Country','Year','Value (%)','Country','Year','Value (%)']}
+											showDecimals={true}
+											countryDisplay={'before'}
+										/>
 									</div>
 									<div className="box-rounded">
 										<WorkAccidentsChart 
@@ -284,7 +291,15 @@ class CountryReport extends Component
 										colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
 										chartSize={largeSize}
 										/>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20023}
+											split={'trend'}
+											columns={['Country','Trend','Value (accidents)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
 									</div>
 								</section>
 								{/* -- HEALTH PERCEPTION -- */}
@@ -344,7 +359,16 @@ class CountryReport extends Component
 											// callbackSelectedSurvey={callbackSelectedSurvey}
 										/>
 										<div className="chart-legend">{this.props.literals.L20580}</div>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20040}
+											split={'answer'}
+											sameRow={true}
+											columns={['Country','Very satisfied (%)', 'Satisfied (%)', 'Not very satisfied (%)', 'Not at all satisfied (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
 									</div>
 
 									{/* <!-- Health at Risk - Sector --> */}
@@ -369,7 +393,16 @@ class CountryReport extends Component
 											// handleSector={handleSector}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20041}
+											split={'sector'}
+											sameRow={true}
+											columns={['Sector','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={false}
+											countryDisplay={'before'}
+										/>
 									</div>
 
 									{/* <!-- Health at Risk - Gender --> */}
@@ -394,7 +427,16 @@ class CountryReport extends Component
 											// handleSector={handleSector}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20041}
+											split={'gender'}
+											sameRow={true}
+											columns={['Gender','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={false}
+											countryDisplay={'before'}
+										/>
 									</div>
 
 									{/* <!-- Health at Risk - Age --> */}
@@ -419,7 +461,16 @@ class CountryReport extends Component
 											// handleSector={handleSector}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
-										{/* TODO TABLE WITH DATA */}
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20041}
+											split={'age'}
+											sameRow={true}
+											columns={['Age','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={false}
+											countryDisplay={'before'}
+										/>
 									</div>
 								</section>
 								{/* -- WORKING CONDITIONS - MENTAL RISK */}

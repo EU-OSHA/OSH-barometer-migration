@@ -118,10 +118,10 @@ class ChartDataTable extends Component
                         row.country = countryDisplay;
                     }
                 }
-                else if ((this.props.split == 'size' || this.props.split == 'sector') && this.props.sameRow && this.props.sameRow === true)
+                else if ((this.props.split == 'size' || this.props.split == 'sector' || this.props.split == 'year' || this.props.split == 'gender' || this.props.split == 'age') 
+                        && this.props.sameRow && this.props.sameRow === true)
                 {
-                    //debugger;
-                    // Check if the current sector has been added
+                    // Check if the current split has been added
                     if (rows.length > 0 && rows.filter((row)=>row.split==element.split).length > 0)
                     {
                         // The sector has already been added
@@ -189,11 +189,11 @@ class ChartDataTable extends Component
                 ))}
             </tr>
         }
-        else if (this.props.split == 'year')
+        else if (this.props.split == 'year' || this.props.split == 'trend')
         {
             if (this.props.sameRow && this.props.sameRow === true)
             {
-
+                row = <tr><th>{tableRow.country1}</th><td>{tableRow.split}</td><td>{tableRow.value1}</td><td>{tableRow.country2}</td><td>{tableRow.split}</td><td>{tableRow.value2}</td></tr>
             }
             else
             {
