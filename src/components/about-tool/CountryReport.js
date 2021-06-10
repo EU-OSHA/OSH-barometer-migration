@@ -29,6 +29,7 @@ import NationalStrategiesReport from './country-report-sections/NationalStrategi
 //OSH Infrastructure
 import EnforcementCapacityReport from './country-report-sections/EnforcementCapacityReport';
 import StatisticsReport from './country-report-sections/StatisticsReport';
+import OshCultureReport from './country-report-sections/OshCultureReport';
 
 class CountryReport extends Component
 {
@@ -327,6 +328,7 @@ class CountryReport extends Component
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
+									<OshCultureReport country={this.state.selectedCountryCode} literals={this.props.literals} />
 									{/* TODO -- Add the charts for OSH Culture */}
 								</section>
 								{/* -- WORKING CONDITIONS - OVERALL OPINION -- */}
