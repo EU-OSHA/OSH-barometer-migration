@@ -200,7 +200,17 @@ public class TableDataAccess {
 		fillInFilters(queryBuilder, paramValues, queryFilter.getGender(), "p.gender_id");
 		// END WHERE STATEMENT
 		// START ORDER STATEMENT
-		queryBuilder.append("order by field (n.country_code, ?, 'EU27_2020', 'EU28') asc");
+		// Depending on the chart, the country displayed first will be EU or the selected country
+		if (chartID == 20023 || chartID == 20038 || chartID == 20039 || chartID == 20091 || chartID == 20092 || chartID == 20093 || chartID == 20094 || chartID == 20095 || chartID == 20040
+			|| chartID == 20073 || chartID == 20074 || chartID == 20075 || chartID == 20076 || chartID == 20077 || chartID == 20078 || chartID == 20079 || chartID == 20096 || chartID == 20097
+			|| chartID == 20098 || chartID == 20099 || chartID == 20100 || chartID == 20053 || chartID == 20054 || chartID == 20055 || chartID == 20056 || chartID == 20103 || chartID == 20104)
+		{
+			queryBuilder.append("order by field (n.country_code, 'EU27_2020', 'EU28', ?) asc");
+		}
+		else
+		{
+			queryBuilder.append("order by field (n.country_code, ?, 'EU27_2020', 'EU28') asc");
+		}		
 		paramValues.add(queryFilter.getCountry1());
 		if (queryFilter.getSplit().equalsIgnoreCase("indicator"))
 		{
