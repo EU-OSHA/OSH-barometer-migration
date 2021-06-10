@@ -510,7 +510,18 @@ class CountryReport extends Component
 														<div className="chart-legend">
 															{this.props.literals['L'+chartType.legend]}
 														</div>
-														{/* TODO Table of data */}
+														<ChartDataTable
+															literals={this.props.literals}
+															country={this.state.selectedCountryCode}
+															chartID={chartType.chart}
+															sector={chartType.sector}
+															answer={chartType.answer}
+															split={chartType.chart == '20074' ? 'none' : 'answer'}
+															sameRow={chartType.chart == '20074' ? false: true}
+															columns={chartType.columns}
+															showDecimals={true}
+															countryDisplay={'after'}
+														/>
 													</div>
 												)
 											})

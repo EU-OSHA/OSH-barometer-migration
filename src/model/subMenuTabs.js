@@ -83,52 +83,52 @@ export const mentalRisk = [
         url:"time-pressure",
         literalTab: "340",
         chartType: [
-            {type: "esener", title: "22136" , chart: "20096", chartIndicator: "323", sector: ["14"], answers: ["1", "2"], legend: "20585"},
-            {type: "ewcs", title: "22179", chart: "20073", chartIndicator: "83", sector: ["14"], answers: ["14", "15", "16"], legend: "20584"}
+            {type: "esener", title: "22136" , chart: "20096", chartIndicator: "323", sector: ["14"], answers: ["1", "2"], legend: "20585", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22179", chart: "20073", chartIndicator: "83", answers: ["14", "15", "16"], legend: "20584", columns:['Country','All the time (%)','¼ and ¾ of the time (%)','Never (%)']}
         ]
     },
     {
         url:"poor-communication",
         literalTab: "341",
         chartType: [
-            {type: "esener", title: "22137", chart: "20097", chartIndicator: "324", sector: ["14"], answers: ["1", "2"], legend: "20587"},
-            {type: "ewcs", title: "22180", chart: "20074", chartIndicator: "84", sector: ["14"], answers: ["17"], legend: "20586"}
+            {type: "esener", title: "22137", chart: "20097", chartIndicator: "324", sector: ["14"], answers: ["1", "2"], legend: "20587", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22180", chart: "20074", chartIndicator: "84", answers: ["17"], legend: "20586", columns:['Country','Value (%)']}
         ]
     },
     {
         url:"influence",
         literalTab: "342", 
-        chartType: [{type: "ewcs", chart:"20075", title: "22181", chartIndicator: "85", sector: null, answers: ["18", "19", "20"], legend: "20588"}]
+        chartType: [{type: "ewcs", chart:"20075", title: "22181", chartIndicator: "85", sector: null, answers: ["18", "19", "20"], legend: "20588", columns:['Country','Always or most of the time (%)','Sometimes (%)','Rarely or never (%)']}]
     },
     {
         url:"fear-of-job-loss",
         literalTab: "343",
         chartType: [
-            {type: "esener", title: "22139", chart: "20098", chartIndicator: "325", sector: ["14"], answers: ["1", "2"], legend: "20591"},
-            {type: "ewcs", title: "22182", chart: "20076", chartIndicator: "86", sector: ["14"], answers: ["21", "22", "23"], legend: "20590"}
+            {type: "esener", title: "22139", chart: "20098", chartIndicator: "325", sector: ["14"], answers: ["1", "2"], legend: "20591", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22182", chart: "20076", chartIndicator: "86", answers: ["21", "22", "23"], legend: "20590", columns:['Country','Agree (%)','Neither agree or disagree (%)','Disagree (%)']}
         ]
     },
     {
         url:"difficult-clients",
         literalTab: "344",
         chartType: [
-            {type: "esener", title: "22140", chart: "20099", chartIndicator: "326", sector: ["14"], answers: ["1", "2"], legend: "20593"},
-            {type: "ewcs", title: "22183", chart: "20077", chartIndicator: "87", sector: ["14"], answers: ["14", "15", "16"], legend: "20592"}
+            {type: "esener", title: "22140", chart: "20099", chartIndicator: "326", sector: ["14"], answers: ["1", "2"], legend: "20593", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22183", chart: "20077", chartIndicator: "87", answers: ["14", "15", "16"], legend: "20592", columns:['Country','All the time (%)','¼ and ¾ of the time (%)','Never (%)']}
         ]
     },
     {
         url:"working-hours",
         literalTab: "345",
         chartType: [
-            {type: "esener", title: "22141", chart: "20100", chartIndicator: "327", sector: ["14"], answers: ["1", "2"], legend: "20595"},
-            {type: "ewcs", title: "22184", chart: "20078", chartIndicator: "88", sector: ["14"], answers: ["24", "25"], legend: "20594"}
+            {type: "esener", title: "22141", chart: "20100", chartIndicator: "327", sector: ["14"], answers: ["1", "2"], legend: "20595", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22184", chart: "20078", chartIndicator: "88", answers: ["24", "25"], legend: "20594", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     {
         url:"discrimination",
         literalTab: "346",
         chartType: [
-            {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", sector: ["14"], answers: ["1","2"], legend: "20596"}
+            {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", answers: ["1","2"], legend: "20596", columns:['Country','Yes (%)','No (%)']}
         ]
     }
 ]
