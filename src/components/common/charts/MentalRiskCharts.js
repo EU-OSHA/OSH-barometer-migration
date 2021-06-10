@@ -120,7 +120,7 @@ class MentalRiskCharts extends Component {
 					}
 				},
 				legend:{
-					//reversed: this.props.legend
+					reversed: true,
 					//verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
@@ -474,9 +474,10 @@ class MentalRiskCharts extends Component {
     }
     
     render() {
+        let showSelect =  this.state.selectedTypeChart && this.props.chartType.length > 1;
         return (
             <React.Fragment>
-                    {this.state.selectedTypeChart && (
+                    {showSelect && (
                         <div className="select-filter-chart-wrapper">
                             {this.state.typeCharts.length > 1 && (
                                 <div className="select-filter-chart">
