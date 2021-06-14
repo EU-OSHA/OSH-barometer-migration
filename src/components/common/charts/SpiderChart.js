@@ -185,7 +185,7 @@ class SpiderChart extends Component{
 				],
 			},
 			typeCharts:[],
-			selectedTypeChart: this.props.dataset
+			selectedTypeChart: (this.props.selectedIndicator != undefined) ? this.props.selectedIndicator : this.props.dataset
 		}
 	}
 
@@ -300,7 +300,8 @@ class SpiderChart extends Component{
 	updateDimension = () => {
 		const width = window.innerWidth;
 		const height = window.innerHeight;
-		const title = "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
+		const title = this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : 
+			"<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
 		const tabTitle = "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>"
 
 		if (width > 767) {
@@ -399,18 +400,25 @@ class SpiderChart extends Component{
 
 	render()
 	{
+		let selectDiv;
+		if(this.props.showSelect){
+            selectDiv = (
+				<div className="select-filter-chart">
+					<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+						{ this.state.typeCharts.map((type) => {
+							return <option key={type} value={type} > {type.toUpperCase()} </option>
+						})}
+					</select>
+				</div>
+			)
+		}
+
 		return (
 			<>
 				{ this.state.selectedTypeChart && (
 					<div className="select-filter-chart-wrapper">
 						{ this.state.typeCharts.length > 1 && (
-							<div className="select-filter-chart">
-								<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-									{ this.state.typeCharts.map((type) => {
-										return <option key={type} value={type} > {type.toUpperCase()} </option>
-									})}
-								</select>
-							</div>
+							selectDiv
 						)}
 					</div>
 				)}

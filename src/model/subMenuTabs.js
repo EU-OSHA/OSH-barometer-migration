@@ -148,22 +148,22 @@ export const physicalRiskTabs = [
         {
             literalTab: "328",
             url: "smoke-powder-or-dust",
-            chartType: [{type: "ewcs", chart:"20053", title: "22143", chartIndicator: "71", sector: null, answers: ["26", "27"], legend: "20598"}]
+            chartType: [{type: "ewcs", chart:"20053", title: "22143", chartIndicator: "71", sector: null, answers: ["26", "27"], legend: "20598",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "329",
             url: "vapours", 
-            chartType: [{type: "ewcs", chart:"20054", title: "22144", chartIndicator: "72", sector: null, answers: ["26", "27"], legend: "20599"}]
+            chartType: [{type: "ewcs", chart:"20054", title: "22144", chartIndicator: "72", sector: null, answers: ["26", "27"], legend: "20599",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "330",
             url: "chemical-products", 
-            chartType: [{type: "ewcs", chart:"20055", title: "22145", chartIndicator: "73", sector: null, answers: ["26", "27"], legend: "20600"}]
+            chartType: [{type: "ewcs", chart:"20055", title: "22145", chartIndicator: "73", sector: null, answers: ["26", "27"], legend: "20600",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "331",
             url: "infectious-materials", 
-            chartType: [{type: "ewcs", chart:"20056", title: "22146", chartIndicator: "74", sector: null, answers: ["26", "27"], legend: "20601"}]
+            chartType: [{type: "ewcs", chart:"20056", title: "22146", chartIndicator: "74", sector: null, answers: ["26", "27"], legend: "20601",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         }]
     },
     { 

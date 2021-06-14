@@ -5,8 +5,7 @@ import SpiderChart from '../common/charts/SpiderChart';
 import WorkAccidentsChart from '../common/charts/WorkAccidentsChart';
 import RiskChart from '../common/charts/RiskChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
-import { overallOpinion } from '../../model/subMenuTabs';
-import { mentalRisk } from '../../model/subMenuTabs';
+import { overallOpinion, mentalRisk, physicalRiskTabs } from '../../model/subMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 import ChartDataTable from './country-report-sections/ChartDataTable';
 
@@ -535,12 +534,137 @@ class CountryReport extends Component
 										<h4 className="header3">{this.props.literals.L20711}</h4>
 										<p>{this.props.literals.L20579}</p>
 										<p>
-											<span>{this.props.literals.L20700}</span>
-											<span>{this.props.literals.L20704}</span>
+											<span>{this.props.literals.L20700} </span>
+											<span>{this.props.literals.L20704} </span>
 											<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 										</p>
 									</div>
-									{/* TODO -- Add the charts for Physical Risks */}
+									{/* Vibrations, loud noise and temperature */}
+									<div className="box-rounded">
+										<SpiderChart
+											literals={this.props.literals}
+											tabIndicator={physicalRiskTabs[0].literalTab}
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											showDataLabel={true}
+											colors={['#f6a400','#003399','#cbe2e3']}
+											selectedTab={physicalRiskTabs[0].url}
+											indicatorTabs={this.state.indicatorTabs}
+											chartType={physicalRiskTabs[0].chartType}
+											//callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											dataset={this.state.dataset}
+											exportingEnabled={false}
+										/>
+										<ChartDataTable 
+											literals={this.props.literals} 
+											country={this.state.selectedCountryCode}
+											chartID={20049}
+											split={'indicator'} 
+											columns={['Indicator', 'Country', 'Value (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+
+									{/* Exposure to dangerous substances */}
+									<h5 className="header4 break-before">{this.props.literals.L20655}</h5>
+									{
+										physicalRiskTabs[1].subTabs.map((tab) => {
+											return (
+												<div className="box-rounded exposure" key={tab.url}>
+													<MentalRiskCharts
+														reportTitle={`${this.props.literals['L'+tab.chartType[0].title]}`}
+														literals={this.props.literals}
+														tabIndicator={tab.literalTab}
+														chartType={tab.chartType}
+														colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+														percentage={true}
+														exportingEnabled={false}
+														showSelect={false}
+														selectedIndicator={tab.chartType[0].type}
+													/>
+													<div className="chart-legend">
+														{this.props.literals['L'+tab.chartType[0].legend]}
+													</div>
+													<ChartDataTable
+														literals={this.props.literals}
+														country={this.state.selectedCountryCode}
+														chartID={tab.chartType[0].chart}
+														sector={tab.chartType[0].sector}
+														answer={tab.chartType[0].answer}
+														split={tab.chartType[0].chart == '20074' ? 'none' : 'answer'}
+														sameRow={tab.chartType[0].chart == '20074' ? false: true}
+														columns={tab.chartType[0].columns}
+														showDecimals={true}
+														countryDisplay={'after'}
+													/>
+												</div>
+											);
+										})
+									}
+
+									{/* Risks involved with work */}
+									<div className="box-rounded">
+										<SpiderChart
+											literals={this.props.literals}
+											reportTitle={`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20645}`}
+											tabIndicator={physicalRiskTabs[2].literalTab}
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											showDataLabel={true}
+											colors={['#f6a400','#003399','#cbe2e3']}
+											selectedTab={physicalRiskTabs[2].url}
+											indicatorTabs={this.state.indicatorTabs}
+											chartType={physicalRiskTabs[2].chartType}
+											//callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											// dataset={this.state.dataset}
+											showSelect={false}
+											exportingEnabled={false}
+											selectedIndicator={physicalRiskTabs[2].chartType[0].type}
+										/>
+										<ChartDataTable 
+											literals={this.props.literals} 
+											country={this.state.selectedCountryCode}
+											chartID={physicalRiskTabs[2].chartType[0].chart}
+											split={'indicator'} 
+											columns={['Indicator', 'Country', 'Value (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+
+									<div className="box-rounded">
+										<SpiderChart
+											literals={this.props.literals}
+											reportTitle={`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20646}`}
+											tabIndicator={physicalRiskTabs[2].literalTab}
+											selectCountry1={this.state.selectedCountryCode}
+											selectCountry2="EU27_2020"
+											showDataLabel={true}
+											colors={['#f6a400','#003399','#cbe2e3']}
+											selectedTab={physicalRiskTabs[2].url}
+											indicatorTabs={this.state.indicatorTabs}
+											chartType={physicalRiskTabs[2].chartType}
+											//callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											// dataset={this.state.dataset}
+											showSelect={false}
+											exportingEnabled={false}
+											selectedIndicator={physicalRiskTabs[2].chartType[1].type}
+										/>
+										<ChartDataTable 
+											literals={this.props.literals} 
+											country={this.state.selectedCountryCode}
+											chartID={physicalRiskTabs[2].chartType[1].chart}
+											split={'indicator'} 
+											columns={['Indicator', 'Country', 'Value (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+									
 								</section>
 								{/* -- PREVENTION IN COMPANIES */}
 								<section className={"prevention-in-companies "+this.state.selectedCountryCode}>
