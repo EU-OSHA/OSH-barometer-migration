@@ -24,7 +24,7 @@ class OshCultureReport extends Component {
                                 literals={this.props.literals}
                                 country={this.props.country}
                                 chartType={[chart]}
-                                colors={['#7b7b7d', '#cbe2e3','#449fa2']}
+                                colors={['#b1b3b4', '#cbe2e3','#449fa2']}
                                 type={'column'}
                                 fullCountryReport={true}
                             />

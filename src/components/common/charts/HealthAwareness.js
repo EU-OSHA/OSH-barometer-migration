@@ -237,7 +237,6 @@ class HealthAwareness extends Component {
                         }
 
                         auxSeries[split].push({ name: element.country, y: element.value, countryCode: element.countryCode});
-                        //TODO: Add colors to specific data if country and element.countryCode are equals and not the same specific split
                     });
                     
                     for (let serie in auxSeries) {

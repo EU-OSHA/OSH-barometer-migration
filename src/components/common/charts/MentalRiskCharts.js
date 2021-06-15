@@ -294,9 +294,14 @@ class MentalRiskCharts extends Component {
                 .then((data) => {
                     euSerie1 = data.resultset[0].value
                     euSerie2 = data.resultset[1].value
-                   
+
+                    let currentCountry = null;                   
 
                     data.resultset.forEach(element => {
+                        if (this.props.country && element.countryCode == this.props.country)
+                        {
+                            currentCountry = element.country;
+                        }
                         if (categories.indexOf(element.country) == -1) {
                             categories.push(element.country)
                         }
@@ -319,12 +324,40 @@ class MentalRiskCharts extends Component {
                                 auxSeries[serie][0] = euValueSerie2
                             }
                         series.push({ name: serie, data: auxSeries[serie] });
-
                     }
-                       const arr = series.slice(0,1)
-                       const arr1 = series.slice(1,2)
-                       const arr2 = series.slice(2,3)
-                       const array = arr1.concat(arr,arr2).reverse()
+
+                    if (this.props.country && currentCountry != null)
+                    {
+                        const selectedCountryColors = ['#F6A400','#F3C564'];
+                        // Change the colour for the current country
+                        for (let i = 0; i < series[0].data.length; i++)
+                        {
+                            if (series[0].data[i].name == currentCountry)
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: selectedCountryColors[0]}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: selectedCountryColors[1]}
+                                }                                
+                            }
+                            else if (series[0].data[i].name == 'EU27_2020' || series[0].data[i].name == 'EU28')
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: euColor}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: euColorLight}
+                                }                                
+                            }
+                            else
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: this.props.colors[this.props.colors.length - 1]}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: this.props.colors[this.props.colors.length - 2]}
+                                }                                
+                            }
+                        }
+                    }
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
@@ -347,16 +380,6 @@ class MentalRiskCharts extends Component {
                         // if (categories.length > 30) {
                         //     console.log('trigger 2.1', categories.length)
                         //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
-                        // }
-                    } else if (series[0].name == 'Yes, but only some of them'){
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: array, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 3.1', categories.length)
-                        // }
-
-                        // if (categories.length > 31) {
-                        //     console.log('trigger 3.2', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})
                         // }
                     }else{
                         this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
@@ -464,7 +487,7 @@ class MentalRiskCharts extends Component {
             this.getLoadData(this.props.chartType);
         }
 
-        if (prevProps.chartType != this.props.chartType)
+        if (prevProps.chartType != this.props.chartType || prevProps.country != this.props.country)
         {            
             this.getLoadData(this.props.chartType);
             this.updateDimension();

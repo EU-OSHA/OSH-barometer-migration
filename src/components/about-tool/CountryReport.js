@@ -330,7 +330,6 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<OshCultureReport country={this.state.selectedCountryCode} literals={this.props.literals} />
-									{/* TODO -- Add the charts for OSH Culture */}
 								</section>
 								{/* -- WORKING CONDITIONS - OVERALL OPINION -- */}
 								<section className={"working-conditions overall-opinion "+this.state.selectedCountryCode}>
@@ -354,12 +353,13 @@ class CountryReport extends Component
 											literals={this.props.literals}
 											tabIndicator="322"
 											chartType={overallOpinion[0].chartType}
-											colors={['#ffe400','#7b7b7d', '#cbe2e3','#f6a300']}
+											colors={['#7b7b7d','#b1b3b4', '#cbe2e3','#449FA2']}
 											type="column"
 											percentage={true}
 											exportingEnabled={false}
 											// callbackLegend={callbackChartLegend}
 											// callbackSelectedSurvey={callbackSelectedSurvey}
+											country={this.state.selectedCountryCode}
 										/>
 										<div className="chart-legend">{this.props.literals.L20580}</div>
 										<ChartDataTable
@@ -504,11 +504,12 @@ class CountryReport extends Component
 															literals={this.props.literals}
 															tabIndicator={tab.literalTab}
 															chartType={tab.chartType}
-															colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+															colors={['#b1b3b4', '#cbe2e3','#449FA2']}
 															percentage={true}
 															exportingEnabled={false}
 															showSelect={false}
 															selectedIndicator={chartType.type}
+															country={this.state.selectedCountryCode}
 														/>
 														<div className="chart-legend">
 															{this.props.literals['L'+chartType.legend]}
@@ -581,11 +582,12 @@ class CountryReport extends Component
 														literals={this.props.literals}
 														tabIndicator={tab.literalTab}
 														chartType={tab.chartType}
-														colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+														colors={['#b1b3b4', '#cbe2e3','#449FA2']}
 														percentage={true}
 														exportingEnabled={false}
 														showSelect={false}
 														selectedIndicator={tab.chartType[0].type}
+														country={this.state.selectedCountryCode}
 													/>
 													<div className="chart-legend">
 														{this.props.literals['L'+tab.chartType[0].legend]}
@@ -758,13 +760,14 @@ class CountryReport extends Component
 											reportTitle=" "
 											tabIndicator={preventionInCompanies[1].literalTab}
 											chartType={preventionInCompanies[1].chartType}
-											colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+											colors={['#b1b3b4', '#cbe2e3','#449FA2']}
 											type="column"
 											percentage={true}
 											// callbackLegend={this.callbackChartLegend}
 											// callbackSelectedSurvey={this.callbackSelectedSurvey}
 											exportingEnabled={false}
 											showSelect={false}
+											country={this.state.selectedCountryCode}
 										/>
 										<p>{this.props.literals.L20604}</p>
 										<ChartDataTable
@@ -798,13 +801,14 @@ class CountryReport extends Component
 											reportTitle=" "
 											tabIndicator={preventionInCompanies[3].literalTab}
 											chartType={preventionInCompanies[3].chartType}
-											colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+											colors={['#b1b3b4', '#cbe2e3','#449FA2']}
 											type="column"
 											percentage={true}
 											// callbackLegend={this.callbackChartLegend}
 											// callbackSelectedSurvey={this.callbackSelectedSurvey}
 											exportingEnabled={false}
 											showSelect={false}
+											country={this.state.selectedCountryCode}
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20606)}</p>
 										<ChartDataTable
