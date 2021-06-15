@@ -82,7 +82,7 @@ class PreventionChart extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					enabled: this.props.exportingEnabled,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -136,8 +136,8 @@ class PreventionChart extends Component {
 					},
 					formatter: function () {
 						return '<ul class="tooltip-item">'+
-						'<li><strong>Anwser: </strong>'+ this.series.name +' </li>' +
-						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
+						'<li><strong>Country: </strong>'+ this.series.name +' </li>' +
+						'<li><strong>Answer: </strong>'+ this.x  +' </li>' +
 						'<li><strong class="tooltip-value up">Value: </strong> '+ this.y +'%</li>' +
 						'</ul>';
 					}
@@ -235,7 +235,8 @@ class PreventionChart extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props.chartType[0].type,
+            // selectedTypeChart: this.props.chartType[0].type,
+            selectedTypeChart: this.props.selectedIndicator != undefined ? this.props.selectedIndicator :  this.props.chartType[0].type,
             country1: this.props.selectedCountry1,
             country2: this.props.selectedCountry2
         }
@@ -264,7 +265,9 @@ class PreventionChart extends Component {
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
-            this.props.callbackLegend(chart.legend);
+            if(this.props.callbackLegend != undefined){
+                this.props.callbackLegend(chart.legend);
+            }
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null });
@@ -341,7 +344,8 @@ class PreventionChart extends Component {
                     chartConfig: {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
-                        title: {...this.state.chartConfig.title, text: title}
+                        title: {...this.state.chartConfig.title, text: this.props.title != undefined ? "<h2 class='title--card'>"+this.props.title+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
+                        // title: {...this.state.chartConfig.title, text: title}
                     }
                 });
             }
@@ -375,9 +379,13 @@ class PreventionChart extends Component {
         }
 
         if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            if(this.props.callbackSelectedSurvey != undefined){
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            }
         } else {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            if(this.props.callbackSelectedSurvey != undefined){
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            }
         }
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
@@ -405,18 +413,25 @@ class PreventionChart extends Component {
     }
     
     render() {
+        let selectDiv;
+        if(this.props.showSelect){
+            selectDiv = (
+                <div className="select-filter-chart">
+                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                        {this.state.typeCharts.map((type) => {
+                            return <option key={type} value={type} > {type.toUpperCase()} </option>
+                        })}
+                    </select>
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
                     {this.state.selectedTypeChart && (
                         <div className="select-filter-chart-wrapper">
                             {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
+                                selectDiv
                             )}
                         </div>
                     )}

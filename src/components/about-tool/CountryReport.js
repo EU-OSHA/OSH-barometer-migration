@@ -8,6 +8,8 @@ import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion, mentalRisk, physicalRiskTabs } from '../../model/subMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 import ChartDataTable from './country-report-sections/ChartDataTable';
+import { preventionInCompanies } from '../../model/subMenuTabs';
+import PreventionChart from '../common/charts/PreventionChart';
 
 import fullReportIcon from '../../style/img/full-report-icon.png';
 
@@ -674,11 +676,219 @@ class CountryReport extends Component
 									</div>
 									<div className="intro-page">
 										<p>{this.props.literals.L22058}</p>
-										<span>{this.props.literals.L20702}</span>
-										<span>{this.props.literals.L20704}</span>
+										<span>{this.props.literals.L20702} </span>
+										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
-									{/* TODO -- Add the charts for Prevention in Companies */}
+    								{/* Risk Assessment - Sector */}
+    								<div className="box-rounded">
+										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[0].literalTab]} - ${this.props.literals.L20648}`}</h2>
+										<PreventionChart
+											title=""
+											literals={this.props.literals}
+											tabIndicator={preventionInCompanies[0].literalTab}
+											chartType={preventionInCompanies[0].chartType}
+											showDataLabel={true}
+											colors={['#f6a400', '#003399','#cbe2e3']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											selectedCountry1={this.state.selectedCountryCode}
+											selectedCountry2="EU27_2020"
+											showSelect={false}
+											selectedIndicator="sector"
+											exportingEnabled={false}
+										/>
+										<p>{this.props.literals.L20603}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20102}
+											sector={preventionInCompanies[0].chartType[0].sector}
+											answers={preventionInCompanies[0].chartType[0].answers}
+											split={'sector'}
+											sameRow={true}
+											columns={['Sector','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={true}
+											countryDisplay={'before'}
+										/>
+									</div>
+									{/* Risk Assessment - Establishment size */}
+									<div className="box-rounded">
+										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[0].literalTab]} - ${this.props.literals.L20647}`}</h2>
+										<PreventionChart
+											title=""
+											literals={this.props.literals}
+											tabIndicator={preventionInCompanies[0].literalTab}
+											chartType={preventionInCompanies[0].chartType}
+											showDataLabel={true}
+											colors={['#f6a400', '#003399','#cbe2e3']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											selectedCountry1={this.state.selectedCountryCode}
+											selectedCountry2="EU27_2020"
+											showSelect={false}
+											selectedIndicator="establishment size"
+											exportingEnabled={false}
+										/>
+										<p>{this.props.literals.L20602}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20102}
+											size={preventionInCompanies[0].chartType[1].size}
+											answers={preventionInCompanies[0].chartType[1].answers}
+											split={'size'}
+											sameRow={true}
+											columns={['Sector','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={true}
+											countryDisplay={'before'}
+										/>
+									</div>
+
+									{/* Internal External RA */}
+									<div className="box-rounded">
+										<h2 className='title--card'>{`${this.props.literals.L22148}`}</h2>
+										<MentalRiskCharts
+											literals={this.props.literals}
+											reportTitle=" "
+											tabIndicator={preventionInCompanies[1].literalTab}
+											chartType={preventionInCompanies[1].chartType}
+											colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											exportingEnabled={false}
+											showSelect={false}
+										/>
+										<p>{this.props.literals.L20604}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20103}
+											sector={preventionInCompanies[1].chartType[0].sector}
+											answer={preventionInCompanies[1].chartType[0].answers}
+											split={'answer'}
+											sameRow={true}
+											columns={['Country','Internal (%)', 'External (%)', 'Both about equal (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+
+									{/* Evaluated Aspects */}
+									<div className='box-rounded'>
+										<h2 className='title--card'>{this.props.literals.L20681}</h2><br/>
+										<a href='https://visualisation.osha.europa.eu/esener#!/en/survey/detailpage-european-map/2019/osh-management/en_1/E3Q252_1/activity-sector/14/11/1' target='_blank'>
+											<img src={require('../../style/img/EU-map.png')} alt=""/>
+										</a>
+										<p className='ng-binding'>{ReactHtmlParser(this.props.literals.L20605)}</p>
+									</div>
+									
+									{/* Training in OSH */}
+									<div className="box-rounded">
+									<h2 className='title--card'>{`${this.props.literals.L22149}`}</h2>
+										<MentalRiskCharts
+											literals={this.props.literals}
+											reportTitle=" "
+											tabIndicator={preventionInCompanies[3].literalTab}
+											chartType={preventionInCompanies[3].chartType}
+											colors={['#7b7b7d', '#cbe2e3','#f6a400']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											exportingEnabled={false}
+											showSelect={false}
+										/>
+										<p>{ReactHtmlParser(this.props.literals.L20606)}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20104}
+											sector={preventionInCompanies[3].chartType[0].sector}
+											answer={preventionInCompanies[3].chartType[0].answers}
+											split={'answer'}
+											sameRow={true}
+											columns={['Country','Yes but only some of them (%)', 'Yes (%)', 'No (%)']}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+
+									{/* Employees participation in prevention - Sector */}
+									<div className="box-rounded">
+										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[4].literalTab]} - ${this.props.literals.L20648}`}</h2>
+										<PreventionChart
+											literals={this.props.literals}
+											title=" "
+											tabIndicator={preventionInCompanies[4].literalTab}
+											chartType={preventionInCompanies[4].chartType}
+											colors={['#f6a400', '#003399','#cbe2e3']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											selectedCountry1={this.state.selectedCountryCode}
+											selectedCountry2="EU27_2020"
+											exportingEnabled={false}
+											showSelect={false}
+											selectedIndicator="sector"
+											// selectedIndicator="establishment size"
+										/>
+										<p>{ReactHtmlParser(this.props.literals.L20607)}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20105}
+											sector={preventionInCompanies[4].chartType[0].sector}
+											size={preventionInCompanies[4].chartType[0].size}
+											answers={preventionInCompanies[4].chartType[0].answers}
+											split={'sector'}
+											sameRow={true}
+											columns={['Sector','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
+									{/* Employees participation in prevention - Establishment size */}
+									<div className="box-rounded">
+										<h2 className='title--card'>{`${this.props.literals.L22150} - ${this.props.literals.L20647}`}</h2>
+										<PreventionChart
+											literals={this.props.literals}
+											title=" "
+											tabIndicator={preventionInCompanies[4].literalTab}
+											chartType={preventionInCompanies[4].chartType}
+											colors={['#f6a400', '#003399','#cbe2e3']}
+											type="column"
+											percentage={true}
+											// callbackLegend={this.callbackChartLegend}
+											// callbackSelectedSurvey={this.callbackSelectedSurvey}
+											selectedCountry1={this.state.selectedCountryCode}
+											selectedCountry2="EU27_2020"
+											exportingEnabled={false}
+											showSelect={false}
+											selectedIndicator="establishment size"
+										/>
+										<p>{ReactHtmlParser(this.props.literals.L20608)}</p>
+										<ChartDataTable
+											literals={this.props.literals}
+											country={this.state.selectedCountryCode}
+											chartID={20105}
+											sector={preventionInCompanies[4].chartType[1].sector}
+											size={preventionInCompanies[4].chartType[1].size}
+											answers={preventionInCompanies[4].chartType[1].answers}
+											split={'size'}
+											sameRow={true}
+											columns={['Sector','Country','Value (%)', 'Country','Value (%)',]}
+											showDecimals={true}
+											countryDisplay={'after'}
+										/>
+									</div>
 								</section>
 								{/* -- WORKER INVOLVEMENT */}
 								<section className={"worker-involvement "+this.state.selectedCountryCode}>
