@@ -43,39 +43,39 @@ class HealthAwareness extends Component {
                     backgroundColor: '#F0F0F0',
                     events: {
                         render: function() {
-                              var chart = this;
-                           if (!chart.customImage)
-                           {
-                               chart.customImage = chart.renderer.image(
-                                   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
-                                   chart.chartWidth - 130,
-                                   chart.chartHeight - 37,
-                                   130,
-                                   37
-                               ).add();
-                           }
-                           else
-                           {
-                               chart.customImage.attr({
-                                   x: chart.chartWidth - 130,
-                                   y: chart.chartHeight - 37
-                               });
-                           }
+                            var chart = this;
+                            if (!chart.customImage)
+                            {
+                                chart.customImage = chart.renderer.image(
+                                    'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+                                    chart.chartWidth - 130,
+                                    chart.chartHeight - 37,
+                                    130,
+                                    37
+                                ).add();
+                            }
+                            else
+                            {
+                                chart.customImage.attr({
+                                    x: chart.chartWidth - 130,
+                                    y: chart.chartHeight - 37
+                                });
+                            }
                     
-                           if (chart.fullscreen.isOpen) {
-                               chart.customImage.css({
-                                   display: 'block'
-                               });
-                               chart.container.className = 'highcharts-container full-screen';
-                             }
-                           else
-                           {
-                               chart.customImage.css({
-                                   display: ''
-                               });	
-                               chart.container.className = 'highcharts-container';
-                           }
-                        }					
+                            if (chart.fullscreen.isOpen) {
+                                chart.customImage.css({
+                                    display: 'block'
+                                });
+                                chart.container.className = 'highcharts-container full-screen';
+                                }
+                            else
+                            {
+                                chart.customImage.css({
+                                    display: ''
+                                });	
+                                chart.container.className = 'highcharts-container';
+                            }
+                        },				
                     },
                 },
                 exporting: {
@@ -212,6 +212,7 @@ class HealthAwareness extends Component {
         let series = [];
 
         const euColors = ['#003399', '#7f97ce']
+        const selectedCountryColors = ['#F6A400','#F3C564']
 
         let euSeries1 = null;
         let euSeries2 = null;
@@ -244,21 +245,40 @@ class HealthAwareness extends Component {
                     }
 
                     if (this.props.fullCountryReport) {
+                        if (this.props.country)
+                        {
+                            // Give a custom colour to the selected country, only for the first two series
+                            // The rest of the countries will have the default colour
+                            for (let i = 0; i < series[0].data.length; i++)
+                            {
+                                if (series[0].data[i].countryCode == this.props.country)
+                                {
+                                    series[0].data[i] = {...series[0].data[i], color: selectedCountryColors[0]}
+                                    series[1].data[i] = {...series[1].data[i], color: selectedCountryColors[1]}
+                                }
+                                else
+                                {
+                                    series[0].data[i] = {...series[0].data[i], color: this.props.colors[this.props.colors.length-1]}
+                                    series[1].data[i] = {...series[1].data[i], color: this.props.colors[this.props.colors.length-2]}
+                                }
+                            }
+                        }
                         series[0].data[0] = {...series[0].data[0], color: euColors[0]}
                         series[1].data[0] = {...series[1].data[0], color: euColors[1]}
-                    } else {
+                    }
+                    else {
                         if (series.length < 3) {
                             series[0].data[0] = {...series[0].data[0], color: euColors[0]}
                             series[1].data[0] = {...series[1].data[0], color: euColors[1]}
                         }
                     }
 
-
                     const reversedArray = [...series.reverse()];
+
                     if (series.length >= 3) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: this.props.colors}  });
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: series, xAxis: {categories}, colors: this.props.colors } });
                     } else {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, xAxis: {categories}, colors: this.props.colors.slice(1,3)} });
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: series, xAxis: {categories}, colors: this.props.colors.slice(1,3) } });
                     }
                 })
         } catch (error) {
@@ -345,7 +365,7 @@ class HealthAwareness extends Component {
         //     this.getLoadData(this.props.chartType);
         // }
 
-        if (prevProps.chartType != this.props.chartType)
+        if (prevProps.chartType != this.props.chartType || prevProps.country != this.props.country)
         {            
             this.getLoadData(this.props.chartType);
         }
