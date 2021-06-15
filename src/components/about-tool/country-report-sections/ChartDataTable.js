@@ -167,8 +167,6 @@ class ChartDataTable extends Component
                 }                
             });
 
-            console.log('ChartID', this.props.chartID);
-            console.log(rows);
             this.setState({rows: rows});
         });       
     }
@@ -184,8 +182,8 @@ class ChartDataTable extends Component
         {
             row = <tr>
                 <th>{tableRow.country}</th>
-                {tableRow.answers.map(answer => (
-                    <td key={answer}>{answer}</td>
+                {tableRow.answers.map((answer,index) => (
+                    <td key={`${answer}-${index}`}>{answer}</td>
                 ))}
             </tr>
         }
@@ -231,14 +229,14 @@ class ChartDataTable extends Component
             <table>
                 <thead>
                     <tr>
-                        {this.props.columns.map((column) => (
-                            <th key={column}>{column}</th>
+                        {this.props.columns.map((column, index) => (
+                            <th key={`${column}-${index}`}>{column}</th>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.rows.map((tableRow) => (
-                        <Fragment key={tableRow}>
+                    {this.state.rows.map((tableRow, index) => (
+                        <Fragment key={`${tableRow}-${index}`}>
                             {this.paintRow(tableRow)}
                         </Fragment>
                     ))}
