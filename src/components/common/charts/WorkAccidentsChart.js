@@ -363,6 +363,25 @@ class WorkAccidentsChart extends Component {
                         series.push( {country:euSerie.country,name: serie, data: auxSeries[serie]} );
                         newArray = [...series].reverse();
                     }
+
+                    // If country is defined, change the colour for that country
+                    if (this.props.country)
+                    {
+                        const selectedCountryColors = ['#F6A400','#F3C564'];
+                        for (let i = 0; i < newArray[0].data.length; i++)
+                        {
+                            if (newArray[0].data[i].name == this.props.country)
+                            {
+                                newArray[0].data[i] = {...newArray[0].data[i], color: selectedCountryColors[0]}
+                                newArray[1].data[i] = {...newArray[1].data[i], color: selectedCountryColors[1]}
+                            }
+                            else if (newArray[0].data[i].name != 'EU27_2020' && newArray[0].data[i].name != 'EU28')
+                            {
+                                newArray[0].data[i] = {...newArray[0].data[i], color: this.props.colors[0]}
+                                newArray[1].data[i] = {...newArray[1].data[i], color: this.props.colors[1]}
+                            }
+                        }
+                    }                    
                     
                     this.setState({
                         chartConfig: {...this.state.chartConfig, 
@@ -487,6 +506,10 @@ class WorkAccidentsChart extends Component {
         if (prevProps.selectedCountry2 != this.props.selectedCountry2) {
             this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
             this.getCredits(this.props.chart);
+        }
+
+        if (prevProps.country != this.props.country) {
+            this.getLoadData(this.props.chart, this.props.indicator);
         }
     }
 

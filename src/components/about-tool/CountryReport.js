@@ -284,13 +284,14 @@ class CountryReport extends Component
 									</div>
 									<div className="box-rounded">
 										<WorkAccidentsChart 
-										title={this.props.literals.L22196}
-										showDataLabel={true}
-										type="column"
-										chart={'20023'}
-										indicator={'54'}
-										colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
-										chartSize={largeSize}
+											title={this.props.literals.L22196}
+											showDataLabel={true}
+											type="column"
+											chart={'20023'}
+											indicator={'54'}
+											colors={['#449FA2','#cbe2e3']}
+											chartSize={largeSize}
+											country={this.state.selectedCountryCode}
 										/>
 										<ChartDataTable
 											literals={this.props.literals}
