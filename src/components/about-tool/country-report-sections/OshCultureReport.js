@@ -22,7 +22,7 @@ class OshCultureReport extends Component {
                             <h2 className="card-block--chart--wrapper" >{this.props.literals[`L${element.literalTab}`]}</h2>
                             <HealthAwareness 
                                 literals={this.props.literals}
-                                country={this.state.country}
+                                country={this.props.country}
                                 chartType={[chart]}
                                 colors={['#7b7b7d', '#cbe2e3','#449fa2']}
                                 type={'column'}
@@ -31,7 +31,7 @@ class OshCultureReport extends Component {
                             <p>{this.props.literals[`L${chart.legend}`]}</p>
                             <ChartDataTable
                                 literals={this.props.literals}
-                                country={this.state.country}
+                                country={this.props.country}
                                 chartID={chart.chart}
                                 split={'answer'}
                                 sameRow={true}
