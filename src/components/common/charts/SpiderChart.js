@@ -21,12 +21,16 @@ class SpiderChart extends Component{
 				chart: {
 					backgroundColor: props.backgroundColor? props.backgroundColor : '#F0F0F0',
 					polar: true,
-					type: 'line'
+					type: 'line',
+					spacingTop: props.fullCountryReport == true ? 45 : 10
 				},
 				title: {
-					text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
+					text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
 					align: 'left'
 					//x: -180
+				},
+				legend: {
+					margin: 20
 				},
 				exporting: {
 					enabled: this.props.exportingEnabled
@@ -300,7 +304,7 @@ class SpiderChart extends Component{
 	updateDimension = () => {
 		const width = window.innerWidth;
 		const height = window.innerHeight;
-		const title = this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : 
+		const title = this.props.fullCountryReport == true ? '' : this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : 
 			"<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
 		const tabTitle = "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>"
 

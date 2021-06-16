@@ -259,17 +259,19 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<div className="box-rounded">
+										<h2 className="title--card">{this.props.literals.L310}</h2>
 										<WorkAccidentsChart 
-										title={this.props.literals.L310}
-										showDataLabel={true}
-										percentage={true}
-										type={'line'}
-										chart={'20022'}
-										indicator={'53'}
-										selectedCountry1={this.state.selectedCountryCode}
-										selectedCountry2="EU27_2020"
-										colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
-										chartSize={mediumSize}
+											title={this.props.literals.L310}
+											showDataLabel={true}
+											percentage={true}
+											type={'line'}
+											chart={'20022'}
+											indicator={'53'}
+											selectedCountry1={this.state.selectedCountryCode}
+											selectedCountry2="EU27_2020"
+											colors={['#f6a400','#529FA2','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e','#003399']}
+											chartSize={mediumSize}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable
 											literals={this.props.literals}
@@ -283,6 +285,7 @@ class CountryReport extends Component
 										/>
 									</div>
 									<div className="box-rounded">
+										<h2 className="title--card">{this.props.literals.L22196}</h2>
 										<WorkAccidentsChart 
 											title={this.props.literals.L22196}
 											showDataLabel={true}
@@ -292,6 +295,7 @@ class CountryReport extends Component
 											colors={['#449FA2','#cbe2e3']}
 											chartSize={largeSize}
 											country={this.state.selectedCountryCode}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable
 											literals={this.props.literals}
@@ -349,6 +353,7 @@ class CountryReport extends Component
 									<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									{/* <!-- Job satisfaction --> */}
 									<div className="box-rounded overall">
+										<h2 className="title--card" >{this.props.literals[`L${overallOpinion[0].chartType[0].title}`]}</h2>
 										<MentalRiskCharts
 											literals={this.props.literals}
 											tabIndicator="322"
@@ -360,6 +365,7 @@ class CountryReport extends Component
 											// callbackLegend={callbackChartLegend}
 											// callbackSelectedSurvey={callbackSelectedSurvey}
 											country={this.state.selectedCountryCode}
+											fullCountryReport={true}
 										/>
 										<div className="chart-legend">{this.props.literals.L20580}</div>
 										<ChartDataTable
@@ -376,6 +382,7 @@ class CountryReport extends Component
 
 									{/* <!-- Health at Risk - Sector --> */}
 									<div className="box-rounded overall">
+										<h2 className="title--card">{`${this.props.literals.L22135} - ${this.props.literals.L20648}`}</h2>
 										<RiskChart
 											title={`${this.props.literals.L22135} - ${this.props.literals.L20648}`}
 											colors={['#f6a400','#003399']}
@@ -394,6 +401,7 @@ class CountryReport extends Component
 											selectedIndicator="sector"
 											exportingEnabled={false}
 											// handleSector={handleSector}
+											fullCountryReport={true}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
 										<ChartDataTable
@@ -410,6 +418,7 @@ class CountryReport extends Component
 
 									{/* <!-- Health at Risk - Gender --> */}
     								<div className="box-rounded overall">
+										<h2 className="title--card">{`${this.props.literals.L22135} - ${this.props.literals.L20649}`}</h2>
 										<RiskChart
 											title={`${this.props.literals.L22135} - ${this.props.literals.L20649}`}
 											colors={['#f6a400','#003399']}
@@ -427,6 +436,7 @@ class CountryReport extends Component
 											showSelect={false}
 											selectedIndicator="gender"
 											exportingEnabled={false}
+											fullCountryReport={true}
 											// handleSector={handleSector}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
@@ -444,6 +454,7 @@ class CountryReport extends Component
 
 									{/* <!-- Health at Risk - Age --> */}
     								<div className="box-rounded overall">
+										<h2 className="title--card">{`${this.props.literals.L22135} - ${this.props.literals.L20650}`}</h2>
 										<RiskChart
 											title={`${this.props.literals.L22135} - ${this.props.literals.L20650}`}
 											colors={['#f6a400','#003399']}
@@ -461,6 +472,7 @@ class CountryReport extends Component
 											showSelect={false}
 											selectedIndicator="age"
 											exportingEnabled={false}
+											fullCountryReport={true}
 											// handleSector={handleSector}
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
@@ -499,6 +511,7 @@ class CountryReport extends Component
 												}
 												return (
 													<div className="box-rounded mental" key={`${tab.url}-${chartType.type}`}>
+														<h2 className="title--card">{title}</h2>
 														<MentalRiskCharts
 															reportTitle={title}
 															literals={this.props.literals}
@@ -510,6 +523,7 @@ class CountryReport extends Component
 															showSelect={false}
 															selectedIndicator={chartType.type}
 															country={this.state.selectedCountryCode}
+															fullCountryReport={true}
 														/>
 														<div className="chart-legend">
 															{this.props.literals['L'+chartType.legend]}
@@ -545,6 +559,7 @@ class CountryReport extends Component
 									</div>
 									{/* Vibrations, loud noise and temperature */}
 									<div className="box-rounded">
+										<h2 className="title--card">{this.props.literals[`L${physicalRiskTabs[0].chartType[0].title}`]}</h2>
 										<SpiderChart
 											literals={this.props.literals}
 											tabIndicator={physicalRiskTabs[0].literalTab}
@@ -559,6 +574,7 @@ class CountryReport extends Component
 											// callbackSelectedSurvey={this.callbackSelectedSurvey}
 											dataset={this.state.dataset}
 											exportingEnabled={false}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable 
 											literals={this.props.literals} 
@@ -577,6 +593,7 @@ class CountryReport extends Component
 										physicalRiskTabs[1].subTabs.map((tab) => {
 											return (
 												<div className="box-rounded exposure" key={tab.url}>
+													<h2 className="title--card">{`${this.props.literals['L'+tab.chartType[0].title]}`}</h2>
 													<MentalRiskCharts
 														reportTitle={`${this.props.literals['L'+tab.chartType[0].title]}`}
 														literals={this.props.literals}
@@ -588,6 +605,7 @@ class CountryReport extends Component
 														showSelect={false}
 														selectedIndicator={tab.chartType[0].type}
 														country={this.state.selectedCountryCode}
+														fullCountryReport={true}
 													/>
 													<div className="chart-legend">
 														{this.props.literals['L'+tab.chartType[0].legend]}
@@ -611,6 +629,7 @@ class CountryReport extends Component
 
 									{/* Risks involved with work */}
 									<div className="box-rounded">
+										<h2 className="title--card">{`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20645}`}</h2>
 										<SpiderChart
 											literals={this.props.literals}
 											reportTitle={`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20645}`}
@@ -628,6 +647,7 @@ class CountryReport extends Component
 											showSelect={false}
 											exportingEnabled={false}
 											selectedIndicator={physicalRiskTabs[2].chartType[0].type}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable 
 											literals={this.props.literals} 
@@ -641,6 +661,7 @@ class CountryReport extends Component
 									</div>
 
 									<div className="box-rounded">
+										<h2 className="title--card">{`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20646}`}</h2>
 										<SpiderChart
 											literals={this.props.literals}
 											reportTitle={`${this.props.literals["L"+physicalRiskTabs[2].chartType[0].title]} - ${this.props.literals.L20646}`}
@@ -658,6 +679,7 @@ class CountryReport extends Component
 											showSelect={false}
 											exportingEnabled={false}
 											selectedIndicator={physicalRiskTabs[2].chartType[1].type}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable 
 											literals={this.props.literals} 
@@ -768,6 +790,7 @@ class CountryReport extends Component
 											exportingEnabled={false}
 											showSelect={false}
 											country={this.state.selectedCountryCode}
+											fullCountryReport={true}
 										/>
 										<p>{this.props.literals.L20604}</p>
 										<ChartDataTable
@@ -909,6 +932,7 @@ class CountryReport extends Component
 									</div>
 									<h4 className="header3">{this.props.literals.L22015}</h4>
 									<div className="box-rounded">
+									<h2 className="title--card">{this.props.literals.L20645}</h2>
 										<SpiderChart
 											literals={this.props.literals}
 											tabIndicator={'L20645'}
@@ -921,6 +945,7 @@ class CountryReport extends Component
 											dataset={'esener'}
 											exportingEnabled={false}
 											backgroundColor={'#E4EFEF'}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable 
 											literals={this.props.literals} 
@@ -933,6 +958,7 @@ class CountryReport extends Component
 										/>
 									</div>
 									<div className="box-rounded">
+										<h2 className="title--card">{this.props.literals.L20646}</h2>
 										<SpiderChart
 											literals={this.props.literals}
 											tabIndicator={'L20646'}
@@ -945,6 +971,7 @@ class CountryReport extends Component
 											dataset={'ewcs'}
 											exportingEnabled={false}
 											backgroundColor={'#E4EFEF'}
+											fullCountryReport={true}
 										/>
 										<ChartDataTable 
 											literals={this.props.literals} 

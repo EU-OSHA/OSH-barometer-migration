@@ -18,7 +18,7 @@ class WorkAccidentsChart extends Component {
                 title: {
                     // useHTML: true,
                     // text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-                    text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                    text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
                     align: 'left'
                 },
                 credits: {
@@ -75,7 +75,7 @@ class WorkAccidentsChart extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					enabled: props.fullCountryReport == true ? false : true,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -115,7 +115,7 @@ class WorkAccidentsChart extends Component {
         this.setState({ chartConfig: {
             title: {
                 //useHTML: true,
-                text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                text: this.props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
                 align: 'left',
                 widthAdjust: 0,
                 style: {
@@ -177,7 +177,7 @@ class WorkAccidentsChart extends Component {
                 },
             },
             exporting: {
-                enabled: true,
+                enabled: this.props.fullCountryReport == true ? false : true,
                 buttons: {
                     contextButton: {
                         menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -340,7 +340,7 @@ class WorkAccidentsChart extends Component {
                             series
                         } 
                     })
-                } 
+                }  
                 
                 if (this.props.type == 'column' || this.props.type == 'bar') {
                    

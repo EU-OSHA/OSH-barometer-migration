@@ -59,6 +59,7 @@ class EnforcementCapacityReport extends Component
             <div>
                 <div className="box-rounded">
                     <h4 className="header4">{this.props.literals.L20692}</h4>
+                    <h2 className="title--card">{this.props.literals.L20693}</h2>
                     <EnforcementCapacityChart
                         title={this.props.literals.L20693}
                         subtitle=" "
@@ -73,6 +74,7 @@ class EnforcementCapacityReport extends Component
                         sector={["14"]}
                         answers={["1","2"]}
                         stackingColumn={'normal'}
+                        fullCountryReport={true}
                     />
                     <ChartDataTable
                         literals={this.props.literals} 

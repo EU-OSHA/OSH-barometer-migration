@@ -19,7 +19,7 @@ class OshCultureReport extends Component {
                 {oshCulture.map(element => element.chartType.map((chart) => {
                     return (
                         <div key={chart} className="box-rounded">
-                            <h2 className="card-block--chart--wrapper" >{this.props.literals[`L${element.literalTab}`]}</h2>
+                            <h2 className="title--card" >{this.props.literals[`L${element.literalTab}`]}</h2>
                             <HealthAwareness 
                                 literals={this.props.literals}
                                 country={this.props.country}

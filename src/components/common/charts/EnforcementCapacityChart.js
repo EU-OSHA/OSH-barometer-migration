@@ -20,7 +20,7 @@ class EnforcementCapacityChart extends Component {
 				title: {
 					//useHTML: true,
 					// TODO: Maybe possible change to main-title--card 
-					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+					text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 0,
 					style: {
@@ -93,7 +93,7 @@ class EnforcementCapacityChart extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: props.fullCountryReport == true ? false : true,
 					y:-10,
 					buttons: {
 						contextButton: {

@@ -68,7 +68,7 @@ class ChartDataTable extends Component
                         row.split = this.props.literals.L22161;
                     } else if (element.split == 291 || element.split == 92) {
                         // Loads
-                        row.split = this.props.literals.Loads;
+                        row.split = this.props.literals.L22159;
                     } else if (element.split == 292 || element.split == 93) {
                         // Movements
                         row.split = this.props.literals.L22164;

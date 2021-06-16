@@ -20,7 +20,7 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: window.innerWidth > 768 ? 
+                    text: props.fullCountryReport == true ? '' : window.innerWidth > 768 ? 
                         "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>" 
                         : 
                         "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>",
@@ -254,7 +254,7 @@ class MentalRiskCharts extends Component {
                     ...this.state.chartConfig, 
                     title: {
                         ...this.state.chartConfig.title, 
-                        text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
+                        text: this.props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
                     },
                     exporting: {
                         ...this.state.chartConfig.exporting, 
@@ -421,7 +421,7 @@ class MentalRiskCharts extends Component {
                     chartConfig: {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
-                        title: {...this.state.chartConfig.title, text: this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
+                        title: {...this.state.chartConfig.title, text: this.props.fullCountryReport == true ? '' : this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
                         // title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
                     }
                 });
@@ -443,7 +443,7 @@ class MentalRiskCharts extends Component {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 785, type: 'bar'},
                         // title: {...this.state.chartConfig.title, text: this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : <h2 class='title--card'>${tabTitle}</h2>}
-                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${tabTitle}</h2>`}
+                        title: {...this.state.chartConfig.title, text: this.props.fullCountryReport == true ? '' : `<h2 class='title--card'>${tabTitle}</h2>`}
                     }
                 });
             }

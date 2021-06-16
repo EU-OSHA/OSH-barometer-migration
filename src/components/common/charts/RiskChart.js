@@ -16,7 +16,7 @@ class Chart extends Component {
 			select: 'sector',
 			chartConfig: {
 				title: {
-					text:  "<h2 class='title--card'>"+this.props.title+"</h2>",
+					text:  this.props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left'
 				},
 				credits: {
