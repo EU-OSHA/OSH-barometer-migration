@@ -46,7 +46,39 @@ class CountryReport extends Component
 
 	changeCountry = (event) =>
 	{
-		this.setState({ selectedCountryCode: event.target.value });
+		const countryNames = {
+			"AT":"39",
+			"BE":"46",
+			"BG":"56",
+			"CH":"224",
+			"CY":"77",
+			"CZ":"78",
+			"DE":"100",
+			"DK":"79",
+			"EE":"88",
+			"EL":"103",
+			"ES":"218",
+			"FI":"93",
+			"FR":"94",
+			"HR":"75",
+			"HU":"116",
+			"IE":"122",
+			"IS":"117",
+			"IT":"125",
+			"LT":"144",
+			"LU":"145",
+			"LV":"138",
+			"MT":"153",
+			"NL":"172",
+			"NO":"182",
+			"PL":"191",
+			"PT":"192",
+			"RO":"196",
+			"SE":"223",
+			"SI":"214",
+			"SK":"213",
+		}
+		this.setState({ selectedCountryCode: event.target.value, selectedCountryName: countryNames[event.target.value] });
 	}
 
 	render()
