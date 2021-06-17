@@ -170,8 +170,8 @@ class EconomicSectorReport extends Component {
                                     type='line'
                                     selectCountry1={this.props.country}
                                     selectCountry2={this.state.euCountry}
-                                    chart={'20013'}
-                                    indicator={'35'}
+                                    chart={'20014'}
+                                    indicator={'36'}
                                     fullCountryReport={false}
                                 />
                             </div>
@@ -197,8 +197,8 @@ class EconomicSectorReport extends Component {
                                     type='line'
                                     selectCountry1={this.props.country}
                                     selectCountry2={this.state.euCountry}
-                                    chart={'20087'}
-                                    indicator={'278'}
+                                    chart={'20088'}
+                                    indicator={'279'}
                                     fullCountryReport={false}
                                 />
                             </div>
