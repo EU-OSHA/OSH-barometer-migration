@@ -77,6 +77,7 @@ class EnforcementCapacityReport extends Component
                         fullCountryReport={true}
                     />
                     <ChartDataTable
+                        className='chart-data'
                         literals={this.props.literals} 
                         country={this.props.country}
                         chartID={20107}

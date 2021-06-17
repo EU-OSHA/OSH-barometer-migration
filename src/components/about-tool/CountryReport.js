@@ -84,7 +84,8 @@ class CountryReport extends Component
 	render()
 	{
 		return(
-			<div className="full-country-report-page">
+			<div className="full-country-report">
+				<div className="full-country-report-page">
 				<div className="header-logo"></div>
 				<table className="full-content-report">
 					<thead>
@@ -306,6 +307,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 										/>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20022}
@@ -332,6 +334,7 @@ class CountryReport extends Component
 											yAxisMax={6}
 										/>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20023}
@@ -403,6 +406,7 @@ class CountryReport extends Component
 										/>
 										<div className="chart-legend">{this.props.literals.L20580}</div>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20040}
@@ -439,6 +443,7 @@ class CountryReport extends Component
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20041}
@@ -475,6 +480,7 @@ class CountryReport extends Component
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20041}
@@ -511,6 +517,7 @@ class CountryReport extends Component
 										/>
 										<div className="chart-legend">{this.props.literals.L20582}</div>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20041}
@@ -563,6 +570,7 @@ class CountryReport extends Component
 															{this.props.literals['L'+chartType.legend]}
 														</div>
 														<ChartDataTable
+															className='chart-data'
 															literals={this.props.literals}
 															country={this.state.selectedCountryCode}
 															chartID={chartType.chart}
@@ -610,7 +618,8 @@ class CountryReport extends Component
 											exportingEnabled={false}
 											fullCountryReport={true}
 										/>
-										<ChartDataTable 
+										<ChartDataTable
+											className='chart-data' 
 											literals={this.props.literals} 
 											country={this.state.selectedCountryCode}
 											chartID={20049}
@@ -645,6 +654,7 @@ class CountryReport extends Component
 														{this.props.literals['L'+tab.chartType[0].legend]}
 													</div>
 													<ChartDataTable
+														className='chart-data'
 														literals={this.props.literals}
 														country={this.state.selectedCountryCode}
 														chartID={tab.chartType[0].chart}
@@ -683,7 +693,8 @@ class CountryReport extends Component
 											selectedIndicator={physicalRiskTabs[2].chartType[0].type}
 											fullCountryReport={true}
 										/>
-										<ChartDataTable 
+										<ChartDataTable
+											className='chart-data' 
 											literals={this.props.literals} 
 											country={this.state.selectedCountryCode}
 											chartID={physicalRiskTabs[2].chartType[0].chart}
@@ -716,6 +727,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 										/>
 										<ChartDataTable 
+											className='chart-data'
 											literals={this.props.literals} 
 											country={this.state.selectedCountryCode}
 											chartID={physicalRiskTabs[2].chartType[1].chart}
@@ -762,6 +774,7 @@ class CountryReport extends Component
 										/>
 										<p>{this.props.literals.L20603}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20102}
@@ -797,6 +810,7 @@ class CountryReport extends Component
 										/>
 										<p>{this.props.literals.L20602}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20102}
@@ -830,6 +844,7 @@ class CountryReport extends Component
 										/>
 										<p>{this.props.literals.L20604}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20103}
@@ -872,6 +887,7 @@ class CountryReport extends Component
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20606)}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20104}
@@ -908,6 +924,7 @@ class CountryReport extends Component
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20607)}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20105}
@@ -943,6 +960,7 @@ class CountryReport extends Component
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20608)}</p>
 										<ChartDataTable
+											className='chart-data'
 											literals={this.props.literals}
 											country={this.state.selectedCountryCode}
 											chartID={20105}
@@ -987,6 +1005,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 										/>
 										<ChartDataTable 
+											className='chart-data'
 											literals={this.props.literals} 
 											country={this.state.selectedCountryCode}
 											chartID={20106}
@@ -1013,6 +1032,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 										/>
 										<ChartDataTable 
+											className='chart-data'
 											literals={this.props.literals} 
 											country={this.state.selectedCountryCode}
 											chartID={20069}
@@ -1068,6 +1088,7 @@ class CountryReport extends Component
             		<span>Tel. +34 944 358 400 × Fax +34 944 358 401 </span>
             		<span>information@osha.europa.eu - <a href="http://osha.europa.eu" target="_blank">http://osha.europa.eu</a></span>
 				</p>
+			</div>
 			</div>
 		)
 	}

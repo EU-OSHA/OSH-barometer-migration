@@ -50,7 +50,8 @@ class ChartHuman extends Component {
 					}
 				},
 				chart: {
-					height: 500,
+					// height: 500,
+					height: this.props.fullCountryReport ? 500 : 250,
 					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -59,7 +60,7 @@ class ChartHuman extends Component {
 							var chart = this;
 							this.series.forEach(function(series) {
 								series.data[0].dataLabel.attr({
-								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (chart.chartHeight-200)
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-125 )
 								});					  
 							})
 

@@ -37,7 +37,7 @@ class EmploymentRate extends Component {
 					}
 				},
 				chart: {
-					height: 450,
+					height: this.props.fullCountryReport ? 450 : 250,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {

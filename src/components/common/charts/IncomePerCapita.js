@@ -35,7 +35,7 @@ class IncomerPercapital extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:500,
+					height: this.props.fullCountryReport ? 500 : 250,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {

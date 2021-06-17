@@ -25,7 +25,7 @@ class EconomicSectorReport extends Component {
                                 <Chart 
                                     colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
                                     showDataLabel={true}
-                                    tick={40}
+                                    tick={20}
                                     percentage={true}
                                     type='bar'
                                     selectCountry1={this.props.country}
@@ -36,6 +36,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className="w75 chart-data"
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20089}
@@ -53,7 +54,7 @@ class EconomicSectorReport extends Component {
                                 <Chart
                                     colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
                                     showDataLabel={false}
-                                    tick={20}
+                                    tick={25}
                                     percentage={true}
                                     type='bar'
                                     selectCountry1={this.props.country}
@@ -66,6 +67,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className="chart-data"
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20010}
@@ -86,7 +88,7 @@ class EconomicSectorReport extends Component {
                                 <EmploymentRate
                                     colors={['#f6a400','#529FA2']}
                                     showDataLabel={true}
-                                    tick={20}
+                                    tick={50}
                                     percentage={true}
                                     type='bar'
                                     selectCountry1={this.props.country}
@@ -97,6 +99,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20011}
@@ -123,6 +126,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20013}
@@ -149,6 +153,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20087}
@@ -176,6 +181,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20014}
@@ -203,6 +209,7 @@ class EconomicSectorReport extends Component {
                                 />
                             </div>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals} 
                                 country={this.props.country}
                                 chartID={20088}

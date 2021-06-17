@@ -30,6 +30,7 @@ class OshCultureReport extends Component {
                             />
                             <p>{this.props.literals[`L${chart.legend}`]}</p>
                             <ChartDataTable
+                                className='chart-data'
                                 literals={this.props.literals}
                                 country={this.props.country}
                                 chartID={chart.chart}

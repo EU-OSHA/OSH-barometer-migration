@@ -226,7 +226,7 @@ class ChartDataTable extends Component
     render()
     {
         return (
-            <table>
+            <table className={this.props.className}>
                 <thead>
                     <tr>
                         {this.props.columns.map((column, index) => (
