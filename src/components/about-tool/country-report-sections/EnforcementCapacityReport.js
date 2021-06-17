@@ -49,7 +49,7 @@ class EnforcementCapacityReport extends Component
         if(text === undefined || text[attr] === undefined){
             return <div>{this.props.literals.L20706}</div>
         }else{
-            return <div>{ReactHtmlParser(this.props.literals["L"+text])}</div>
+            return <div>{ReactHtmlParser(this.props.literals["L"+text[attr]])}</div>
         }
     }
 

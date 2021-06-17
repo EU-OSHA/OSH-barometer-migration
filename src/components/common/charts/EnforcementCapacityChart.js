@@ -51,7 +51,7 @@ class EnforcementCapacityChart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:450,
+					height: this.props.fullCountryReport==true ? 250 : 450,
 					// width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',

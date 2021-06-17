@@ -136,7 +136,7 @@ class WorkAccidentsChart extends Component {
             },
             colors: this.props.colors,
             chart: {
-                height: window.innerWidth > 768 ? 450 : 770,
+                height: window.innerWidth > 768 ? this.props.fullCountryReport == true ? 250 : 450 : 770,
                 type: this.props.type,
                 backgroundColor: '#F0F0F0',
                 events: {
@@ -222,6 +222,8 @@ class WorkAccidentsChart extends Component {
                 gridLineWidth: 2,
                 startOnTick: true,
                 endOnTick: true,
+                tickInterval: this.props.step ? this.props.step : null,
+                max: this.props.yAxisMax ? this.props.yAxisMax : null,
                 title: {
                     text: ''
                 },

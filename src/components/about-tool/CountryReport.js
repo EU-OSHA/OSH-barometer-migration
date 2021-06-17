@@ -328,6 +328,8 @@ class CountryReport extends Component
 											chartSize={largeSize}
 											country={this.state.selectedCountryCode}
 											fullCountryReport={true}
+											step={2}
+											yAxisMax={6}
 										/>
 										<ChartDataTable
 											literals={this.props.literals}
@@ -756,6 +758,7 @@ class CountryReport extends Component
 											showSelect={false}
 											selectedIndicator="sector"
 											exportingEnabled={false}
+											fullCountryReport={true}
 										/>
 										<p>{this.props.literals.L20603}</p>
 										<ChartDataTable
@@ -790,6 +793,7 @@ class CountryReport extends Component
 											showSelect={false}
 											selectedIndicator="establishment size"
 											exportingEnabled={false}
+											fullCountryReport={true}
 										/>
 										<p>{this.props.literals.L20602}</p>
 										<ChartDataTable
@@ -864,6 +868,7 @@ class CountryReport extends Component
 											exportingEnabled={false}
 											showSelect={false}
 											country={this.state.selectedCountryCode}
+											fullCountryReport={true}
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20606)}</p>
 										<ChartDataTable
@@ -899,6 +904,7 @@ class CountryReport extends Component
 											showSelect={false}
 											selectedIndicator="sector"
 											// selectedIndicator="establishment size"
+											fullCountryReport={true}
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20607)}</p>
 										<ChartDataTable
@@ -933,6 +939,7 @@ class CountryReport extends Component
 											exportingEnabled={false}
 											showSelect={false}
 											selectedIndicator="establishment size"
+											fullCountryReport={true}
 										/>
 										<p>{ReactHtmlParser(this.props.literals.L20608)}</p>
 										<ChartDataTable
@@ -1029,7 +1036,6 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology">{this.props.literals.L20705}</Link></span>
 									</div>
 									<EnforcementCapacityReport country={this.state.selectedCountryCode} literals={this.props.literals} />
-
 								</section>
 								{/* -- OSH-STATISTICS -- */}
 								<section className={"enforcement-capacity "+this.state.selectedCountryCode}>

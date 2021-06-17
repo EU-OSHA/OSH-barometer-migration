@@ -41,7 +41,7 @@ class PreventionChart extends Component {
 					}
 				},
                 chart: {
-                    height: window.innerWidth > 768 ? 450 : 770,
+                    height: window.innerWidth > 768 ? props.fullCountryReport == true ? 250 : 450 : 770,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0',
                     events: {
@@ -343,7 +343,7 @@ class PreventionChart extends Component {
                 this.setState({
                     chartConfig: {
                         ...this.state.chartConfig,
-                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
+                        chart: {...this.state.chartConfig.chart, height: this.props.fullCountryReport == true ? 250 : 450, type: 'column'},
                         title: {...this.state.chartConfig.title, text: this.props.title != undefined ? "<h2 class='title--card'>"+this.props.title+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
                         // title: {...this.state.chartConfig.title, text: title}
                     }

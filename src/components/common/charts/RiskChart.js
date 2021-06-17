@@ -24,7 +24,7 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:500,
+					height: this.props.fullCountryReport == true ? 250 : 500,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0'
 				},

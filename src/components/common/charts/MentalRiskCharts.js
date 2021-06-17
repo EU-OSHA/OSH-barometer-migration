@@ -198,8 +198,9 @@ class MentalRiskCharts extends Component {
                 plotOptions: {
                     column: {
                         stacking: 'normal',
-                      borderWidth: 0,  
-                      pointStart: 0,
+                        borderWidth: 0,  
+                        pointStart: 0,
+                        groupPadding: this.props.fullCountryReport ? 0 : 0.2,
                         states: {
                             inactive: {
                                 opacity: 1
@@ -420,7 +421,7 @@ class MentalRiskCharts extends Component {
                 this.setState({
                     chartConfig: {
                         ...this.state.chartConfig,
-                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
+                        chart: {...this.state.chartConfig.chart, height: this.props.fullCountryReport == true? 250 : 450, type: 'column'},
                         title: {...this.state.chartConfig.title, text: this.props.fullCountryReport == true ? '' : this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
                         // title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
                     }
