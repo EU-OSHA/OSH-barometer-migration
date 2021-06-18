@@ -135,6 +135,7 @@ class ChartDataTable extends Component
                             rows.filter((row)=>row.split==element.split)[0].country2 = countryDisplay;
                             rows.filter((row)=>row.split==element.split)[0].value2 = value;
                         }
+                        updatedRow = true;
                     }
                     else
                     {
