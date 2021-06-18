@@ -122,13 +122,13 @@ class Chart extends Component {
 					itemMarginTop:4,
 					itemMarginBottom:4,
 					
-					//width: 300,
+					// width: this.props.fullCountryReport ? 300 : 250,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:'12px',
 						textOverflow: "ellipsis",
-						width: 250
+						width: this.props.fullCountryReport ? 250 : 150
 					}
 				},
 				plotOptions: {					

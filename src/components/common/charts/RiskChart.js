@@ -131,7 +131,7 @@ class Chart extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							fontSize: this.props.fullCountryReport ? '10px' : '12px',
 							textOverflow: 'none'
 						}
 					}
@@ -150,7 +150,7 @@ class Chart extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							fontSize: this.props.fullCountryReport ? '10px' : '12px',
 							textOverflow: 'none'
 						}
 					}

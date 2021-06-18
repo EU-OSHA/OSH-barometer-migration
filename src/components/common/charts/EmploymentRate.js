@@ -111,16 +111,15 @@ class EmploymentRate extends Component {
 					itemMarginTop:4,
 					itemMarginBottom:4,
 					align: 'center',
-					//itemWidth: 96,
-					itemDistance: 1,
+					// itemWidth: this.props.fullCountryReport ? 250 : 80,
+					itemDistance: this.props.fullCountryReport ? 10 : 3,
 
 					//width: 200,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'11px',
-						textOverflow: "ellipsis",
-						
+						fontSize: this.props.fullCountryReport ? '12px' : '11px',
+						textOverflow: "ellipsis"
 					}
 				},
 				plotOptions: {

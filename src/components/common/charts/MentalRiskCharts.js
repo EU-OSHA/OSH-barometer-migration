@@ -173,8 +173,8 @@ class MentalRiskCharts extends Component {
                         // staggerLines: 1,
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'bold',
-							fontSize:'12px',
+							fontWeight: 'normal',
+                            fontSize: this.props.fullCountryReport ? '10px' : '12px',
                             color:xAxisColor
 						}
                     }
@@ -192,7 +192,7 @@ class MentalRiskCharts extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport ? '10px' : '12px'
 						}
                     },
                     min: 0,

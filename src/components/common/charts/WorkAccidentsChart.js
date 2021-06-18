@@ -236,9 +236,9 @@ class WorkAccidentsChart extends Component {
                 labels: {
                     format: this.props.percentage === true ? '{value}%' : `{value}`,
                     style: {
-                        fontFamily: 'OpenSan-bold',
+                        fontFamily: 'OpenSans-bold',
                         fontWeight: 'normal',
-                        fontSize:'14px',
+                        fontSize:  this.props.fullCountryReport ? '10px' : '12px',
                         textOverflow: 'none'
                     }
                 }
@@ -250,6 +250,7 @@ class WorkAccidentsChart extends Component {
                         fontFamily: 'OpenSans-bold',
                         fontWeight: 'normal',
                         fontSize:'12px',
+                        fontSize: this.props.fullCountryReport ? '10px' : '12px' ,
                         textOverflow: 'none'
                     }
                 }

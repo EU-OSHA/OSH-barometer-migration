@@ -166,7 +166,7 @@ class PreventionChart extends Component {
                         style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							fontSize: this.props.fullCountryReport ? '10px' : '12px',
                             color:xAxisColor
 						}
                     }
@@ -184,7 +184,7 @@ class PreventionChart extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize: this.props.fullCountryReport ? '10px' : '12px'
 						}
                     },
                     min: 0,
@@ -202,7 +202,7 @@ class PreventionChart extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'12px'
+								fontSize: this.props.fullCountryReport ? '10px' : '12px'
 							},
 							formatter: function () {
 								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';

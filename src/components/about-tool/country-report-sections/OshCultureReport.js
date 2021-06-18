@@ -22,6 +22,7 @@ class OshCultureReport extends Component {
                             <h2 className="title--card" >{this.props.literals[`L${element.literalTab}`]}</h2>
                             <HealthAwareness 
                                 literals={this.props.literals}
+                                tick={20}
                                 country={this.props.country}
                                 chartType={[chart]}
                                 colors={['#b1b3b4', '#cbe2e3','#449fa2']}
@@ -30,7 +31,7 @@ class OshCultureReport extends Component {
                             />
                             <p>{this.props.literals[`L${chart.legend}`]}</p>
                             <ChartDataTable
-                                className='chart-data'
+                                className='w75 chart-data'
                                 literals={this.props.literals}
                                 country={this.props.country}
                                 chartID={chart.chart}

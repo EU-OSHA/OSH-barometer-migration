@@ -156,7 +156,7 @@ class HealthAwareness extends Component {
                         {
                             color: 'black',
                             width: '2',
-                            value: 29.5,
+                            value: this.props.fullCountryReport ? 27.5 : 27.5,
                             zIndex:1
                         }
                     ],
@@ -164,7 +164,7 @@ class HealthAwareness extends Component {
                         style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize: this.props.fullCountryReport ? '10px' : '12px' ,
+							fontSize: this.props.fullCountryReport ? '10px' : '12px',
                             color: '#808080'
 						}
                     }
@@ -172,6 +172,7 @@ class HealthAwareness extends Component {
                 yAxis: {
                     gridLineColor:'#FFF',
                     gridLineWidth:2,
+                    tickInterval: this.props.step ? this.props.step : null,
                     title: {
                         text: ''
                     },

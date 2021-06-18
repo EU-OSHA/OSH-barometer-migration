@@ -138,7 +138,7 @@ class EconomicSectorReport extends Component {
                         </div>
                         {/* GDP per Capita EURO */}
                         <div className="box-rounded" >
-                            <div>
+                            <div className="card--block--chart--wrapper">
                                 <h2 className="title--card" >{this.props.literals.L22195}</h2>
                                 <ChartHuman
                                     colors={['#ffae00','#529FA2','#003399']}
@@ -165,7 +165,7 @@ class EconomicSectorReport extends Component {
                         </div>
                         {/* Income per Capita */}
                         <div className="box-rounded" >
-                            <div>
+                            <div className="card--block--chart--wrapper">
                                 <h2 className="title--card" >{this.props.literals.L293}</h2>
                                 <IncomerPercapital
                                     colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
