@@ -39,7 +39,9 @@ class Methodology extends Component {
 					name: 'L22016',
 					firstSubsection: 'Enforcement capacity',
 					firstIndicatorId: '285'
-			}]
+			}],
+			openIndicator: false,
+			dropdownRefContainer: React.createRef()
 		}
 	}
 
@@ -71,6 +73,17 @@ class Methodology extends Component {
 		return '';
 	}
 
+	updateDimension = () => {
+		const width = window.innerWidth;
+
+		if (width > 990) {
+			this.setState({
+				openIndicator: false
+			});
+		}
+
+	}
+
 	componentDidMount()
 	{
 		// Update the title of the page
@@ -78,6 +91,9 @@ class Methodology extends Component {
 
 		this.getMethodologyIndicators(this.props.methodology.subsection);
 		this.getMethodologyData(this.props.methodology.subsection, this.props.methodology.indicator);
+
+		window.addEventListener('resize', this.updateDimension);
+		window.addEventListener('mousedown', this.handleClickOutside);
 	}
 
 	componentDidUpdate(prevProps)
@@ -90,9 +106,27 @@ class Methodology extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension);
+	}
+
 	changeMethodology(section, subsection, indicator)
 	{
 		this.props.setMethodology(section,subsection,indicator);
+	}
+
+	handleClickOutside = (event) => {
+		if (this.state.dropdownRefContainer.current && !this.state.dropdownRefContainer.current.contains(event.target)) {
+			this.setState({
+				openIndicator: false
+			})
+		}
+	}
+
+	openIndicatorsList = () => {
+		this.setState({
+			openIndicator: !this.state.openIndicator
+		})
 	}
 
     render() {
@@ -125,7 +159,7 @@ class Methodology extends Component {
 					</ul>
 
 					{/*  SUBSECTION MENU  */}			
-					<ul className="indicators--submenu--wrapper" id="indicatorsSubmenu" data-ng-click ="openIndicatorsList($event)">
+					<ul className={`indicators--submenu--wrapper ${this.state.openIndicator ? 'open-list' : ''}`}  id="indicatorsSubmenu" onClick={this.openIndicatorsList} ref={this.state.dropdownRefContainer}>
 						{levels.filter(level=>level.database_name!=undefined && level.database_name!='').map((subsection) => (
 							<li key={subsection.id} className={'submenu--item '+(subsection.database_name==this.props.methodology.subsection?'active ':'')+(this.props.literals[subsection.name].length > 20?'multiline ':'')}>
 								<a onClick={(e) => this.changeMethodology(this.props.methodology.section, subsection.database_name, subsection.firstIndicatorId)}>{this.props.literals[subsection.name]}</a>
