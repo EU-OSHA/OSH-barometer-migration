@@ -99,7 +99,7 @@ class Chart extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
+								fontSize:this.props.fullCountryReport ? '12px' : '14px'
 							},
 							formatter: function () {
 								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
@@ -128,6 +128,7 @@ class Chart extends Component {
 								return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>"
 							}
 						},
+						padding:this.props.fullCountryReport ? 20 : 15,
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',

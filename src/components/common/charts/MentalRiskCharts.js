@@ -173,7 +173,7 @@ class MentalRiskCharts extends Component {
                         // staggerLines: 1,
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'normal',
+							fontWeight: 'normal',                            
                             fontSize: this.props.fullCountryReport ? '10px' : '12px',
                             color:xAxisColor
 						}
@@ -386,7 +386,7 @@ class MentalRiskCharts extends Component {
                         //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
                         // }
                     }else{
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:this.props.fullCountryReport ? '10px' : '12px', color:xAxisColor}}, categories} }})
                     }
                 });
         } catch (error) {

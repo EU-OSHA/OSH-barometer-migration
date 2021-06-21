@@ -161,13 +161,15 @@ class PreventionChart extends Component {
                     //         value: 29.5,
                     //         zIndex:1
                     //     }
-                    // ],
+                    // ],                
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize: this.props.fullCountryReport ? '10px' : '12px',
-                            color:xAxisColor
+							fontSize: this.props.fullCountryReport ? '8px' : '12px',
+                            color:xAxisColor,
+                            textOverflow: 'none',
+                            padding:this.props.fullCountryReport ? 60 : 80,
 						}
                     }
                 },
@@ -215,7 +217,7 @@ class PreventionChart extends Component {
                                 opacity: 1
                             }
                         },
-                        pointPadding: 0.15,
+                        pointPadding: this.props.fullCountryReport ? 0.10 : 0.15,
                         point: {
                             events: {
                                 mouseOver: function () {

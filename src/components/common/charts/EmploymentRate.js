@@ -144,7 +144,7 @@ class EmploymentRate extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
+								fontSize:this.props.fullCountryReport ? '14px' : '10px'
 							},
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -203,7 +203,7 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport ? '12px' : '10px'
 						}
 					},
 					type: 'category'
@@ -211,7 +211,7 @@ class EmploymentRate extends Component {
 				yAxis: {
 					lineWidth: 0,
 					gridLineColor: '#FFF',
-          gridLineWidth: 2,
+          			gridLineWidth: 2,
 					max: 100,
 					tickInterval: this.props.tick,
 					title: {
@@ -222,7 +222,8 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							// w:console.log(this.props.fullCountryReport ),
+							fontSize:this.props.fullCountryReport ? '12px' : '10px',
 							textOverflow: 'none'
 						}
 					}

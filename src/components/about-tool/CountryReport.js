@@ -577,7 +577,7 @@ class CountryReport extends Component
 															{this.props.literals['L'+chartType.legend]}
 														</div>
 														<ChartDataTable
-															className='chart-data'
+															className='w85 chart-data'
 															literals={this.props.literals}
 															country={this.state.selectedCountryCode}
 															chartID={chartType.chart}
