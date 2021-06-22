@@ -33,6 +33,7 @@ class SpiderChart extends Component{
 					backgroundColor: props.backgroundColor? props.backgroundColor : '#F0F0F0',
 					polar: true,
 					type: 'line',
+					// height:this.props.fullCountryReport ? 320 : 770,
 					spacingTop: props.fullCountryReport == true ? 45 : 10
 				},
 				title: {
@@ -41,7 +42,7 @@ class SpiderChart extends Component{
 					//x: -180
 				},
 				legend: {
-					margin: 20
+					margin: this.props.fullCountryReport ? 15 : 20
 				},
 				exporting: {
 					enabled: this.props.exportingEnabled
@@ -52,6 +53,11 @@ class SpiderChart extends Component{
 				plotOptions: {
 					series: {
 						colors: this.props.colors,
+						lineWidth:4,
+						marker: {
+							radius: 4,
+							symbol: "circle"
+						},
 					},
 					line: {
 						dataLabels: {
@@ -59,10 +65,10 @@ class SpiderChart extends Component{
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
+								fontSize:this.props.fullCountryReport ? '14px' : '16px',
 							},
-							allowOverlap: true,
-							padding: 10,
+							allowOverlap: false,
+							padding:this.props.fullCountryReport ? 20 : 10,
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
 								if (this.series.name == 'EU27_2020' || this.series.name == 'EU28')
@@ -80,22 +86,45 @@ class SpiderChart extends Component{
 				legend: {
 					margin: 20
 				},
+				navigation: {
+					buttonOptions: {
+						theme: {
+							fill: 'transparent',
+							states: {
+								hover: {
+									fill: '#CCC'
+								},
+								select: {
+									fill: 'transparent'
+								}
+							}
+						},
+						verticalAlign: 'top',
+						y:-5
+					}
+				},
 				xAxis: {
 					tickmarkPlacement: 'on',
 					lineWidth: 0,
-					gridLineColor: '#000000',
-					gridLineWidth: 0.25,
-					labels: {
+					gridLineColor: '#acacac',
+					gridLineWidth: 1,
+					labels: {	
+						distance: this.props.fullCountryReport ? 10 : 10,					
 						style: {
-							fontSize: '12px',
+							fontFamily: 'OpenSans',
+							fontSize:this.props.fullCountryReport ? '12px' : '14px',
 							color: 'black'
 						}
 					}
 				},
 				yAxis: {
+					labels:{
+						enabled: false
+					},
+					tickInterval: 20,
 					gridLineInterpolation: 'polygon',
-					gridLineColor: '#000000',
-					gridLineWidth: 0.25,
+					gridLineColor: '#acacac',
+					gridLineWidth: 1,
 					lineWidth: 0,
 					min: 0
 				},
@@ -112,90 +141,90 @@ class SpiderChart extends Component{
 							 
 					formatter: function () {
 						if (this.x == props.literals.L22153){
-							return ['<b>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Are you exposed to vibrations from tools or <br>machinery?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : []	);
+										return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22155){
-							return ['<b>' + 'Are you exposed to loud noise?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Are you exposed to loud noise?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : []	);
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22156){
-							return ['<b>' + 'Are you exposed to high temperatures?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Are you exposed to high temperatures?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22154){
-							return ['<b>' + 'Are you exposed to low temperatures?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Are you exposed to low temperatures?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22161){
-							return ['<b>' + 'Does your work involve tiring or <br>painful positions?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your work involve tiring or <br>painful positions?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22165){
-							return ['<b>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your work involve carrying or <br>moving heavy loads?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22163){
-							return ['<b>' + 'Does your work involve sitting?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your work involve sitting?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22164){
-							return ['<b>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your work involve repetitve hand or <br>arm movements?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22162){
-							return ['<b>' + 'Does your work involve lifting or <br>moving people?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your work involve lifting or <br>moving people?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22171){
-							return ['<b>' + 'Did the employees have a role in the design and set-up <br>of the measures to address psychosocial risks?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Did the employees have a role in the design and set-up <br>of the measures to address psychosocial risks?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22172){
-							return ['<b>' + 'Does your organisation have a health and <br>safety delegate or committee?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your organisation have a health and <br>safety delegate or committee?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22173){
-							return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22174){
-							return ['<b>' + 'Are health and safety issues regularly discussed <br>in staff or team meetings? <br>(Regularly and Occasionally)' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Are health and safety issues regularly discussed <br>in staff or team meetings? <br>(Regularly and Occasionally)' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22175){
-							return ['<b>' + 'How often controversies related to health and safety arise? <br>(Sum of often and sometimes)' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'How often controversies related to health and safety arise? <br>(Sum of often and sometimes)' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22176){
-							return ['<b>' + 'Does your organisation have a regular meeting <br>in which employees can express their views <br>about what is happening in the organisation?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your organisation have a regular meeting <br>in which employees can express their views <br>about what is happening in the organisation?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22177){
-							return ['<b>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your organisation have a trade union, <br>works council or a similar committee <br>representing employees?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}else if (this.x == props.literals.L22178){
-							return ['<b>' + 'Does your organisation have a health and safety <br>delegate or committee?' + '</b><br><br>'].concat(
+							return ['<ul class="tooltip-item"><li><strong>' + 'Does your organisation have a health and safety <br>delegate or committee?' + '</strong><br></li>'].concat(
 								this.points ? this.points.map(function (point) {
-										return point.series.name + ': ' + point.y + '% '+'<br>';
-									}) : [] );
+									return '<li><strong>' + point.series.name + ':</strong> ' + point.y + '% '+'</li>';
+									}) : ['</ul>']	);
 						}
 					},
 					//split: true,
@@ -341,7 +370,7 @@ class SpiderChart extends Component{
 						...this.state.chartConfig,
 						chart: {
 							...this.state.chartConfig.chart, 
-							height: 600, 
+							height: this.props.fullCountryReport ? 500 : 600, 
 						},
 						title: {
 							...this.state.chartConfig.title,

@@ -909,4 +909,21 @@
 			}
 		}
 	}
+
+	.worker-involvement{
+		.card--grid{
+			.card--block--chart{
+				padding: 0;
+				height: 350px;
+				.chart--wrapper{
+					svg{
+						zoom: 0.65;
+						.highcharts-background{
+							fill: #fff;
+						}
+					}
+				}
+			}	
+		}
+	}
 }

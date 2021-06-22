@@ -184,7 +184,7 @@ class Chart extends Component {
 						categories.push(element.split)
 					}
 					
-					let split = element.countryCode;
+					let split = element.country;
 					if (!(split in auxSeries)) {
 						auxSeries[split] = []
 						
