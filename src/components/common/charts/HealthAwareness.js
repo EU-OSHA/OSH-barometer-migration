@@ -112,7 +112,7 @@ class HealthAwareness extends Component {
 					}
 				},
 				legend:{
-                    reversed:true,
+					//reversed: this.props.legend
 					//verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
@@ -334,27 +334,6 @@ class HealthAwareness extends Component {
         window.addEventListener('resize', this.updateDimension);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
-        // if (prevState.selectedTypeChart != this.state.selectedTypeChart) {
-        //     this.getLoadData(this.props.chartType);
-        // }
-
-        if (prevProps.chartType != this.props.chartType)
-        {            
-            this.getLoadData(this.props.chartType);
-        }
-
-        if (prevProps.chartTitle != this.props.chartTitle)
-        {
-            this.setState({ chartConfig: {...this.state.chartConfig, title: {... this.state.chartConfig.title, text: "<h2 class='title--card'>"+ this.props.chartTitle + "</h3>"}}})
-        }
-        
-        if (prevProps.type != this.props.type) {
-            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
-        }
-    }
-    
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateDimension);
     }
