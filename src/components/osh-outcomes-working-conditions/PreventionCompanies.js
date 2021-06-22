@@ -241,7 +241,7 @@ class PreventionCompanies extends Component {
 						</div>
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 				</div>
 
