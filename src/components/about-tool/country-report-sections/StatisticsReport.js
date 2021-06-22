@@ -43,11 +43,11 @@ class StatisticsReport extends Component
     getStatisticsTitle = (data, index) => {
         let realIndex = index != 0 ? index-1 : 0 ;
         if(data.check1 === true && (this.state.matrixPageData[realIndex].check1 != true || (realIndex === 0 && index === 0))){
-            return <h3>{this.props.literals.L20714}</h3>
+            return <h3 className="header3">{this.props.literals.L20714}</h3>
         }else if(data.check2 === true && this.state.matrixPageData[realIndex].check2 != true){
-            return <h3>{this.props.literals.L20715}</h3>
+            return <h3 className="header3">{this.props.literals.L20715}</h3>
         }else if(data.check3 === true && this.state.matrixPageData[realIndex].check3 != true){
-            return <h3>{this.props.literals.L20716}</h3>
+            return <h3 className="header3">{this.props.literals.L20716}</h3>
         }
     }
 
