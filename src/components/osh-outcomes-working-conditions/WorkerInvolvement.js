@@ -135,6 +135,7 @@ class WorkerInvolvement extends Component {
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
 										dataset={this.state.dataset}
 										exportingEnabled={true}
+										showSelect={true}
 									/>
 								</div>
 							</div>

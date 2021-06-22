@@ -466,7 +466,7 @@ class SpiderChart extends Component{
 		}
 
 		return (
-			<>
+			<React.Fragment>
 				{ this.state.selectedTypeChart && (
 					<div className="select-filter-chart-wrapper">
 						{ this.state.typeCharts.length > 1 && (
@@ -480,7 +480,7 @@ class SpiderChart extends Component{
 						options={this.state.chartConfig}
 					/>
 				</div>
-			</>
+			</React.Fragment>
 		)
 	}
 }

@@ -239,6 +239,7 @@ class PhysicalRisk extends Component{
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
 										dataset={this.state.dataset}
 										exportingEnabled={true}
+										showSelect={this.state.selectedTab.chartType.length > 1}
 									/>}
 								</div>
 						}
