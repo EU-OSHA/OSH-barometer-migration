@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import { getChartData, getDatasourceAndDates } from '../../../api';
 import { isFullscreen } from '../utils/Utils';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -83,7 +84,14 @@ class WorkAccidentsChart extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					}
+					},
+                    menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Trend', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {

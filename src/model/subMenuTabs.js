@@ -130,6 +130,13 @@ export const mentalRisk = [
         chartType: [
             {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", answers: ["1","2"], legend: "20596", columns:['Country','Yes (%)','No (%)']}
         ]
+    },
+    {
+        url:"discrimination",
+        literalTab: "346",
+        chartType: [
+            {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", sector: ["14"], answers: ["1","2"], legend: "20596"}
+        ]
     }
 ]
 

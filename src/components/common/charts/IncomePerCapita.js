@@ -4,6 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData, getDatasourceAndDates } from '../../../api';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -84,7 +85,14 @@ class IncomerPercapital extends Component {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
 						}
-					}
+					},
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Country', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {

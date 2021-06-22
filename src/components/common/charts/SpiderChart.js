@@ -3,6 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { getSpiderChart } from '../../../api'
 import { isFullscreen } from '../utils/Utils';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
@@ -17,6 +18,16 @@ class SpiderChart extends Component{
 				colors: this.props.colors,
 				credits: {
 					enabled: false
+				},
+				exporting: {
+					enabled: true,
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Indicator', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				chart: {
 					backgroundColor: props.backgroundColor? props.backgroundColor : '#F0F0F0',
@@ -36,14 +47,7 @@ class SpiderChart extends Component{
 					enabled: this.props.exportingEnabled
 				},				
 				pane: {
-						size: '100%'
-				},		
-				xAxis: {
-					//categories: ['Vibrations from tools or machinery','Loud noise','High temperatures','Low temperatures'],
-					tickmarkPlacement: 'on',
-					lineWidth: 0,
-					gridLineColor: '#000000',
-					gridLineWidth: 0.25,
+					size: '99%'
 				},
 				plotOptions: {
 					series: {
@@ -70,6 +74,21 @@ class SpiderChart extends Component{
 									return null;
 								}
 							}
+						}
+					}
+				},
+				legend: {
+					margin: 20
+				},
+				xAxis: {
+					tickmarkPlacement: 'on',
+					lineWidth: 0,
+					gridLineColor: '#000000',
+					gridLineWidth: 0.25,
+					labels: {
+						style: {
+							fontSize: '12px',
+							color: 'black'
 						}
 					}
 				},
@@ -322,7 +341,7 @@ class SpiderChart extends Component{
 						...this.state.chartConfig,
 						chart: {
 							...this.state.chartConfig.chart, 
-							height: 450, 
+							height: 600, 
 						},
 						title: {
 							...this.state.chartConfig.title,
