@@ -154,6 +154,7 @@ ReactDOM.render(
 				<Route exact path="/about-the-system" render={() => <App literals={literals}><GeneralInformation literals={literals}/></App>} />
 				<Route exact path="/about-the-system/methodology" render={() => <App literals={literals}><Methodology literals={literals}/></App>} />
 				<Route exact path="/country-report" render={() => <App literals={literals}><CountryReportHome literals={literals}/></App>} />
+				<Route exact path="/full-country-report" render={() => <CountryReport literals={literals} />} />
 
 				<Route exact path="/accessibility" render={() => <App literals={literals}><Accesibility literals={literals}/></App>} />
 				<Route exact path="/legal-notice" render={() => <App literals={literals}><LegalNotice literals={literals}/></App>} />

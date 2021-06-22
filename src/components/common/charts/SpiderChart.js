@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import {getSpiderChart} from '../../../api'
+import { getSpiderChart } from '../../../api'
 import { isFullscreen } from '../utils/Utils';
 import { xlsxCustomExport } from '../utils/chartConfig';
 
@@ -30,15 +30,22 @@ class SpiderChart extends Component{
                     }
 				},
 				chart: {
-					backgroundColor: '#F0F0F0',
+					backgroundColor: props.backgroundColor? props.backgroundColor : '#F0F0F0',
 					polar: true,
-					type: 'line'
+					type: 'line',
+					spacingTop: props.fullCountryReport == true ? 45 : 10
 				},
 				title: {
-					text: "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
+					text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>",
 					align: 'left'
 					//x: -180
-				},					
+				},
+				legend: {
+					margin: 20
+				},
+				exporting: {
+					enabled: this.props.exportingEnabled
+				},				
 				pane: {
 					size: '99%'
 				},
@@ -201,7 +208,7 @@ class SpiderChart extends Component{
 				],
 			},
 			typeCharts:[],
-			selectedTypeChart: this.props.dataset
+			selectedTypeChart: (this.props.selectedIndicator != undefined) ? this.props.selectedIndicator : this.props.dataset
 		}
 	}
 
@@ -316,7 +323,8 @@ class SpiderChart extends Component{
 	updateDimension = () => {
 		const width = window.innerWidth;
 		const height = window.innerHeight;
-		const title = "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
+		const title = this.props.fullCountryReport == true ? '' : this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : 
+			"<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
 		const tabTitle = "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>"
 
 		if (width > 767) {
@@ -375,11 +383,14 @@ class SpiderChart extends Component{
             this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
         }
 
-        if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[1].type)
-        } else {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
-        }
+        if (this.props.callbackSelectedSurvey)
+		{
+			if (this.props.chartType[0].type == 'ewcs') {
+				this.props.callbackSelectedSurvey(this.props.chartType[1].type)
+			} else {
+				this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+			}
+		}		
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
 	}
@@ -412,18 +423,25 @@ class SpiderChart extends Component{
 
 	render()
 	{
+		let selectDiv;
+		if(this.props.showSelect){
+            selectDiv = (
+				<div className="select-filter-chart">
+					<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+						{ this.state.typeCharts.map((type) => {
+							return <option key={type} value={type} > {type.toUpperCase()} </option>
+						})}
+					</select>
+				</div>
+			)
+		}
+
 		return (
 			<>
 				{ this.state.selectedTypeChart && (
 					<div className="select-filter-chart-wrapper">
 						{ this.state.typeCharts.length > 1 && (
-							<div className="select-filter-chart">
-								<select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-									{ this.state.typeCharts.map((type) => {
-										return <option key={type} value={type} > {type.toUpperCase()} </option>
-									})}
-								</select>
-							</div>
+							selectDiv
 						)}
 					</div>
 				)}

@@ -15,49 +15,49 @@ export const oshCulture = [
         url: "health-and-safety-discussed",
         literalTab: "20664",
         chartType: [
-            {title: "22129", chart: "20091", chartIndicator: "358", sector: ["14"], answers: ["97", "98", "99"], legend: "20570"}
+            {title: "22129", chart: "20091", chartIndicator: "358", sector: ["14"], answers: ["97", "98", "99"], legend: "20570", columns:['Country','Regularly (%)','Occasionally (%)','Practically never (%)']}
         ]
     },
     { 
         url:"action-plan-to-prevent-stress",
         literalTab: "20665",
         chartType: [
-            {title: "457", chart: "20092", chartIndicator: "328", sector: ["14"], answers: ["1", "2"], legend: "20571"}
+            {title: "457", chart: "20092", chartIndicator: "328", sector: ["14"], answers: ["1", "2"], legend: "20571", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"procedure-against-bullying",
         literalTab: "20666",
         chartType: [
-            {title: "458", chart: "20093", chartIndicator: "329", sector: ["14"], answers: ["1", "2"], legend: "20572"}
+            {title: "458", chart: "20093", chartIndicator: "329", sector: ["14"], answers: ["1", "2"], legend: "20572", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"procedures-to-deal-with-threats",
         literalTab: "20667",
         chartType: [
-            {title: "22132", chart: "20094", chartIndicator: "330", sector: ["14"], answers: ["1", "2"], legend: "20573"}
+            {title: "22132", chart: "20094", chartIndicator: "330", sector: ["14"], answers: ["1", "2"], legend: "20573", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"measures-to-reduce-work-pressure",
         literalTab: "20668",
         chartType: [
-            {title: "22133", chart: "20095", chartIndicator: "331", sector: ["14"], answers: ["1", "2"], legend: "20574"}
+            {title: "22133", chart: "20095", chartIndicator: "331", sector: ["14"], answers: ["1", "2"], legend: "20574", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     { 
         url:"use-of-personal-protective-equipment",
         literalTab: "320",
         chartType: [
-            {title: "22126", chart: "20038", chartIndicator: "63", sector: ["14"], answers: ["6", "7", "32"], legend: "20575"}
+            {title: "22126", chart: "20038", chartIndicator: "63", answers: ["6", "7", "32"], legend: "20575", columns:['Country','Yes and always (%)','Yes, but not required (%)','No, not required (%)']}
         ]
     },
     { 
         url:"information-about-risks",
         literalTab: "321",
         chartType: [
-            {title: "22127", chart: "20039", chartIndicator: "64", sector: ["14"], answers: ["8", "9"], legend: "20576"}
+            {title: "22127", chart: "20039", chartIndicator: "64", answers: ["8", "9"], legend: "20576", columns:['Country','Yes (%)','No (%)']}
         ]
     }
 ]
@@ -83,45 +83,52 @@ export const mentalRisk = [
         url:"time-pressure",
         literalTab: "340",
         chartType: [
-            {type: "esener", title: "22136" , chart: "20096", chartIndicator: "323", sector: ["14"], answers: ["1", "2"], legend: "20585"},
-            {type: "ewcs", title: "22179", chart: "20073", chartIndicator: "83", sector: ["14"], answers: ["14", "15", "16"], legend: "20584"}
+            {type: "esener", title: "22136" , chart: "20096", chartIndicator: "323", sector: ["14"], answers: ["1", "2"], legend: "20585", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22179", chart: "20073", chartIndicator: "83", answers: ["14", "15", "16"], legend: "20584", columns:['Country','All the time (%)','¼ and ¾ of the time (%)','Never (%)']}
         ]
     },
     {
         url:"poor-communication",
         literalTab: "341",
         chartType: [
-            {type: "esener", title: "22137", chart: "20097", chartIndicator: "324", sector: ["14"], answers: ["1", "2"], legend: "20587"},
-            {type: "ewcs", title: "22180", chart: "20074", chartIndicator: "84", sector: ["14"], answers: ["17"], legend: "20586"}
+            {type: "esener", title: "22137", chart: "20097", chartIndicator: "324", sector: ["14"], answers: ["1", "2"], legend: "20587", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22180", chart: "20074", chartIndicator: "84", answers: ["17"], legend: "20586", columns:['Country','Value (%)']}
         ]
     },
     {
         url:"influence",
         literalTab: "342", 
-        chartType: [{type: "ewcs", chart:"20075", title: "22181", chartIndicator: "85", sector: null, answers: ["18", "19", "20"], legend: "20588"}]
+        chartType: [{type: "ewcs", chart:"20075", title: "22181", chartIndicator: "85", sector: null, answers: ["18", "19", "20"], legend: "20588", columns:['Country','Always or most of the time (%)','Sometimes (%)','Rarely or never (%)']}]
     },
     {
         url:"fear-of-job-loss",
         literalTab: "343",
         chartType: [
-            {type: "esener", title: "22139", chart: "20098", chartIndicator: "325", sector: ["14"], answers: ["1", "2"], legend: "20591"},
-            {type: "ewcs", title: "22182", chart: "20076", chartIndicator: "86", sector: ["14"], answers: ["21", "22", "23"], legend: "20590"}
+            {type: "esener", title: "22139", chart: "20098", chartIndicator: "325", sector: ["14"], answers: ["1", "2"], legend: "20591", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22182", chart: "20076", chartIndicator: "86", answers: ["21", "22", "23"], legend: "20590", columns:['Country','Agree (%)','Neither agree or disagree (%)','Disagree (%)']}
         ]
     },
     {
         url:"difficult-clients",
         literalTab: "344",
         chartType: [
-            {type: "esener", title: "22140", chart: "20099", chartIndicator: "326", sector: ["14"], answers: ["1", "2"], legend: "20593"},
-            {type: "ewcs", title: "22183", chart: "20077", chartIndicator: "87", sector: ["14"], answers: ["14", "15", "16"], legend: "20592"}
+            {type: "esener", title: "22140", chart: "20099", chartIndicator: "326", sector: ["14"], answers: ["1", "2"], legend: "20593", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22183", chart: "20077", chartIndicator: "87", answers: ["14", "15", "16"], legend: "20592", columns:['Country','All the time (%)','¼ and ¾ of the time (%)','Never (%)']}
         ]
     },
     {
         url:"working-hours",
         literalTab: "345",
         chartType: [
-            {type: "esener", title: "22141", chart: "20100", chartIndicator: "327", sector: ["14"], answers: ["1", "2"], legend: "20595"},
-            {type: "ewcs", title: "22184", chart: "20078", chartIndicator: "88", sector: ["14"], answers: ["24", "25"], legend: "20594"}
+            {type: "esener", title: "22141", chart: "20100", chartIndicator: "327", sector: ["14"], answers: ["1", "2"], legend: "20595", columns:['Country','Yes (%)','No (%)']},
+            {type: "ewcs", title: "22184", chart: "20078", chartIndicator: "88", answers: ["24", "25"], legend: "20594", columns:['Country','Yes (%)','No (%)']}
+        ]
+    },
+    {
+        url:"discrimination",
+        literalTab: "346",
+        chartType: [
+            {type: "ewcs", title:"22185", chart: "20079", chartIndicator: "89", answers: ["1","2"], legend: "20596", columns:['Country','Yes (%)','No (%)']}
         ]
     },
     {
@@ -148,22 +155,22 @@ export const physicalRiskTabs = [
         {
             literalTab: "328",
             url: "smoke-powder-or-dust",
-            chartType: [{type: "ewcs", chart:"20053", title: "22143", chartIndicator: "71", sector: null, answers: ["26", "27"], legend: "20598"}]
+            chartType: [{type: "ewcs", chart:"20053", title: "22143", chartIndicator: "71", sector: null, answers: ["26", "27"], legend: "20598",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "329",
             url: "vapours", 
-            chartType: [{type: "ewcs", chart:"20054", title: "22144", chartIndicator: "72", sector: null, answers: ["26", "27"], legend: "20599"}]
+            chartType: [{type: "ewcs", chart:"20054", title: "22144", chartIndicator: "72", sector: null, answers: ["26", "27"], legend: "20599",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "330",
             url: "chemical-products", 
-            chartType: [{type: "ewcs", chart:"20055", title: "22145", chartIndicator: "73", sector: null, answers: ["26", "27"], legend: "20600"}]
+            chartType: [{type: "ewcs", chart:"20055", title: "22145", chartIndicator: "73", sector: null, answers: ["26", "27"], legend: "20600",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         },
         {
             literalTab: "331",
             url: "infectious-materials", 
-            chartType: [{type: "ewcs", chart:"20056", title: "22146", chartIndicator: "74", sector: null, answers: ["26", "27"], legend: "20601"}]
+            chartType: [{type: "ewcs", chart:"20056", title: "22146", chartIndicator: "74", sector: null, answers: ["26", "27"], legend: "20601",columns:['Country','At least ¼ of the time (%)','Less than ¼ of the time (%)']}]
         }]
     },
     { 

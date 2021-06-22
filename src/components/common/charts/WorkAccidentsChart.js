@@ -19,7 +19,7 @@ class WorkAccidentsChart extends Component {
                 title: {
                     // useHTML: true,
                     // text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-                    text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                    text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
                     align: 'left'
                 },
                 credits: {
@@ -50,6 +50,9 @@ class WorkAccidentsChart extends Component {
                                     130,
                                     37
                                 ).add();
+                                chart.customImage.attr({
+									class:'osha-logo'
+								});
                             }
                             else
                             {
@@ -76,7 +79,7 @@ class WorkAccidentsChart extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					enabled: props.fullCountryReport == true ? false : true,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -123,7 +126,7 @@ class WorkAccidentsChart extends Component {
         this.setState({ chartConfig: {
             title: {
                 //useHTML: true,
-                text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+                text: this.props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
                 align: 'left',
                 widthAdjust: 0,
                 style: {
@@ -144,7 +147,7 @@ class WorkAccidentsChart extends Component {
             },
             colors: this.props.colors,
             chart: {
-                height: window.innerWidth > 768 ? 450 : 770,
+                height: window.innerWidth > 768 ? this.props.fullCountryReport == true ? 250 : 450 : 770,
                 type: this.props.type,
                 backgroundColor: '#F0F0F0',
                 events: {
@@ -159,6 +162,9 @@ class WorkAccidentsChart extends Component {
                                130,
                                37
                            ).add();
+                           chart.customImage.attr({
+                            class:'osha-logo'
+                        });
                        }
                        else
                        {
@@ -185,7 +191,7 @@ class WorkAccidentsChart extends Component {
                 },
             },
             exporting: {
-                enabled: true,
+                enabled: this.props.fullCountryReport == true ? false : true,
                 buttons: {
                     contextButton: {
                         menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -230,15 +236,17 @@ class WorkAccidentsChart extends Component {
                 gridLineWidth: 2,
                 startOnTick: true,
                 endOnTick: true,
+                tickInterval: this.props.step ? this.props.step : null,
+                max: this.props.yAxisMax ? this.props.yAxisMax : null,
                 title: {
                     text: ''
                 },
                 labels: {
                     format: this.props.percentage === true ? '{value}%' : `{value}`,
                     style: {
-                        fontFamily: 'OpenSan-bold',
+                        fontFamily: 'OpenSans-bold',
                         fontWeight: 'normal',
-                        fontSize:'14px',
+                        fontSize:  this.props.fullCountryReport ? '10px' : '12px',
                         textOverflow: 'none'
                     }
                 }
@@ -250,6 +258,7 @@ class WorkAccidentsChart extends Component {
                         fontFamily: 'OpenSans-bold',
                         fontWeight: 'normal',
                         fontSize:'12px',
+                        fontSize: this.props.fullCountryReport ? '10px' : '12px' ,
                         textOverflow: 'none'
                     }
                 }
@@ -348,7 +357,7 @@ class WorkAccidentsChart extends Component {
                             series
                         } 
                     })
-                } 
+                }  
                 
                 if (this.props.type == 'column' || this.props.type == 'bar') {
                    
@@ -371,6 +380,25 @@ class WorkAccidentsChart extends Component {
                         series.push( {country:euSerie.country,name: serie, data: auxSeries[serie]} );
                         newArray = [...series].reverse();
                     }
+
+                    // If country is defined, change the colour for that country
+                    if (this.props.country)
+                    {
+                        const selectedCountryColors = ['#F6A400','#F3C564'];
+                        for (let i = 0; i < newArray[0].data.length; i++)
+                        {
+                            if (newArray[0].data[i].name == this.props.country)
+                            {
+                                newArray[0].data[i] = {...newArray[0].data[i], color: selectedCountryColors[0]}
+                                newArray[1].data[i] = {...newArray[1].data[i], color: selectedCountryColors[1]}
+                            }
+                            else if (newArray[0].data[i].name != 'EU27_2020' && newArray[0].data[i].name != 'EU28')
+                            {
+                                newArray[0].data[i] = {...newArray[0].data[i], color: this.props.colors[0]}
+                                newArray[1].data[i] = {...newArray[1].data[i], color: this.props.colors[1]}
+                            }
+                        }
+                    }                    
                     
                     this.setState({
                         chartConfig: {...this.state.chartConfig, 
@@ -495,6 +523,10 @@ class WorkAccidentsChart extends Component {
         if (prevProps.selectedCountry2 != this.props.selectedCountry2) {
             this.getLoadData(this.props.chart, this.props.indicator, this.props.selectedCountry1, this.props.selectedCountry2);
             this.getCredits(this.props.chart);
+        }
+
+        if (prevProps.country != this.props.country) {
+            this.getLoadData(this.props.chart, this.props.indicator);
         }
     }
 
