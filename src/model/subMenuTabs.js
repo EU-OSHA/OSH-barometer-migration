@@ -181,8 +181,8 @@ export const preventionInCompanies = [
         url:"risk-assessment",
         literalTab: "20679",
         chartType: [
-            {type: "sector", chart:"20102", title: "720", chartIndicator: "304", sector: ["2","3","4","5","6","7","18","14"], size: null, answers: ["1"], legend: "20603"},
-            {type: "establishment size", chart:"20102", title: "720", chartIndicator: "304", sector: null, "size":["7","8","14","10","11"], answers: ["1"], legend: "20602"}
+            {type: "sector", chart:"20102", title: "471", chartIndicator: "304", sector: ["2","3","4","5","6","7","18","14"], size: null, answers: ["1"], legend: "20603"},
+            {type: "establishment size", chart:"20102", title: "471", chartIndicator: "304", sector: null, "size":["7","8","14","10","11"], answers: ["1"], legend: "20602"}
         ]
     },
     {
