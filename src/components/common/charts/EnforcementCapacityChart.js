@@ -20,7 +20,7 @@ class EnforcementCapacityChart extends Component {
 				title: {
 					//useHTML: true,
 					// TODO: Maybe possible change to main-title--card 
-					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
+					text: props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 0,
 					style: {
@@ -51,7 +51,7 @@ class EnforcementCapacityChart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:450,
+					height: this.props.fullCountryReport==true ? 250 : 450,
 					// width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -67,6 +67,9 @@ class EnforcementCapacityChart extends Component {
 									130,
 									37
 								).add();
+								chart.customImage.attr({
+									class:'osha-logo'
+								});
 							}
 							else
 							{
@@ -93,7 +96,7 @@ class EnforcementCapacityChart extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: props.fullCountryReport == true ? false : true,
 					y:-10,
 					buttons: {
 						contextButton: {

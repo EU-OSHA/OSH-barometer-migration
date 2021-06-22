@@ -36,7 +36,7 @@ class IncomerPercapital extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:500,
+					height: this.props.fullCountryReport ? 500 : 250,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {
@@ -80,7 +80,7 @@ class IncomerPercapital extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
@@ -288,4 +288,8 @@ class IncomerPercapital extends Component {
 	}
 }
 
+IncomerPercapital.defaultProps = {
+	fullCountryReport: true,
+	title: ''
+}
 export default IncomerPercapital;

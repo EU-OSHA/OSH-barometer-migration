@@ -172,6 +172,29 @@ export function getNationalStrategiesCountries(country) {
     return response
 }
 
+// Get the data for the National Strategies - Country Profile page
+export function getCountryProfileData(country){
+    const URL = `${BASEURL}qualitative/getMatrixPageData?page=STRATEGY`
+
+    const response = axios.get(URL, {
+        params: {
+            country: country
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.country) {
+                urlWithParams.append('country', country);
+            }
+
+            return urlWithParams
+        }
+    })
+    .then((response) => response.data);
+
+    return response
+}
+
 //Get countries available for social dialogue select
 export function getSocialDialogueCountries() {
     const URL = `${BASEURL}countries/getIndicatorCountries?chart=20090`;
@@ -237,7 +260,6 @@ export function getHealthPerceptionData(filters){
     
     return response
 }
-
 
 export function getCountryDataMap(){
     const URL = `${BASEURL}quantitative/getCountryCardData?chart=20012`;
@@ -340,9 +362,7 @@ export function getDatasourceAndDates (chart)
     return response;
 }
 
-
 // Get Spider Chart for Physical-Risk
-
 export function getSpiderChart(chart, country1, country2){
     const URL = `${BASEURL}quantitative/getRadarChartData`
 
@@ -423,6 +443,55 @@ export function getMethodologyData (section, indicator)
             return urlWithParams
         }
     }).then((res)=>{
+        return res.data
+    })
+
+    return response;
+}
+
+// get data for the tables in the Fullt Country Report
+export function getTableData(chart, split, country, sector, answers, size) {
+    const URL = `${BASEURL}quantitative/getTableData`
+
+    const response = axios.get(URL, {
+        params: {
+            chart,
+            split,
+            country,
+            sector,
+            answers,
+            size
+        },
+        paramsSerializer: params => {
+            let urlWithParams = new URLSearchParams();
+
+            if (params.chart) {
+                urlWithParams.append('chart', params.chart);
+            }
+
+            if (params.split) {
+                urlWithParams.append('split', params.split);
+            }
+
+            if (params.country) {
+                urlWithParams.append('country', params.country);
+            }
+
+            if (params.sector) {
+                params.sector.map((sector) => urlWithParams.append('sector', sector)); 
+            }
+
+            if (params.answers) {
+                params.answers.map((answer) => urlWithParams.append('answer', answer));
+            }
+
+            if (params.size) {
+                params.size.map((size) => urlWithParams.append('size', size));
+            }
+
+            return urlWithParams
+        }
+    }).then((res) => {
         return res.data
     })
 

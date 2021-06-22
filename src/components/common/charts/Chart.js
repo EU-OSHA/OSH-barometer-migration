@@ -40,7 +40,7 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:450,
+					height: this.props.fullCountryReport ? 450 : 250,
 					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -85,7 +85,7 @@ class Chart extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					y:-10,
 					buttons: {
 						contextButton: {
@@ -130,13 +130,13 @@ class Chart extends Component {
 					itemMarginTop:4,
 					itemMarginBottom:4,
 					
-					//width: 300,
+					// width: this.props.fullCountryReport ? 300 : 250,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:'12px',
 						textOverflow: "ellipsis",
-						width: 250
+						width: this.props.fullCountryReport ? 250 : 150
 					}
 				},
 				plotOptions: {					
@@ -155,7 +155,7 @@ class Chart extends Component {
 						minPointLength:3,
 						groupPadding:0.06,
 						borderWidth: 0,
-						pointWidth:this.props.stacking ? 50 : undefined,
+						pointWidth:this.props.stacking ? this.props.fullCountryReport ? 50 : 15 : undefined,
 						dataLabels: {
 							align: 'left',
 							y:-2,
@@ -321,6 +321,10 @@ class Chart extends Component {
 			</div>
 		)
 	}
+}
+Chart.defaultProps = {
+	fullCountryReport: true,
+	title: ''
 }
 
 export default Chart;

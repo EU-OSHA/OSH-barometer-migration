@@ -35,6 +35,7 @@ const OverallOpinion = (props) => {
 	const [legend, setLegend] = useState('')
 	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
 	const [selectedTab, setSelectedTab] = useState(selected);
+	console.log("selectedTab",selectedTab);
     // const [indicatorTabs, setIndicatorTabs] = useState(overallOpinion);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [sector, setSector]= useState('sector')
@@ -156,6 +157,8 @@ const OverallOpinion = (props) => {
 													percentage={true}
 													callbackLegend={callbackChartLegend}
 													callbackSelectedSurvey={callbackSelectedSurvey}
+													exportingEnabled={true}
+													showSelect={true}
 												/>
 											</div>
 										</div>
@@ -197,6 +200,8 @@ const OverallOpinion = (props) => {
 											gender={[1,2,3]}
 											age={[1,2,3,4]}
 											handleSector={handleSector}
+											showSelect={true}
+											exportingEnabled={true}
 										/>
 									</div>
 								</div>

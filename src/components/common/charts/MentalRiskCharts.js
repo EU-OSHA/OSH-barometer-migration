@@ -20,7 +20,7 @@ class MentalRiskCharts extends Component {
         this.state = {
             chartConfig: {
                 title: {
-                    text: window.innerWidth > 768 ? 
+                    text: props.fullCountryReport == true ? '' : window.innerWidth > 768 ? 
                         "<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>" 
                         : 
                         "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>",
@@ -60,6 +60,9 @@ class MentalRiskCharts extends Component {
                                    130,
                                    37
                                ).add();
+                               chart.customImage.attr({
+                                class:'osha-logo'
+                            });
                            }
                            else
                            {
@@ -86,7 +89,8 @@ class MentalRiskCharts extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					// enabled: true,
+                    enabled: this.props.exportingEnabled,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -173,10 +177,11 @@ class MentalRiskCharts extends Component {
                         }
                     ],
                     labels: {
+                        // staggerLines: 1,
                         style: {
 							fontFamily: 'OpenSans-bold',
-							fontWeight: 'bold',
-							fontSize:'12px',
+							fontWeight: 'normal',                            
+                            fontSize: this.props.fullCountryReport ? '10px' : '12px',
                             color:xAxisColor
 						}
                     }
@@ -194,7 +199,7 @@ class MentalRiskCharts extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport ? '10px' : '12px'
 						}
                     },
                     min: 0,
@@ -203,8 +208,9 @@ class MentalRiskCharts extends Component {
                 plotOptions: {
                     column: {
                         stacking: 'normal',
-                      borderWidth: 0,  
-                      pointStart: 0,
+                        borderWidth: 0,  
+                        pointStart: 0,
+                        groupPadding: this.props.fullCountryReport ? 0 : 0.2,
                         states: {
                             inactive: {
                                 opacity: 1
@@ -241,13 +247,16 @@ class MentalRiskCharts extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props.chartType[0].type
+            selectedTypeChart: this.props.selectedIndicator != undefined ? this.props.selectedIndicator :  this.props.chartType[0].type
         }
     }
     
     onChangeSelect = (e) => {
         this.setState({ selectedTypeChart: e.target.value });
-        this.props.callbackSelectedSurvey(e.target.value);
+
+        if(this.props.callbackSelectedSurvey != undefined){
+            this.props.callbackSelectedSurvey(e.target.value);
+        }        
 
         const serie = this.props.chartType.find((chart) => chart.type == e.target.value);
         if (window.innerWidth > 768 ) {
@@ -256,7 +265,7 @@ class MentalRiskCharts extends Component {
                     ...this.state.chartConfig, 
                     title: {
                         ...this.state.chartConfig.title, 
-                        text: "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
+                        text: this.props.fullCountryReport == true ? '' : "<h2 class='title--card'>"+this.props.literals[`L${serie.title}`]+"</h2>" 
                     },
                     exporting: {
                         ...this.state.chartConfig.exporting, 
@@ -286,7 +295,9 @@ class MentalRiskCharts extends Component {
             this.setState({ selectedTypeChart: null });
         }
 
-        this.props.callbackLegend(chart.legend);
+        if(this.props.callbackLegend != undefined){
+            this.props.callbackLegend(chart.legend);
+        }
 
         this.setState({ ...this.state, isLoading: true });
         try {
@@ -294,9 +305,14 @@ class MentalRiskCharts extends Component {
                 .then((data) => {
                     euSerie1 = data.resultset[0].value
                     euSerie2 = data.resultset[1].value
-                   
+
+                    let currentCountry = null;                   
 
                     data.resultset.forEach(element => {
+                        if (this.props.country && element.countryCode == this.props.country)
+                        {
+                            currentCountry = element.country;
+                        }
                         if (categories.indexOf(element.country) == -1) {
                             categories.push(element.country)
                         }
@@ -319,12 +335,40 @@ class MentalRiskCharts extends Component {
                                 auxSeries[serie][0] = euValueSerie2
                             }
                         series.push({ name: serie, data: auxSeries[serie] });
-
                     }
-                       const arr = series.slice(0,1)
-                       const arr1 = series.slice(1,2)
-                       const arr2 = series.slice(2,3)
-                       const array = arr1.concat(arr,arr2).reverse()
+
+                    if (this.props.country && currentCountry != null)
+                    {
+                        const selectedCountryColors = ['#F6A400','#F3C564'];
+                        // Change the colour for the current country
+                        for (let i = 0; i < series[0].data.length; i++)
+                        {
+                            if (series[0].data[i].name == currentCountry)
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: selectedCountryColors[0]}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: selectedCountryColors[1]}
+                                }                                
+                            }
+                            else if (series[0].data[i].name == 'EU27_2020' || series[0].data[i].name == 'EU28')
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: euColor}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: euColorLight}
+                                }                                
+                            }
+                            else
+                            {
+                                series[0].data[i] = {...series[0].data[i], color: this.props.colors[this.props.colors.length - 1]}
+                                if (series[1])
+                                {
+                                    series[1].data[i] = {...series[1].data[i], color: this.props.colors[this.props.colors.length - 2]}
+                                }                                
+                            }
+                        }
+                    }
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
@@ -348,18 +392,8 @@ class MentalRiskCharts extends Component {
                         //     console.log('trigger 2.1', categories.length)
                         //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
                         // }
-                    } else if (series[0].name == 'Yes, but only some of them'){
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: array, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 3.1', categories.length)
-                        // }
-
-                        // if (categories.length > 31) {
-                        //     console.log('trigger 3.2', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})
-                        // }
                     }else{
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:'12px', color:xAxisColor}}, categories} }})
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:this.props.fullCountryReport ? '10px' : '12px', color:xAxisColor}}, categories} }})
                     }
                 });
         } catch (error) {
@@ -397,8 +431,9 @@ class MentalRiskCharts extends Component {
                 this.setState({
                     chartConfig: {
                         ...this.state.chartConfig,
-                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
-                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
+                        chart: {...this.state.chartConfig.chart, height: this.props.fullCountryReport == true? 250 : 450, type: 'column'},
+                        title: {...this.state.chartConfig.title, text: this.props.fullCountryReport == true ? '' : this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
+                        // title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${title}</h2>`}
                     }
                 });
             }
@@ -418,7 +453,8 @@ class MentalRiskCharts extends Component {
                     chartConfig: {
                         ...this.state.chartConfig,
                         chart: {...this.state.chartConfig.chart, height: 785, type: 'bar'},
-                        title: {...this.state.chartConfig.title, text: `<h2 class='title--card'>${tabTitle}</h2>`}
+                        // title: {...this.state.chartConfig.title, text: this.props.reportTitle != undefined ? "<h2 class='title--card'>"+this.props.reportTitle+"</h2>" : <h2 class='title--card'>${tabTitle}</h2>}
+                        title: {...this.state.chartConfig.title, text: this.props.fullCountryReport == true ? '' : `<h2 class='title--card'>${tabTitle}</h2>`}
                     }
                 });
             }
@@ -444,9 +480,13 @@ class MentalRiskCharts extends Component {
         if (this.props.chartType.length > 1)
         {
             if (this.props.chartType[0].type == 'ewcs') {
-                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                if(this.props.callbackSelectedSurvey != undefined){
+                    this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                }
             } else {
-                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                if(this.props.callbackSelectedSurvey != undefined){
+                    this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+                }
             }
         }        
         this.updateDimension();
@@ -458,7 +498,7 @@ class MentalRiskCharts extends Component {
             this.getLoadData(this.props.chartType);
         }
 
-        if (prevProps.chartType != this.props.chartType)
+        if (prevProps.chartType != this.props.chartType || prevProps.country != this.props.country)
         {            
             this.getLoadData(this.props.chartType);
             this.updateDimension();
@@ -474,21 +514,39 @@ class MentalRiskCharts extends Component {
     }
     
     render() {
-        let showSelect =  this.state.selectedTypeChart && this.props.chartType.length > 1;
+
+        let selectDiv;
+		if(this.props.showSelect){
+            selectDiv = (
+                <div className="select-filter-chart-wrapper">
+                    {this.state.typeCharts.length > 1 && (
+                        <div className="select-filter-chart">
+                            <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                                {this.state.typeCharts.map((type) => {
+                                    return <option key={type} value={type} > {type.toUpperCase()} </option>
+                                })}
+                            </select>
+                        </div>
+                    )}
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
-                    {showSelect && (
-                        <div className="select-filter-chart-wrapper">
-                            {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
+                    {this.state.selectedTypeChart && (
+                        selectDiv
+                        // <div className="select-filter-chart-wrapper">
+                        //     {this.state.typeCharts.length > 1 && (
+                        //         <div className="select-filter-chart">
+                        //             <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                        //                 {this.state.typeCharts.map((type) => {
+                        //                     return <option key={type} value={type} > {type.toUpperCase()} </option>
+                        //                 })}
+                        //             </select>
+                        //         </div>
+                        //     )}
+                        // </div>
                     )}
                     {!this.state.isLoading && (
                         <div className='chart-container'>

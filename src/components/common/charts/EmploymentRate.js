@@ -38,7 +38,7 @@ class EmploymentRate extends Component {
 					}
 				},
 				chart: {
-					height: 450,
+					height: this.props.fullCountryReport ? 450 : 250,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {
@@ -82,7 +82,7 @@ class EmploymentRate extends Component {
 				   	},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -119,16 +119,15 @@ class EmploymentRate extends Component {
 					itemMarginTop:4,
 					itemMarginBottom:4,
 					align: 'center',
-					//itemWidth: 96,
-					itemDistance: 1,
+					// itemWidth: this.props.fullCountryReport ? 250 : 80,
+					itemDistance: this.props.fullCountryReport ? 10 : 3,
 
 					//width: 200,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'11px',
-						textOverflow: "ellipsis",
-						
+						fontSize: this.props.fullCountryReport ? '12px' : '11px',
+						textOverflow: "ellipsis"
 					}
 				},
 				plotOptions: {
@@ -153,7 +152,7 @@ class EmploymentRate extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
+								fontSize:this.props.fullCountryReport ? '14px' : '10px'
 							},
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -212,7 +211,7 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport ? '12px' : '10px'
 						}
 					},
 					type: 'category'
@@ -220,7 +219,7 @@ class EmploymentRate extends Component {
 				yAxis: {
 					lineWidth: 0,
 					gridLineColor: '#FFF',
-          gridLineWidth: 2,
+          			gridLineWidth: 2,
 					max: 100,
 					tickInterval: this.props.tick,
 					title: {
@@ -231,7 +230,8 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							// w:console.log(this.props.fullCountryReport ),
+							fontSize:this.props.fullCountryReport ? '12px' : '10px',
 							textOverflow: 'none'
 						}
 					}
@@ -328,6 +328,11 @@ class EmploymentRate extends Component {
 			</div>
 		)
 	}
+}
+
+EmploymentRate.defaultProps = {
+	fullCountryReport: true,
+	title: ''
 }
 
 export default EmploymentRate;
