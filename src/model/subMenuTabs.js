@@ -204,8 +204,8 @@ export const preventionInCompanies = [
         url:"employees-participation-in-prevention",
         literalTab: "20683", 
         chartType: [
-            {type: "sector", chart:"20105", title: "22149", chartIndicator: "353", sector: ["2","3","4","5","6","7","18","14"], answers: ["1"], legend: "20607"},
-            {type: "establishment size", chart:"20105", title: "22150", chartIndicator: "353", sector: null, "size":["7","8","14","10","11"], answers: ["1"], legend: "20608"}
+            {type: "sector", chart:"20105", title: "768", chartIndicator: "353", sector: ["2","3","4","5","6","7","18","14"], answers: ["1"], legend: "20607"},
+            {type: "establishment size", chart:"20105", title: "768", chartIndicator: "353", sector: null, "size":["7","8","14","10","11"], answers: ["1"], legend: "20608"}
         ]
     },
 ]
