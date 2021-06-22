@@ -94,6 +94,76 @@ class Methodology extends Component {
 
 		window.addEventListener('resize', this.updateDimension);
 		window.addEventListener('mousedown', this.handleClickOutside);
+		
+		this.indicatorIcons = function(subsection){
+			subsection = subsection.toLowerCase();
+			// console.log(subsection);
+			switch(subsection) {
+			// GENERIC INFORMATION  
+			  case 'osh authorities':
+				return 'forum-icon';
+				break;
+			  case 'economic and sector profile':
+				return 'economic-chart-icon';
+				break;
+			  case 'workforce profile':
+				return 'people-group-icon';
+				break;
+
+			// STEERING OF OSH 
+			  case 'regulation':
+				return 'regulation-icon';
+				break;
+			  case 'structure of each national strategy':
+				return 'national-icon';
+				break;
+			  case 'responses of national strategies to eu challenges':
+				return 'national-icon';
+				break;
+			  case 'social dialogue':
+				return 'dialogue-icon';
+				break;
+
+			// OSH OUTCOMES AND WORKING CONDITIONS
+			  case 'work accidents':
+				return 'work-accidents-icon';
+				break;
+			  case 'health perception of the workers':
+				return 'health-icon';
+				break;
+			  case 'osh culture and health awareness':
+				return 'culture-icon';
+				break;
+			  case 'working conditions - overall opinion':
+				return 'overall-opinion-icon';
+				break;
+			  case 'working conditions - mental risk':
+				return 'mental-risk-icon';
+				break;
+			  case 'working conditions - physical risk':
+				return 'physical-risk-icon';
+				break;
+			  case 'prevention in companies':
+				return 'prevention-icon';
+				break;
+			  case 'worker involvement':
+				return 'workers-icon';
+				break;
+
+			// OSH INFRASTRUCTURE
+			  case 'enforcement capacity':
+				return 'enforcement-icon';
+				break;
+			  case 'osh statistics, surveys and research':
+				return 'statistics-icon';
+				break;
+
+			  default:
+				// code block
+
+			}    
+		}
+
 	}
 
 	componentDidUpdate(prevProps)
@@ -186,7 +256,7 @@ class Methodology extends Component {
 					{
 						this.state.methodology != undefined ?
 						(
-							<section className="methodology--grid--wrapper" >
+							<section className={"methodology--grid--wrapper " + this.indicatorIcons(this.props.methodology.subsection)}>
 								{this.methodologySection('L20720',`L${this.state.methodology.diagram}`)}
 								{this.methodologySection('L20721',`L${this.state.methodology.description}`)}
 								{this.methodologySection('L20722',`L${this.state.methodology.datasource}`)}
@@ -202,7 +272,7 @@ class Methodology extends Component {
 								{this.methodologySection('L20732',`L${this.state.methodology.additionalComments}`)}
 							</section>
 						) : (
-							<section className="methodology--grid--wrapper" data-ng-className="indicatorIcons(pSubsection)">
+							<section className="methodology--grid--wrapper" data-ng-className="this.indicatorIcons(pSubsection)">
 
 							</section>
 						)
