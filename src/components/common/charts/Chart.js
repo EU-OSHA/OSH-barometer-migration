@@ -144,6 +144,9 @@ class Chart extends Component {
 						shadow: false,
 						outline: 0,
 						stacking: this.props.stacking,
+						dataLabels: {
+							allowOverlap: true
+						  }
 						//pointPadding: 0.25
 					},
 					column: {
