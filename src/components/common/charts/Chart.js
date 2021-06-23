@@ -127,9 +127,8 @@ class Chart extends Component {
 					verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
-					itemMarginTop:4,
+					itemMarginTop: 4,
 					itemMarginBottom:4,
-					
 					// width: this.props.fullCountryReport ? 300 : 250,
 					itemStyle: {
 						fontFamily: 'OpenSans',

@@ -145,7 +145,7 @@ class ChartHuman extends Component {
 						fontSize:this.props.fullCountryReport ? '12px' : '11px',
 						textOverflow: "ellipsis",
 					},
-					margin: this.props.fullCountryReport ? 15 : 15
+					margin: this.props.fullCountryReport ? 15 : 35
 				},
 				plotOptions: {
 					series: {
