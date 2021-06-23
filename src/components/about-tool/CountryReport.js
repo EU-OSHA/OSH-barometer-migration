@@ -760,7 +760,7 @@ class CountryReport extends Component
 									</div>
     								{/* Risk Assessment - Sector */}
     								<div className="box-rounded">
-										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[0].literalTab]} - ${this.props.literals.L20648}`}</h2>
+										<h2 className='title--card'>{`${this.props.literals.L471} - ${this.props.literals.L20648}`}</h2>
 										<PreventionChart
 											title=""
 											literals={this.props.literals}
@@ -796,7 +796,7 @@ class CountryReport extends Component
 									</div>
 									{/* Risk Assessment - Establishment size */}
 									<div className="box-rounded">
-										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[0].literalTab]} - ${this.props.literals.L20647}`}</h2>
+										<h2 className='title--card'>{`${this.props.literals.L471} - ${this.props.literals.L20647}`}</h2>
 										<PreventionChart
 											title=""
 											literals={this.props.literals}
@@ -910,7 +910,7 @@ class CountryReport extends Component
 
 									{/* Employees participation in prevention - Sector */}
 									<div className="box-rounded">
-										<h2 className='title--card'>{`${this.props.literals["L"+preventionInCompanies[4].literalTab]} - ${this.props.literals.L20648}`}</h2>
+										<h2 className='title--card'>{`${this.props.literals.L22150} - ${this.props.literals.L20648}`}</h2>
 										<PreventionChart
 											literals={this.props.literals}
 											title=" "
