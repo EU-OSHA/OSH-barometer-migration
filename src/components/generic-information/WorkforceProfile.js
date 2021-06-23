@@ -98,7 +98,16 @@ class WorkforceProfile extends Component
 			  $( ".survey--map--block" ).removeClass('fixed');
 			}
 			
-		  });
+		});
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			$('body').addClass('mobile-device');
+			$('.print--block').addClass('hide');
+			$('.zoom--text').addClass('hide');
+		} else {
+			$('body').removeClass('mobile-device');
+			$('.print--block').removeClass('hide');
+			$('.zoom--text').removeClass('hide');
+		}
 	}
 
 	componentDidUpdate(prevProps,prevState){

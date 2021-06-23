@@ -1209,24 +1209,24 @@ and (max-width : 900px) {
 			}		
 		}		
 	}
-  .compare--block{
-    .compare--list{
-      li{
-      	width:100%;
-		padding: 0 0.5rem;
-        label{ 
-        	width:auto;        
-          &:after{
-          }
-        }
-        select, dvt-select, .select-component{
-			width:57%;
-			flex: 1;
-			//font-size: 2rem;
-        }
-      }
-    }
-  }		
+	.compare--block{
+		.compare--list{
+		li{
+			width:100%;
+			padding: 0 0.5rem;
+			label{ 
+				width:auto;        
+			&:after{
+			}
+			}
+			select, dvt-select, .select-component{
+				width:57%;
+				flex: 1;
+				//font-size: 2rem;
+			}
+		}
+		}
+	}		
 }
 
 
@@ -1289,99 +1289,99 @@ and (max-width :767px)  {
 	}
  	.card--grid{
 		.card--block{
-      .title--card{
-        min-height:auto !important;
-      }
-    }
-  }
+			.title--card{
+				min-height:auto !important;
+			}
+		}
+	}
 	/** WIDTH CARDS  **/
-		.xxs-w1{
-			.card--block{
-				width:100%;
-				margin-bottom: 3rem;
-			}
-			.card--block--rounded{
-				width:100%;
-				margin-bottom: 3rem;
-			}
-			.card--block--chart{
-				width:100%;
-				margin-bottom: 3rem;
-			}
+	.xxs-w1{
+		.card--block{
+			width:100%;
+			margin-bottom: 3rem;
 		}
-		.xxs-w2{
-			.card--block{
-				width:50%;
-			}
-			.card--block--rounded{
-				width:48%;
-			}
-			.card--block--chart{
-				width:48%;
-			}
+		.card--block--rounded{
+			width:100%;
+			margin-bottom: 3rem;
 		}
-		.xxs-w3{
-			.card--block{
-				width: 33.333%;		
-			}
-			.card--block--rounded{
-				width:31%;
-			}
-			.card--block--chart{
-				width:31%;
-			}
+		.card--block--chart{
+			width:100%;
+			margin-bottom: 3rem;
 		}
-		.xxs-w4{
-			.card--block{
-				width:25%;
-			}	
-			.card--block--rounded{
-				width:23%;
-			}
-			.card--block--chart{
-				width:23%;
-			}
+	}
+	.xxs-w2{
+		.card--block{
+			width:50%;
 		}
-		.xxs-w5{
-			.card--block{
-				width:20%;		
-			}
-			.card--block--rounded{
-				width:18%;
-			}
-			.card--block--chart{
-				width:18%;
-			}
+		.card--block--rounded{
+			width:48%;
 		}
+		.card--block--chart{
+			width:48%;
+		}
+	}
+	.xxs-w3{
+		.card--block{
+			width: 33.333%;		
+		}
+		.card--block--rounded{
+			width:31%;
+		}
+		.card--block--chart{
+			width:31%;
+		}
+	}
+	.xxs-w4{
+		.card--block{
+			width:25%;
+		}	
+		.card--block--rounded{
+			width:23%;
+		}
+		.card--block--chart{
+			width:23%;
+		}
+	}
+	.xxs-w5{
+		.card--block{
+			width:20%;		
+		}
+		.card--block--rounded{
+			width:18%;
+		}
+		.card--block--chart{
+			width:18%;
+		}
+	}
 	/** END WIDTH CARDS  **/
 
 	/** ELEMENTS  **/
-		.advice--block{
+	.advice--block{
+		top: 0rem;
+		&.advice-home{
 			top: 0rem;
-			&.advice-home{
-				top: 0rem;
-			}
-			.title--section{
-			  font-family: 'Oswald';
-			  font-size: 3.6rem;
-			  padding: 1rem;
-			  text-align: center;
-			}
 		}
-		.carousel--card{
-			.carousel--card--block {
-				.carousel-inner {
-				  min-height: auto;
-				  padding-bottom: 3rem;
-				  .carousel--text--block{
-				  	a{
-				  		display: block;
-				  		width: 100%;
-				  	}			  		
-				  }
+		.title--section{
+			font-family: 'Oswald';
+			font-size: 3.6rem;
+			padding: 1rem;
+			text-align: center;
+		}
+	}
+	.carousel--card{
+		.carousel--card--block {
+			.carousel-inner {
+				min-height: auto;
+				padding-bottom: 3rem;
+				.carousel--text--block{
+				a{
+					display: block;
+					width: 100%;
+				}			  		
 				}
 			}
 		}
+	}
     .column--grid--block{
       flex-direction: column;
       .column--item{
@@ -1554,60 +1554,59 @@ and (max-width :767px)  {
 	}
 
 	/** pop up */
-  #popUpMessage{
-    .popUpMessage--text--block{
-		  width: 90vw;
-		  height: 90vh;
-		  margin: 5vh 5vw;
-		  padding: 5vh 5vw;
-      .close-popup{
-        bottom: 3vh;
-        right: 5vw;
-      }
-    }
-  }
-
+	#popUpMessage{
+		.popUpMessage--text--block{
+			width: 90vw;
+			height: 90vh;
+			margin: 5vh 5vw;
+			padding: 5vh 5vw;
+		.close-popup{
+			bottom: 3vh;
+			right: 5vw;
+		}
+		}
+	}
 	form.compare--block--form{
 		text-align: center;
 		padding:1rem 0;
 	}
-  .compare--block{
-    .compare--list{
-			padding: 0;
-			flex-direction: column;
-			display: inline-flex;
-			align-items: flex-end;
-			margin: 0;
-			width:100%;
-      li{
-      	width:100%;      	
-        label{ 
-        	width:40%;        
-          &:after{
-          }
-        }
-        select, dvt-select, .select-component{
-			width:60%;
-			font-size: 2rem;
-			border: 1px solid $aquamarine-light;
-			> div[class*=control]{
-				.css-g1d714-ValueContainer{
-					justify-content: left;
+	.compare--block{
+		.compare--list{
+				padding: 0;
+				flex-direction: column;
+				display: inline-flex;
+				align-items: flex-end;
+				margin: 0;
+				width:100%;
+		li{
+			width:100%;      	
+			label{ 
+				width:40%;        
+			&:after{
+			}
+			}
+			select, dvt-select, .select-component{
+				width:60%;
+				font-size: 2rem;
+				border: 1px solid $aquamarine-light;
+				> div[class*=control]{
+					.css-g1d714-ValueContainer{
+						justify-content: left;
+					}
+				}
+				> div[class*="menu"]{
+					text-align: left;
+					font-size: 1.6rem;				
+				}
+			option{
+				font-size: 1.6rem; 
+				&:checked{            
 				}
 			}
-			> div[class*="menu"]{
-				text-align: left;
-				font-size: 1.6rem;				
 			}
-          option{
-            font-size: 1.6rem; 
-            &:checked{            
-            }
-          }
-        }
-      }
-    }
-  }		
+		}
+		}
+	}		
 
 	.block--filter--wrapper{		
 		display: block !important;
@@ -1640,101 +1639,101 @@ and (max-width :767px)  {
 	}
 
 	/**** MODAL WINDOW ****/
-  .dvt-modal {
-    width: 95%;
-    height: 98%;
-    .modal-wrapper {
-      .modal-body {
-        .card--block--chart--wrapper {
-          .chart--submenu{
-            width: 95%;
-            > li{
-              float: right;
-              > a{
-                width: 3.5rem;
-                height: 2.7rem;
-                display: block;
-                color: $gray-base;
-                &.download-button:after{
-                  content: "\f019";
-                  font-family: FontAwesome;
-                }
-              }
-            }
-          }
-          .export-button-modal{
-            a{
-              padding: 0.8rem 1rem;
-              border-radius: 0.3rem;
-              background: #f2f2f2;
-              color: #000;
-              font-size: 1.4rem;
-              display: block;
-              overflow-y:hidden; 
-              &:hover{
-                color:$white;
-                background: $aquamarine;
-                .fa-arrow-down{
-                  top:0rem;
-                  -webkit-transition: all 0.8s; 
-                  transition: all 0.8s;
-                }
-                .fa-picture-o{
-                  top:3rem;
-                  -webkit-transition: all 0.8s; 
-                  transition: all 0.8s;
-                }
-              }
-              .fa-arrow-down{
-                position: relative;
-                top: -3rem;
-                left: 3px;
-                -webkit-transition: all 0.8s; 
-                transition: all 0.8s;
-              }
-              .fa-picture-o{
-                position: relative;
-                top:0rem;
-                left:-1rem;
-                -webkit-transition: all 0.8s; 
-                transition: all 0.8s;
-              }
-            }
-          }
-		      .legend-text-block{
-						display: flex;
-						flex-direction: column-reverse;
-		        .legend-info{
-							width: 100%;
-							padding: 1rem;
-		        }
-		        .logoGraphics-wrapper{
-		          float: none;
-		          padding-right: 0%;
-		          text-align: center;
-		          img{
-		          }            
-		        }
-		      }
-          .chart--wrapper{
-						width: 100%;
-						height: auto;
-						margin: 2rem auto;
-            svg{
-              text{
-              	font-size: 1rem !important;
-              }
-            }
-          }      
-        }
-      }
-    }
-    .dvt-chart {
-      h3{
+	// .dvt-modal {
+	// 	width: 95%;
+	// 	height: 98%;
+	// 	.modal-wrapper {
+	// 	.modal-body {
+	// 		.card--block--chart--wrapper {
+	// 		.chart--submenu{
+	// 			width: 95%;
+	// 			> li{
+	// 			float: right;
+	// 			> a{
+	// 				width: 3.5rem;
+	// 				height: 2.7rem;
+	// 				display: block;
+	// 				color: $gray-base;
+	// 				&.download-button:after{
+	// 				content: "\f019";
+	// 				font-family: FontAwesome;
+	// 				}
+	// 			}
+	// 			}
+	// 		}
+	// 		.export-button-modal{
+	// 			a{
+	// 			padding: 0.8rem 1rem;
+	// 			border-radius: 0.3rem;
+	// 			background: #f2f2f2;
+	// 			color: #000;
+	// 			font-size: 1.4rem;
+	// 			display: block;
+	// 			overflow-y:hidden; 
+	// 			&:hover{
+	// 				color:$white;
+	// 				background: $aquamarine;
+	// 				.fa-arrow-down{
+	// 				top:0rem;
+	// 				-webkit-transition: all 0.8s; 
+	// 				transition: all 0.8s;
+	// 				}
+	// 				.fa-picture-o{
+	// 				top:3rem;
+	// 				-webkit-transition: all 0.8s; 
+	// 				transition: all 0.8s;
+	// 				}
+	// 			}
+	// 			.fa-arrow-down{
+	// 				position: relative;
+	// 				top: -3rem;
+	// 				left: 3px;
+	// 				-webkit-transition: all 0.8s; 
+	// 				transition: all 0.8s;
+	// 			}
+	// 			.fa-picture-o{
+	// 				position: relative;
+	// 				top:0rem;
+	// 				left:-1rem;
+	// 				-webkit-transition: all 0.8s; 
+	// 				transition: all 0.8s;
+	// 			}
+	// 			}
+	// 		}
+	// 			.legend-text-block{
+	// 						display: flex;
+	// 						flex-direction: column-reverse;
+	// 				.legend-info{
+	// 							width: 100%;
+	// 							padding: 1rem;
+	// 				}
+	// 				.logoGraphics-wrapper{
+	// 				float: none;
+	// 				padding-right: 0%;
+	// 				text-align: center;
+	// 				img{
+	// 				}            
+	// 				}
+	// 			}
+	// 		.chart--wrapper{
+	// 						width: 100%;
+	// 						height: auto;
+	// 						margin: 2rem auto;
+	// 			svg{
+	// 			text{
+	// 				font-size: 1rem !important;
+	// 			}
+	// 			}
+	// 		}      
+	// 		}
+	// 	}
+	// 	}
+	// 	.dvt-chart {
+	// 	h3{
 
-      }
-    }
-  }
+	// 	}
+	// 	}
+	// }
 	.carousel--card .carousel--card--block .carousel-indicators {
 	  bottom: 0;
 	}
