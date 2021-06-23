@@ -17,10 +17,12 @@ import org.apache.logging.log4j.ThreadContext;
 import eu.europa.osha.barometer.bean.model.CountryCard;
 import eu.europa.osha.barometer.bean.model.IndicatorData;
 import eu.europa.osha.barometer.bean.model.QueryFilter;
+import eu.europa.osha.barometer.bean.model.TableRow;
 import eu.europa.osha.barometer.bean.response.DataServerResponse;
 import eu.europa.osha.barometer.bean.response.QueryInfo;
 import eu.europa.osha.barometer.dao.CountryCardDataAccess;
 import eu.europa.osha.barometer.dao.QuantitativeDataAccess;
+import eu.europa.osha.barometer.dao.TableDataAccess;
 
 @Path("quantitative")
 @Produces(MediaType.APPLICATION_JSON)
@@ -205,9 +207,97 @@ private static final Logger log = LogManager.getLogger(QualitativeDataImpl.class
 			if (country != null && country.size() > 0)
 			{
 				queryFilter.setCountries(country);
-			}
+			}			
 			
 			data = da.getCountryCardData(queryFilter);		
+			
+			qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
+		}
+		catch (Exception e)
+		{
+			generateErrorResponse(e);
+		}
+		finally
+		{
+			if (da != null)
+			{
+				da.close();
+			}
+		}
+		
+		return generateResponse(data, qInfo);
+	}
+	
+	@GET
+	@Path("getTableData")
+	public String getTableData(
+											@Context UriInfo uriInfo,
+											@QueryParam("chart") List<String> chart,
+											@QueryParam("indicator") List<String> indicator,
+											@QueryParam("country") String country,
+											@QueryParam("sector") List<String> sector,
+											@QueryParam("gender") List<String> gender,
+											@QueryParam("answer") List<String> answer,
+											@QueryParam("age") List<String> ageGroup,
+											@QueryParam("size") List<String> companySize,
+											@QueryParam("split") String split
+										)
+	{
+		log.trace("getTableData");
+		log.trace(uriInfo.getQueryParameters());
+		
+		if (chart == null){
+			return generateErrorResponse(new Exception("No chart defined"));
+		}
+		
+		ThreadContext.push(String.valueOf(++access));
+		
+		TableDataAccess da = null;
+		List<TableRow> data = null;
+		QueryInfo qInfo = null;
+		try
+		{
+			da = new TableDataAccess();
+			long t0 = System.currentTimeMillis();
+			
+			QueryFilter queryFilter = new QueryFilter();
+			queryFilter.setChart(chart);
+			
+			if (country != null && country.length() > 0)
+			{
+				queryFilter.setCountry1(country);
+			}
+			else
+			{
+				return generateErrorResponse(new Exception("No country defined"));
+			}
+			
+			if (sector != null && sector.size() > 0)
+			{
+				queryFilter.setSector(sector);
+			}
+			if (gender != null && gender.size() > 0)
+			{
+				queryFilter.setGender(gender);
+			}
+			if (answer != null && answer.size() > 0)
+			{
+				queryFilter.setAnswer(answer);
+			}
+			if (ageGroup != null && ageGroup.size() > 0)
+			{
+				queryFilter.setAgeGroup(ageGroup);
+			}
+			if (companySize != null && companySize.size() > 0)
+			{
+				queryFilter.setCompanySize(companySize);
+			}
+			if (split != null && split.length() > 0)
+			{
+				queryFilter.setSplit(split);
+			}
+			
+			data = da.getTableData(queryFilter);		
 			
 			qInfo = new QueryInfo(data.size(), System.currentTimeMillis() - t0);
 		}

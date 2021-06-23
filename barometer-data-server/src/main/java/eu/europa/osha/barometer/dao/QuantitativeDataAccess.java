@@ -149,7 +149,7 @@ public class QuantitativeDataAccess {
 				fillInFiltersInQuery(pQueryFilter.getSector(), queryClauses, "p.activity_sector_id", false);
 				
 				orderBuilder.append("order by field(n.country_code, 'EU27_2020','EU28') desc, FIELD(n.country_code, 'CH', 'IS', 'NO'), n.country_code asc, " + 
-									"field(p.answer_id, 97,98,99,1,31,2,32,7,6,8,9,13,12,11,10,14,16,15,17,18,20,19,21,23,22,25,24,26,27,28,29,30) asc");
+									"field(p.answer_id, 97,98,99,1,31,71,2,32,7,6,8,9,13,12,11,10,14,16,15,17,18,20,19,21,23,22,25,24,26,27,28,29,30) asc");
 			}
 		}
 		else

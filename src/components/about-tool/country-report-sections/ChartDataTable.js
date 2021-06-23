@@ -165,7 +165,7 @@ class ChartDataTable extends Component
                 if (!updatedRow)
                 {
                     rows.push(row);
-                }                
+                }
             });
 
             this.setState({rows: rows});
