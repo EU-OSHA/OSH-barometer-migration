@@ -292,7 +292,7 @@ class SpiderChart extends Component{
 				// if (categories.indexOf(element.countryCode) == -1){
 				// 	categories.push(element.data)
 				// }
-				let split = element.countryCode;
+				let split = element.countryCode == 'EU27_2020' || element.countryCode == 'EU28' ? element.countryCode : `(${element.countryCode}) ${element.countryName}`;
 				if (!(split in auxSeries)) {
 					auxSeries[split] = []
 				}
