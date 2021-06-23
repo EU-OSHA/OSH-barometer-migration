@@ -61,7 +61,7 @@ class ChartHuman extends Component {
 							var chart = this;
 							this.series.forEach(function(series) {
 								series.data[0].dataLabel.attr({
-								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-125 )
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-150 )
 								});					  
 							})
 
