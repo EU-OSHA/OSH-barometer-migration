@@ -220,6 +220,7 @@ class EmploymentRate extends Component {
 					lineWidth: 0,
 					gridLineColor: '#FFF',
           			gridLineWidth: 2,
+					min: 50,
 					max: 100,
 					tickInterval: this.props.tick,
 					title: {

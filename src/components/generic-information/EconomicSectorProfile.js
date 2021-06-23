@@ -196,7 +196,7 @@ const EconomicSectorProfile = (props) => {
 									title='Employment Rate'
 									colors={['#f6a400','#529FA2']}
 									showDataLabel={true}
-									tick={20}
+									tick={10}
 									percentage={true}
 									type='bar'
 									selectCountry1={selectCountry1}
