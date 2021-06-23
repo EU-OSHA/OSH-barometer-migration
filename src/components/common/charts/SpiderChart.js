@@ -109,7 +109,7 @@ class SpiderChart extends Component{
 					gridLineColor: '#acacac',
 					gridLineWidth: 1,
 					labels: {	
-						distance: this.props.fullCountryReport ? 10 : 10,					
+						distance: this.props.fullCountryReport ? 10 : 20,					
 						style: {
 							fontFamily: 'OpenSans',
 							fontSize:this.props.fullCountryReport ? '12px' : '14px',
@@ -390,16 +390,60 @@ class SpiderChart extends Component{
 					}
 				});
 			} else {
-				this.setState({
-					chartConfig: {
-						...this.state.chartConfig,
-						chart: {...this.state.chartConfig.chart, height: 770},
-						title: {
-							...this.state.chartConfig.title,
-							text: tabTitle
+				if (width < 500){
+					if(width < 376){
+						if(width < 300){
+							this.setState({
+								chartConfig: {
+									...this.state.chartConfig,
+									chart: {...this.state.chartConfig.chart, height: 200},
+									title: {
+										...this.state.chartConfig.title,
+										text: tabTitle,
+										margin: 40
+									}
+								}
+							})
+						} else {
+							this.setState({
+								chartConfig: {
+									...this.state.chartConfig,
+									chart: {...this.state.chartConfig.chart, height: 300},
+									title: {
+										...this.state.chartConfig.title,
+										text: tabTitle,
+										margin: 30
+									}
+								}
+							})
 						}
+					} else {
+						this.setState({
+							chartConfig: {
+								...this.state.chartConfig,
+								chart: {...this.state.chartConfig.chart, height: 350},
+								title: {
+									...this.state.chartConfig.title,
+									text: tabTitle,
+									margin: 50
+								}
+							}
+						})
 					}
-				})
+				}
+				else {
+					this.setState({
+						chartConfig: {
+							...this.state.chartConfig,
+							chart: {...this.state.chartConfig.chart, height: 450},
+							title: {
+								...this.state.chartConfig.title,
+								text: tabTitle,
+								margin: 25
+							}
+						}
+					})
+				}
 			}
 		}
 	}
