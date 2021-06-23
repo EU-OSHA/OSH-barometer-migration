@@ -40,7 +40,7 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height: this.props.fullCountryReport ? 450 : 250,
+					height: this.props.fullCountryReport ? 450 : 200,
 					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
