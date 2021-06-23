@@ -127,7 +127,7 @@ class CountryProfileTextTab extends Component
 							{this.props.page == 'enforcement' && (<img className="flags--wrapper" src={`${this.props.country2.code && images[this.props.country2.code.toLowerCase()]}`} alt={this.props.country2.name} />)}
 							{!this.props.page && (<img className="flags--wrapper" src={`${this.props.country2 && images[this.props.country2.code.toLowerCase()]}`} alt={this.props.country2 && this.props.country2.name} />)}
 						</div>
-						<h2>{this.props.literals[tabName]}</h2>
+						<h2>{this.props.literals[`L${tabName}`]}</h2>
 						<div className="columm--item--content">
 							{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
 							<p className="download-report">
@@ -156,7 +156,7 @@ class CountryProfileTextTab extends Component
 						{this.props.page == 'enforcement' && (<img className="flags--wrapper" src={`${this.props.country1.code && images[this.props.country1.code.toLowerCase()]}`} alt={this.props.country1.name} />)}
 						{!this.props.page && (<img className="flags--wrapper" src={`${this.props.country1 && images[this.props.country1.code.toLowerCase()]}`} alt={this.props.country1 && this.props.country1.name} />)}
                     </div>
-                    <h2>{this.props.literals[tabName]}</h2>
+                    <h2>{this.props.literals[`L${tabName}`]}</h2>
                     <div className="columm--item--content">
                         {!this.props.page && (
 							<p className="download-report">
