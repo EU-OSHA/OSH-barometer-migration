@@ -262,6 +262,7 @@ class EnforcementCapacity extends Component {
 								return (
 									<div key={element.literalTab} className="container section--page full-tablet" >
 										<CountryProfileTextTab 
+											tabName={element.literalTab}
 											literals={this.props.literals}
 											country1Text={this.state.countryText1}
 											country2Text={this.state.countryText2}
