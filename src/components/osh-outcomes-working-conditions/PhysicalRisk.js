@@ -219,6 +219,8 @@ class PhysicalRisk extends Component{
 											percentage={true}
 											callbackLegend={this.callbackChartLegend}
 											callbackSelectedSurvey={this.callbackSelectedSurvey}
+											exportingEnabled={true}
+											showSelect={true}
 										/>}
 									</div>
 								</div>							
@@ -236,6 +238,8 @@ class PhysicalRisk extends Component{
 										//callbackLegend={this.callbackChartLegend}
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
 										dataset={this.state.dataset}
+										exportingEnabled={true}
+										showSelect={this.state.selectedTab.chartType.length > 1}
 									/>}
 								</div>
 						}

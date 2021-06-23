@@ -7,7 +7,6 @@ import HealthAwareness from '../common/charts/HealthAwareness';
 import { oshCulture } from '../../model/subMenuTabs';
 
 const literals = require('../../model/Literals.json');
-const subTabs = require('../../model/healthAwareness.json');
 class OSHCulture extends Component
 {
 	constructor(props) {
@@ -31,11 +30,6 @@ class OSHCulture extends Component
 		}
 		
 	}
-
-	callbackChartLegend = (legend) => {
-		this.setState({ chartLegend: legend })
-	}
-
 	callbackSelectedTab = (callback) => {
 		for (let i = 0; i < this.state.indicatorTabs.length; i++)
 		{
@@ -73,20 +67,8 @@ class OSHCulture extends Component
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart" >
 						<div className="chart--block">
-							<div>
-								<HealthAwareness
-									literals={this.props.literals}
-									chartTitle={this.props.literals[`L${this.state.selectedTab.chartType[0].title}`]}
-									tabIndicator={this.state.selectedTab.literalTab}
-									chartType={this.state.selectedTab.chartType}
-									colors={['#7b7b7d', '#cbe2e3','#f6a400']}
-									type={this.state.chartDimension}
-									percentage={true}
-									callbackLegend={this.callbackChartLegend}
-								/>
-							</div>
-							{/* {this.state.indicatorTabs.map((tab) => {
-								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
+							{this.state.indicatorTabs.map((tab) => {
+								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab.url) {
 									return (
 										<div key={tab.literalTab}>
 											<HealthAwareness
@@ -100,25 +82,14 @@ class OSHCulture extends Component
 										</div>
 									)
 								}
-							})} */}
-						</div>
-					</div>
-
-					{this.state.indicatorTabs.map((tab) => {
-								if (this.props.literals[`L${tab.literalTab}`].toLowerCase().replace(/ /g, '-') == this.state.selectedTab) {
-									return (
-										<div key={tab.literalTab}>
-											{this.props.literals[`L${tab.legend}`]}
-											{tab.chartType.map((element) =>{
-												return (
-											<div className="chart-legend">{this.props.literals[`L${element.legend}`]} </div>	
-												)
-											})}
-										</div>
-									)
-								}
 							})}
-						
+						</div>
+				</div>
+
+					<div className="chart-legend">
+						{this.props.literals[`L${this.state.chartLegend}`]}
+					</div>
+	
 				</div>
 				<Methodology literals={literals} section={'OSH culture and health awareness'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
 

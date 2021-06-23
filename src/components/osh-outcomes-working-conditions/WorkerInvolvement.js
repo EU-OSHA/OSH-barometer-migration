@@ -134,6 +134,8 @@ class WorkerInvolvement extends Component {
 										callbackLegend={this.callbackChartLegend}
 										callbackSelectedSurvey={this.callbackSelectedSurvey}
 										dataset={this.state.dataset}
+										exportingEnabled={true}
+										showSelect={true}
 									/>
 								</div>
 							</div>

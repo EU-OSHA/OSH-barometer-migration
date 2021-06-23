@@ -163,7 +163,7 @@ const Home = props => {
 			// removeCookie('selectedCountry');
 			cookies.remove("selectedCountry");
 			props.setDefaultCountry({
-				code: "0",
+				code: "AT",
 				isCookie : false,
 				selectedByUser: false
 			})
@@ -172,7 +172,7 @@ const Home = props => {
 		else if(currentDefaultCountry.code != "0" && event.target.className.indexOf("country-lock") != -1){
 			removed = true;
 			props.setDefaultCountry({
-				code: "0",
+				code: "AT",
 				isCookie : false,
 				selectedByUser: false
 			})

@@ -39,7 +39,9 @@ class Methodology extends Component {
 					name: 'L22016',
 					firstSubsection: 'Enforcement capacity',
 					firstIndicatorId: '285'
-			}]
+			}],
+			openIndicator: false,
+			dropdownRefContainer: React.createRef()
 		}
 	}
 
@@ -71,6 +73,17 @@ class Methodology extends Component {
 		return '';
 	}
 
+	updateDimension = () => {
+		const width = window.innerWidth;
+
+		if (width > 990) {
+			this.setState({
+				openIndicator: false
+			});
+		}
+
+	}
+
 	componentDidMount()
 	{
 		// Update the title of the page
@@ -78,6 +91,79 @@ class Methodology extends Component {
 
 		this.getMethodologyIndicators(this.props.methodology.subsection);
 		this.getMethodologyData(this.props.methodology.subsection, this.props.methodology.indicator);
+
+		window.addEventListener('resize', this.updateDimension);
+		window.addEventListener('mousedown', this.handleClickOutside);
+		
+		this.indicatorIcons = function(subsection){
+			subsection = subsection.toLowerCase();
+			// console.log(subsection);
+			switch(subsection) {
+			// GENERIC INFORMATION  
+			  case 'osh authorities':
+				return 'forum-icon';
+				break;
+			  case 'economic and sector profile':
+				return 'economic-chart-icon';
+				break;
+			  case 'workforce profile':
+				return 'people-group-icon';
+				break;
+
+			// STEERING OF OSH 
+			  case 'regulation':
+				return 'regulation-icon';
+				break;
+			  case 'structure of each national strategy':
+				return 'national-icon';
+				break;
+			  case 'responses of national strategies to eu challenges':
+				return 'national-icon';
+				break;
+			  case 'social dialogue':
+				return 'dialogue-icon';
+				break;
+
+			// OSH OUTCOMES AND WORKING CONDITIONS
+			  case 'work accidents':
+				return 'work-accidents-icon';
+				break;
+			  case 'health perception of the workers':
+				return 'health-icon';
+				break;
+			  case 'osh culture and health awareness':
+				return 'culture-icon';
+				break;
+			  case 'working conditions - overall opinion':
+				return 'overall-opinion-icon';
+				break;
+			  case 'working conditions - mental risk':
+				return 'mental-risk-icon';
+				break;
+			  case 'working conditions - physical risk':
+				return 'physical-risk-icon';
+				break;
+			  case 'prevention in companies':
+				return 'prevention-icon';
+				break;
+			  case 'worker involvement':
+				return 'workers-icon';
+				break;
+
+			// OSH INFRASTRUCTURE
+			  case 'enforcement capacity':
+				return 'enforcement-icon';
+				break;
+			  case 'osh statistics, surveys and research':
+				return 'statistics-icon';
+				break;
+
+			  default:
+				// code block
+
+			}    
+		}
+
 	}
 
 	componentDidUpdate(prevProps)
@@ -90,9 +176,27 @@ class Methodology extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension);
+	}
+
 	changeMethodology(section, subsection, indicator)
 	{
 		this.props.setMethodology(section,subsection,indicator);
+	}
+
+	handleClickOutside = (event) => {
+		if (this.state.dropdownRefContainer.current && !this.state.dropdownRefContainer.current.contains(event.target)) {
+			this.setState({
+				openIndicator: false
+			})
+		}
+	}
+
+	openIndicatorsList = () => {
+		this.setState({
+			openIndicator: !this.state.openIndicator
+		})
 	}
 
     render() {
@@ -125,7 +229,7 @@ class Methodology extends Component {
 					</ul>
 
 					{/*  SUBSECTION MENU  */}			
-					<ul className="indicators--submenu--wrapper" id="indicatorsSubmenu" data-ng-click ="openIndicatorsList($event)">
+					<ul className={`indicators--submenu--wrapper ${this.state.openIndicator ? 'open-list' : ''}`}  id="indicatorsSubmenu" onClick={this.openIndicatorsList} ref={this.state.dropdownRefContainer}>
 						{levels.filter(level=>level.database_name!=undefined && level.database_name!='').map((subsection) => (
 							<li key={subsection.id} className={'submenu--item '+(subsection.database_name==this.props.methodology.subsection?'active ':'')+(this.props.literals[subsection.name].length > 20?'multiline ':'')}>
 								<a onClick={(e) => this.changeMethodology(this.props.methodology.section, subsection.database_name, subsection.firstIndicatorId)}>{this.props.literals[subsection.name]}</a>
@@ -152,7 +256,7 @@ class Methodology extends Component {
 					{
 						this.state.methodology != undefined ?
 						(
-							<section className="methodology--grid--wrapper" >
+							<section className={"methodology--grid--wrapper " + this.indicatorIcons(this.props.methodology.subsection)}>
 								{this.methodologySection('L20720',`L${this.state.methodology.diagram}`)}
 								{this.methodologySection('L20721',`L${this.state.methodology.description}`)}
 								{this.methodologySection('L20722',`L${this.state.methodology.datasource}`)}
@@ -168,7 +272,7 @@ class Methodology extends Component {
 								{this.methodologySection('L20732',`L${this.state.methodology.additionalComments}`)}
 							</section>
 						) : (
-							<section className="methodology--grid--wrapper" data-ng-className="indicatorIcons(pSubsection)">
+							<section className="methodology--grid--wrapper" data-ng-className="this.indicatorIcons(pSubsection)">
 
 							</section>
 						)

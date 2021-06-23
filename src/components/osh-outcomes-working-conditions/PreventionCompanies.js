@@ -173,6 +173,8 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
+														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'training-in-osh' && (
@@ -185,6 +187,8 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
+														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'risk-assessment' && (
@@ -200,6 +204,8 @@ class PreventionCompanies extends Component {
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
 														selectedCountry1={this.state.selectCountry1}
 														selectedCountry2={this.state.selectCountry2}
+														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'employees-participation-in-prevention' && (
@@ -214,11 +220,13 @@ class PreventionCompanies extends Component {
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
 														selectedCountry1={this.state.selectCountry1}
 														selectedCountry2={this.state.selectCountry2}
+														exportingEnabled={true}
+														showSelect={true}
 													/>
 												)}
 												{this.state.selectedTab.url == 'evaluated-aspects-in-risk-assessments' && (
 													<div className='chart-container'>
-														<h2 class='title--card'>{this.props.literals.L20681}</h2><br/>
+														<h2 className='title--card'>{this.props.literals.L20681}</h2><br/>
 														<a href='https://visualisation.osha.europa.eu/esener#!/en/survey/detailpage-european-map/2019/osh-management/en_1/E3Q252_1/activity-sector/14/11/1' target='_blank'>
 															<img src={require('../../style/img/EU-map.png')} alt=""/>
 														</a>
@@ -233,7 +241,7 @@ class PreventionCompanies extends Component {
 						</div>
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 				</div>
 

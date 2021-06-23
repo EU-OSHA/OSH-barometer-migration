@@ -42,7 +42,7 @@ class PreventionChart extends Component {
 					}
 				},
                 chart: {
-                    height: window.innerWidth > 768 ? 450 : 770,
+                    height: window.innerWidth > 768 ? props.fullCountryReport == true ? 250 : 450 : 770,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0',
                     events: {
@@ -57,6 +57,9 @@ class PreventionChart extends Component {
                                    130,
                                    37
                                ).add();
+                               chart.customImage.attr({
+                                class:'osha-logo'
+                            });
                            }
                            else
                            {
@@ -83,7 +86,7 @@ class PreventionChart extends Component {
                     },
                 },
 				exporting: {
-					enabled: true,
+					enabled: this.props.exportingEnabled,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
@@ -144,8 +147,8 @@ class PreventionChart extends Component {
 					},
 					formatter: function () {
 						return '<ul class="tooltip-item">'+
-						'<li><strong>Anwser: </strong>'+ this.series.name +' </li>' +
-						'<li><strong>Country: </strong>'+ this.x  +' </li>' +
+						'<li><strong>Country: </strong>'+ this.series.name +' </li>' +
+						'<li><strong>Answer: </strong>'+ this.x  +' </li>' +
 						'<li><strong class="tooltip-value up">Value: </strong> '+ this.y +'%</li>' +
 						'</ul>';
 					}
@@ -166,13 +169,15 @@ class PreventionChart extends Component {
                     //         value: 29.5,
                     //         zIndex:1
                     //     }
-                    // ],
+                    // ],                
                     labels: {
                         style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
-                            color:xAxisColor
+							fontSize: this.props.fullCountryReport ? '8px' : '12px',
+                            color:xAxisColor,
+                            textOverflow: 'none',
+                            padding:this.props.fullCountryReport ? 60 : 80,
 						}
                     }
                 },
@@ -189,7 +194,7 @@ class PreventionChart extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize: this.props.fullCountryReport ? '10px' : '12px'
 						}
                     },
                     min: 0,
@@ -207,7 +212,7 @@ class PreventionChart extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'12px'
+								fontSize: this.props.fullCountryReport ? '10px' : '12px'
 							},
 							formatter: function () {
 								return '<span style="color: ' + this.point.color + '">' + this.y + '%</span>';
@@ -220,7 +225,7 @@ class PreventionChart extends Component {
                                 opacity: 1
                             }
                         },
-                        pointPadding: 0.15,
+                        pointPadding: this.props.fullCountryReport ? 0.10 : 0.15,
                         point: {
                             events: {
                                 mouseOver: function () {
@@ -243,7 +248,8 @@ class PreventionChart extends Component {
             },
             isLoading: true,
             typeCharts: [],
-            selectedTypeChart: this.props.chartType[0].type,
+            // selectedTypeChart: this.props.chartType[0].type,
+            selectedTypeChart: this.props.selectedIndicator != undefined ? this.props.selectedIndicator :  this.props.chartType[0].type,
             country1: this.props.selectedCountry1,
             country2: this.props.selectedCountry2
         }
@@ -272,7 +278,9 @@ class PreventionChart extends Component {
         
         if (chartType.length > 1) {
             chart = chartType.find((chart) => chart.type == this.state.selectedTypeChart);
-            this.props.callbackLegend(chart.legend);
+            if(this.props.callbackLegend != undefined){
+                this.props.callbackLegend(chart.legend);
+            }
         } else {
             chart = chartType[0];
             this.setState({ selectedTypeChart: null });
@@ -291,7 +299,7 @@ class PreventionChart extends Component {
                             categories.push(element.split)
                         }
     
-                        let split = element.countryCode;
+                        let split = element.country;
                         if (!(split in auxSeries)) {
                             auxSeries[split] = []
                         }
@@ -348,8 +356,9 @@ class PreventionChart extends Component {
                 this.setState({
                     chartConfig: {
                         ...this.state.chartConfig,
-                        chart: {...this.state.chartConfig.chart, height: 450, type: 'column'},
-                        title: {...this.state.chartConfig.title, text: title}
+                        chart: {...this.state.chartConfig.chart, height: this.props.fullCountryReport == true ? 250 : 450, type: 'column'},
+                        title: {...this.state.chartConfig.title, text: this.props.title != undefined ? "<h2 class='title--card'>"+this.props.title+"</h2>" : `<h2 class='title--card'>${title}</h2>`}
+                        // title: {...this.state.chartConfig.title, text: title}
                     }
                 });
             }
@@ -383,9 +392,13 @@ class PreventionChart extends Component {
         }
 
         if (this.props.chartType[0].type == 'ewcs') {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            if(this.props.callbackSelectedSurvey != undefined){
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            }
         } else {
-            this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            if(this.props.callbackSelectedSurvey != undefined){
+                this.props.callbackSelectedSurvey(this.props.chartType[0].type)
+            }
         }
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
@@ -413,18 +426,25 @@ class PreventionChart extends Component {
     }
     
     render() {
+        let selectDiv;
+        if(this.props.showSelect){
+            selectDiv = (
+                <div className="select-filter-chart">
+                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
+                        {this.state.typeCharts.map((type) => {
+                            return <option key={type} value={type} > {type.toUpperCase()} </option>
+                        })}
+                    </select>
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
                     {this.state.selectedTypeChart && (
                         <div className="select-filter-chart-wrapper">
                             {this.state.typeCharts.length > 1 && (
-                                <div className="select-filter-chart">
-                                    <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                        {this.state.typeCharts.map((type) => {
-                                            return <option key={type} value={type} > {type.toUpperCase()} </option>
-                                        })}
-                                    </select>
-                                </div>
+                                selectDiv
                             )}
                         </div>
                     )}

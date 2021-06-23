@@ -36,7 +36,7 @@ class IncomerPercapital extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height:500,
+					height: this.props.fullCountryReport ? 500 : 250,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
 					events: {
@@ -80,7 +80,7 @@ class IncomerPercapital extends Component {
 					},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]
@@ -152,7 +152,12 @@ class IncomerPercapital extends Component {
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
-								return '<span style="color:' + this.point.color + '">' + Highcharts.numberFormat(this.y,0,',','.')   + ' ' + props.percentage +'</span>';
+								return '<span style="color:' + this.point.color + '">' + Highcharts.numberFormat(this.y, 0, '.', ',')   + ' ' + props.percentage +'</span>';
+							},							
+							style: {
+								fontFamily: 'OpenSans-bold',
+								fontWeight: 'normal',
+								fontSize:this.props.fullCountryReport? '14px' : '12px'
 							}
 						}
 					}
@@ -167,7 +172,7 @@ class IncomerPercapital extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport? '12px' : '12px'
 						}
 					}
 				},
@@ -185,7 +190,7 @@ class IncomerPercapital extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport? '12px' : '12px'
 						}
 					}
 				},
@@ -288,4 +293,8 @@ class IncomerPercapital extends Component {
 	}
 }
 
+IncomerPercapital.defaultProps = {
+	fullCountryReport: true,
+	title: ''
+}
 export default IncomerPercapital;

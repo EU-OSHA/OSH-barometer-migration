@@ -51,7 +51,8 @@ class ChartHuman extends Component {
 					}
 				},
 				chart: {
-					height: 500,
+					// height: 500,
+					height: this.props.fullCountryReport ? 500 : 250,
 					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -60,7 +61,7 @@ class ChartHuman extends Component {
 							var chart = this;
 							this.series.forEach(function(series) {
 								series.data[0].dataLabel.attr({
-								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (chart.chartHeight-200)
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-150 )
 								});					  
 							})
 
@@ -102,7 +103,7 @@ class ChartHuman extends Component {
 				   	},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadCSV", "downloadXLS"]							
@@ -135,16 +136,16 @@ class ChartHuman extends Component {
 				},
 				legend:{
 					symbolRadius: 0,
-					itemMarginTop:4,
+					itemMarginTop:8,
 					itemMarginBottom:4,
-					itemDistance: 5,
+					itemDistance: this.props.fullCountryReport ? 10 : 3,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'11px',
+						fontSize:this.props.fullCountryReport ? '12px' : '11px',
 						textOverflow: "ellipsis",
 					},
-					margin: 20
+					margin: this.props.fullCountryReport ? 15 : 15
 				},
 				plotOptions: {
 					series: {
@@ -205,7 +206,7 @@ class ChartHuman extends Component {
 							textOutline: 0,
 							textShadow: false,
 							fontFamily: 'OpenSans-Bold',
-							fontSize:'14px'
+							fontSize:'14px'							
 						}
 					},
 					type: 'category'
@@ -242,7 +243,7 @@ class ChartHuman extends Component {
 								name: element.country,
 								//type: 'column',
 								color:euColor,
-								pointWidth: numberOfItems > 2 ? 60 : 70,
+								pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
 								//pointPadding: 0.15,
 								borderColor: 'transparent',
 								borderWidth: 0,
@@ -268,7 +269,7 @@ class ChartHuman extends Component {
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: numberOfItems > 2 ? 60 : 70,
+									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
 									 //pointPadding: 1,
 									 borderColor: 'transparent',
 									// borderWidth: 0,
@@ -287,7 +288,7 @@ class ChartHuman extends Component {
 									name: element.country,
 									//type: 'column',
 									color:this.props.colors[i],
-									pointWidth: numberOfItems > 2 ? 60 : 70,
+									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
 									// pointPadding: 0.25,
 									borderColor: 'transparent',
 									borderWidth: 0,
@@ -375,4 +376,8 @@ class ChartHuman extends Component {
 	}
 }
 
+ChartHuman.defaultProps = {
+	fullCountryReport: true,
+	title: ''
+}
 export default ChartHuman;
