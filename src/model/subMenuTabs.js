@@ -57,7 +57,7 @@ export const oshCulture = [
         url:"information-about-risks",
         literalTab: "321",
         chartType: [
-            {title: "22127", chart: "20039", chartIndicator: "64", answers: ["8", "9"], legend: "20576", columns:['Country','Yes (%)','No (%)']}
+            {title: "22127", chart: "20039", chartIndicator: "64", answers: ["8", "9"], legend: "20576", columns:['Country','(very) Well informed (%)','Not very or not at all well informed (%)']}
         ]
     }
 ]

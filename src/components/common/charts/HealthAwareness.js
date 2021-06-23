@@ -117,6 +117,7 @@ class HealthAwareness extends Component {
 				legend:{
 					//reversed: this.props.legend
 					//verticalAlign: 'bottom',
+                    reversed: true,
 					symbolRadius: 0,
 					//layout: 'vertical',
 					itemMarginTop:4,
