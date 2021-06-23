@@ -4,10 +4,26 @@
     .card--block--chart{
       margin: 1rem;
       position: relative;
+      .highcharts-container{
+        svg {
+          image.osha-logo {
+            display:none
+          }
+          .highcharts-credits {
+            display: none
+          }
+        }
+        &.full-screen{
+          .highcharts-credits {
+            display: block
+          }
+        }
+      }
       .select-filter-chart-wrapper{
-        width: 77%;
-        top: 1.8rem;
-        left: 0;
+        width: 100%;
+        top: -1.8rem;
+        left: initial;
+        right: 1.2rem;
         position: relative;
         z-index: 2;
         @media screen and (max-width:1199px) {
@@ -17,7 +33,7 @@
           width: 79%;
         }
         @media screen and (max-width:768px) {
-          width: calc(100% - 8rem);
+          width: calc(100% - 7rem);
         }
       }
       .select-filter-chart{
@@ -32,7 +48,7 @@
         */
         &:after{
           //content: "\f107";
-          content: "\f0c9";
+          //content: "\f0c9";
           font-family: FontAwesome;
           font-weight: normal;
           font-size: 2.2rem;
@@ -48,15 +64,15 @@
         select{
           width: 100%;
           margin: 0;
-          padding: 0 2.2rem 0 0;
+          padding: 0 0 0 0;
           border-radius: 0;
           border: 0px solid #529FA2;
           border-radius: 0rem 0 0;
           color: #529FA2;
           background: transparent;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
+          //-webkit-appearance: none;
+          //-moz-appearance: none;
+          //appearance: none;
           font-family: "Oswald", sans-serif !important;
           font-size: 1.8rem;
           text-align-last: right;
@@ -73,6 +89,7 @@
             font-family: OpenSans;
             color: black !important;
             text-align:right; 
+            direction: rtl;
             &:checked {            
               display: none;
             }

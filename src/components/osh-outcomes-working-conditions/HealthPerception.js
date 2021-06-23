@@ -43,6 +43,9 @@ class HealthPerception extends Component
 	} */
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22011 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		// Open a listener for and mousedown event on body page to close any of the dropdowns
 		document.addEventListener('mousedown', this.onHandleDropdown);
 		getHealthPerceptionCountries()
@@ -130,7 +133,7 @@ class HealthPerception extends Component
 	{
 		return(
 			<div className="health-perception-workers">
-				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","health-perception-of-workers"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","health-perception-of-workers"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Health perception of the workers', indicator: 57}} />
 
 				<EUCountryCard literals={this.props.literals} euData={this.state.euData} page={'healthPerception'}/>
 
@@ -179,7 +182,7 @@ class HealthPerception extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Health perception of the workers'} />
 			</div>
 		)
 	}

@@ -6,7 +6,7 @@ import Cards from '../common/cards/Cards';
 import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
-
+import { connect } from 'react-redux';
 
 const literals = require('../../model/Literals.json');
 class OSHAuthorities extends Component
@@ -20,6 +20,7 @@ class OSHAuthorities extends Component
 			pageOfItems: [],
 			searchBarText: '',
 			isFetching: false,
+			defaultTags: false,
 			filters: {
 					countries: [],
 					checks: [],
@@ -85,6 +86,9 @@ class OSHAuthorities extends Component
 	}
 
 	 componentDidMount() {
+		// Update the title for the page
+		document.title = this.props.literals.L22002 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		//  TODO: possible change to API folder with fetch code - here goes the function call only / Calls for countries
 		this.setState({ ...this.state, isFetching: true });
 		try {
@@ -101,8 +105,8 @@ class OSHAuthorities extends Component
 		} finally {
 			this.setState({ ...this.state, isFetching: false })
 		}
-
 	 }
+
 	 componentDidUpdate(prevProps, prevState) {
 		 // If any modification happens to the filter state, it updates with the new values
 		if (prevState.filters != this.state.filters) {
@@ -118,12 +122,30 @@ class OSHAuthorities extends Component
 				this.setState({ ...this.state, isFetching: false })
 			}
 		}
+
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				defaultTags: true,
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			if(countryDefault != undefined){
+				this.setState({
+					filters: {...this.state.filters, countries: [countryDefault]}
+				});
+			}
+			
+		}
 	 }
 
 	render() {
 		return(
 			<div className="osh-authority">
-				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} />
+				<AdviceSection literals={this.props.literals} section={["generic-information","osh-authorities"]} methodologyData={{section: 'generic-information', subsection: 'OSH authorities', indicator: 27}}/>
 
 				{/* FILTERS COMPONENT */}
 				<section className="container">
@@ -158,8 +180,10 @@ class OSHAuthorities extends Component
 					<div className="matrix--elements--wrapper">
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
-								const id = `${index}-${data.country.code}`
-								return <Cards key={id} countryData={data} literals={literals} cardType={'institution'}/>
+								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
+								const id = `${index}-${data.country.code}-${position}`
+
+								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'institution'}/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>
@@ -182,10 +206,17 @@ class OSHAuthorities extends Component
 				</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'OSH authorities'} />
 			</div>
 		)
 	}
 }
 OSHAuthorities.displayName = 'OSHAuthorities';
-export default OSHAuthorities;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default OSHAuthorities;
+export default connect(mapStateToProps, null )(OSHAuthorities);

@@ -1,0 +1,67 @@
+{
+    "debugMode": false,
+    "paths": {
+        "enviroment": {
+            "_description": "Environment: Local, Testing, Staging, Production",
+            "local": {
+                "domain": "//localhost",
+                "port": ""
+            },
+            "testing": {
+                "domain": "//esener-test",
+                "port": ""
+            },
+            "staging": {
+                "domain": "//test-visualisation.osha.europa.eu",
+                "port": ""
+            },
+            "prod": {
+                "domain": "//visualisation.osha.europa.eu",
+                "port": ""
+            }
+        },
+        "piwik": {
+            "_description": "Piwik navigation tracking: Local, Testing, Staging, Production",
+            "local": {
+                "protocol": "https",
+                "domain": "//piwik.osha.europa.eu",
+                "port": "443",
+                "path": "/piwik/",
+                "SiteId": "11"
+            },
+            "testing": {
+                "protocol": "https",
+                "domain": "//piwik.osha.europa.eu",
+                "port": "443",
+                "path": "/piwik/",
+                "SiteId": "11"
+            },
+            "staging": {
+                "protocol": "https",
+                "domain": "//piwik.osha.europa.eu",
+                "port": "443",
+                "path": "/piwik/",
+                "SiteId": "11"
+            },
+            "prod": {
+                "protocol": "https",
+                "domain": "//piwik.osha.europa.eu",
+                "port": "443",
+                "path": "/piwik/",
+                "SiteId": "29"
+            }
+        },
+        "pentaho-instance": "/pentaho",
+        "partials": "/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-esener/static/custom",
+        "directive-route": "/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-esener/static/custom",
+        "system-components": "/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-esener/static/system/components",
+        "images": "/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-esener/static/custom/img/",
+        "data": {
+            "pentaho-path": "/plugin/cda/api/doQuery?&path=osha-dvt-esener/dashboards/",
+            "cda-path": "osha-dvt-esener/dashboards/",
+            "cda": {
+                "esener": "esenerdash.cda"
+            }
+        }
+    }
+}

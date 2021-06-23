@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AdviceSection from '../common/AdviceSection';
 import Methodology from '../common/Methodology';
-import CountrySelect from '../common/CountrySelect';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
+import SelectEconomic from '../common/select-filters/SelectEconomic';
+import Related from '../common/Related';
 
 const API_ADDRESS = process.env.BASE_URL;
-
 class CountryProfile extends Component
 {
 	constructor(props){
@@ -14,7 +14,8 @@ class CountryProfile extends Component
 		this.state = {
 			countryProfileData1: {}, 
 			countryProfileData2: {}, 
-			openListClass: "", 
+			openListClass: "",
+			tabIndicators: false,
 			countriesSelect1: [], 
 			countriesSelect2: [], 
 			indicators: [],
@@ -46,34 +47,32 @@ class CountryProfile extends Component
 	}
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.retrieveCountryProfileData();
+		console.log(this.state.country1)
 	}
 
 	componentDidUpdate(prevProps, prevState){
+
+		if (prevState.country1 != this.state.country1 || prevState.country2 != this.state.country2) {
+			window.history.replaceState(null, null, "/osh-steering/country-profile/"+this.state.indicator+"/"+this.state.country1+"/"+this.state.country2+"/")
+		}
+
 		if(prevState.country1 != this.state.country1 ){
-				this.retrieveCountryProfileData();
+			this.retrieveCountryProfileData();
 		}
 
 		if (prevState.country2 != this.state.country2) {
 			this.retrieveCountryProfileData();
 		}
+
 	}
 
-	openIndicatorsList = (event) => {
-		
-		if( window.innerWidth < 990 ){
-			
-			if(event.target.nodeName == "A"){
-			  var parentTag = event.target.offsetParent.nextSibling.parentNode.className;
-			} else if( event.target.nodeName == "LI" ){
-			  var parentTag = event.target.parentNode.className;
-			} 
-
-			if(parentTag.indexOf('open-list') < 0 ){
-				this.setState({openListClass: "open-list"});
-			} else {
-				this.setState({openListClass: ""});
-			}
+	openIndicatorsList = () => {
+		if (window.innerWidth < 768) {
+			this.setState({ tabIndicators: !this.state.tabIndicators })
 		}
 	}
 
@@ -95,12 +94,14 @@ class CountryProfile extends Component
 		}
 	}
 
-	countryChange = event => {
-		if(event.target.id === "datafor"){
-			this.setState({country1: event.target.value});
-		}else{
-			this.setState({country2: event.target.value});
-		}
+	// Handle change event for the select box 1
+	handleChangeSelect1 = (callbackCountry) => {
+		this.setState({ country1: callbackCountry });
+	}
+
+	// Handle change event for the select box 2
+	handleChangeSelect2 = (callbackCountry) => {
+		this.setState({ country2: callbackCountry });
 	}
 
 	changeIndicator = indicatorSelected => () => {
@@ -111,9 +112,11 @@ class CountryProfile extends Component
 	{
 		var indicatorTabs = "";
 		var selectedTabContent = "";
+		var indicatorID;
 
 		switch (this.state.indicator) {
 			case 'basic-information':
+				indicatorID = 46;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -127,6 +130,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'background':
+				indicatorID = 47;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -140,6 +144,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'characteristics-and-objectives':
+				indicatorID = 48;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -153,6 +158,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'details-and-activity':
+				indicatorID = 49;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -166,6 +172,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'actors-and-stakeholders':
+				indicatorID = 50;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -179,6 +186,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'resources-and-timeframe':
+				indicatorID = 98;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -192,6 +200,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'evaluation':
+				indicatorID = 51;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -205,6 +214,7 @@ class CountryProfile extends Component
 				)
 				break;
 			case 'relationship-to-eu-strategic-framework':
+				indicatorID = 99;
 				selectedTabContent = (
 					<CountryProfileTextTab 
 					literals={this.props.literals} 
@@ -225,10 +235,10 @@ class CountryProfile extends Component
 
 		if(this.state.indicators.length > 0){
 			indicatorTabs = (
-				<ul className={"submenu--items--wrapper "+this.state.openListClass}>
+				<ul className={`submenu--items--wrapper ${this.state.tabIndicators ? 'open-list' : ''}`}>
 					{
 						this.state.indicators.map((indicator, index) => (
-							<li key={index} onClick={this.openIndicatorsList(this)} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
+							<li key={index} onClick={this.openIndicatorsList} className={"submenu--item "+this.isActiveIndicator(indicator.literalID)}>
 								<Link to={"/osh-steering/country-profile/"+this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-')+"/"
 									+this.state.country1+"/"+(this.state.country2 != undefined ? this.state.country2 : "" )} 
 									onClick={this.changeIndicator(this.props.literals['L'+indicator.literalID].toLowerCase().replace(/ /g, '-'))}
@@ -242,7 +252,7 @@ class CountryProfile extends Component
 
 		return(
 			<div className="country--profile--page">
-				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","country-profile"]} methodologyData={{section: 'osh-steering', subsection: 'Structure of each National strategy', indicator: 46}} />
 
 				<div className="container">
 					<p className="btn--block-full left-text">
@@ -260,29 +270,13 @@ class CountryProfile extends Component
 
 					{/* FILTERS */}
 					<form className="compare--block--form container">
-						<ul className="compare--list">
-							{/*  1ST COUNTRY FILTER  */}
-							<li>
-								<label htmlFor="datafor">{this.props.literals.L20609}</label>
-								<CountrySelect id="datafor" 
-									countries={this.state.countriesSelect1} 
-									country={this.state.country1} 
-									handler ={this.countryChange} 
-									currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"}
-								/>
-							</li>
-							{/* 2ND COUNTRY FILTER  */}
-							<li>
-								<label htmlFor="comparewith">{this.props.literals.L20610}</label>
-								<CountrySelect 
-									id="comparewith" 
-									countries={this.state.countriesSelect2} 
-									country={this.state.country2} 
-									handler ={this.countryChange}
-									currentPath={"/osh-steering/country-profile/"+this.state.indicator+"/"+this.state.country1+"/"}
-								/>
-							</li>
-						</ul>
+						<SelectEconomic 
+							handleSearch={this.handleChangeSelect1}
+							handleSearch2={this.handleChangeSelect2}
+							selectedCountry1={this.state.country1}
+							selectedCountry2={this.state.country2}
+							literals={this.props.literals}
+						/>
 					</form>
 
 					<div className="line background-main-light"></div>
@@ -292,7 +286,16 @@ class CountryProfile extends Component
 					{selectedTabContent}					
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Structure of each National strategy'} indicator={indicatorID} />
+
+				{(this.state.indicator == 'background' 
+					|| this.state.indicator == 'actors-and-stakeholders' 
+					|| this.state.indicator == 'resources-and-timeframe' 
+					|| this.state.indicator == 'relationship-to-eu-strategic-framework') 
+					&& (
+					<Related literals={this.props.literals} section={["osh-steering", "country-profile", this.state.indicator]} />
+				)}
+				
 			</div>
 		)
 	}

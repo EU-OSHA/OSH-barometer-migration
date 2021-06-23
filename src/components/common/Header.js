@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon} from 'react-share';
 import $ from "jquery";
 import ReactHtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
 
 const menu = require('../../model/menu.json');
 const breadcrumb = require('../../model/breadcrumb.json');
@@ -131,7 +132,7 @@ class Header extends Component
 	{
 		// Get the current pathname in an array
 		let pathname = location.pathname.split("/");
-		if (pID === pathname[1] || (pathname[1] == '' && pID == 'home') || (pathname[1] == 'about-detail-page' && pID == "about-tool"))
+		if (pID === pathname[2] || (pathname[2] == '' && pID == 'home') || (pathname[2] == 'country-report' && pID == "about-the-system"))
 		{
 			return 'main-menu-selected';
 		}
@@ -179,13 +180,22 @@ class Header extends Component
 		{
 			return null;
 		}
+
 		return (
 			<ul className="dropdown-menu">
 				{pLevels.filter(level=>level.link!=undefined).map(level=>
 					<li>
-						<Link to={level.link} id={level.id} accessKey={level.accesskey}>
-							<span>{this.props.literals[level.name]}</span>
-						</Link>
+						{
+							(level.id != "economic-sector-profile") ? 
+							<Link to={level.link} id={level.id} accessKey={level.accesskey}>
+								<span>{this.props.literals[level.name]}</span>
+							</Link> 
+							:
+							<Link to={level.link+this.props.defaultCountry.code} id={level.id} accessKey={level.accesskey}>
+								<span>{this.props.literals[level.name]}</span>
+							</Link>
+						}
+						
 					</li>
 				)}
 			</ul>
@@ -216,21 +226,24 @@ class Header extends Component
 	{
 		let breadcrumb = this.state.breadcrumb[this.props.child];
 		let breadcrumbElems = [];
-		if (breadcrumb.tree)
-		{
-			for (let i = 0; i < breadcrumb.tree.length; i++)
+		if(breadcrumb){
+			if (breadcrumb.tree)
 			{
-				breadcrumbElems.push(this.state.breadcrumb[breadcrumb.tree[i]]);
-			}			
+				for (let i = 0; i < breadcrumb.tree.length; i++)
+				{
+					breadcrumbElems.push(this.state.breadcrumb[breadcrumb.tree[i]]);
+				}			
+			}
+			return (
+				<p className="path" id="breadCrumbs">
+					{breadcrumbElems.map((elem, i) => 
+						this.breadcrumbItem(elem, i)
+					)}
+					<span>{breadcrumb.text}</span>
+				</p>
+			);
 		}
-		return (
-			<p className="path" id="breadCrumbs">
-				{breadcrumbElems.map((elem, i) => 
-					this.breadcrumbItem(elem, i)
-				)}
-				<span>{breadcrumb.text}</span>
-			</p>
-		);
+		
 	}
 
 	render()
@@ -241,7 +254,7 @@ class Header extends Component
 					<section className="bar-header container-fluid">
 						<div className="header--top">
 							<div className="osh-barometer-legend">
-								<h1 className="main-title"><a to="home" title="OSH BAROMETER Home" href=""><span className="title">OSH BAROMETER</span> <span className="lead-title">Data Visualisation Tool</span></a></h1>
+								<h1 className="main-title"><a to="home" title="OSH BAROMETER Home" href="/"><span className="title">OSH BAROMETER</span> <span className="lead-title">Data Visualisation Tool</span></a></h1>
 							</div>
 							<div className="eu-osha-logo">
 								<a href="https://osha.europa.eu" role="link" title="EUOSHA corporate website" tabIndex="0" >
@@ -326,4 +339,10 @@ class Header extends Component
 	}
 }
 
-export default Header;
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default Header;
+export default connect(mapStateToProps, null )(Header);

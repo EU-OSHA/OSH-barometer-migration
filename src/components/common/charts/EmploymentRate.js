@@ -3,7 +3,8 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-import { getChartData } from '../../../api';
+import { getChartData, getDatasourceAndDates } from '../../../api';
+import { xlsxCustomExport } from '../utils/chartConfig';
 
 const euColor = '#003399';
 const country1Color = '#ffae00';
@@ -15,26 +16,85 @@ class EmploymentRate extends Component {
 		this.state = {
 			chartConfig: {
 				title: {
-					useHTML: true,
+					//useHTML: true,
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
-					align: 'left'
+					align: 'left',
+					widthAdjust: 0,
+					style: {
+						zIndex: 1,
+						lineHeight:36
+					}	
 				},
 				colors: this.props.colors, 
 				credits: {
-					enabled: false,
+					enabled: true,
+					text: "",
+					href: '',
+					style: {
+						cursor: 'arrow'
+					},
+					position: {
+						x: -130
+					}
 				},
 				chart: {
-					height: 500,
+					height: this.props.fullCountryReport ? 450 : 250,
 					type: this.props.type,
-					backgroundColor: '#F0F0F0'
+					backgroundColor: '#F0F0F0',
+					events: {
+						render: function() {
+							  var chart = this;
+						   if (!chart.customImage)
+						   {
+							   chart.customImage = chart.renderer.image(
+								   'https://visualisation.osha.europa.eu/pentaho/plugin/pentaho-cdf-dd/api/resources/system/osha-dvt-barometer/static/custom/img/EU-OSHA-en.png',
+								   chart.chartWidth - 130,
+								   chart.chartHeight - 37,
+								   130,
+								   37
+							   ).add();
+								chart.customImage.attr({
+									class:'osha-logo'
+								});
+						   }
+						   else
+						   {
+							   chart.customImage.attr({
+								   x: chart.chartWidth - 130,
+								   y: chart.chartHeight - 37
+							   });
+						   }
+
+						   if (chart.fullscreen.isOpen) {
+							   chart.customImage.css({
+								   display: 'block'
+							   });
+							   chart.container.className = 'highcharts-container full-screen';
+							 }
+						   else
+						   {
+							   chart.customImage.css({
+								   display: ''
+							   });	
+							   chart.container.className = 'highcharts-container';
+						   }
+						}					
+				   	},
 				},
 				exporting: {
-					enabled: true,
+					enabled: this.props.fullCountryReport,
 					buttons: {
 						contextButton: {
 							menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG", "separator", "downloadCSV", "downloadXLS"]							
 						}
-					}
+					},
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExport('Country', this.series, this.title.textStr, true);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {
@@ -48,32 +108,39 @@ class EmploymentRate extends Component {
 									fill: 'transparent'
 								}
 							}
-						}
+						},
+						verticalAlign: 'top',
+						y: -5
 					}
 				},
 				legend:{
 					//reversed: this.props.legend
-					verticalAlign: 'bottom',
 					symbolRadius: 0,
-					layout: 'vertical',
 					itemMarginTop:4,
 					itemMarginBottom:4,
-					width: 300,
+					align: 'center',
+					// itemWidth: this.props.fullCountryReport ? 250 : 80,
+					itemDistance: this.props.fullCountryReport ? 10 : 3,
+
+					//width: 200,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
-						fontSize:'12px',
-						textOverflow: "ellipsis",
-						width: 250
+						fontSize: this.props.fullCountryReport ? '12px' : '11px',
+						textOverflow: "ellipsis"
 					}
 				},
 				plotOptions: {
+					borderColor: '#16983e',
+					//borderWidth: 3,
 					series: {
+						//pointStart: 50,
 						shadow: false,
 						outline: 0,
-						stacking: this.props.stacking
+						stacking: this.props.stacking,
 					},
 					bar: {
+						borderWidth: 0,
 						dataLabels: {
 							//useHTML: true,
 							align: 'left',
@@ -85,7 +152,7 @@ class EmploymentRate extends Component {
 								textOutline: 0,
 								textShadow: false,
 								fontFamily: 'OpenSans-Bold',
-								fontSize:'14px'
+								fontSize:this.props.fullCountryReport ? '14px' : '10px'
 							},
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
@@ -105,9 +172,12 @@ class EmploymentRate extends Component {
 				},
 				tooltip: {					
                     useHTML: true,
+					opacity: 1,
+					backgroundColor: "rgba(255, 255, 255, 1)",
+					borderColor:"#529FA2",
+					zIndex: 100,
 					style: {
-						opacity: 1,
-						background: "rgba(255, 255, 255, 1)" 
+						zIndex: 100
 					},
 					// positioner: function(labelWidth, labelHeight, point) {
 					// 	var tooltipX = point.plotX/2;
@@ -120,11 +190,12 @@ class EmploymentRate extends Component {
 					formatter: function () {
 						return '<ul class="tooltip-item">'+
 						'<li><strong>Country: </strong> ' + this.series.name + '</li>' +
-						'<li><strong> Value: </strong>' + this.y +'%</li>' +
+						'<li><strong class="tooltip-value"> Value: </strong>' + this.y +'%</li>' +
 						'</ul>';
 					}
 				},
-				xAxis: {					
+				xAxis: {
+					lineWidth: 0,
 					labels: {
 						formatter: function () {
 							if ([this.value] == 'EU27_2020') {
@@ -140,13 +211,16 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:this.props.fullCountryReport ? '12px' : '10px'
 						}
 					},
 					type: 'category'
 				},
 				yAxis: {
-					max: this.props.yAxisMax,
+					lineWidth: 0,
+					gridLineColor: '#FFF',
+          			gridLineWidth: 2,
+					max: 100,
 					tickInterval: this.props.tick,
 					title: {
 						enabled: false
@@ -156,7 +230,8 @@ class EmploymentRate extends Component {
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px',
+							// w:console.log(this.props.fullCountryReport ),
+							fontSize:this.props.fullCountryReport ? '12px' : '10px',
 							textOverflow: 'none'
 						}
 					}
@@ -164,6 +239,16 @@ class EmploymentRate extends Component {
 				series: []
 			}
 		}
+	}
+
+	getCredits = (chart) => {
+		getDatasourceAndDates(chart).then((res)=>{
+			let text = res;
+			//console.log('text',text);
+			this.setState({
+				chartConfig: {...this.state.chartConfig, credits: {...this.state.chartConfig.credits, text}}
+			})
+		})		
 	}
 
 	getLoadData = (chart, indicator, country1, country2) => {
@@ -215,16 +300,17 @@ class EmploymentRate extends Component {
 	}
 
 	componentDidMount() {
-		this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2);
+		this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2);
+		this.getCredits(this.props.chart);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.pais1 != this.props.pais1) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry1 != this.props.selectCountry1) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 
-		if (prevProps.pais2 != this.props.pais2) {
-			this.getLoadData(this.props.chart, this.props.indicator, this.props.pais1, this.props.pais2)
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.getLoadData(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2)
 		}
 	}
 
@@ -242,6 +328,11 @@ class EmploymentRate extends Component {
 			</div>
 		)
 	}
+}
+
+EmploymentRate.defaultProps = {
+	fullCountryReport: true,
+	title: ''
 }
 
 export default EmploymentRate;

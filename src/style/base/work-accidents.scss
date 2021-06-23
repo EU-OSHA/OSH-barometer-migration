@@ -1,6 +1,9 @@
 .work-accidents{
 	.section--page {
-	  padding: 4rem 2rem 2rem;
+		padding: 0rem 0 2rem;
+		.card--block--chart{
+			margin: 4rem auto 4rem;	
+		}			
 	}
 	.submenu--block{
 		.submenu--items--wrapper{
@@ -10,6 +13,21 @@
 			}
 		}
 	}
+	.highcharts-container{
+        svg {
+          image {
+            display:none
+          }
+          .highcharts-credits {
+            display: none
+          }
+        }
+        &.full-screen{
+          .highcharts-credits {
+            display: block
+          }
+        }
+    }
 }
 
 @media (max-width: 990px) {
@@ -98,6 +116,9 @@
 and (max-width :767px){
 
 	.work-accidents {
+		.section--page {
+			margin:0;
+		}
 		.card--block--chart{
 			padding: 1rem;
 			.chart--submenu{
@@ -113,10 +134,11 @@ and (max-width :767px){
 		} 		
 	}
 
-	.work-accidents{
+	.work-accidents, .mental-risk {
 		svg{
 			text{
-				font-size: 0.8rem !important;
+				font-size: 1.1rem !important;
+				font-family: 'OpenSans' !important;
 			}
 		}
 	}

@@ -1,3 +1,21 @@
+.osh-culture {
+	.highcharts-container{
+        svg {
+          image {
+            display:none
+          }
+          .highcharts-credits {
+            display: none
+          }
+        }
+        &.full-screen{
+          .highcharts-credits {
+            display: block
+          }
+        }
+    }
+}
+
 @media only screen 
 and (max-width :767px)  {
 	.osh-culture{

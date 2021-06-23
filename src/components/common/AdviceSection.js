@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import { setMethodology } from '../../actions/';
 
 const adviceText = require('../../model/adviceSection.json');
+
 class AdviceSection extends Component
 {
 
 	constructor(props)
     {
         super(props);
+		
+		if (props.methodologyData != undefined)
+		{
+			props.methodology(props.methodologyData.section, props.methodologyData.subsection, props.methodologyData.indicator);
+		}		
         
         // Get the elements for the current section
         let rel = adviceText;
@@ -19,6 +27,7 @@ class AdviceSection extends Component
            items: rel			
         }
     }
+
     indicatorIcons(pItem)
     {
         return pItem.icon;		
@@ -48,7 +57,7 @@ class AdviceSection extends Component
 	render()
 	{	
 		return(
-				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid">
+				<section data-ng-if="state.current.name != 'home'" id="not-home-cover" className="advice--icon--block advice--block-not-home background-main-light container-fluid section--page ng-scope">
 					<div className="container horizontal-nopadding">                         
 							<div className="text-advice left-text col-md-8 col-sm-8 col-xs-12  nopadding">
 								<h1 className="main-color left-text title--section">
@@ -66,4 +75,11 @@ class AdviceSection extends Component
 	}
 }
 
-export default AdviceSection;
+function mapDispatchToProps (dispatch)
+{
+	return {
+		methodology: (section, subsection, indicator) => dispatch(setMethodology(section, subsection, indicator))
+	};
+}
+
+export default connect(null, mapDispatchToProps)(AdviceSection);

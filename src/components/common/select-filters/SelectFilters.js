@@ -12,7 +12,7 @@ class SelectFilters extends Component {
 				{id: '4', literal: '20613'}
 			],
             categoryTypes: [
-                {id: '1', literal: '20614'},
+                {id: '1', literal: '20714'},
                 {id: '2', literal: '20715'},
                 {id: '3', literal: '20716'}
             ],

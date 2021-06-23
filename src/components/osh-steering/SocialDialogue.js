@@ -42,6 +42,9 @@ class SocialDialogue extends Component
 	} */
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22008 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		// Open a listener for and mousedown event on body page to close any of the dropdowns
 		document.addEventListener('mousedown', this.onHandleDropdown);
 		getSocialDialogueCountries()
@@ -107,7 +110,7 @@ class SocialDialogue extends Component
 	{
 		return(
 			<div className="social-dialogue">
-				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","social-dialogue"]} methodologyData={{section: 'osh-steering', subsection: 'Social dialogue', indicator: 354}} />
 
 				<EUCountryCard literals={this.props.literals} euData={this.state.euData} page={'socialDialogue'}/>
 
@@ -143,7 +146,7 @@ class SocialDialogue extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'Social dialogue'} />
 			</div>
 		)
 	}

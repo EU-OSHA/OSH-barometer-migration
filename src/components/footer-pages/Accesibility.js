@@ -13,10 +13,17 @@ class Accesibility extends Component
             footerPages: footerPages
         }
 	}
+
+	componentDidMount()
+	{
+		// Update the title of the page
+		document.title = this.props.literals.L358 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
+	  
 	render()
 	{
 		return(
-			<div className="mainBody">
+			<div  className="mainBody">
 				<h1 class="title-section second-color ng-binding text-center">
 				{this.props.literals.L694}
 				</h1>

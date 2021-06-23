@@ -7,6 +7,8 @@ import Pagination from '../common/pagination/Pagination';
 import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
 
+import { connect } from 'react-redux';
+
 const literals = require('../../model/Literals.json');
 
 class OSHStatistics extends Component
@@ -19,6 +21,7 @@ class OSHStatistics extends Component
 			matrixPageData: [],
 			pageOfItems: [],
 			isFetching: false,
+			defaultTags: false,
 			filters: {
 				countries: [],
 				checks: [],
@@ -84,6 +87,9 @@ class OSHStatistics extends Component
 	}
 
 	componentDidMount() {
+		// Update the title of the page
+		document.title = this.props.literals.L22018 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		this.setState({ ...this.state, isFetching: true});
 		try {
 			getOSHCountries('MATRIX_STATISTICS' ,['UK'])
@@ -116,13 +122,30 @@ class OSHStatistics extends Component
 				this.setState({ ...this.state, isFetching: false })
 			}
 		}
+
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			this.setState({
+				defaultTags: true,
+				filters: {...this.state.filters, countries: [countryDefault]}
+			});
+		}
+
+		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+			if(countryDefault != undefined){
+				this.setState({
+					filters: {...this.state.filters, countries: [countryDefault]}
+				});
+			}
+		}
 	}
 
 	render()
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-infrastructure","osh-statistics"]} methodologyData={{section: 'osh-infrastructure', subsection: 'OSH statistics, surveys and research', indicator: 80}} />
 
 				<section className="container">
 
@@ -156,8 +179,9 @@ class OSHStatistics extends Component
 					<div className="matrix--elements--wrapper">
 						{this.state.pageOfItems.length > 0 ? (
 							this.state.pageOfItems.map((data, index) => {
-								const id = `${index}-${data.country.code}`
-								return <Cards key={id} countryData={data} literals={literals} cardType={'statistics'} />
+								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
+								const id = `${index}-${data.country.code}-${position}`
+								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'statistics'} />
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>
@@ -168,10 +192,17 @@ class OSHStatistics extends Component
 					</div>
 				</section>
 
-				<Methodology />
+				<Methodology literals={this.props.literals} section={'OSH statistics, surveys and research'} />
 			</div>
 		)
 	}
 }
 OSHStatistics.displayName = 'OSHStatistics';
-export default OSHStatistics;
+
+function mapStateToProps(state){
+    const {defaultCountry} = state;
+    return { defaultCountry: defaultCountry };
+}
+
+// export default OSHStatistics;
+export default connect(mapStateToProps, null )(OSHStatistics);

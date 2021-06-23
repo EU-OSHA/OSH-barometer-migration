@@ -1213,20 +1213,16 @@ and (max-width : 900px) {
     .compare--list{
       li{
       	width:100%;
+		padding: 0 0.5rem;
         label{ 
         	width:auto;        
           &:after{
           }
         }
-        select, dvt-select{
-        	width:58%;
-        	flex: 1;
-          font-size: 2rem;
-          option{
-            font-size: 1.4rem; 
-            &:checked{            
-            }
-          }
+        select, dvt-select, .select-component{
+			width:57%;
+			flex: 1;
+			//font-size: 2rem;
         }
       }
     }
@@ -1590,11 +1586,21 @@ and (max-width :767px)  {
           &:after{
           }
         }
-        select, dvt-select{
-        	width:60%;
-          font-size: 2rem;
+        select, dvt-select, .select-component{
+			width:60%;
+			font-size: 2rem;
+			border: 1px solid $aquamarine-light;
+			> div[class*=control]{
+				.css-g1d714-ValueContainer{
+					justify-content: left;
+				}
+			}
+			> div[class*="menu"]{
+				text-align: left;
+				font-size: 1.6rem;				
+			}
           option{
-            font-size: 1.4rem; 
+            font-size: 1.6rem; 
             &:checked{            
             }
           }
@@ -1843,46 +1849,55 @@ and (max-width :620px) {
 @media only screen 
 and (max-width :520px) {
 
-  .compare--block{
-    .compare--list{
-      li{
-      	text-align: center;
-      	width: 100%;
-      	margin: 1rem auto;
-      	flex-direction: column;
-      	&:after{
-      		top: 4.2rem;
-      	}
-        label{
-        	width:100%;
-        	text-align: center;
-          &:after{
-          	padding: 1rem;
-          	content: '';
-          }
-        }
-        select, dvt-select{
-				  font-size: 1.8rem;
-				  display: inline-block;
-				  width: 100%;
-				  border: 1px solid;
-				  background: #FFF;
-				  padding: 1rem;
-				  margin: 0rem;
-          option{
-            font-size: 1.2rem; 
-            &:checked{            
-            }
-          }
-        }
-      }
-    }
-  }
-  body, body.mobile-device{	
-		.survey--map--block-mobile .matrix--elements--wrapper .matrix--elements--data li label {
-		  min-height: 4.7rem !important;
+	.compare--block{
+		.compare--list{
+		li{
+			text-align: center;
+			width: 100%;
+			margin: 1rem auto;
+			flex-direction: column;
+			&:after{
+				top: 4.2rem;
+			}
+			label{
+				width:100%;
+				text-align: center;
+			&:after{
+				padding: 1rem;
+				content: '';
+			}
+			}
+			select, dvt-select, .select-component{
+				font-size: 1.8rem;
+				display: inline-block;
+				width: 100%;
+				border: 1px solid;
+				background: #FFF;
+				padding: 0.4rem;
+				margin: 0rem;
+				border: 1px solid $aquamarine-light;
+				.css-g1d714-ValueContainer{
+					justify-content: center !important;
+				}
+			}
 		}
-	}	
+		}
+	}
+  	body, body.mobile-device{	
+		.survey--map--block-mobile .matrix--elements--wrapper .matrix--elements--data li label {
+			min-height: 4.7rem !important;
+		}
+	}
+	.chart--wrapper{
+		svg{
+			.highcharts-radial-axis-labels{					
+				text{
+					font-size: 10px !important;
+				}
+			}
+		}
+	}
+	
 }
 
 
@@ -1911,33 +1926,33 @@ and (max-width :420px){
 	.social-dialogue .card--grid .card--block--chart .chart--block {
 	  padding: 2rem 0rem !important;
 	}
-  .hide-header{
-    -webkit-transition: all 1.2s;
-    transition: all 1.2s;
-    &.affix{
-    	top: -30rem;
-    }
-		&.affix-top{
-    	top: -30rem;
-    }
-  }
+	.hide-header{
+		-webkit-transition: all 1.2s;
+		transition: all 1.2s;
+		&.affix{
+			top: -30rem;
+		}
+			&.affix-top{
+			top: -30rem;
+		}
+	}
 	body, body.mobile-device{
 		.survey--map--block-mobile{
 			.matrix--elements--wrapper{
-			  .matrix--elements--data{
-			  	  margin: 0 !important;
-			  	li{
-			  		width:80% !important;
-			  		margin-left: 20%;
-			  		label{
-			  			min-height: auto !important;							
-			  		}
-			  		.data{
-			  		}
-			  		.data-text{
-			  		}
-			  	}
-			  }
+				.matrix--elements--data{
+					margin: 0 !important;
+				li{
+					width:80% !important;
+					margin-left: 20%;
+					label{
+						min-height: auto !important;							
+					}
+					.data{
+					}
+					.data-text{
+					}
+				}
+				}
 			}
 		}
 	}

@@ -31,6 +31,9 @@ class NationalStrategies extends Component
 	}
 
 	componentDidMount(){
+		// Update the title of the page
+		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
 		getNationalStrategiesCountries()
 			.then((res) => {
 				// this.setState({ countries: res.resultset });
@@ -102,7 +105,7 @@ class NationalStrategies extends Component
 	{
 		return(
 			<div>
-				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} />
+				<AdviceSection literals={this.props.literals} section={["osh-steering","national-strategies"]} methodologyData={{section: 'osh-steering', subsection: 'Structure of each National strategy', indicator: 46}}/>
 
 				<section className="filter--letter--section container">
 					<ul className="filter--letter--list">

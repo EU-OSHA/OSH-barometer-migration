@@ -1,5 +1,5 @@
-import React, { Component, useState,useEffect } from 'react';
-import ReactHtmlParser from 'react-html-parser'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
@@ -7,34 +7,73 @@ import EmploymentRate from '../common/charts/EmploymentRate';
 import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
-import IncomerPercapital from '../common/charts/IncomePerCapita'
+import IncomerPercapital from '../common/charts/IncomePerCapita';
+import { connect } from 'react-redux';
+import { setDefaultCountry2 } from '../../actions/';
 
 const EconomicSectorProfile = (props) => {
 
-	//console.log('props', props);
-	
-	const [pais1,setPais1]=useState(props.country1);
-	const [pais2,stePais2]=useState("");
+	// Update the title of the page
+	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
+
+	const history = useHistory();
+
+	const [selectCountry1, setSelectCountry1] = useState(props.defaultCountry.code);
+	const [selectCountry2, setSelectCountry2] = useState(props.defaultCountry2.code);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
-	
 
+	useEffect(() => {
+		if (props.country1)
+		{
+			setSelectCountry1(props.country1);
+		}
+		else if (props.defaultCountry.code != '0')
+		{
+			setSelectCountry1(props.defaultCountry.code);
+		}
+	
+		if (props.country2)
+		{
+			setSelectCountry2(props.country2);
+		}
+		else
+		{
+			setSelectCountry2(props.defaultCountry2.code);
+		}
+	}, [props.defaultCountry.code])
+
+	const updateURL = (country1, country2) =>
+	{
+		let url = '/generic-information/economic-sector-profile';
+		if (country1)
+		{
+			url = `${url}/${country1}`;
+		}
+		if (country2 && country2 != '0')
+		{
+			url = `${url}/${country2}`;
+		}
+		history.push({
+			pathname: url
+		})
+	}
 
 	const selectEuro2 = (e) =>{
 		const indicator = e.target.value
-	   if(indicator == "278"){
-		const Chart =  "20087"
-	   setIndicator2("278");
-	   setChart2("20087");
-	   } else
-	   {
-		   const Chart = "20013"
-		   const indicator= "35"
-		   setChart2(Chart);
-		   setIndicator2(indicator);
-	   }  
+		if(indicator == "278"){
+			const Chart =  "20087"
+		setIndicator2("278");
+		setChart2("20087");
+		} else
+		{
+			const Chart = "20013"
+			const indicator= "35"
+			setChart2(Chart);
+			setIndicator2(indicator);
+		}  
    }
 	
 
@@ -53,18 +92,24 @@ const EconomicSectorProfile = (props) => {
 		}
 	}
 
-	const handleSearch = (pais1) => {
-		setPais1(pais1);
+	const handleSearch = (selectCountry1) => {
+		setSelectCountry1(selectCountry1);
+		updateURL(selectCountry1, selectCountry2);
 	}
 
-	const handleSearch2 = (pais2)=>{
-		stePais2(pais2)
+	const handleSearch2 = (selectCountry2)=>{
+		setSelectCountry2(selectCountry2);
+		props.setDefaultCountry2({
+			code: selectCountry2,
+			isCookie : false
+		});
+		updateURL(selectCountry1, selectCountry2);
 	}
 
 		return(
 			<div className="economic--sector--profile">
 
-				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} />
+				<AdviceSection literals={props.literals} section={["generic-information","economic-sector-profile"]} methodologyData={{section: 'generic-information', subsection: 'Economic and sector profile', indicator: 31}}/>
 
 				<div className="compare--block container">
 					{/* FILTERS */}
@@ -74,7 +119,10 @@ const EconomicSectorProfile = (props) => {
 								handleSearch={handleSearch} 
 								handleSearch2={handleSearch2} 
 								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
-							/>
+								literals={props.literals}
+								selectedCountry1={selectCountry1}
+								selectedCountry2={selectCountry2}	
+								/>
 						</ul>
 					</form>
 					
@@ -98,11 +146,11 @@ const EconomicSectorProfile = (props) => {
 									title='Company Size'
 									colors={['#f6a400','#cbe2e3','#7b7b7d','#ffe300','#449fa2','#f3c564','#16983e']}
 									showDataLabel={true}
-									tick={20}
+									tick={40}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20089'}
 									indicator={'31'}
 									/>
@@ -125,12 +173,13 @@ const EconomicSectorProfile = (props) => {
 									tick={20}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20010'}
 									indicator={'32'}
 									stacking='percent'
 									reversed={false}
+									//reversedStacks={true}
 									/>
 								</div>
 								</div>
@@ -150,8 +199,8 @@ const EconomicSectorProfile = (props) => {
 									tick={20}
 									percentage={true}
 									type='bar'
-									pais1={pais1}
-									pais2={pais2}
+									selectCountry1={selectCountry1}
+									selectCountry2={selectCountry2}
 									chart={'20011'}
 									indicator={'33'}
 									/>
@@ -163,34 +212,28 @@ const EconomicSectorProfile = (props) => {
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
 								<div className="select-filter-chart">
-								{/* ngIf: chart == 'GDP' */}
-								<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
-									<option value="35">Purchasing Power Standards (PPS)</option>
-									<option value="278">Euro (€)</option>
-								</select>
-
+									<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
+										<option value="35">{props.literals.L20743}</option>
+										<option value="278">{props.literals.L20742}</option>
+									</select>
 								</div>
 							</div>
 							<div className="chart--block with-filter">
 								<div className="card--block--chart--wrapper">
-								{/* <ul className="chart--submenu"></ul> */}
-								{/* <h2 className="title--card  ">GDP per capita in relation to EU27_2020 average</h2> */}
-
-								<div className="chart--wrapper">
-								<ChartHuman
-									title='GDP per capita in ralation to EU27_2020 average'
-									colors={['#ffae00','#529FA2','#003399']}
-									showDataLabel={true}
-									//tick={20}
-									percentage='ft'
-									type='column'
-									pais1={pais1}
-									pais2={pais2}
-									chart={chart2}
-									indicator={indicator2}									
-									/>
-									<div className="legend-text-block"></div>
-								</div>
+									<div className="chart--wrapper">
+										<ChartHuman
+											title={props.literals.L22195}
+											colors={['#ffae00','#529FA2','#003399']}
+											showDataLabel={true}
+											percentage='ft'
+											type='column'
+											selectCountry1={selectCountry1}
+											selectCountry2={selectCountry2}
+											chart={chart2}
+											indicator={indicator2}									
+										/>
+										<div className="legend-text-block" />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -198,56 +241,37 @@ const EconomicSectorProfile = (props) => {
 						{/* INCOME PER CAPITA */}
 						<div className="card--block--chart">
 							<div className="select-filter-chart-wrapper">
-								<div className="select-filter-chart"  >
-
-								<select className="ng-pristine ng-untouched " onChange={selectEuro}>
-									<option value="36">Purchasing Power Standards (PPS)</option>
-									<option value="279">Euro (€)</option>
-								</select>
-
+								<div className="select-filter-chart" >
+									<select className="ng-pristine ng-untouched " onChange={selectEuro}>
+										<option value="36">{props.literals.L20743}</option>
+										<option value="279">{props.literals.L20742}</option>
+									</select>
 								</div>
 							</div>
 							<div className="chart--block with-filter">
 								<div className="card--block--chart--wrapper" >
-
-								<ul className="chart--submenu " >
-									{/* <li><a className="maximize-button" title="Maximize" role="button"><label className="sr-only " >Maximize</label></a></li>
-									<li className="dropdown-toggle" ><a href=""><label className="sr-only">Download</label></a></li>
-									<ul className="dropdown-menu dropdown-menu-right" >
-										<li><a  className="">Export as image</a></li>
-										<li><a className="">Download raw data</a></li>
-									</ul> */}
-								</ul>
-
-								{/* <h2 className="title--card  ">Income per capita</h2> */}
-								<div className="chart--wrapper">
-								<IncomerPercapital
-									title='Income per capita'
-									colors={['#f6a400','#003399','#449fa2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
-									showDataLabel={true}
-									tick={5000}
-									percentage='€'
-									type='line'
-									pais1={pais1}
-									pais2={pais2}
-									chart={chart}
-									indicator={indicator}
-									/>
-
-
-									<div className="legend-text-block">
-									
+									<div className="chart--wrapper">
+										<IncomerPercapital
+											title={props.literals.L293}
+											colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+											showDataLabel={true}
+											tick={5000}
+											percentage='€'
+											type='line'
+											selectCountry1={selectCountry1}
+											selectCountry2={selectCountry2}
+											chart={chart}
+											indicator={indicator}
+										/>
+										<div className="legend-text-block" />
 									</div>
 								</div>
-								</div>
-								{/* DATASETS 17 - 36 y 3 - 279 */}
 							</div>
 						</div>
-						{/* END CONTENT */}
 					</div>
 				</section>
 				
-				<Methodology />
+				<Methodology literals={props.literals} section={'Economic and sector profile'} />
 				
 				<Related literals={props.literals} section={["generic-information","economic-sector-profile"]} />
 
@@ -256,5 +280,13 @@ const EconomicSectorProfile = (props) => {
 		)
 	
 }
+
+function mapStateToProps(state){
+    const { defaultCountry } = state;
+	const { defaultCountry2 } = state;
+    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+}
+
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
-export default EconomicSectorProfile;
+// export default EconomicSectorProfile;
+export default connect(mapStateToProps, { setDefaultCountry2 } )(EconomicSectorProfile);

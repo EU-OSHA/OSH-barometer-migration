@@ -23,7 +23,7 @@
             },{
                 "id":"economic-sector-profile",
                 "name":"L22003",
-                "link":"/generic-information/economic-sector-profile/AT",
+                "link":"/generic-information/economic-sector-profile/",
                 "tabindex":"4",
                 "accesskey":"",
                 "database_name":"Economic and sector profile",
@@ -94,7 +94,7 @@
             {
                 "id":"work-accidents",
                 "name":"L22010",
-                "link":"/osh-outcomes-working-conditions/work-accidents",
+                "link":"/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents",
                 "tabindex":"11",
                 "accesskey":"3",
                 "database_name":"Work accidents",
@@ -155,7 +155,7 @@
             {
                 "id":"worker-involvement",
                 "name":"L22015",
-                "link":"/osh-outcomes-working-conditionsosh-steering/worker-involvement/esener",
+                "link":"/osh-outcomes-working-conditions/worker-involvement/esener",
                 "tabindex":"16",
                 "accesskey":"",
                 "database_name":"Worker involvement",
@@ -191,7 +191,7 @@
         ]
     },
     {
-        "id": "about-system",
+        "id": "about-the-system",
         "name":"L22019",
         "target":"about-system",
         "levels":[
