@@ -213,21 +213,11 @@ class EnforcementCapacityChart extends Component {
 					categories: [this.props.data?.categories],
 					
 					labels: {
-						formatter: function () {
-							if ([this.value] == 'EU27_2020') {
-								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
-							}else{
-								if([this.pos] == 0){
-									return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>";
-								}else{
-									return "<span style='color:" + country2Color + "'>" + [this.value] + "</span>";
-								}
-							}
-						},
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:'12px',
+							color: '#666666'
 						}
 					}
 				},
