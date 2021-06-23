@@ -155,7 +155,7 @@ class Chart extends Component {
 						minPointLength:3,
 						groupPadding:0.06,
 						borderWidth: 0,
-						pointWidth:this.props.stacking ? this.props.fullCountryReport ? 50 : 15 : undefined,
+						pointWidth:this.props.stacking ? this.props.fullCountryReport ? 35 : 15 : undefined,
 						dataLabels: {
 							align: 'left',
 							y:-2,
