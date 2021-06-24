@@ -84,7 +84,7 @@ class SpiderChart extends Component{
 					}
 				},
 				legend: {
-					margin: 20
+					margin: this.props.fullCountryReport ? 25 : 50
 				},
 				navigation: {
 					buttonOptions: {
@@ -356,47 +356,23 @@ class SpiderChart extends Component{
 			"<h2 class='title--card'>"+this.props.literals[`L${this.props.chartType[0].title}`]+"</h2>";
 		const tabTitle = "<h2 class='title--card'>"+this.props.literals[`L${this.props.tabIndicator}`]+"</h2>"
 
-		if (width > 767) {
+		if (width < 767) {
 			if (isFullscreen()) {
 				this.setState({
 					chartConfig: {
 						...this.state.chartConfig,
+						// chart: {...this.state.chartConfig.chart, width: width},
 						chart: {...this.state.chartConfig.chart, height: height}
 					}
 				});
 			} else {
-				this.setState({
-					chartConfig: {
-						...this.state.chartConfig,
-						chart: {
-							...this.state.chartConfig.chart, 
-							height: this.props.fullCountryReport ? 500 : 600, 
-						},
-						title: {
-							...this.state.chartConfig.title,
-							text: title
-						}
-					}
-				})
-			}
-		}
-
-		if (width < 768) {
-			if (isFullscreen()) {
-				this.setState({
-					chartConfig: {
-						...this.state.chartConfig,
-						chart: {...this.state.chartConfig.chart, height: height}
-					}
-				});
-			} else {
-				if (width < 500){
+				if (width < 570){
 					if(width < 376){
-						if(width < 300){
+						if(width < 326){
 							this.setState({
 								chartConfig: {
 									...this.state.chartConfig,
-									chart: {...this.state.chartConfig.chart, height: 200},
+									chart: {...this.state.chartConfig.chart, height: 350},
 									title: {
 										...this.state.chartConfig.title,
 										text: tabTitle,
@@ -408,11 +384,11 @@ class SpiderChart extends Component{
 							this.setState({
 								chartConfig: {
 									...this.state.chartConfig,
-									chart: {...this.state.chartConfig.chart, height: 300},
+									chart: {...this.state.chartConfig.chart, height: 350},
 									title: {
 										...this.state.chartConfig.title,
 										text: tabTitle,
-										margin: 30
+										margin: 40
 									}
 								}
 							})
@@ -421,7 +397,7 @@ class SpiderChart extends Component{
 						this.setState({
 							chartConfig: {
 								...this.state.chartConfig,
-								chart: {...this.state.chartConfig.chart, height: 350},
+								chart: {...this.state.chartConfig.chart, height: 400},
 								title: {
 									...this.state.chartConfig.title,
 									text: tabTitle,
@@ -439,11 +415,41 @@ class SpiderChart extends Component{
 							title: {
 								...this.state.chartConfig.title,
 								text: tabTitle,
-								margin: 25
+								margin: 50
 							}
 						}
 					})
 				}
+			}
+		} else {
+			if (isFullscreen()) {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {...this.state.chartConfig.chart, height: height}
+					}
+				});
+			} else {
+				this.setState({
+					chartConfig: {
+						...this.state.chartConfig,
+						chart: {
+							...this.state.chartConfig.chart, 
+							height: this.props.fullCountryReport ? 500 : 600, 
+						},
+						title: {
+							...this.state.chartConfig.title,
+							text: title,
+							margin: 40
+						},
+						// xAxis:{
+						// 	...this.state.chartConfig.xAxis,
+						// 	labels: {
+						// 		distance:40
+						// 	}
+						// }
+					}
+				})
 			}
 		}
 	}
