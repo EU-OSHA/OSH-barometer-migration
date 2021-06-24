@@ -60,7 +60,6 @@ class ChartHuman extends Component {
 						render: function() {
 							var chart = this;
 							this.series.forEach(function(series) {
-								// console.log(chart.clipBox.height),
 								series.data[0].dataLabel.attr({
 								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.clipBox.height: chart.clipBox.height )
 								});					  
@@ -217,7 +216,7 @@ class ChartHuman extends Component {
 					gridLineColor:'#FFF',
 					gridLineWidth:2,
 					lineWidth: 0,
-					//max: this.props.yAxisMax,
+					max: 200,
 					//tickInterval: this.props.tick,
 					visible:false,
 					title: {
@@ -234,15 +233,20 @@ class ChartHuman extends Component {
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				let max = 200; 
 				let i = 0;
 				let numberOfItems = res.resultset.length;
 				res.resultset.forEach(element => {
 					if (element.split == null)
 					{
+						if (element.value > 200)
+						{
+							max = 350;
+						}
 						// There is no split, series and the categories will be the same						
 						if ( element.countryCode == "EU27_2020" ){
 							series.push({
-								name: element.country,
+								name: element.countryCode,
 								//type: 'column',
 								color:euColor,
 								pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -268,7 +272,7 @@ class ChartHuman extends Component {
 						} else {
 							if( i == 0){
 								series.push({
-									name: element.country,
+									name: element.countryCode,
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -287,7 +291,7 @@ class ChartHuman extends Component {
 								});
 							} else {
 								series.push({
-									name: element.country,
+									name: element.countryCode,
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -314,7 +318,7 @@ class ChartHuman extends Component {
 				});
 
 				this.setState({
-					chartConfig: {...this.state.chartConfig,  series}
+					chartConfig: {...this.state.chartConfig,  series, yAxis: {...this.state.chartConfig.yAxis, max}}
 				})
 			});		
 	}
