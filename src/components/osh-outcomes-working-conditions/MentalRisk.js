@@ -132,7 +132,7 @@ class MentalRisk extends Component
 				
 				<Methodology literals={this.props.literals} section={'Working conditions - Mental risk'} indicator={this.state.methodologyIndicator} />
 
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.state.selectedTab.url]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","mental-risk", this.state.selectedTab.url]} dataset={this.state.selectedSurvey} />
 			</div>
 		)
 	}

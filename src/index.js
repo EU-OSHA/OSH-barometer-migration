@@ -80,7 +80,10 @@ ReactDOM.render(
 		<ScrollToTop>
 			<Switch>
 				<Route exact path="/" render={() => <App literals={literals}><Home literals={literals}/></App>} />
-				<Route exact path="/generic-information/osh-authorities" render={() => <App literals={literals}><OSHAuthorities literals={literals}/></App>} />
+				<Route 
+					path="/generic-information/osh-authorities/:country?" 
+					render={routeParams => <App literals={literals}><OSHAuthorities literals={literals} country={routeParams.match.params.country} /></App>} 
+				/>
 				<Route 
 					path="/generic-information/economic-sector-profile/:country1?/:country2?" 
 					render={routeParams => <App literals={literals}><EconomicSectorProfile country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} 

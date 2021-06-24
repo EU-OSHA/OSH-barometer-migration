@@ -293,7 +293,7 @@ class CountryProfile extends Component
 					|| this.state.indicator == 'resources-and-timeframe' 
 					|| this.state.indicator == 'relationship-to-eu-strategic-framework') 
 					&& (
-					<Related literals={this.props.literals} section={["osh-steering", "country-profile", this.state.indicator]} />
+					<Related literals={this.props.literals} section={["osh-steering", "country-profile", this.state.indicator]} country1={this.state.country1} country2={this.state.country2} />
 				)}
 				
 			</div>

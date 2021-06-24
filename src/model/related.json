@@ -73,7 +73,8 @@
             "background": [{
                 "title": "L22002",
                 "text": "L22025",
-                "link": "osh-authorities({pCountry:'$scope.pCountry1'})",
+                "link": "/generic-information/osh-authorities",
+                "linkParams":["country1"],
                 "icon": "forum"
             }],
             "actors-and-stakeholders":[{
@@ -85,13 +86,14 @@
             "resources-and-timeframe":[{
                 "title": "L22017",
                 "text": "L22063",
-                "link": "enforcement-capacity({pCountry1:'$scope.pCountry1',pCountry2:'$scope.pCountry2'})",
+                "link": "/osh-infrastructure/enforcement-capacity/establishments-inspected",
+                "linkParams":["country1","country2"],
                 "icon": "enforcement"
               }],
             "relationship-to-eu-strategic-framework":[{
                 "title": "L22002",
                 "text": "L22025",
-                "link": "osh-authorities({pCountry:'EU28'})",
+                "link": "/generic-information/osh-authorities/EU28",
                 "icon": "forum"
             }]
         }
@@ -157,7 +159,7 @@
             },{
                 "title": "L322",
                 "text": "L20577",
-                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "link": "/osh-outcomes-working-conditions/overall-opinion/job-satisfaction",
                 "icon": "overall-opinion"
             }],
             "procedures-to-deal-with-threats":[{
@@ -185,7 +187,7 @@
             "use-of-personal-protective-equipment":[{
                 "title": "L20656",
                 "text": "L20579",
-                "link": "physical-risk-risks-involved-with-work({pCountry1:'$scope.pCountry1',pCountry2:'$scope.pCountry2',pFilter:'ewcs'})",
+                "link": "/osh-outcomes-working-conditions/physical-risk/ergonomic-risks/ewcs",
                 "icon": "physical-risk"
             },{
                 "title": "L20664",
@@ -244,12 +246,13 @@
             "poor-communication":[{
                 "title": "L20682",
                 "text": "L22058",
-                "link": "prevention-companies({pIndicator:'training-in-osh'})",
+                "link": "/osh-outcomes-working-conditions/prevention-companies/training-in-osh",
                 "icon": "prevention"
               },{
                 "title": "L22015",
                 "text": "L22060",
-                "link": "worker-involvement({pSplit:'$scope.pSplit'})",
+                "link": "/osh-outcomes-working-conditions/worker-involvement",
+                "linkParams": ["dataset"],
                 "icon": "workers"
               }],
             "influence":[{
@@ -260,7 +263,7 @@
             },{
                 "title": "L322",
                 "text":"L20577",
-                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "link": "/osh-outcomes-working-conditions/overall-opinion/job-satisfaction",
                 "icon": "overall-opinion"
             }],
             "fear-of-job-loss":[{
@@ -271,7 +274,7 @@
             },{
                 "title": "L322",
                 "text":"L20577",
-                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "link": "/osh-outcomes-working-conditions/overall-opinion/job-satisfaction",
                 "icon": "overall-opinion"
             }],
             "difficult-clients":[{
@@ -282,7 +285,7 @@
             },{
                 "title": "L20709",
                 "text":"L20577",
-                "link": "/osh-outcomes-working-conditions/working-conditions/overall-opinion/job-satisfaction({pCountry1: '$scope.pCountry1', pCountry2: '$scope.pCountry2', pSlit:'sector'})",
+                "link": "/osh-outcomes-working-conditions/overall-opinion/job-satisfaction",
                 "icon": "overall-opinion"
             }],
             "working-hours":[{
