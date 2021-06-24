@@ -149,15 +149,16 @@ class IncomerPercapital extends Component {
 					},
 					line: {
 						borderWidth: 0,
-						dataLabels: {
+						dataLabels: {							
 							enabled: this.props.showDataLabel === true ? true : false,
 							formatter: function () {
 								return '<span style="color:' + this.point.color + '">' + Highcharts.numberFormat(this.y, 0, '.', ',')   + ' ' + props.percentage +'</span>';
 							},							
 							style: {
+								textOutline: false,
 								fontFamily: 'OpenSans-bold',
 								fontWeight: 'normal',
-								fontSize:this.props.fullCountryReport? '14px' : '12px'
+								fontSize:this.props.fullCountryReport? '16px' : '12px'
 							}
 						}
 					}
@@ -186,7 +187,10 @@ class IncomerPercapital extends Component {
 						enabled: false
 					},
 					labels: {
-						format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,
+						// format: this.props.percentage === true ? '{value:,.0f} %' : `{value:,.0f} ${this.props.percentage}`,	
+						formatter: function () {
+								return Highcharts.numberFormat(this.value, 0,'.',',') + ' ' + props.percentage;
+						},					
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
