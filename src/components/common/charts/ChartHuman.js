@@ -52,7 +52,7 @@ class ChartHuman extends Component {
 				},
 				chart: {
 					// height: 500,
-					height: this.props.fullCountryReport ? 500 : 250,
+					height: this.props.fullCountryReport ? 450 : 250,
 					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -60,8 +60,9 @@ class ChartHuman extends Component {
 						render: function() {
 							var chart = this;
 							this.series.forEach(function(series) {
+								// console.log(chart.clipBox.height),
 								series.data[0].dataLabel.attr({
-								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-150 )
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.clipBox.height: chart.clipBox.height )
 								});					  
 							})
 
@@ -136,21 +137,22 @@ class ChartHuman extends Component {
 				},
 				legend:{
 					symbolRadius: 0,
-					itemMarginTop:8,
-					itemMarginBottom:4,
-					itemDistance: this.props.fullCountryReport ? 10 : 3,
+					// itemDistance: this.props.fullCountryReport ? 10 : 3,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:this.props.fullCountryReport ? '12px' : '11px',
 						textOverflow: "ellipsis",
 					},
-					margin: this.props.fullCountryReport ? 15 : 35
+					margin: this.props.fullCountryReport ? 15 : 15,					
+					itemMarginTop:8,
+					itemMarginBottom:4
 				},
 				plotOptions: {
 					series: {
 						dataLabels: {
 							enabled: true,
+							align: 'center',
 							color: '#58585A',
 							style: {
 								textOutline: 0,
