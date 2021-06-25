@@ -49,6 +49,16 @@ class WorkforceProfile extends Component
 		this.setState({visible: false})
 	}
 
+	scrollToTop = () => {
+		var element = $( ".survey--map--block" );
+		var offset = element.offset();       
+		if($(this).scrollTop()>=offset.top){
+			$( ".survey--map--block" ).addClass('fixed');
+		} else {
+			$( ".survey--map--block" ).removeClass('fixed');
+		}
+	}
+
 	getLoadData = (countryName,country) => {
 
 		getCountryDataMap(countryName, country)
@@ -78,17 +88,8 @@ class WorkforceProfile extends Component
 
 		this.getLoadData(this.state.countryName);
 
-		
-		$(window).scroll(function(){
-			var element = $( ".survey--map--block" );
-			var offset = element.offset();       
-			if($(this).scrollTop()>=offset.top){
-			  $( ".survey--map--block" ).addClass('fixed');
-			} else {
-			  $( ".survey--map--block" ).removeClass('fixed');
-			}
-			
-		});
+		addEventListener('scroll', this.scrollToTop)
+
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 			$('body').addClass('mobile-device');
 			$('.print--block').addClass('hide');
@@ -104,6 +105,10 @@ class WorkforceProfile extends Component
 		if(prevState.countryName != this.state.countryName){
 			this.getLoadData(this.state.countryName)
 		}
+	}
+
+	componentWillUnmount() {
+		removeEventListener('scroll', this.scrollToTop)
 	}
 
 	handleCallbackCountry = (countryCallback) => {
