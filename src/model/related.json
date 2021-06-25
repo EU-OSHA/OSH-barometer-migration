@@ -19,7 +19,8 @@
             "establishments-inspected":[{
                 "title": "L310",
                 "text": "L22050",
-                "link": "/osh-outcomes-working-conditions/work-accidents",
+                "link": "/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents",
+                "linkParams":["country1", "country2"],
                 "icon": "work-accidents"
             },{
                 "title": "L311",
