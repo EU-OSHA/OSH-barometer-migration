@@ -160,7 +160,7 @@ class Chart extends Component {
 						pointWidth:this.props.stacking ? this.props.fullCountryReport ? 35 : 15 : undefined,
 						dataLabels: {
 							align: 'left',
-							y:-2,
+							y:0,
 							inside: false,
 							overflow: 'none',
 							crop: false,
