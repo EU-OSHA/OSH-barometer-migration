@@ -138,6 +138,7 @@ const SelectForceProfile = ({
 				</li>
 				{/* COUNTRY FILTER JUST IN < 1024 PX */}
 				<li id="filter3" className={`filter--dropdown--wrapper ${openSelectCountries ? 'viewOptions' : ''} `}>
+				<label htmlFor="employeeGroupSelect">{literals.L20630}</label> 
 					<div className="filter--dropdown--list" ref={countryDropdownRef}>
 						<p className="option-title" onClick={openSelect}>{literals.L20630}</p>
 						<ul className="filter--dropdown--options">

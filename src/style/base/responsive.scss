@@ -7,7 +7,7 @@
       #filter3{
         display: block;
         width: 100%;
-        min-height: 5rem;
+        min-height: 8rem;
         flex-basis: 100%;
         &.affix{
           position: fixed;
@@ -135,6 +135,7 @@
                   label{
                     font-weight: normal;
                     display: inline-block;
+					margin-left: 0.8rem;
                   }
                   input{
                     position: relative;
@@ -688,7 +689,7 @@ and (max-width : 1200px)  {
 									font-weight: normal;
 									font-family: 'Oswald';
 									margin: 0;
-		  						min-height: 4.7rem;
+		  							min-height: 4.7rem;
 					  		}
 					  		> div{
 					  			white-space: nowrap;
