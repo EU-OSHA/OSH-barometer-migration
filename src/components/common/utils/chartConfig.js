@@ -58,4 +58,46 @@ const xlsxCustomExport = (categoryName, seriesArray, chartTitle, noCategory) => 
     zipcelx(config)
 }
 
-export { smallSize, mediumSize, largeSize, xlsxCustomExport }
+// Export for charts like Enforcement Capacity
+const xlsxCustomExportSameCategory = (categoryName, seriesArray, chartTitle) =>
+{
+    // series will have the data for the header row
+    const series = [{value: categoryName, type: typeof categoryName}];
+    const auxSeries = seriesArray;
+    // auxCategory will contain the data for each row
+    const auxCategory = [];
+    let title = chartTitle.replace(/<\/?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->/img, '').replace(/ /g, '_').toLowerCase();
+
+    auxSeries.map((element) => {
+        // add each country to the header row
+        series.push({ value: element.name, type: typeof element.name });
+    });
+
+    auxSeries.forEach((element) => {
+        // If auxCategories is still empty, add a row for the different splits
+        if (auxCategory == [] || auxCategory.length == 0) {
+            element.data.map((row) => {
+                auxCategory.push([{type: typeof row.split, value: row.split}, {type: typeof row.y, value: row.y}]);
+            })
+        } else {
+            // add the rest of the data for each split
+            element.data.map((row) => {
+                const index = auxCategory.findIndex((element) => {return element.find((inner) => inner.value == row.split)});
+                auxCategory[index].push({type: typeof row.y, value: row.y })
+            })
+        }
+    });
+
+    const config = {
+        filename: title,
+        sheet: {
+            data: [
+                series,
+                ...auxCategory
+            ]
+        }
+    }
+    zipcelx(config)
+}
+
+export { smallSize, mediumSize, largeSize, xlsxCustomExport, xlsxCustomExportSameCategory }
