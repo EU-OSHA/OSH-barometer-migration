@@ -164,6 +164,7 @@ class Chart extends Component {
 							inside: false,
 							overflow: 'none',
 							crop: false,
+							textOutline: 0,
 							style: {
 								textOutline: 0,
 								textShadow: false,
