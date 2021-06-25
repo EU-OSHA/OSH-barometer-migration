@@ -27,7 +27,7 @@ class ChartHuman extends Component {
 					text: "<h2 class='title--card'>"+props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 20,
-					y:44,
+					y:20,
 					style: {
 						zIndex: 1,
 						lineHeight:33
@@ -131,7 +131,7 @@ class ChartHuman extends Component {
 							}
 						},
 						verticalAlign: 'top',
-						y: 4
+						y: 0
 					}
 				},
 				legend:{

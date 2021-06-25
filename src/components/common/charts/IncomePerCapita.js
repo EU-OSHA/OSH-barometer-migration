@@ -18,6 +18,7 @@ class IncomerPercapital extends Component {
 					text: "<h2 class='title--card'>"+this.props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 0,
+					y:20,
 					style: {
 						zIndex: 1,
 						lineHeight:36
@@ -108,7 +109,7 @@ class IncomerPercapital extends Component {
 							}
 						},
 						verticalAlign: 'top',
-						y: -8
+						y: 0
 					}
 				},
 				legend:{
