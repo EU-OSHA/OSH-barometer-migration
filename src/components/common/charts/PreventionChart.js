@@ -432,7 +432,7 @@ class PreventionChart extends Component {
                 <div className="select-filter-chart">
                     <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
                         {this.state.typeCharts.map((type) => {
-                            return <option key={type} value={type} > {type.toUpperCase()} </option>
+                            return <option key={type} value={type} > { type.charAt(0).toUpperCase() + type.slice(1) } </option>
                         })}
                     </select>
                 </div>
