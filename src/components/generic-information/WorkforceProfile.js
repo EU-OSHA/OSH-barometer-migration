@@ -51,8 +51,10 @@ class WorkforceProfile extends Component
 
 	scrollToTop = () => {
 		var element = $( ".survey--map--block" );
-		var offset = element.offset();       
-		if($(this).scrollTop()>=offset.top){
+		
+		var offset = element.offset(); 
+		// console.log($(window).scrollTop())      
+		if($(window).scrollTop()>=offset.top){
 			$( ".survey--map--block" ).addClass('fixed');
 		} else {
 			$( ".survey--map--block" ).removeClass('fixed');
@@ -231,7 +233,7 @@ class WorkforceProfile extends Component
 									</li>
 									<li>
 										<label className="">Employment rate (male):</label>
-										<div><span className="" >79</span> <span className="data-text">%</span></div>
+										<div><span className="data" >79</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
 										<label className="">Employment rate (total):</label>
