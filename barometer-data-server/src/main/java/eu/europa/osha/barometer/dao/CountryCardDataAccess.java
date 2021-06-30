@@ -108,7 +108,7 @@ public class CountryCardDataAccess {
 			// 37 -> Median age of population
 			// 38 -> Ageing workers (55 to 64) employment rate
 			// 39 -> Total, male and female employment rate
-			String indicators[] = {"34","37","38","39"};
+			String indicators[] = {"37","38","39","34"};
 			
 			whereBuilder.append("and ibc.chart_id="+chartID+" and n.country_code not in ('UK','EU28') ");
 			
@@ -129,7 +129,7 @@ public class CountryCardDataAccess {
 					
 					for (int j = 0; j < genders.length; j++)
 					{						
-						queryBuilder.append(select + fromBuilder.toString() + whereBuilder.toString() + "and p.gender_id="+genders[j]+" and i.id="+indicators[i] + order);
+						queryBuilder.append(select + fromBuilder.toString() + whereBuilder.toString() + "and p.gender_id="+genders[j]+" and i.id="+indicators[i] + " order by n.country_code asc");
 						
 						String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 						System.out.println(queryBuilderTxt);
@@ -141,7 +141,7 @@ public class CountryCardDataAccess {
 				}
 				else
 				{
-					queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i] + order);
+					queryBuilder.append(selectBuilder.toString() + fromBuilder.toString() + whereBuilder.toString() + "and i.id="+indicators[i] + " order by n.country_code asc");
 					
 					String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 					System.out.println(queryBuilderTxt);
