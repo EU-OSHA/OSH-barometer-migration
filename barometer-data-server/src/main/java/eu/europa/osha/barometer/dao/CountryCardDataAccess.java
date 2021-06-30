@@ -108,7 +108,7 @@ public class CountryCardDataAccess {
 			// 37 -> Median age of population
 			// 38 -> Ageing workers (55 to 64) employment rate
 			// 39 -> Total, male and female employment rate
-			String indicators[] = {"37","38","39","34"};
+			String indicators[] = {"37","34","38","39"};
 			
 			whereBuilder.append("and ibc.chart_id="+chartID+" and n.country_code not in ('UK','EU28') ");
 			
