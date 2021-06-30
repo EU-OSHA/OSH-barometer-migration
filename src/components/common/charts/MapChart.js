@@ -41,7 +41,7 @@ class MapChart extends Component {
 					tickPixelInterval: 100
 				},
 				exporting: {
-					enabled: true,
+					enabled: false,
 					y:-10,
 					buttons: {
 						contextButton: {
@@ -83,14 +83,23 @@ class MapChart extends Component {
 				},
 				colorAxis: {
 					//min: 1,
-					type: 'logarithmic',
-					minColor: 'rgb(82 159 162 / 10%)',
-					maxColor: 'rgb(82 159 162 / 100%)',
-					stops: [
-						[0, 'rgb(82 159 162 / 10%)'],
-						[0.67, 'rgb(82 159 162 / 67%)'],
-						[1, 'rgb(82 159 162 / 100%)']
-					]
+					// type: 'logarithmic',
+					// minColor: 'rgb(82 159 162 / 10%)',
+					// maxColor: 'rgb(82 159 162 / 100%)',
+					// stops: [
+					// 	[0, 'rgb(82 159 162 / 10%)'],
+					// 	[0.67, 'rgb(82 159 162 / 67%)'],
+					// 	[1, 'rgb(82 159 162 / 100%)']
+					// ]
+					minColor: '#dcecec',
+                    maxColor: '#529fa2',
+                    stops: [
+                        [0.1, '#dcecec'],
+                        [0.5, '#a8cfd0'],
+                        [0.6, '#78b4b6'],
+                        [0.8, '#519ea1'],
+                        [1,'#529fa2'],
+                    ]
 				},
 				plotOptions: {
 					series: {
