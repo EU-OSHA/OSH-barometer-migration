@@ -48,7 +48,7 @@ const CookiesComponent = (props) => {
                         })
                         .catch(error => console.log(error.message));
                     }, () => { 
-                        console.log("UNABLE TO RETRIEVE YOUR LOCATION"); 
+                        //console.log("UNABLE TO RETRIEVE YOUR LOCATION"); 
                         props.setDefaultCountry({
                             code: "AT",
                             isCookie : false,
