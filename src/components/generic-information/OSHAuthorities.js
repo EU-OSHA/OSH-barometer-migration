@@ -123,7 +123,8 @@ class OSHAuthorities extends Component
 			}
 		}
 
-		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0" 
+			&& (this.props.defaultCountry.isCookie || this.props.defaultCountry.selectedByUser)){
 			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
 			this.setState({
 				defaultTags: true,

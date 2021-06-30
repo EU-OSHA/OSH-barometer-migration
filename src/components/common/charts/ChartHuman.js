@@ -27,7 +27,7 @@ class ChartHuman extends Component {
 					text: "<h2 class='title--card'>"+props.title+"</h2>",
 					align: 'left',
 					widthAdjust: 20,
-					y:44,
+					y:20,
 					style: {
 						zIndex: 1,
 						lineHeight:33
@@ -52,7 +52,7 @@ class ChartHuman extends Component {
 				},
 				chart: {
 					// height: 500,
-					height: this.props.fullCountryReport ? 500 : 250,
+					height: this.props.fullCountryReport ? 450 : 250,
 					//width:300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -61,7 +61,7 @@ class ChartHuman extends Component {
 							var chart = this;
 							this.series.forEach(function(series) {
 								series.data[0].dataLabel.attr({
-								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.chartHeight-200 : chart.chartHeight-150 )
+								  	y: chart.fullscreen.isOpen ? (chart.chartHeight-170) : (props.fullCountryReport ? chart.clipBox.height: chart.clipBox.height )
 								});					  
 							})
 
@@ -131,26 +131,27 @@ class ChartHuman extends Component {
 							}
 						},
 						verticalAlign: 'top',
-						y: 4
+						y: 0
 					}
 				},
 				legend:{
 					symbolRadius: 0,
-					itemMarginTop:8,
-					itemMarginBottom:4,
-					itemDistance: this.props.fullCountryReport ? 10 : 3,
+					// itemDistance: this.props.fullCountryReport ? 10 : 3,
 					itemStyle: {
 						fontFamily: 'OpenSans',
 						fontWeight: 'normal',
 						fontSize:this.props.fullCountryReport ? '12px' : '11px',
 						textOverflow: "ellipsis",
 					},
-					margin: this.props.fullCountryReport ? 15 : 15
+					margin: this.props.fullCountryReport ? 15 : 15,					
+					itemMarginTop:8,
+					itemMarginBottom:4
 				},
 				plotOptions: {
 					series: {
 						dataLabels: {
 							enabled: true,
+							align: 'center',
 							color: '#58585A',
 							style: {
 								textOutline: 0,
@@ -215,7 +216,7 @@ class ChartHuman extends Component {
 					gridLineColor:'#FFF',
 					gridLineWidth:2,
 					lineWidth: 0,
-					//max: this.props.yAxisMax,
+					max: 200,
 					//tickInterval: this.props.tick,
 					visible:false,
 					title: {
@@ -232,15 +233,20 @@ class ChartHuman extends Component {
 
 		getChartData(chart, indicator, country1, country2)
 			.then((res) => {
+				let max = 200; 
 				let i = 0;
 				let numberOfItems = res.resultset.length;
 				res.resultset.forEach(element => {
 					if (element.split == null)
 					{
+						if (element.value > 200)
+						{
+							max = 350;
+						}
 						// There is no split, series and the categories will be the same						
 						if ( element.countryCode == "EU27_2020" ){
 							series.push({
-								name: element.country,
+								name: element.countryCode,
 								//type: 'column',
 								color:euColor,
 								pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -266,7 +272,7 @@ class ChartHuman extends Component {
 						} else {
 							if( i == 0){
 								series.push({
-									name: element.country,
+									name: element.countryCode,
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -285,7 +291,7 @@ class ChartHuman extends Component {
 								});
 							} else {
 								series.push({
-									name: element.country,
+									name: element.countryCode,
 									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
@@ -312,7 +318,7 @@ class ChartHuman extends Component {
 				});
 
 				this.setState({
-					chartConfig: {...this.state.chartConfig,  series}
+					chartConfig: {...this.state.chartConfig,  series, yAxis: {...this.state.chartConfig.yAxis, max}}
 				})
 			});		
 	}

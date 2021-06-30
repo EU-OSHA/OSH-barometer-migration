@@ -2321,41 +2321,44 @@ p:empty{
 }
 
 .tooltip-item{
-list-style-type: none;
-padding:0;
-li{
-  text-align: left;
-  font-family: 'OpenSans';
-  font-size: 1.4rem;
-  margin: 0.4rem 0.2rem;;
-  strong{
+  list-style-type: none;
+  padding:0;
+  li{
+    text-align: left;
     font-family: 'OpenSans';
-    margin-right: 0.5rem;     
-    font-weight: bold;
-    &.tooltip-value{
-      &:after{
-        content: "\2194";
-        font-size: 1.2em;
-      }
-      &.up{
+    font-size: 1.4rem;
+    margin: 0.4rem 0.2rem;;
+    strong{
+      font-family: 'OpenSans';
+      margin-right: 0.5rem;     
+      font-weight: bold;
+      &.tooltip-value{
         &:after{
-          content: "\2195";
+          content: "\2194";
           font-size: 1.2em;
+        }
+        &.up{
+          &:after{
+            content: "\2195";
+            font-size: 1.2em;
+          }
         }
       }
     }
+    &:nth-child(1){
+      padding-bottom: 1rem;
+    }
   }
-}
 }
 
 .card--block--chart{
-.chart--wrapper{
-svg{
-  rect, circle, path, line{
-    cursor: default !important;
+  .chart--wrapper{
+    svg{
+      rect, circle, path, line{
+        cursor: default !important;
+      }
+    }
   }
-}
-}
 }
 
 .dvt-modal{

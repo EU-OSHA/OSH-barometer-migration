@@ -136,11 +136,13 @@ $print-page-size:  a4 !default;
             border: 1px solid $gray-lighter;
             font-style: italic;
             color: $gray;
+            
             &.disabled{
-            color: $gray-light;
+              color: $gray-light;
             }
             option{
-
+              font-family: $font-body;
+              font-size:1.6rem;
             }
         }
         .country-lock{
@@ -186,17 +188,17 @@ $print-page-size:  a4 !default;
         }
         }
         .country-selected{
-        width: 24%;
-        text-align: left;
-        display: block;
-        margin: 1rem 0;
-        font-weight: bold;
-        color: $aquamarine;
-        padding: 1.4rem 0 0;
-        @media screen and (max-width: 768px){
-            width: 100%;
-            text-align: center;
-        }
+          width: 24%;
+          text-align: left;
+          display: block;
+          margin: 1rem 0;
+          font-weight: bold;
+          color: $aquamarine;
+          padding: 1.4rem 0 0;
+          @media screen and (max-width: 768px){
+              width: 100%;
+              text-align: center;
+          }
         }      
     }
 }

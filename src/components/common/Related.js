@@ -51,6 +51,23 @@ class Related extends Component
         }
     }
 
+    buildLink(link, params)
+    {
+        if (params != undefined)
+        {
+            let linkText = link;
+            for (let i = 0; i < params.length; i++)
+            {
+                if (this.props[params[i]] != undefined)
+                {
+                    linkText = linkText+'/'+this.props[params[i]];
+                }
+            }
+            return linkText;
+        }
+        return link;
+    }
+
     render()
     {
         return(
@@ -66,7 +83,7 @@ class Related extends Component
                                     <h3 className="title-related-item">{this.props.literals[item.title]}</h3>
                                     {ReactHtmlParser(this.trimText(this.props.literals[item.text]))}
                                     <p className="button-related-item btn--block-full left-text">
-                                        <Link className="btn-default btn-main-color" to={item.link}>{this.props.literals.L480}</Link>
+                                        <Link className="btn-default btn-main-color" to={this.buildLink(item.link, item.linkParams)}>{this.props.literals.L480}</Link>
                                     </p>
                                 </div>
                             </div>

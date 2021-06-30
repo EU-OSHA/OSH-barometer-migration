@@ -4,6 +4,47 @@ import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
 import { getChartData, getDatasourceAndDates } from '../../../api';
+import { xlsxCustomExportSameCategory } from '../utils/chartConfig';
+
+(function (H) {
+	let pick = H.pick;
+	H.wrap(H.Chart.prototype, 'getCSV', function (p, useLocalDecimalPoint) {
+		console.log("rows", this);
+		const series = this.series;
+		const csvOptions = this.options.exporting.csv;
+		const decimalPoint = pick(csvOptions.decimalPoint, csvOptions.itemDelimiter !== ',' && useLocalDecimalPoint ? (1.1).toLocaleString()[1] : '.')
+		const itemDelimiter = pick(csvOptions.itemDelimiter, decimalPoint === ',' ? ';' : ',');
+		const lineDelimiter = csvOptions.lineDelimiter;
+		let firstRow = '"Answer"';
+		let csv = '';
+
+		series.forEach((serie) => {
+			firstRow += itemDelimiter + '"' + serie.name + '"';
+		})
+		csv += firstRow;
+
+		let auxCategory = [];
+		series.forEach((element) => {
+			// If auxCategories is still empty, add a row for the different splits
+			if (auxCategory == [] || auxCategory.length == 0) {
+				element.data.map((row) => {
+					auxCategory.push(['"'+row.split+'"',row.y]);
+				})
+			} else {
+				// add the rest of the data for each split
+				element.data.map((row) => {
+					const index = auxCategory.findIndex((element) => {return element.indexOf('"'+row.split+'"') > -1});
+					auxCategory[index].push(row.y)
+				})
+			}
+		});
+		auxCategory.forEach((row) => 
+		{
+			csv += lineDelimiter + row.join(itemDelimiter);
+		});
+        return csv;
+    });
+}(Highcharts));
 
 import oshaLogo from './img/osha_logo-chart.svg';
 
@@ -108,7 +149,14 @@ class EnforcementCapacityChart extends Component {
 						credits: {
 							enabled: true
 						}
-					}
+					},
+					menuItemDefinitions: {
+                        "downloadXLS": {
+                            onclick: function() {
+                                xlsxCustomExportSameCategory('Answer', this.series, this.title.textStr);
+                            }
+                        }
+                    }
 				},
 				navigation: {
 					buttonOptions: {
@@ -213,21 +261,11 @@ class EnforcementCapacityChart extends Component {
 					categories: [this.props.data?.categories],
 					
 					labels: {
-						formatter: function () {
-							if ([this.value] == 'EU27_2020') {
-								return "<span style='color:" + euColor + "'>" + [this.value] + "</span>"
-							}else{
-								if([this.pos] == 0){
-									return "<span style='color:" + country1Color + "'>" + [this.value] + "</span>";
-								}else{
-									return "<span style='color:" + country2Color + "'>" + [this.value] + "</span>";
-								}
-							}
-						},
 						style: {
 							fontFamily: 'OpenSans-bold',
 							fontWeight: 'normal',
-							fontSize:'12px'
+							fontSize:'12px',
+							color: '#666666'
 						}
 					}
 				},

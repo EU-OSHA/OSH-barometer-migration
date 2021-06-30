@@ -40,7 +40,7 @@ class Chart extends Component {
 				},
 				colors: this.props.colors,
 				chart: {
-					height: this.props.fullCountryReport ? 450 : 200,
+					height: this.props.fullCountryReport ? 450 : 250,
 					//width: 300,
 					type: this.props.type,
 					backgroundColor: '#F0F0F0',
@@ -127,9 +127,8 @@ class Chart extends Component {
 					verticalAlign: 'bottom',
 					symbolRadius: 0,
 					//layout: 'vertical',
-					itemMarginTop:4,
+					itemMarginTop: 4,
 					itemMarginBottom:4,
-					
 					// width: this.props.fullCountryReport ? 300 : 250,
 					itemStyle: {
 						fontFamily: 'OpenSans',
@@ -161,10 +160,11 @@ class Chart extends Component {
 						pointWidth:this.props.stacking ? this.props.fullCountryReport ? 35 : 15 : undefined,
 						dataLabels: {
 							align: 'left',
-							y:-2,
+							y:0,
 							inside: false,
 							overflow: 'none',
 							crop: false,
+							textOutline: 0,
 							style: {
 								textOutline: 0,
 								textShadow: false,

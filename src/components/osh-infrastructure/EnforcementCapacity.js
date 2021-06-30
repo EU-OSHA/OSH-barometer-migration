@@ -281,7 +281,7 @@ class EnforcementCapacity extends Component {
 				</div>
 
 				<Methodology literals={this.props.literals} section={'Enforcement capacity'} indicator={this.state.selectedTab.chartType != undefined ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.indicator }/>
-				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} />
+				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} country1={this.state.selectCountry1} country2={this.state.selectCountry2} />
 			</div>
 		)
 	}

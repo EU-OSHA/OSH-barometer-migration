@@ -248,7 +248,7 @@ class PreventionCompanies extends Component {
 				{this.state.selectedTab.url != 'evaluated-aspects-in-risk-assessments' && (
 					<Methodology literals={this.props.literals} section={'Prevention in companies'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
 				)}
-				{/*<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies","risk-assessment"]} /> */}
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies","risk-assessment"]} />
 			</div>
 		)
 	}
