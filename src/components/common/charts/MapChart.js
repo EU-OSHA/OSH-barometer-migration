@@ -93,10 +93,6 @@ class MapChart extends Component {
 					// ]
 					minColor: '#dcecec',
                     maxColor: '#4a8e91',
-					// "range1": "#DAEBEC",
-					// "range2": "#B4D6D7",
-					// "range3": "#78B4B6",
-					// "range4": "#519ea1"
 					stops: [
                         [0, '#DAEBEC'],
                         // [0.25, '#badddd'],
