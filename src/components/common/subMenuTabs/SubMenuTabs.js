@@ -16,16 +16,13 @@ const SubMenuTabs = props => {
     }, [props.selectedTab, props.selectedSurvey, props.selectCountry1, props.selectCountry2, props.split]);
 
     const loadUrl = ()=>{
-        if (props.selectedTab != 'exposure-to-dangerous-substances' && props.locationPath.indexOf('exposure-to-dangerous-substances') == -1)
-        {
-            if (props.selectedTab == 'ergonomic-risks')
-            {
+        if (props.selectedTab != 'exposure-to-dangerous-substances' && props.locationPath.indexOf('exposure-to-dangerous-substances') == -1) {
+            if (props.selectedTab == 'ergonomic-risks') {
                 const country2 = props.selectCountry2 == undefined ? 0 : props.selectCountry2;
                 history.push({
                     pathname: `${props.locationPath}ergonomic-risks/${props.selectedSurvey}/${props.selectCountry1}/${country2}`
                 })
-            }
-            else if (props.selectedSurvey && props.selectedTab != 'vibrations-loud-noise-and-temperature') {
+            } else if (props.selectedSurvey && props.selectedTab != 'vibrations-loud-noise-and-temperature') {
                 history.push({
                     pathname: `${props.locationPath}${props.selectedTab}/${props.selectedSurvey}`
                 })
@@ -43,12 +40,11 @@ const SubMenuTabs = props => {
                 }                
             } else {
                 history.push({
-                    pathname: `${props.locationPath}${props.selectedTab}`
+                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
                 })
             }
         }
-        else if (props.locationPath.indexOf('exposure-to-dangerous-substances') > -1)
-        {
+        else if (props.locationPath.indexOf('exposure-to-dangerous-substances') > -1) {
             history.push({
                 pathname: `${props.locationPath}${props.selectedTab}`
             })

@@ -9,7 +9,7 @@ import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { physicalRiskTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
-import { setDefaultCountry2 } from '../../actions/';
+import { setCountry1, setCountry2 } from '../../actions/';
 
 class PhysicalRisk extends Component{
 	
@@ -38,14 +38,8 @@ class PhysicalRisk extends Component{
 			}
 		}
 
-		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
-		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
-
 		this.state= {
-			// selectCountry1: 'AT',
-			selectCountry1: country1,
-			// selectCountry2: '',
-			selectCountry2: country2,
+			lockedCountry: this.props.lockedCountry,
 			chart:'20049',
 			firstLevelTabs: physicalRiskTabs,
 			secondLevelTabs: secondLevelTabs,
@@ -63,15 +57,17 @@ class PhysicalRisk extends Component{
 	}
 
 	handleSearch = (callbackCountry1) => {
-		this.setState({ selectCountry1: callbackCountry1 })
+		if (!this.props.selectedByUser) {
+			this.props.setCountry1(callbackCountry1)
+		} else {
+			this.setState({
+				lockedCountry: callbackCountry1
+			});
+		}
 	}
 
 	handleSearch2 = (callbackCountry2) => {
-		this.setState({ selectCountry2: callbackCountry2 })
-		this.props.setDefaultCountry2({
-			code: callbackCountry2,
-			isCookie : false
-		})
+		this.props.setCountry2(callbackCountry2)
 	}
 
 	callbackSelectedSurvey = (callback) => {
@@ -133,8 +129,12 @@ class PhysicalRisk extends Component{
 		}
 	}
 
-	componentDidMount()
-	{
+	componentDidMount() {
+		if (this.props.country1 != undefined && this.props.country2 != undefined) {
+			this.props.setCountry1(this.props.country1)
+			this.props.setCountry2(this.props.country2)
+		}
+
 		// Update the title of the page
 		document.title = this.props.literals.L22013 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 		window.addEventListener('resize', this.updateDimension);
@@ -149,13 +149,13 @@ class PhysicalRisk extends Component{
 		// console.log('Previous', prevState.dataset);
 		// console.log('Current', this.state.dataset);
 
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
-			this.setState({ selectCountry1: this.props.defaultCountry.code });
-		}
+		// if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
+		// 	this.setState({ selectCountry1: this.props.defaultCountry.code });
+		// }
 
-		if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code && !this.props.country2){
-			this.setState({ selectCountry2: this.props.defaultCountry2.code });
-		}
+		// if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code && !this.props.country2){
+		// 	this.setState({ selectCountry2: this.props.defaultCountry2.code });
+		// }
 	}
 
 	componentWillUnmount(){
@@ -174,8 +174,8 @@ class PhysicalRisk extends Component{
 						callbackSelectedTab={this.callbackSelectedTab}
 						locationPath={this.state.currentPath}
 						subMenuTabs={this.state.firstLevelTabs} 
-						selectCountry1={this.state.selectCountry1}
-						selectCountry2={this.state.selectCountry2}
+						selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+						selectCountry2={this.props.selectCountry2}
 						selectedSurvey={this.state.dataset}
 					/>}
 				</div>
@@ -195,8 +195,8 @@ class PhysicalRisk extends Component{
 							//charts={['20022']}
 							//indicator={'53'}
 							literals={this.props.literals}
-							selectedCountry1={this.state.selectCountry1}
-							selectedCountry2={this.state.selectCountry2}
+							selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+							selectedCountry2={this.props.selectCountry2}
 						/> 
 					}
 				</div>
@@ -228,8 +228,8 @@ class PhysicalRisk extends Component{
 									{<SpiderChart
 										literals={this.props.literals}
 										tabIndicator={this.state.selectedTab.literalTab}
-										selectCountry1={this.state.selectCountry1}
-										selectCountry2={this.state.selectCountry2}
+										selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+										selectCountry2={this.props.selectCountry2}
 										showDataLabel={true}
 										colors={['#f6a400','#003399','#cbe2e3']}
 										selectedTab={this.state.selectedTab.url}
@@ -263,10 +263,16 @@ class PhysicalRisk extends Component{
 PhysicalRisk.displayName = 'PhysicalRisk';
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = state.selectCountries;
+    return { selectCountry, selectCountry2, selectedByUser, lockedCountry};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		setCountry1: (country) => dispatch(setCountry1(country)),
+		setCountry2: (country2) => dispatch(setCountry2(country2))
+	}
 }
 
 // export default PhysicalRisk;
-export default connect(mapStateToProps, { setDefaultCountry2 } )(PhysicalRisk);
+export default connect(mapStateToProps, mapDispatchToProps )(PhysicalRisk);

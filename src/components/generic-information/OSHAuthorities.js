@@ -89,17 +89,23 @@ class OSHAuthorities extends Component
 		// Update the title for the page
 		document.title = this.props.literals.L22002 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 
-		//  TODO: possible change to API folder with fetch code - here goes the function call only / Calls for countries
 		this.setState({ ...this.state, isFetching: true });
 		try {
 			getOSHCountries('MATRIX_AUTHORITY', ['UK'])
 				.then((res) => {
 					this.setState({ countries: res.resultset });
 				})
-			getOSHData('MATRIX_AUTHORITY')
+			if (!this.props.lockedCountry) {
+				getOSHData('MATRIX_AUTHORITY')
 				.then((res) => {
 					this.setState({ matrixPageData: res.resultset })
 				})
+			} else {
+				getOSHData('MATRIX_AUTHORITY', {countries: [this.props.lockedCountry]})
+					.then((res) => {
+						this.setState({ matrixPageData: res.resultset })
+					});
+			}
 		} catch (error) {
 			console.log('Error fetching selector countries:', error)
 		} finally {
@@ -123,23 +129,13 @@ class OSHAuthorities extends Component
 			}
 		}
 
-		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
-			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.lockedCountry != ''){
+			const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
 			this.setState({
 				defaultTags: true,
 				filters: {...this.state.filters, countries: [countryDefault]}
 			});
-		}
-
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
-			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
-			if(countryDefault != undefined){
-				this.setState({
-					filters: {...this.state.filters, countries: [countryDefault]}
-				});
-			}
-			
-		}
+		}	
 	 }
 
 	render() {
@@ -214,9 +210,9 @@ class OSHAuthorities extends Component
 OSHAuthorities.displayName = 'OSHAuthorities';
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const { lockedCountry, selectedByUser } = state.selectCountries;
+    return { lockedCountry, selectedByUser };
 }
 
 // export default OSHAuthorities;
-export default connect(mapStateToProps, null )(OSHAuthorities);
+export default connect(mapStateToProps)(OSHAuthorities);

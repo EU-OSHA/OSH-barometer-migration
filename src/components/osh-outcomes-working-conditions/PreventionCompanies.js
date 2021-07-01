@@ -9,9 +9,9 @@ import SelectEconomic from '../common/select-filters/SelectEconomic'
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { preventionInCompanies } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
-import { setDefaultCountry2 } from '../../actions/';
+import { setCountry1, setCountry2 } from '../../actions/';
 
-const subTabs = require('../../model/mentalHealth.json');
+// const subTabs = require('../../model/mentalHealth.json');
 
 class PreventionCompanies extends Component {
 
@@ -27,14 +27,8 @@ class PreventionCompanies extends Component {
 			}
 		}
 
-		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
-		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
-
 		this.state={
-			selectCountry1: country1,
-			// selectCountry2: '',
-			selectCountry2: country2,
-			defaultCountry2Selected: false,
+			lockedCountry: this.props.lockedCountry,
 			split: this.props.split,
 			subMenuTabs: preventionInCompanies,
 			selectMenu: [{ literalTab: '20679' }, { literalTab: '20683' }],
@@ -49,15 +43,17 @@ class PreventionCompanies extends Component {
 	}
 
 	handleSearch = (callbackCountry1) =>{
-		this.setState({ selectCountry1: callbackCountry1})
+		if (!this.props.selectedByUser) {
+			this.props.setCountry1(callbackCountry1);
+		} else {
+			this.setState({
+				lockedCountry: callbackCountry1
+			});
+		}
 	}
 
 	handleSearch2 = (callbackCountry2) =>{
-		this.setState({ selectCountry2: callbackCountry2})
-		this.props.setDefaultCountry2({
-			code: callbackCountry2,
-			isCookie : false
-		})
+		this.props.setCountry2(callbackCountry2);
 	}
 
 	updateDimension = () => {
@@ -87,8 +83,12 @@ class PreventionCompanies extends Component {
 	}
 
 
-	componentDidMount()
-	{
+	componentDidMount() {
+		if (this.props.country1 != undefined && this.props.country2 != undefined) {
+			this.props.setCountry1(this.props.country1);
+			this.props.setCountry2(this.props.country2);
+		}
+
 		// Update the title of the page
 		document.title = this.props.literals.L22014 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 		window.addEventListener('resize', this.updateDimension);
@@ -103,20 +103,6 @@ class PreventionCompanies extends Component {
 		if (prevProps.indicator != this.props.indicator) {
 			this.callbackSelectedTab(this.props.indicator);
 		}
-
-
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
-			console.log('Props.country1 is undefined', prevProps, this.props);
-			this.setState({ selectCountry1: this.props.defaultCountry.code });
-		}
-
-		if(!this.state.defaultCountry2Selected && !this.props.country2){
-			this.setState({ 
-				selectCountry2: this.props.defaultCountry2.code,
-				defaultCountry2Selected: true
-			});
-		}
-
 	}
 
 	componentWillUnmount() {
@@ -136,8 +122,8 @@ class PreventionCompanies extends Component {
 					//selectedSurvey={this.state.selectedSurvey} 
 					subMenuTabs={this.state.subMenuTabs}
 					locationPath={this.state.currentPath}
-					selectCountry1={this.state.selectCountry1}
-					selectCountry2= {this.state.selectCountry2}
+					selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+					selectCountry2= {this.props.selectCountry2}
 					split={this.state.split}
 				/>
 				<div className="line background-main-light" />
@@ -149,8 +135,8 @@ class PreventionCompanies extends Component {
 						//charts={['20022']}
 						//indicator={'53'}
 						literals={this.props.literals}
-						selectedCountry1={this.state.selectCountry1}
-						selectedCountry2={this.state.selectCountry2}
+						selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+						selectedCountry2={this.props.selectCountry2}
 					/>
 				)}			
 
@@ -202,8 +188,8 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
-														selectedCountry1={this.state.selectCountry1}
-														selectedCountry2={this.state.selectCountry2}
+														selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+														selectedCountry2={this.props.selectCountry2}
 														exportingEnabled={true}
 														showSelect={true}
 													/>
@@ -218,8 +204,8 @@ class PreventionCompanies extends Component {
 														percentage={true}
 														callbackLegend={this.callbackChartLegend}
 														callbackSelectedSurvey={this.callbackSelectedSurvey}
-														selectedCountry1={this.state.selectCountry1}
-														selectedCountry2={this.state.selectCountry2}
+														selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+														selectedCountry2={this.props.selectCountry2}
 														exportingEnabled={true}
 														showSelect={true}
 													/>
@@ -256,10 +242,15 @@ class PreventionCompanies extends Component {
 PreventionCompanies.displayName = 'PreventionCompanies';
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = state.selectCountries;
+    return { selectCountry, selectCountry2, selectedByUser, lockedCountry };
 }
 
-// export default PreventionCompanies;
-export default connect(mapStateToProps, { setDefaultCountry2 } )(PreventionCompanies);
+function mapDispatchToProps(dispatch) {
+	return {
+		setCountry1: (country) => dispatch(setCountry1(country)),
+		setCountry2: (country2) => dispatch(setCountry2(country2))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(PreventionCompanies);
