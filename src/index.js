@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { createStore } from 'redux';
+import { applyMiddleware, createStore, } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducers';
 
 // App
@@ -55,7 +56,11 @@ import ScrollToTop from './components/common/hook/ScrollToTop';
 import { Cookies, CookiesProvider, useCookies } from 'react-cookie';
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 
-const store = createStore(reducer);
+const middlewares = composeWithDevTools(
+	applyMiddleware(),
+)
+
+const store = createStore(reducer, middlewares);
 const literals = require('./model/Literals.json');
 
 const PIWIK = process.env.PIWIK != undefined ? process.env.PIWIK : "local" ;
