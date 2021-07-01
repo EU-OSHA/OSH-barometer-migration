@@ -237,7 +237,7 @@ public class TableDataAccess {
 		}
 		else if (queryFilter.getSplit().equalsIgnoreCase("size"))
 		{
-			queryBuilder.append(", field(p.company_size_id,7,8,10,14,11) asc");
+			queryBuilder.append(", field(p.company_size_id,7,8,14,10,11) asc");
 		}
 		else if (queryFilter.getSplit().equalsIgnoreCase("answer"))
 		{
