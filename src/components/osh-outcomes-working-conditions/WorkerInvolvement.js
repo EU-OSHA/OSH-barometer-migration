@@ -133,6 +133,7 @@ class WorkerInvolvement extends Component {
 					</div>
 				</form>
 				<Methodology literals={this.props.literals} section={'Worker involvement'} dataset={this.state.dataset} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","worker-involvement"]} />
 			</div>
 		)
 	}

@@ -41,7 +41,7 @@ class MapChart extends Component {
 					tickPixelInterval: 100
 				},
 				exporting: {
-					enabled: true,
+					enabled: false,
 					y:-10,
 					buttons: {
 						contextButton: {
@@ -84,21 +84,43 @@ class MapChart extends Component {
 				colorAxis: {
 					//min: 1,
 					type: 'logarithmic',
-					minColor: 'rgb(82 159 162 / 10%)',
-					maxColor: 'rgb(82 159 162 / 100%)',
+					// minColor: 'rgb(82 159 162 / 10%)',
+					// maxColor: 'rgb(82 159 162 / 100%)',
+					// stops: [
+					// 	[0, 'rgb(82 159 162 / 10%)'],
+					// 	[0.67, 'rgb(82 159 162 / 67%)'],
+					// 	[1, 'rgb(82 159 162 / 100%)']
+					// ]
+					minColor: '#dcecec',
+                    maxColor: '#4a8e91',
 					stops: [
-						[0, 'rgb(82 159 162 / 10%)'],
-						[0.67, 'rgb(82 159 162 / 67%)'],
-						[1, 'rgb(82 159 162 / 100%)']
-					]
+                        [0, '#DAEBEC'],
+                        // [0.25, '#badddd'],
+                        [0.5, '#B4D6D7'],
+                        // [0.75, '#78b4b6'],
+                        [1,'#4a8e91'],
+                    ]
+                    // stops: [
+                    //     [0.1, '#dcecec'],
+                    //     [0.5, '#a8cfd0'],
+                    //     [0.6, '#78b4b6'],
+                    //     [0.8, '#519ea1'],
+                    //     [1,'#529fa2'],
+                    // ]
 				},
 				plotOptions: {
+					map: {
+                        nullColor: '#F0F0F0'
+                    },
 					series: {
 						allowPointSelect: true,
 						cursor: 'pointer',
+						borderColor: '#c4c4c4',
+						borderWith: 1,
 						states:{
 							hover: {
-								//enabled: true,
+								enabled: true,
+								borderColor: '#57575A',
 								//color:'#000000'
 							},
 							select: {
@@ -169,7 +191,9 @@ class MapChart extends Component {
 				
 			for (let i = 0; i< datos.length; i += 2){
 				let arry = datos.slice(i,i+2)
-				seriesObject.data.push(arry);	
+				if(arry[1] != undefined){
+					seriesObject.data.push(arry);
+				}
 			}
 			series.push(seriesObject)
 

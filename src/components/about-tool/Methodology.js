@@ -262,7 +262,7 @@ class Methodology extends Component {
 								{this.methodologySection('L20722',`L${this.state.methodology.datasource}`)}
 								{this.methodologySection('L20723',`L${this.state.methodology.specificTable}`)}
 								{this.methodologySection('L20724',`L${this.state.methodology.url}`)}
-								{this.methodologySection('L20728',`L${this.state.methodology.options_applied}`)}
+								{this.methodologySection('L20728',`L${this.state.methodology.optionsApplied}`)}
 								{this.methodologySection('L20725',`L${this.state.methodology.referenceYear}`)}
 								{this.methodologySection('L20726',`L${this.state.methodology.lastUpdate}`)}
 								{this.methodologySection('L20727',`L${this.state.methodology.coverage}`)}

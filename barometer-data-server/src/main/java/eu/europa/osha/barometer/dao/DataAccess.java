@@ -111,10 +111,20 @@ public class DataAccess {
 			}
 			counter ++;
 		}
-		queryBuilder.append(") order by n.country_code asc");
+		
+		if (pChartID.indexOf("20010") > -1)
+		{
+			// The page is Economic and Sector Profile, Switzerland and Norway must go at the end of the list
+			queryBuilder.append(") order by field(n.country_code, 'CH','NO') asc, n.country_code asc");
+		}
+		else
+		{
+			queryBuilder.append(") order by n.country_code asc");
+		}
 		
 		String queryBuilderTxt = queryBuilder.toString().replaceAll("\\sand\\s?$", "");
 		log.trace(queryBuilderTxt + " " + Arrays.toString(paramValues.toArray()));
+		System.out.println(queryBuilderTxt);
 		
 		/*
 		 * Run query

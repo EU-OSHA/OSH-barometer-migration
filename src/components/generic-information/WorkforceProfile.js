@@ -36,6 +36,14 @@ class WorkforceProfile extends Component
 				male:"",
 				total:""
 			},
+			euData: {
+				employment:"",
+				mediaAge:"",
+				unemployment:"",
+				female:"",
+				male:"",
+				total:""
+			},
 			filters: {
 				countries: []
 			}
@@ -51,8 +59,10 @@ class WorkforceProfile extends Component
 
 	scrollToTop = () => {
 		var element = $( ".survey--map--block" );
-		var offset = element.offset();       
-		if($(this).scrollTop()>=offset.top){
+		
+		var offset = element.offset(); 
+		// console.log($(window).scrollTop())      
+		if($(window).scrollTop()>=offset.top){
 			$( ".survey--map--block" ).addClass('fixed');
 		} else {
 			$( ".survey--map--block" ).removeClass('fixed');
@@ -63,8 +73,9 @@ class WorkforceProfile extends Component
 
 		getCountryDataMap(countryName, country)
 			.then((res) => {
-				const option = res.resultset.find((element) => element.countryName == countryName)
+				const option = res.resultset.find((element) => element.countryName == countryName && element.countryName != 'EU27_2020')
 				const data = option.data
+				const euData = res.resultset.find((element) => element.countryName == 'EU27_2020').data;
 				this.setState({
 					countries: res.resultset,
 					countryName: option.countryName,
@@ -77,6 +88,14 @@ class WorkforceProfile extends Component
 						female: data['Total, male and female employment rate - Female'],
 						male: data['Total, male and female employment rate - Male'],
 						total: data['Total, male and female employment rate - Total']
+					},
+					euData:{
+						employment: euData['Ageing workers (55 to 64) employment rate'],
+						mediaAge: euData['Median age of population'],
+						unemployment: euData['Unemployment rate'],
+						female: euData['Total, male and female employment rate - Female'],
+						male: euData['Total, male and female employment rate - Male'],
+						total: euData['Total, male and female employment rate - Total']
 					}
 				})
 			})
@@ -219,27 +238,27 @@ class WorkforceProfile extends Component
 								<ul className="matrix--elements--data">
 									<li>
 										<label>{this.props.literals.L20615}</label>
-										<div><span className="data">43.7</span> <span className="data-text">years</span></div>
+										<div><span className="data">{this.state.euData.mediaAge}</span> <span className="data-text">{this.props.literals.L20620}</span></div>
 									</li>
 									<li>
-										<label className="">Employment rate (55 - 64):</label>
-										<div><span className="data">59.1</span> <span className="data-text">%</span></div>
+										<label className="">{this.props.literals.L20616}</label>
+										<div><span className="data">{this.state.euData.employment}</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
-										<label className="">Employment rate (female):</label>
-										<div><span className="data">67.3</span> <span className="data-text">%</span></div>
+										<label className="">{this.props.literals.L20619}</label>
+										<div><span className="data">{this.state.euData.female}</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
-										<label className="">Employment rate (male):</label>
-										<div><span className="" >79</span> <span className="data-text">%</span></div>
+										<label className="">{this.props.literals.L20618}</label>
+										<div><span className="data" >{this.state.euData.male}</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
-										<label className="">Employment rate (total):</label>
-										<div><span className="data" >73.1</span> <span className="data-text">%</span></div>
+										<label className="">{this.props.literals.L20617}</label>
+										<div><span className="data" >{this.state.euData.total}</span> <span className="data-text">%</span></div>
 									</li>
 									<li>
-										<label className="">Unemployment rate:</label>
-										<div><span className="data">6.7</span> <span className="data-text">%</span></div>
+										<label className="">{this.props.literals.L22125}</label>
+										<div><span className="data">{this.state.euData.unemployment}</span> <span className="data-text">%</span></div>
 									</li>
 								</ul>
 								</div>
@@ -258,26 +277,26 @@ class WorkforceProfile extends Component
 											<ul className="matrix--elements--data">
 												<li>
 													<label>{this.props.literals.L20615}</label>
-													<div><span className="data">{this.state.data.mediaAge}</span> <span className="data-text">years</span></div>
+													<div><span className="data">{this.state.data.mediaAge}</span> <span className="data-text">{this.props.literals.L20620}</span></div>
 												</li>
 												<li>
-													<label className="">Employment rate (55 - 64):</label>
+													<label className="">{this.props.literals.L20616}</label>
 													<div><span className="data">{this.state.data.employment}</span> <span className="data-text">%</span></div>
 												</li>
 												<li>
-													<label className="">Employment rate (female):</label>
+													<label className="">{this.props.literals.L20619}</label>
 													<div><span className="data">{this.state.data.female}</span> <span className="data-text">%</span></div>
 												</li>
 												<li>
-													<label className="">Employment rate (male):</label>
+													<label className="">{this.props.literals.L20618}</label>
 													<div><span className="data" >{this.state.data.male}</span> <span className="data-text">%</span></div>
 												</li>
 												<li>
-													<label className="">Employment rate (total):</label>
+													<label className="">{this.props.literals.L20617}</label>
 													<div><span className="data">{this.state.data.total}</span> <span className="data-text">%</span></div>
 												</li>
 												<li>
-													<label className="">Unemployment rate:</label>
+													<label className="">{this.props.literals.L22125}</label>
 													<div><span className="data">{this.state.data.unemployment}</span> <span className="data-text">%</span></div>
 												</li>
 											</ul>
@@ -321,7 +340,7 @@ class WorkforceProfile extends Component
 												<ul className="matrix--elements--data">
 													<li>
 														<label className="">{this.props.literals.L20615}</label>
-														<div><span className="data">{item.data['Median age of population']}</span> <span className="data-text">years</span></div>
+														<div><span className="data">{item.data['Median age of population']}</span> <span className="data-text">{this.props.literals.L20620}</span></div>
 													</li>
 													<li>
 														<label className="">{this.props.literals.L20616}</label>
@@ -349,42 +368,80 @@ class WorkforceProfile extends Component
 									))
 								) : (
 									/** It print all countries when there are no countries selected */
-									this.state.countries.map((item) => (
-										<div key={item.countryCode} className="matrix--element eu27_2020">
-											<div className="matrix--header--elements">
-												<img className="flags--wrapper" src={images[item.countryCode.toLowerCase()]} />
-												<h2 className="country title-section main-color">{item.countryName}</h2>
+									<React.Fragment>
+										{this.state.countries.filter((item) => item.countryCode == 'EU27_2020').map((item) => (
+											<div key={item.countryCode} className={`matrix--element ${item.countryCode.toLowerCase()}`}>
+												<div className="matrix--header--elements">
+													<img className="flags--wrapper" src={images['eu28']} />
+													<h2 className="country title-section main-color">{item.countryName}</h2>
+												</div>
+												<div className="matrix--content--elements">
+													<ul className="matrix--elements--data">
+														<li>
+															<label className="">{this.props.literals.L20615}</label>
+															<div><span className="data">{item.data['Median age of population']}</span> <span className="data-text">{this.props.literals.L20620}</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20616}</label>
+															<div><span className="data" >{item.data['Ageing workers (55 to 64) employment rate']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20617}</label>
+															<div><span className="data" >{item.data['Total, male and female employment rate - Total']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20618}</label>
+															<div><span className="data" >{item.data['Total, male and female employment rate - Male']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20619}</label>
+															<div><span className="data">{item.data['Total, male and female employment rate - Female']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L291}</label>
+															<div><span className="data">{item.data['Unemployment rate']}</span> <span className="data-text">%</span></div>
+														</li>
+													</ul>
+												</div>
 											</div>
-											<div className="matrix--content--elements">
-												<ul className="matrix--elements--data">
-													<li>
-														<label className="">{this.props.literals.L20615}</label>
-														<div><span className="data">{item.data['Median age of population']}</span> <span className="data-text">years</span></div>
-													</li>
-													<li>
-														<label className="">{this.props.literals.L20616}</label>
-														<div><span className="data" >{item.data['Ageing workers (55 to 64) employment rate']}</span> <span className="data-text">%</span></div>
-													</li>
-													<li>
-														<label className="">{this.props.literals.L20617}</label>
-														<div><span className="data" >{item.data['Total, male and female employment rate - Total']}</span> <span className="data-text">%</span></div>
-													</li>
-													<li>
-														<label className="">{this.props.literals.L20618}</label>
-														<div><span className="data" >{item.data['Total, male and female employment rate - Male']}</span> <span className="data-text">%</span></div>
-													</li>
-													<li>
-														<label className="">{this.props.literals.L20619}</label>
-														<div><span className="data">{item.data['Total, male and female employment rate - Female']}</span> <span className="data-text">%</span></div>
-													</li>
-													<li>
-														<label className="">{this.props.literals.L291}</label>
-														<div><span className="data">{item.data['Unemployment rate']}</span> <span className="data-text">%</span></div>
-													</li>
-												</ul>
+										))}
+										{this.state.countries.filter((item) => item.countryCode != 'EU27_2020').map((item) => (
+											<div key={item.countryCode} className={`matrix--element ${item.countryCode.toLowerCase()}`}>
+												<div className="matrix--header--elements">
+													<img className="flags--wrapper" src={images[item.countryCode.toLowerCase()]} />
+													<h2 className="country title-section main-color">{item.countryName}</h2>
+												</div>
+												<div className="matrix--content--elements">
+													<ul className="matrix--elements--data">
+														<li>
+															<label className="">{this.props.literals.L20615}</label>
+															<div><span className="data">{item.data['Median age of population']}</span> <span className="data-text">{this.props.literals.L20620}</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20616}</label>
+															<div><span className="data" >{item.data['Ageing workers (55 to 64) employment rate']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20617}</label>
+															<div><span className="data" >{item.data['Total, male and female employment rate - Total']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20618}</label>
+															<div><span className="data" >{item.data['Total, male and female employment rate - Male']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L20619}</label>
+															<div><span className="data">{item.data['Total, male and female employment rate - Female']}</span> <span className="data-text">%</span></div>
+														</li>
+														<li>
+															<label className="">{this.props.literals.L291}</label>
+															<div><span className="data">{item.data['Unemployment rate']}</span> <span className="data-text">%</span></div>
+														</li>
+													</ul>
+												</div>
 											</div>
-										</div>
-									))
+										))}
+									</React.Fragment>
 								)}
 							</div>
 						</div>
