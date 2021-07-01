@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
-import { connect, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
-import { setDefaultCountry, setDefaultCountry2 } from '../../actions/';
+import { setLockedCountry } from '../../actions/';
 
 const Home = props => {
-	const store = useStore();
-	const currentDefaultCountry = store.getState().defaultCountry;
-	// console.log("currentDefaultCountry",currentDefaultCountry);
+	// Global States
+	const { lockedCountry, isCookie, selectedByUser } = useSelector((state) => state.selectCountries);
+	// Cookies
 	const { cookies } = props;
 
-	const [countryUnlocked, setCountryUnlocked] = useState(true);
-	const [countrySelected, setCountrySelected] = useState(currentDefaultCountry.code != "0" && currentDefaultCountry.isCookie ? currentDefaultCountry.code : "0" );
-	// const [countrySelected, setCountrySelected] = useState( "0" );
-	const [selectDisabled, setSelectDisabled] = useState(cookies.get("selectedCountry") != undefined && countrySelected != "0" ? true : false);
-	// console.log("countrySelected",countrySelected);
-	
-	// const [cookies, setCookie, removeCookie] = useCookies([]);
-	// console.log("props",props);
+	const [countrySelected, setCountrySelected] = useState('0');
+	const [selectDisabled, setSelectDisabled] = useState(lockedCountry ? true : false);
+
+	// Action Dispatcher
+	const dispatch = useDispatch();
 	
 	//Component did mount
 	useEffect(() => {
-		// console.log("Component did mount");
-		
 		// Update the title of the page
 		document.title = 'OSH Barometer | Home';
       
@@ -123,21 +118,16 @@ const Home = props => {
 
 	//Update when defaultCountrySelected (redux) changes
 	useEffect(() => {
-		// console.log("Component did update", cookies);
-		// console.log("currentDefaultCountry",currentDefaultCountry);
-		if(currentDefaultCountry.code != "0" && currentDefaultCountry.isCookie){
-			setCountrySelected(currentDefaultCountry.code);
+		if (selectedByUser && isCookie) {
+			setCountrySelected(lockedCountry);
 		}
-	}, [store.getState().defaultCountry])
+	}, [selectedByUser, isCookie])
 
-	//Update when countrySelected changes
 	useEffect(() => {
-		if(cookies.get("selectedCountry") != undefined && countrySelected != "0"){
-			$("label.country-unlock").toggleClass('country-unlock').toggleClass('country-lock');
-			setSelectDisabled(true);
-			$("div.preferences--lock select").toggleClass('disabled');
+		if(cookies.get("disclaimerCookie") === "true"){
+			cookies.set("selectedCountry", countrySelected);
 		}
-	}, [countrySelected])
+	}, [cookies]);
 
     // function to trim the passed text
 	function truncateText(str, limitNumber) {	
@@ -149,68 +139,23 @@ const Home = props => {
 	}
 
 	function changeCountry(event) {
-		// console.log("changeCountry home",event.target.value);
 		setCountrySelected(event.target.value);
 	}
 
-	function saveCountry(event) {
-		var removed = false;
-		// console.log("saveCountry home",event);
-		setCountryUnlocked(!countryUnlocked);
+	function saveCountry() {
+		if (countrySelected != '0') {
+			setSelectDisabled(!selectDisabled);
 
-		if(cookies.get("selectedCountry") != undefined){
-			removed = true;
-			// removeCookie('selectedCountry');
-			cookies.remove("selectedCountry");
-			props.setDefaultCountry({
-				code: "AT",
-				isCookie : false,
-				selectedByUser: false
-			})
-			setCountrySelected("0");
-		}
-		else if(currentDefaultCountry.code != "0" && event.target.className.indexOf("country-lock") != -1){
-			removed = true;
-			props.setDefaultCountry({
-				code: "AT",
-				isCookie : false,
-				selectedByUser: false
-			})
-			setCountrySelected("0");
-		}
-
-		$(event.currentTarget).toggleClass('country-unlock').toggleClass('country-lock');
-		$("div.preferences--lock select").toggleClass('disabled');
-		setSelectDisabled(!selectDisabled);
-
-		if(!removed){
-			props.setDefaultCountry({
-				code: countrySelected,
-				isCookie : true,
-				selectedByUser: true
-			})
-
-			//TODO Implement redux for second country default
-			if(props.countryDefault2 != undefined){
-				if(props.countryDefault2.code != "0" && props.countryDefault2.code === countrySelected){
-					props.setDefaultCountry2({
-						code: "0",
-						isCookie : false
-					})
+			if (!selectDisabled) {
+				dispatch(setLockedCountry(countrySelected, true, true))
+	
+				if (cookies.get('disclaimerCookie') == 'true') {
+					cookies.set("selectedCountry", countrySelected);
 				}
-			}			
-
-			// if(defaultCountry2.code != "0" && defaultCountry2.code == event.target.value){
-			// 	setDefaultCountry2({
-			// 		code: "0",
-			// 		isCookie : defaultCountry2.isCookie,
-			// 		// selectedByUser: defaultCountry2.selectedByUser
-			// 	})
-			// }
-
-			if(cookies.get("disclaimerCookie") === "true"){
-				cookies.set("selectedCountry", countrySelected);
-			}	
+			} else {
+				setCountrySelected('0')
+				dispatch(setLockedCountry('', false, false))
+			}
 		}
 	}
 
@@ -242,12 +187,11 @@ const Home = props => {
 					<div className="preferences-text ng-binding">
 						{ReactHtmlParser(props.literals.L22112)}
 					</div>
-					<form className="ng-pristine ng-valid">
+					<form className="">
 						<div className="country-selected-wrapper">
-							<select data-ng-model="pCountry1" onChange={changeCountry} 
+							<select onChange={changeCountry} 
 								disabled={selectDisabled}
-								// data-ng-disabled="selectDisabled" 
-								className="ng-pristine ng-untouched ng-valid" value={countrySelected}>
+								className="" value={countrySelected}>
 								<option value="0" disabled="disabled" className="">{props.literals.L22113}</option>
 								<option value="AT">(AT) Austria</option>
 								<option value="BE">(BE) Belgium</option>
@@ -280,12 +224,12 @@ const Home = props => {
 								<option value="SI">(SI) Slovenia</option>
 								<option value="SK">(SK) Slovakia</option>
 							</select>
-							<label className={`${countryUnlocked ? "country-unlock" : "country-lock" } ${countrySelected === "0" ? "disabled" : "" }`} 
+							<label className={`${!selectDisabled ? "country-unlock" : "country-lock" } ${countrySelected === "0" ? "disabled" : "" }`} 
 								onClick={saveCountry} disabled>
 							{/* <label className="country-unlock disabled" data-ng-className="{disabled: pCountry1=='0'}" ng-click="pCountry1=='0' || saveCountry($event)" data-ng-disabled="true" disabled="disabled"> */}
 								<i className="fa" aria-hidden="true"></i>
 								<i className="fas fa-lock-open"></i>
-								</label>
+							</label>
 						</div>
 						<div className="country-selected">
 							{
@@ -313,11 +257,11 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})"> */}
-								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code}>
+								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"+lockedCountry}>
 								</Link>
 								<h3 className="title--card">
 									{/*<Link to="economic-sector-profile ({pCountry:pCountry1})">*/}
-									<Link to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code}>
+									<Link to={"/generic-information/economic-sector-profile/"+lockedCountry}>
 									{props.literals.L22003}
 									</Link>
 								</h3>
@@ -325,7 +269,7 @@ const Home = props => {
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to={"/generic-information/economic-sector-profile/"+currentDefaultCountry.code} className="btn-default btn-main-color btn-full">
+								<Link to={"/generic-information/economic-sector-profile/"+lockedCountry} className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
@@ -482,13 +426,5 @@ const Home = props => {
 	)
 }
 
-function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
-}
-
 Home.displayName ='Home';
-
-// export default Home;
-export default withCookies(connect(mapStateToProps, { setDefaultCountry, setDefaultCountry2 })(Home));
+export default withCookies(Home);
