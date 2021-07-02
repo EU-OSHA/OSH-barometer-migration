@@ -306,7 +306,7 @@ class WorkforceProfile extends Component
 							</div>
 						</div>
 						<div className="map--block center-text container">
-													
+							<p className="non-eu">{this.props.literals.L22104}</p>					
 							<MapChart 
 							handleSearch={this.handleSearch} 
 							unselect={this.state.unselect} 

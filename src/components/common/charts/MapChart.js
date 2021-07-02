@@ -3,6 +3,7 @@ import Highcharts from 'highcharts/highmaps';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
+require('highcharts/modules/pattern-fill')(Highcharts);
 import { getCountryDataMap } from '../../../api'
 import { nodeName, timers } from 'jquery';
 
@@ -77,9 +78,6 @@ class MapChart extends Component {
 					align: 'right',
 					verticalAlign: 'top',
 					y: 45,
-					//backgroundColor: 'rgba(255,255,255,0.85)',
-					//floating: true,
-					//y: 25
 				},
 				colorAxis: {
 					//min: 1,
@@ -137,32 +135,7 @@ class MapChart extends Component {
 						}
 					}
 				},			
-				series: [{
-					//name: "country",
-					//data:[['de',4]	],					
-					dataLabels: {
-						enabled: true,
-						color: '#000',
-						y:-7,
-						style: {
-							textShadow: false, 
-							textOutline: "#c7e2e3",
-							fontFamily: 'OpenSans-Bold',
-							fontSize:'14px'
-						},
-						formatter: function () {
-							if (this.point.value) {
-                                if(this.point["hc-key"] === "gr"){
-                                    return "EL";
-                                }else if(this.point["hc-key"] === "gb"){
-                                    return "UK";
-                                }else{
-                                    return this.point["hc-key"].toUpperCase();
-                                }
-							}
-						}
-					}
-				}]
+				series: []
 			}
 		}	
 	}
@@ -170,32 +143,76 @@ class MapChart extends Component {
 
 
 	getLoadData = (select) => {
-		const datos = [];
+		const data = [];
 		let series = [];
-		let auxSeries = [];
-		let name = [];
 		getCountryDataMap(select)
 			.then((response)=> response)
 			.then((res) => 
 		{
-			let	seriesObject = {name: '', data:[]}
-			const option =	res.resultset.forEach((element)=>{						
+			let	seriesObject = { name: '', data:[] };
+			let patternObject = { name: '', data: [], 					
+				dataLabels: {
+					enabled: true,
+					color: '#000',
+					y:-7,
+					style: {
+						textShadow: false, 
+						textOutline: "#c7e2e3",
+						fontFamily: 'OpenSans-Bold',
+						fontSize:'14px'
+					},
+					formatter: function () {
+						if (this.point.value) {
+							if(this.point["hc-key"] === "gr"){
+								return "EL";
+							}else if(this.point["hc-key"] === "gb"){
+								return "UK";
+							}else{
+								return this.point["hc-key"].toUpperCase();
+							}
+						}
+					}
+				}
+			};
+			let data = [];
+			res.resultset.forEach((element)=>{						
 				let countryCode = element.countryCode.toLowerCase();
-				if(countryCode === "el"){
-					countryCode = "gr";
-				}else if(countryCode === "uk"){
-					countryCode = "gb";
+				if (countryCode != 'eu27_2020' && countryCode != 'eu28')
+				{
+					if(countryCode === "el"){
+						countryCode = "gr";
+					}else if(countryCode === "uk"){
+						countryCode = "gb";
+					}
+					data.push({ countryCode: countryCode, value: element.data[select] });
 				}
-				datos.push(countryCode,element.data[select])
 			})
-				
-			for (let i = 0; i< datos.length; i += 2){
-				let arry = datos.slice(i,i+2)
-				if(arry[1] != undefined){
-					seriesObject.data.push(arry);
+			
+			data.forEach((element) => {
+				seriesObject.data.push([element.countryCode, element.value]);
+				if (element.countryCode == "no" || element.countryCode == "is" || element.countryCode == "ch")
+				{
+					patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
+						pattern: {
+						  path: {
+							d: 'M 0 10 L 10 0 M 9 1 L 11 -1 M -1 11 L 1 9',
+							strokeWidth: 2
+						  },
+						  color: '#fff',
+						  width: 9,
+						  height: 9,
+						  opacity: 0.6
+						}
+					  }});
 				}
-			}
-			series.push(seriesObject)
+				else
+				{
+					patternObject.data.push({'hc-key': element.countryCode, value: element.value});
+				}
+			})
+			
+			series.push(seriesObject);
+			series.push(patternObject);
 
 			this.setState({chartConfig: {...this.state.chartConfig, series }})
 		});		
@@ -224,7 +241,7 @@ class MapChart extends Component {
 	}
 
 	render()
-	{		
+	{
 		return(
 			<div>
 				<HighchartsReact
