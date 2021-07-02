@@ -195,12 +195,12 @@ class MapChart extends Component {
 					patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
 						pattern: {
 						  path: {
-							d: 'M 0 10 L 10 0 M 9 1 L 11 -1 M -1 11 L 1 9',
+							d: 'M 0 10 L 10 0 M -10 10 L 10 -10 M 8 12 L 12 8',
 							strokeWidth: 2
 						  },
 						  color: '#fff',
-						  width: 9,
-						  height: 9,
+						  width: 10,
+						  height: 10,
 						  opacity: 0.6
 						}
 					  }});
