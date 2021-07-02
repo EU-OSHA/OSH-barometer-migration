@@ -1,6 +1,9 @@
-import { SET_METHODOLOGY } from '../constants';
-import { SET_DEFAULT_COUNTRY } from '../constants';
-import { SET_DEFAULT_COUNTRY_2 } from '../constants';
+import { 
+    SET_METHODOLOGY, 
+    SET_SELECT_COUNTRY,
+    SET_SELECT_COUNTRY_2,
+    SET_LOCKED_COUNTRY,
+} from '../constants';
 
 // For each of the actions defined for redux, this file will export one function
 export function setMethodology(section, subsection, indicator) {
@@ -13,22 +16,30 @@ export function setMethodology(section, subsection, indicator) {
     return action;
 }
 
-// For each of the actions defined for redux, this file will export one function
-export function setDefaultCountry(country) {
-    // console.log("Arrives to set country default action",country);
+export function setCountry1(country) {
     const action = {
-        type: SET_DEFAULT_COUNTRY,
-        country
+        type: SET_SELECT_COUNTRY,
+        payload: { country }
     }
     return action;
 }
 
-// For each of the actions defined for redux, this file will export one function
-export function setDefaultCountry2(country2) {
-    // console.log("Arrives to set country default action",country);
+export function setCountry2(country2) {
     const action = {
-        type: SET_DEFAULT_COUNTRY_2,
-        country2
+        type: SET_SELECT_COUNTRY_2,
+        payload: { country2 }
     }
     return action;
+}
+
+export function setLockedCountry(country, isCookie, selectedByUser) {
+    const action = {
+        type: SET_LOCKED_COUNTRY,
+        payload: { 
+            country,
+            isCookie,
+            selectedByUser
+         }
+    }
+    return action
 }

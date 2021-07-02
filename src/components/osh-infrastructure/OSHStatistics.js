@@ -96,10 +96,18 @@ class OSHStatistics extends Component
 				.then((res) => {
 					this.setState({ countries: res.resultset })
 				});
-			getOSHData('MATRIX_STATISTICS')
+			
+			if (!this.props.lockedCountry) {
+				getOSHData('MATRIX_STATISTICS')
+					.then((res) => {
+						this.setState({ matrixPageData: res.resultset })
+					});
+			} else {
+				getOSHData('MATRIX_STATISTICS', {countries: [this.props.lockedCountry]})
 				.then((res) => {
 					this.setState({ matrixPageData: res.resultset })
 				});
+			}
 		} catch(error) {
 			console.log('Error getting data: ', error)
 		} finally {
@@ -123,16 +131,16 @@ class OSHStatistics extends Component
 			}
 		}
 
-		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.defaultCountry.code != "0"){
-			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.lockedCountry != ""){
+			const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
 			this.setState({
 				defaultTags: true,
 				filters: {...this.state.filters, countries: [countryDefault]}
 			});
 		}
 
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && this.props.defaultCountry.selectedByUser){
-			let countryDefault = this.state.countries.find((country) => country.code == this.props.defaultCountry.code);
+		if(prevProps.lockedCountry != this.props.lockedCountry && this.props.selectedByUser){
+			let countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
 			if(countryDefault != undefined){
 				this.setState({
 					filters: {...this.state.filters, countries: [countryDefault]}
@@ -200,8 +208,8 @@ class OSHStatistics extends Component
 OSHStatistics.displayName = 'OSHStatistics';
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const { lockedCountry, selectedByUser } = state.selectCountries;
+    return { lockedCountry, selectedByUser };
 }
 
 // export default OSHStatistics;
