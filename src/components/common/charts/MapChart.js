@@ -189,7 +189,10 @@ class MapChart extends Component {
 			})
 			
 			data.forEach((element) => {
-				seriesObject.data.push([element.countryCode, element.value]);
+				if(element.value != undefined){
+					seriesObject.data.push([element.countryCode, element.value]);
+				}
+				
 				if (element.countryCode == "no" || element.countryCode == "is" || element.countryCode == "ch")
 				{
 					patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
