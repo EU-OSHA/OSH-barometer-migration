@@ -247,12 +247,10 @@ class ChartHuman extends Component {
 						if ( element.countryCode == "EU27_2020" ){
 							series.push({
 								name: element.countryCode,
-								//type: 'column',
 								color:euColor,
 								pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
-								//pointPadding: 0.15,
 								borderColor: 'transparent',
-								borderWidth: 0,
+								borderWidth: 2,
 								data: [{
 									name:element.countryCode, 
 									y: element.value, 
@@ -260,11 +258,6 @@ class ChartHuman extends Component {
 									color: {
 										pattern: {
 											image:humanBlue,
-											// width:68,
-											// height:element.value,
-											// x:10,
-											// y:0
-											//aspectRatio:0.453
 										}
 									}									
 								}]
@@ -273,43 +266,38 @@ class ChartHuman extends Component {
 							if( i == 0){
 								series.push({
 									name: element.countryCode,
-									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
-									 //pointPadding: 1,
-									 borderColor: 'transparent',
-									// borderWidth: 0,
-									data: [{name:element.countryCode, y: element.value, x: i, 
+									borderColor: 'transparent',
+									borderWidth: 2,
+									data: [{
+										name:element.countryCode, 
+										y: element.value, 
+										x: i, 
 										color: {
 											pattern: {
 												image: humanOrange,
-												//width:68,
-												//height:element.value,
-												//aspectRatio:0.453
 											}
-										}}]
+										}
+									}]
 								});
 							} else {
 								series.push({
 									name: element.countryCode,
-									//type: 'column',
 									color:this.props.colors[i],
 									pointWidth: numberOfItems > 2 ? 60 : (this.props.fullCountryReport ? 70 : 40),
-									// pointPadding: 0.25,
 									borderColor: 'transparent',
-									borderWidth: 0,
+									borderWidth: 2,
 									data: [{
 										name:element.countryCode, 
-										y: element.value, 
-										// x: i, 
+										y: element.value,
+										x: i,
 										color: {
 											pattern: {
-												image: humanGreen,
-												//width:110,
-												//height:element.value
-												//aspectRatio:0.453
+												image: humanGreen
 											}
-										}}]
+										}
+									}]
 								});
 							}
 						}
