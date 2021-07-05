@@ -103,7 +103,47 @@ class WorkforceProfile extends Component
 
 	componentDidMount() {
 		// Update the title of the page
-		document.title = this.props.literals.L22004 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363
+		document.title = this.props.literals.L22004 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
+		if(this.state.indicator != 'median-age'){
+			switch(this.state.indicator){
+				case "employment-rate" :
+					this.setState({disabled:""})
+					this.setState({title:'EMPLOYMENT RATE - AGEING WORKERS'})
+					this.setState({select: 'Ageing workers (55 to 64) employment rate'})
+					this.setState({indicator: 'employment-rate'})
+					break;
+				case "ageing-workers" :
+					this.setState({disabled:""})
+					this.setState({title:'EMPLOYMENT RATE - AGEING WORKERS'})
+					this.setState({select: 'Ageing workers (55 to 64) employment rate'})
+					break;
+				case "unemployment-rate":
+					this.setState({disabled:"disabled"})
+					this.setState({title:'UNEMPLOYMENT RATE'})
+					this.setState({alert:"Not applied to Unemployment rate"})
+					this.setState({select: 'Unemployment rate'})
+					this.setState({indicator: 'unemployment-rate'})
+					break;
+			}
+
+			if(this.props.subIndicator != 'ageing-workers'){
+				switch(this.props.subIndicator){
+					case "female":
+						this.setState({select: 'Total, male and female employment rate - Female'})
+						this.setState({title:'EMPLOYMENT RATE - FEMALE'})
+						break;
+					case "male":
+						this.setState({select: 'Total, male and female employment rate - Male'})
+						this.setState({title:'EMPLOYMENT RATE - MALE'})
+						break;
+					case "total":
+						this.setState({select: 'Total, male and female employment rate - Total'})
+						this.setState({title:'EMPLOYMENT RATE - TOTAL'})
+						break;
+				}
+			}
+		}
 
 		this.getLoadData(this.state.countryName);
 
@@ -170,7 +210,7 @@ class WorkforceProfile extends Component
 				this.setState({select: 'Ageing workers (55 to 64) employment rate'})
 				this.setState({indicator: 'employment-rate'})
 				break;
-				case "ageing-workers" :
+			case "ageing-workers" :
 				this.setState({disabled:""})
 				this.setState({title:'EMPLOYMENT RATE - AGEING WORKERS'})
 				this.setState({select: 'Ageing workers (55 to 64) employment rate'})
@@ -186,17 +226,17 @@ class WorkforceProfile extends Component
 				this.setState({title:'UNEMPLOYMENT RATE'})
 				this.setState({alert:"Not applied to Unemployment rate"})
 				this.setState({select: 'Unemployment rate'})
-				this.setState({indicator: 'Unemployment-rate'})
+				this.setState({indicator: 'unemployment-rate'})
 				break
-			case "Female":
+			case "female":
 				this.setState({select: 'Total, male and female employment rate - Female'})
 				this.setState({title:'EMPLOYMENT RATE - FEMALE'})
 				break
-			case "Male":
+			case "male":
 				this.setState({select: 'Total, male and female employment rate - Male'})
 				this.setState({title:'EMPLOYMENT RATE - MALE'})
 				break
-			case "Total":
+			case "total":
 				this.setState({select: 'Total, male and female employment rate - Total'})
 				this.setState({title:'EMPLOYMENT RATE - TOTAL'})
 				break
@@ -220,6 +260,7 @@ class WorkforceProfile extends Component
 					locationPath={this.state.currentPath}
 					literals={this.props.literals}
 					indicator={this.props.indicator}
+					secondIndicator={this.props.subIndicator}
 					filters={this.state.filters}
 					onCallbackCountry={this.handleCallbackCountry}
 					/>
