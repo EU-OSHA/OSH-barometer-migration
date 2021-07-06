@@ -31,7 +31,7 @@ class CountryProfileTextTab extends Component
     isOneCountrySelected = () => {
 		if(this.props.country2 !== undefined && this.props.country2 !== null
 			&& this.props.country2 !== ""){
-				if (this.props.country2.code != '0') {
+				if (this.props.country2.code != '') {
 					return "no-full";
 				} else {
 					return "full"
@@ -113,14 +113,12 @@ class CountryProfileTextTab extends Component
 	}
 
     render () {
-        const country1 = this.props.country1 != undefined ? this.props.country1 : { code: "AT", name: "Austria" };
-		const country2 = this.props.country2 != undefined ? this.props.country2 : { code: "BE", name: "Belgium" };
         const tabName = this.props.tabName;
         
         var secondCountryContainer =  "";
 
         if(this.props.country2 != undefined){
-			if (this.props.country2.code != '0') {
+			if (this.props.country2.code != '') {
 				secondCountryContainer = (
 					<div className="column--item second">
 						<div className="">
@@ -136,7 +134,7 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a> 
 								)}
 							</p>
-							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element) => <div className="partial-text"> {this.props.literals[`L${element}`]} </div>))}
+							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element) => <div className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
 							<div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
 							<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
 								{ReactHtmlParser(this.props.literals['L'+this.props.country2Text])}
@@ -164,7 +162,7 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         	</p>
 						)}
-						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element) => <div className="partial-text"> {this.props.literals[`L${element}`]} </div>))}
+						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element) => <div className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
                         <div className="partial-text" >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
                         <div className="complete-text" >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
                         <SeeMore text={this.props.literals['L'+this.props.country1Text]} maxCharacters={this.state.maxCharacters} 
