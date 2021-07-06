@@ -23,7 +23,6 @@ const CookiesComponent = (props) => {
         if(cookies.selectedCountry != undefined && cookies.selectedCountry != '0'){
             dispatch(setCountry1(cookies.selectedCountry))
         }else{
-                console.log('else trigger?')
                 if(navigator.geolocation){
                     navigator.geolocation.getCurrentPosition(function(position){
                         fetch('https://iplist.cc/api/')
