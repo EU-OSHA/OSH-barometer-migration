@@ -418,7 +418,7 @@ const Home = props => {
 					<h3 className="">{props.literals.L22115}</h3>
 					<p className="">{props.literals.L22116}</p>
 					<p className="btn--wrapper btn--block-arrow">
-						<a to="about-tool-detail-page({pSection: father, pSubsection: section.toLowerCase(), pIndicator: pIndicatorID})" className="btn-default btn-main-color text-center ng-binding" href="/about-the-system/methodology">{props.literals.L22117}</a>
+						<Link className="btn-default btn-main-color text-center ng-binding" to="/about-the-system/methodology">{props.literals.L22117}</Link>
 					</p>
 				</div>
 			</section>
