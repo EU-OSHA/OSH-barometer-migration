@@ -4,6 +4,7 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import $ from "jquery";
 import { setCountry1 } from '../../../actions/';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const CookiesComponent = (props) => {
     const [showPopUpMessage, setShowPopUpMessage] = useState(true);
@@ -76,7 +77,7 @@ const CookiesComponent = (props) => {
                     <p>{props.literals.L379}</p>
                 </div>
                 <div className="buttons">
-                    <a href={"/osh-barometer/privacy-notice"}><button>{props.literals.L382}</button></a>
+                    <Link to="/privacy-notice"><button>{props.literals.L382}</button></Link>
                     <button id="consentCookies" onClick={consentDecline} className="decline">{props.literals.L381}</button>
                     <button id="consentCookies" onClick={consentAgree} className="accept">{props.literals.L380}</button>
                     {/* <button id="consentCookies" onClick="$consent.agree(); consentAgree();" className="accept">{this.props.literals.L380}</button> */}
