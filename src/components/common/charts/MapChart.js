@@ -114,7 +114,7 @@ class MapChart extends Component {
 						allowPointSelect: true,
 						cursor: 'pointer',
 						borderColor: '#c4c4c4',
-						borderWith: 1,
+						borderWidth: 2,
 						states:{
 							hover: {
 								enabled: true,
@@ -122,8 +122,7 @@ class MapChart extends Component {
 								//color:'#000000'
 							},
 							select: {
-								color: '#f6a400',
-								dashStyle: 'dot'
+								color: '#f6a400'
 							}
 						},
 						point: {
@@ -206,11 +205,11 @@ class MapChart extends Component {
 						  height: 10,
 						  opacity: 0.6
 						}
-					  }});
+					  }, borderColor:'white'});
 				}
 				else
 				{
-					patternObject.data.push({'hc-key': element.countryCode, value: element.value});
+					patternObject.data.push({'hc-key': element.countryCode, value: element.value, borderColor: 'white'});
 				}
 			})
 			
