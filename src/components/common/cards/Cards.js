@@ -29,7 +29,7 @@ class Cards extends Component {
 	// Opens PDF to a specific Country
     onPDFClick = (countryName) => {
 		return () => {
-			const url = `/generic-information/osh-authorities/OSH authorities - ${countryName}.pdf`
+			const url = `/osh-barometer/generic-information/osh-authorities/OSH authorities - ${countryName}.pdf`
 			window.open(url, "_blank")
 		}
 	}

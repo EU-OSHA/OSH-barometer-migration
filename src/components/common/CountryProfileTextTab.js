@@ -130,7 +130,7 @@ class CountryProfileTextTab extends Component
 							{ /* <p className="download-report" data-ng-bind="i18nLiterals.L20639"></p>*/}
 							<p className="download-report">
 								{!this.props.page && (
-									<a href={`/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country2.name}.pdf`}
+									<a href={`/osh-barometer/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country2.name}.pdf`}
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a> 
 								)}
 							</p>
@@ -158,7 +158,7 @@ class CountryProfileTextTab extends Component
                     <div className="columm--item--content">
                         {!this.props.page && (
 							<p className="download-report">
-								<a href={`/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country1.name}.pdf`} 
+								<a href={`/osh-barometer/osh-steering/country-profile/National-Strategies-Mapping_${this.state.country1.name}.pdf`} 
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         	</p>
 						)}
