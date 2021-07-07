@@ -7,14 +7,10 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
-import { connect } from 'react-redux';
-import { setDefaultCountry2 } from '../../actions/';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCountry1, setCountry2, setLockedCountry } from '../../actions/';
 
 const OverallOpinion = (props) => {
-
-	// Update the title of the page
-	document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
-
 	let selected = '';
 	for (let i = 0; i < overallOpinion.length; i++)
 	{
@@ -24,50 +20,44 @@ const OverallOpinion = (props) => {
 		}
 	}
 
-	let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
-	let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
+	// state from redux
+	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = useSelector((state) => state.selectCountries);
 
-	const [selectCountry1,setSelectCountry1]=useState(country1);
-	const [selectCountry2,setSelectCountry2]=useState(country2);
-	const [dimension, setDimension] = React.useState(window.innerWidth > 768 ? 'column' : 'bar')
+	const [selectCountry1, setSelectCountry1] = useState(selectedByUser ? lockedCountry : selectCountry);
+	// const [countryLocked, setCountryLocked] = useState(lockedCountry);
+	const [dimension, setDimension] = useState(window.innerWidth > 768 ? 'column' : 'bar');
 	const [change, setChange]=useState(true)
-	const [title, setTitle] = React.useState('')
+	const [title, setTitle] = useState('')
 	const [legend, setLegend] = useState('')
 	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
 	const [selectedTab, setSelectedTab] = useState(selected);
 	console.log("selectedTab",selectedTab);
-    // const [indicatorTabs, setIndicatorTabs] = useState(overallOpinion);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
+	// dispatcher
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		updateDimension();
 		window.addEventListener('resize',updateDimension);
-		return ()=> window.removeEventListener('resize',updateDimension);
+		return () => window.removeEventListener('resize',updateDimension);
 	}, [window.innerWidth])
 
 	useEffect(() => {
-		if (props.country1)
-		{
-			setSelectCountry1(props.country1);
+		if (selectedByUser && props.country1) {
+			dispatch(setLockedCountry(props.country1))
+		} else if (!selectedByUser && props.country1) {
+			dispatch(setCountry1(props.country1))
 		}
-		else if (props.defaultCountry.code != '0')
-		{
-			setSelectCountry1(props.defaultCountry.code);
+
+		if (props.country2) {
+			dispatch(setCountry2(props.country2))
 		}
-	
-		if (props.defaultCountry2.code)
-		{
-			setSelectCountry2(props.defaultCountry2.code);
-		}
-		else if (props.country2)
-		{
-			setSelectCountry2(props.country2);
-		}
-		/*setSelectCountry1(props.defaultCountry.code);
-		setSelectCountry2(props.defaultCountry2.code);*/
-	}, [props.defaultCountry.code, props.defaultCountry2.code])
+		
+		// Update the title of the page
+		document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
+	},[])
 
  
 	const updateDimension = () =>{
@@ -112,14 +102,15 @@ const OverallOpinion = (props) => {
 
 	const handleSearch = (selectCountry1) => {
 		setSelectCountry1(selectCountry1);
+		// if (selectedByUser) {
+		// }
+		//  else {
+		// 	setCountryLocked(selectCountry1)
+		// }
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
-		setSelectCountry2(selectCountry2)
-		props.setDefaultCountry2({
-			code: selectCountry2,
-			isCookie : false
-		})
+		dispatch(setCountry2(selectCountry2));
 	}
 
 	return(
@@ -221,12 +212,5 @@ const OverallOpinion = (props) => {
 	
 }
 
-function mapStateToProps(state){
-    const { defaultCountry } = state;
-	const { defaultCountry2 } = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
-}
-
 OverallOpinion.displayName = 'OverallOpinion';
-// export default OverallOpinion;
-export default connect(mapStateToProps, { setDefaultCountry2 } )(OverallOpinion);
+export default OverallOpinion;

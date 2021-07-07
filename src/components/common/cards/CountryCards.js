@@ -52,7 +52,7 @@ class CountryCards extends Component{
             if(countryData.countryCode != 'IS' && countryData.countryCode != 'NO' && countryData.countryCode != 'CH'){
                 downloadReport = (
                     <p className="download-report">
-                        <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+countryData.countryName+".pdf"} className="download-pdf" target="_blank">
+                        <a href={"/osh-barometer/osh-steering/social-dialogue/Social_Dialogue_"+countryData.countryName+".pdf"} className="download-pdf" target="_blank">
                             {ReactHtmlParser(this.props.literals.L20637)}
                         </a>
                     </p>

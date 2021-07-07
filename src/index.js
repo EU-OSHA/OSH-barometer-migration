@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { createStore } from 'redux';
+import { applyMiddleware, createStore, } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducers';
 
 // App
@@ -55,7 +56,11 @@ import ScrollToTop from './components/common/hook/ScrollToTop';
 import { Cookies, CookiesProvider, useCookies } from 'react-cookie';
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 
-const store = createStore(reducer);
+const middlewares = composeWithDevTools(
+	applyMiddleware(),
+)
+
+const store = createStore(reducer, middlewares);
 const literals = require('./model/Literals.json');
 
 const PIWIK = process.env.PIWIK != undefined ? process.env.PIWIK : "local" ;
@@ -89,8 +94,8 @@ ReactDOM.render(
 					render={routeParams => <App literals={literals}><EconomicSectorProfile country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} 
 				/>
 				<Route
-					path="/generic-information/workforce-profile/:indicator/" 
-					render={routeParams => <App literals={literals}><WorkforceProfile literals={literals} indicator={routeParams.match.params.indicator} subindicator={routeParams.match.params.subIndicator}/></App>} 
+					path="/generic-information/workforce-profile/:indicator/:subIndicator" 
+					render={routeParams => <App literals={literals}><WorkforceProfile literals={literals} indicator={routeParams.match.params.indicator} subIndicator={routeParams.match.params.subIndicator}/></App>} 
 				/>
 
 				<Route exact path="/osh-steering/country-profile/:indicator/:country1/:country2?" render={routeParams => <App literals={literals}><CountryProfile indicator={routeParams.match.params.indicator} country1={routeParams.match.params.country1} country2={routeParams.match.params.country2} literals={literals}/></App>} />

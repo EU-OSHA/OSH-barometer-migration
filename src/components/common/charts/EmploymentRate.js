@@ -118,9 +118,9 @@ class EmploymentRate extends Component {
 					symbolRadius: 0,
 					itemMarginTop:4,
 					itemMarginBottom:4,
-					align: 'center',
+					// align: 'center',
 					// itemWidth: this.props.fullCountryReport ? 250 : 80,
-					itemDistance: this.props.fullCountryReport ? 10 : 3,
+					itemDistance: this.props.fullCountryReport ? 10 : 1,
 
 					//width: 200,
 					itemStyle: {

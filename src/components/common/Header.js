@@ -191,7 +191,7 @@ class Header extends Component
 								<span>{this.props.literals[level.name]}</span>
 							</Link> 
 							:
-							<Link to={level.link+this.props.defaultCountry.code} id={level.id} accessKey={level.accesskey}>
+							<Link to={`${level.link}${this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry}/${this.props.selectCountry2}`} id={level.id} accessKey={level.accesskey}>
 								<span>{this.props.literals[level.name]}</span>
 							</Link>
 						}
@@ -340,9 +340,9 @@ class Header extends Component
 }
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-    return { defaultCountry: defaultCountry };
+	const { selectCountry, selectCountry2, lockedCountry, selectedByUser } = state.selectCountries
+    return { selectCountry, selectCountry2, lockedCountry, selectedByUser };
 }
 
 // export default Header;
-export default connect(mapStateToProps, null )(Header);
+export default connect(mapStateToProps)(Header);

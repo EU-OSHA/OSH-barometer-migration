@@ -8,56 +8,61 @@ import SelectEconomic from '../common/select-filters/SelectEconomic';
 import Chart from '../common/charts/Chart'
 import ChartHuman from '../common/charts/ChartHuman';
 import IncomerPercapital from '../common/charts/IncomePerCapita';
-import { connect } from 'react-redux';
-import { setDefaultCountry2 } from '../../actions/';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCountry1, setCountry2 } from '../../actions/';
 
 const EconomicSectorProfile = (props) => {
-
-	// Update the title of the page
-	document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
-
-	const history = useHistory();
-
-	const [selectCountry1, setSelectCountry1] = useState(props.defaultCountry.code);
-	const [selectCountry2, setSelectCountry2] = useState(props.defaultCountry2.code);
+	// Get global state for the selects
+	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = useSelector((state) => state.selectCountries);
+	const [countryLocked, setCountryLocked] = useState(lockedCountry);
 	const [chart,setChart]=useState('20014');
 	const [indicator,setIndicator]=useState('36');
 	const [chart2,setChart2]=useState('20013');
 	const [indicator2,setIndicator2]=useState('35');
+	const history = useHistory();
+
+	// Hook for the dispatchs
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (props.country1)
-		{
-			setSelectCountry1(props.country1);
-		}
-		else if (props.defaultCountry.code != '0')
-		{
-			setSelectCountry1(props.defaultCountry.code);
-		}
-	
-		if (props.country2)
-		{
-			setSelectCountry2(props.country2);
-		}
-		else
-		{
-			setSelectCountry2(props.defaultCountry2.code);
-		}
-	}, [props.defaultCountry.code])
+		// Update the title of the page
+		document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
 
-	const updateURL = (country1, country2) =>
-	{
-		let url = '/generic-information/economic-sector-profile';
-		if (country1)
-		{
-			url = `${url}/${country1}`;
+		if (selectedByUser) {
+			return null
+		} else {
+			dispatch(setCountry1(props.country1))
 		}
-		if (country2 && country2 != '0')
-		{
-			url = `${url}/${country2}`;
+
+		if (props.country2 == '' || props.country2 == undefined) {
+			dispatch(setCountry2(''));
+		} else {
+			dispatch(setCountry2(props.country2))
 		}
+	},[])
+	
+	useEffect(() => {
+		if (selectedByUser) {
+			updateURL(countryLocked, selectCountry2);
+		} else {
+			updateURL(selectCountry, selectCountry2)
+		}
+	}, [selectCountry, selectCountry2, countryLocked, selectedByUser])
+
+	const updateURL = (country1, country2) => {
+		const url = '/generic-information/economic-sector-profile';
+		let newUrl
+
+		if (country1) {
+			newUrl = `${url}/${country1}`
+		}
+
+		if (country2) {
+			newUrl = `${url}/${country1}/${country2}` 
+		}
+
 		history.push({
-			pathname: url
+			pathname: newUrl
 		})
 	}
 
@@ -93,17 +98,15 @@ const EconomicSectorProfile = (props) => {
 	}
 
 	const handleSearch = (selectCountry1) => {
-		setSelectCountry1(selectCountry1);
-		updateURL(selectCountry1, selectCountry2);
+		if (selectedByUser) {
+			setCountryLocked(selectCountry1)
+		} else {
+			dispatch(setCountry1(selectCountry1))
+		}
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
-		setSelectCountry2(selectCountry2);
-		props.setDefaultCountry2({
-			code: selectCountry2,
-			isCookie : false
-		});
-		updateURL(selectCountry1, selectCountry2);
+		dispatch(setCountry2(selectCountry2))
 	}
 
 		return(
@@ -120,7 +123,7 @@ const EconomicSectorProfile = (props) => {
 								handleSearch2={handleSearch2} 
 								charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
 								literals={props.literals}
-								selectedCountry1={selectCountry1}
+								selectedCountry1={selectedByUser ? countryLocked : selectCountry}
 								selectedCountry2={selectCountry2}	
 								/>
 						</ul>
@@ -149,7 +152,7 @@ const EconomicSectorProfile = (props) => {
 									tick={40}
 									percentage={true}
 									type='bar'
-									selectCountry1={selectCountry1}
+									selectCountry1={selectedByUser ? countryLocked : selectCountry}
 									selectCountry2={selectCountry2}
 									chart={'20089'}
 									indicator={'31'}
@@ -173,7 +176,7 @@ const EconomicSectorProfile = (props) => {
 									tick={20}
 									percentage={true}
 									type='bar'
-									selectCountry1={selectCountry1}
+									selectCountry1={selectedByUser ? countryLocked : selectCountry}
 									selectCountry2={selectCountry2}
 									chart={'20010'}
 									indicator={'32'}
@@ -199,7 +202,7 @@ const EconomicSectorProfile = (props) => {
 									tick={10}
 									percentage={true}
 									type='bar'
-									selectCountry1={selectCountry1}
+									selectCountry1={selectedByUser ? countryLocked : selectCountry}
 									selectCountry2={selectCountry2}
 									chart={'20011'}
 									indicator={'33'}
@@ -227,7 +230,7 @@ const EconomicSectorProfile = (props) => {
 											showDataLabel={true}
 											percentage='ft'
 											type='column'
-											selectCountry1={selectCountry1}
+											selectCountry1={selectedByUser ? countryLocked : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={chart2}
 											indicator={indicator2}									
@@ -258,7 +261,7 @@ const EconomicSectorProfile = (props) => {
 											tick={5000}
 											percentage='€'
 											type='line'
-											selectCountry1={selectCountry1}
+											selectCountry1={selectedByUser ? countryLocked : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={chart}
 											indicator={indicator}
@@ -281,12 +284,5 @@ const EconomicSectorProfile = (props) => {
 	
 }
 
-function mapStateToProps(state){
-    const { defaultCountry } = state;
-	const { defaultCountry2 } = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
-}
-
 EconomicSectorProfile.displayName = 'EconomicSectorProfile';
-// export default EconomicSectorProfile;
-export default connect(mapStateToProps, { setDefaultCountry2 } )(EconomicSectorProfile);
+export default EconomicSectorProfile;

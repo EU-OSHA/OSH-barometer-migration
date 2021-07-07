@@ -3,6 +3,7 @@ import Highcharts from 'highcharts/highmaps';
 import HighchartsReact from 'highcharts-react-official';
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
+require('highcharts/modules/pattern-fill')(Highcharts);
 import { getCountryDataMap } from '../../../api'
 import { nodeName, timers } from 'jquery';
 
@@ -77,13 +78,10 @@ class MapChart extends Component {
 					align: 'right',
 					verticalAlign: 'top',
 					y: 45,
-					//backgroundColor: 'rgba(255,255,255,0.85)',
-					//floating: true,
-					//y: 25
 				},
 				colorAxis: {
 					//min: 1,
-					// type: 'logarithmic',
+					type: 'logarithmic',
 					// minColor: 'rgb(82 159 162 / 10%)',
 					// maxColor: 'rgb(82 159 162 / 100%)',
 					// stops: [
@@ -92,27 +90,39 @@ class MapChart extends Component {
 					// 	[1, 'rgb(82 159 162 / 100%)']
 					// ]
 					minColor: '#dcecec',
-                    maxColor: '#529fa2',
-                    stops: [
-                        [0.1, '#dcecec'],
-                        [0.5, '#a8cfd0'],
-                        [0.6, '#78b4b6'],
-                        [0.8, '#519ea1'],
-                        [1,'#529fa2'],
+                    maxColor: '#4a8e91',
+					stops: [
+                        [0, '#DAEBEC'],
+                        // [0.25, '#badddd'],
+                        [0.5, '#B4D6D7'],
+                        // [0.75, '#78b4b6'],
+                        [1,'#4a8e91'],
                     ]
+                    // stops: [
+                    //     [0.1, '#dcecec'],
+                    //     [0.5, '#a8cfd0'],
+                    //     [0.6, '#78b4b6'],
+                    //     [0.8, '#519ea1'],
+                    //     [1,'#529fa2'],
+                    // ]
 				},
 				plotOptions: {
+					map: {
+                        nullColor: '#F0F0F0'
+                    },
 					series: {
 						allowPointSelect: true,
 						cursor: 'pointer',
+						borderColor: '#c4c4c4',
+						borderWidth: 2,
 						states:{
 							hover: {
-								//enabled: true,
+								enabled: true,
+								borderColor: '#57575A',
 								//color:'#000000'
 							},
 							select: {
-								color: '#f6a400',
-								dashStyle: 'dot'
+								color: '#f6a400'
 							}
 						},
 						point: {
@@ -124,32 +134,7 @@ class MapChart extends Component {
 						}
 					}
 				},			
-				series: [{
-					//name: "country",
-					//data:[['de',4]	],					
-					dataLabels: {
-						enabled: true,
-						color: '#000',
-						y:-7,
-						style: {
-							textShadow: false, 
-							textOutline: "#c7e2e3",
-							fontFamily: 'OpenSans-Bold',
-							fontSize:'14px'
-						},
-						formatter: function () {
-							if (this.point.value) {
-                                if(this.point["hc-key"] === "gr"){
-                                    return "EL";
-                                }else if(this.point["hc-key"] === "gb"){
-                                    return "UK";
-                                }else{
-                                    return this.point["hc-key"].toUpperCase();
-                                }
-							}
-						}
-					}
-				}]
+				series: []
 			}
 		}	
 	}
@@ -157,30 +142,79 @@ class MapChart extends Component {
 
 
 	getLoadData = (select) => {
-		const datos = [];
+		const data = [];
 		let series = [];
-		let auxSeries = [];
-		let name = [];
 		getCountryDataMap(select)
 			.then((response)=> response)
 			.then((res) => 
 		{
-			let	seriesObject = {name: '', data:[]}
-			const option =	res.resultset.forEach((element)=>{						
-				let countryCode = element.countryCode.toLowerCase();
-				if(countryCode === "el"){
-					countryCode = "gr";
-				}else if(countryCode === "uk"){
-					countryCode = "gb";
+			let	seriesObject = { name: '', data:[] };
+			let patternObject = { name: '', data: [], 					
+				dataLabels: {
+					enabled: true,
+					color: '#000',
+					y:-7,
+					style: {
+						textShadow: false, 
+						textOutline: "#c7e2e3",
+						fontFamily: 'OpenSans-Bold',
+						fontSize:'14px'
+					},
+					formatter: function () {
+						if (this.point.value) {
+							if(this.point["hc-key"] === "gr"){
+								return "EL";
+							}else if(this.point["hc-key"] === "gb"){
+								return "UK";
+							}else{
+								return this.point["hc-key"].toUpperCase();
+							}
+						}
+					}
 				}
-				datos.push(countryCode,element.data[select])
+			};
+			let data = [];
+			res.resultset.forEach((element)=>{						
+				let countryCode = element.countryCode.toLowerCase();
+				if (countryCode != 'eu27_2020' && countryCode != 'eu28')
+				{
+					if(countryCode === "el"){
+						countryCode = "gr";
+					}else if(countryCode === "uk"){
+						countryCode = "gb";
+					}
+					data.push({ countryCode: countryCode, value: element.data[select] });
+				}
 			})
+			
+			data.forEach((element) => {
+				if(element.value != undefined){
+					seriesObject.data.push([element.countryCode, element.value]);
+				}
 				
-			for (let i = 0; i< datos.length; i += 2){
-				let arry = datos.slice(i,i+2)
-				seriesObject.data.push(arry);	
-			}
-			series.push(seriesObject)
+				if (element.countryCode == "no" || element.countryCode == "is" || element.countryCode == "ch")
+				{
+					patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
+						pattern: {
+						  path: {
+							d: 'M 0 10 L 10 0 M -10 10 L 10 -10 M 8 12 L 12 8',
+							strokeWidth: 2
+						  },
+						  color: '#fff',
+						  width: 10,
+						  height: 10,
+						  opacity: 0.6
+						}
+					  }, borderColor:'white'});
+				}
+				else
+				{
+					patternObject.data.push({'hc-key': element.countryCode, value: element.value, borderColor: 'white'});
+				}
+			})
+			
+			series.push(seriesObject);
+			series.push(patternObject);
 
 			this.setState({chartConfig: {...this.state.chartConfig, series }})
 		});		
@@ -209,7 +243,7 @@ class MapChart extends Component {
 	}
 
 	render()
-	{		
+	{
 		return(
 			<div>
 				<HighchartsReact

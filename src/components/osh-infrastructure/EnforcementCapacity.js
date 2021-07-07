@@ -9,10 +9,9 @@ import { enforcementCapacityTabs } from '../../model/subMenuTabs';
 import CountryProfileTextTab from '../common/CountryProfileTextTab';
 import { getOSHData } from '../../api';
 import { connect } from 'react-redux';
-import { setDefaultCountry2 } from '../../actions/';
+import { setCountry1, setCountry2 } from '../../actions/';
 
 class EnforcementCapacity extends Component {
-
 	constructor(props){
 		super(props);
 
@@ -25,16 +24,8 @@ class EnforcementCapacity extends Component {
 			}
 		}
 
-		let country1 = props.country1 ? props.country1 : props.defaultCountry ? props.defaultCountry.code : 'AT';
-		let country2 = props.country2 ? props.country2 : props.defeultCountry2 ? props.defaultCountry2.code : '0';
-
 		this.state={
-			defaultCountrySelected: false,
-			defaultCountry2Selected: false,
-			selectCountry1: country1,
-			// selectCountry1: this.props.country1 != undefined ? this.props.country1 : 'AT'  ,
-			// selectCountry2: this.props.country2 != undefined ? this.props.country2 : '0',
-			selectCountry2: country2,
+			lockedCountry: this.props.lockedCountry,
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
@@ -54,17 +45,19 @@ class EnforcementCapacity extends Component {
 	}
 
 	handleSearch = (callbackCountry1) => {
-		this.setState({ selectCountry1: callbackCountry1 });
+		if (!this.props.selectedByUser) {
+			this.props.setCountry1(callbackCountry1);
+		} else {
+			this.setState({
+				lockedCountry: callbackCountry1
+			});
+		}
 		this.setState({ filters: {countries: [{code: callbackCountry1}, this.state.filters.countries[1]]} })
 	}
 
 	handleSearch2 = (callbackCountry2) => {
-		this.setState({ selectCountry2: callbackCountry2 });
+		this.props.setCountry2(callbackCountry2);
 		this.setState({ filters: { countries: [this.state.filters.countries[0], {code: callbackCountry2}]} })
-		this.props.setDefaultCountry2({
-			code: callbackCountry2,
-			isCookie : false
-		})
 	}
 
 	callbackSelectedTab = (callback) => {
@@ -87,30 +80,31 @@ class EnforcementCapacity extends Component {
 				if (countriesData.length == 0) {
 					this.setState({ 
 						countryText1: '', 
-						countryData1: { code: this.state.selectCountry1, name: ''}, 
+						countryData1: { code: this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry, name: ''}, 
 						countryText2: '', 
-						countryData2: { code: this.state.selectCountry2, name: '' },
+						countryData2: { code: this.props.selectCountry2, name: '' },
 						noInfoTexts1: ['20706' ,'20740'],
 						noInfoTexts2: ['20706' ,'20740']
 					});
 				} 
-				else if (countriesData.length > 0 && this.state.selectCountry2 == '0') {
+				else if (countriesData.length > 0 && this.props.selectCountry2 == '0') {
 					this.setState({ countryText2: null, countryData2: undefined })
 				}
 
-				const indexCountry1 = countriesData.findIndex((element) => element.country.code == this.state.selectCountry1)
-				const indexCountry2 = countriesData.findIndex((element) => element.country.code == this.state.selectCountry2)
+				const specificCountry = this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry ;
+				const indexCountry1 = countriesData.findIndex((element) => element.country.code == specificCountry)
+				const indexCountry2 = countriesData.findIndex((element) => element.country.code == this.props.selectCountry2)
 
 				if (countriesData[indexCountry1] != undefined) {
 					this.setState({ countryData1: countriesData[indexCountry1].country, noInfoTexts1: [] })
 				} else {
-					this.setState({ countryData1: { code: this.state.selectCountry1, name: ''}, countryText1: '', noInfoTexts1: ['20706' ,'20740'] })
+					this.setState({ countryData1: { code: this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry, name: ''}, countryText1: '', noInfoTexts1: ['20706' ,'20740'] })
 				}
 
 				if (countriesData[indexCountry2] != undefined) {
 					this.setState({ countryData2: countriesData[indexCountry2].country, noInfoTexts2: [] })
 				} else {
-					this.setState({ countryData2: { code: this.state.selectCountry2, name: '' }, countryText2: '', noInfoTexts2: ['20706' ,'20740'] })
+					this.setState({ countryData2: { code: this.props.selectCountry2, name: '' }, countryText2: '', noInfoTexts2: ['20706' ,'20740'] })
 				}
 
 				if (countriesData.length > 0) {
@@ -153,7 +147,12 @@ class EnforcementCapacity extends Component {
 			|| this.state.selectedTab.url == 'inspector-powers' 
 			|| this.state.selectedTab.url == 'strategy-plan') {
 				this.getStrategiesData();
-			} 
+			}
+
+		if (this.props.country1 != undefined && this.props.country2 != undefined) {
+			this.props.setCountry1(this.props.country1);
+			this.props.setCountry2(this.props.country2);
+		}
 		
 		// Update the title of the page
 		document.title = this.props.literals.L22017 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
@@ -161,31 +160,10 @@ class EnforcementCapacity extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.selectedTab != this.state.selectedTab 
-			|| prevState.selectCountry1 != this.state.selectCountry1 
-			|| prevState.selectCountry2 != this.state.selectCountry2) {
+			|| prevProps.selectCountry != this.props.selectCountry 
+			|| prevProps.selectCountry2 != this.props.selectCountry2
+			|| prevState.lockedCountry != this.state.lockedCountry) {
 				this.getStrategiesData();
-		}
-
-		if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
-			this.setState({ selectCountry1: this.props.defaultCountry.code });
-		}else {
-			if(!this.state.defaultCountrySelected && !this.props.country1){
-				this.setState({ 
-					selectCountry1: this.props.defaultCountry.code,
-					defaultCountrySelected: true
-				});
-			}
-		}
-
-		if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code && !this.props.country2){
-			this.setState({ selectCountry2: this.props.defaultCountry2.code });
-		}else{
-			if(!this.state.defaultCountry2Selected && !this.props.country2){
-				this.setState({ 
-					selectCountry2: this.props.defaultCountry2.code,
-					defaultCountry2Selected: true
-				});
-			}
 		}
 	}
 
@@ -202,8 +180,8 @@ class EnforcementCapacity extends Component {
 						callbackSelectedTab={this.callbackSelectedTab}
 						locationPath={this.state.currentPath}
 						subMenuTabs={this.state.indicatorSubTabs} 
-						selectCountry1={this.state.selectCountry1}
-						selectCountry2={this.state.selectCountry2}
+						selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+						selectCountry2={this.props.selectCountry2}
 						/>
 				</div>
 
@@ -214,8 +192,8 @@ class EnforcementCapacity extends Component {
 						handleSearch={this.handleSearch} 
 						handleSearch2={this.handleSearch2}
 						literals={this.props.literals}
-						selectedCountry1={this.state.selectCountry1}
-						selectedCountry2={this.state.selectCountry2}
+						selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+						selectedCountry2={this.props.selectCountry2}
 						/>
 				</div>
 
@@ -245,8 +223,8 @@ class EnforcementCapacity extends Component {
 														tick={20}
 														percentage={true}
 														type={'column'}
-														selectCountry1={this.state.selectCountry1}
-														selectCountry2={this.state.selectCountry2}
+														selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+														selectCountry2={this.props.selectCountry2}
 														chart={element.chartType[0].chart}
 														indicator={element.chartType[0].chartIndicator}
 														sector={element.chartType[0].sector}
@@ -281,7 +259,7 @@ class EnforcementCapacity extends Component {
 				</div>
 
 				<Methodology literals={this.props.literals} section={'Enforcement capacity'} indicator={this.state.selectedTab.chartType != undefined ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.indicator }/>
-				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} country1={this.state.selectCountry1} country2={this.state.selectCountry2} />
+				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} country1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry} country2={this.props.selectCountry2} />
 			</div>
 		)
 	}
@@ -289,10 +267,16 @@ class EnforcementCapacity extends Component {
 EnforcementCapacity.displayName = 'EnforcementCapacity';
 
 function mapStateToProps(state){
-    const {defaultCountry} = state;
-	const {defaultCountry2} = state;
-    return { defaultCountry: defaultCountry, defaultCountry2: defaultCountry2 };
+	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = state.selectCountries;
+    return { selectCountry, selectCountry2, selectedByUser, lockedCountry };
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		setCountry1: (country) => dispatch(setCountry1(country)),
+		setCountry2: (country2) => dispatch(setCountry2(country2))
+	}
 }
 
 // export default EnforcementCapacity;
-export default connect(mapStateToProps, { setDefaultCountry2 } )(EnforcementCapacity);
+export default connect(mapStateToProps, mapDispatchToProps )(EnforcementCapacity);
