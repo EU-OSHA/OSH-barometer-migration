@@ -25,6 +25,7 @@ class MapChart extends Component {
 					width: 1024,
 					backgroundColor: '#F0F0F0'
 				},
+				countrySelected: '',
 
 				title: {
 					text: this.props.title
@@ -128,7 +129,17 @@ class MapChart extends Component {
 						point: {
 							events: {
 								click: this.countrySelect = (e) =>  {
-									this.handleSelect(e)
+									if (this.state.countrySelected != e.point.name) {
+										this.setState({
+											countrySelected: e.point.name
+										})
+
+
+										this.handleSelect(e)
+									} else {
+										e.preventDefault()
+									}
+									
 								}
 							}
 						}
@@ -230,7 +241,7 @@ class MapChart extends Component {
 		handleSearch(country)
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps, prevState){
 		if (prevProps.select != this.props.select){
 			this.getLoadData(this.props.select)
 		}
