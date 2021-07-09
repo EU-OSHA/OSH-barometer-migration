@@ -53,6 +53,10 @@ class WorkforceProfile extends Component
 	}
 
 	handleSearch = (country) => {
+		if (country == 'Czech Republic')
+		{
+			country = 'Czechia';
+		}
 		this.setState({countryName: country})
 		this.setState({visible: false})
 	}
