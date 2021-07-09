@@ -190,26 +190,26 @@ class MapChart extends Component {
 			data.forEach((element) => {
 				if(element.value != undefined){
 					seriesObject.data.push([element.countryCode, element.value]);
-				}
-				
-				if (element.countryCode == "no" || element.countryCode == "is" || element.countryCode == "ch")
-				{
-					patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
-						pattern: {
-						  path: {
-							d: 'M 0 10 L 10 0 M -10 10 L 10 -10 M 8 12 L 12 8',
-							strokeWidth: 2
-						  },
-						  color: '#fff',
-						  width: 10,
-						  height: 10,
-						  opacity: 0.6
-						}
-					  }, borderColor:'white'});
-				}
-				else
-				{
-					patternObject.data.push({'hc-key': element.countryCode, value: element.value, borderColor: 'white'});
+
+					if (element.countryCode == "no" || element.countryCode == "is" || element.countryCode == "ch")
+					{
+						patternObject.data.push({'hc-key': element.countryCode, value: element.value, color: {
+							pattern: {
+							path: {
+								d: 'M 0 10 L 10 0 M -10 10 L 10 -10 M 8 12 L 12 8',
+								strokeWidth: 2
+							},
+							color: '#fff',
+							width: 10,
+							height: 10,
+							opacity: 0.6
+							}
+						}, borderColor:'white'});
+					}
+					else
+					{
+						patternObject.data.push({'hc-key': element.countryCode, value: element.value, borderColor: 'white'});
+					}
 				}
 			})
 			
