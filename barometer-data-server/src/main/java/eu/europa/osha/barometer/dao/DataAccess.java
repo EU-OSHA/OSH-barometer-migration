@@ -115,7 +115,7 @@ public class DataAccess {
 		if (pChartID.indexOf("20010") > -1)
 		{
 			// The page is Economic and Sector Profile, Switzerland and Norway must go at the end of the list
-			queryBuilder.append(") order by field(n.country_code, 'CH','NO') asc, n.country_code asc");
+			queryBuilder.append(")");
 		}
 		else
 		{
