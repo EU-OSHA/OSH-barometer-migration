@@ -383,7 +383,7 @@ public class QuantitativeDataAccess {
 			
 			String countryCode = null, countryName;
 			String split, splitName = null, auxSplit;
-			double value;
+			Double value;
 			
 			ResultSetMetaData rsmeta = rs.getMetaData();
 			
@@ -409,7 +409,14 @@ public class QuantitativeDataAccess {
 				{
 					countryCode = rs.getString(1);
 					countryName = rs.getString(2);
-					value = rs.getDouble(3);
+					if (rs.getObject(3) == null)
+					{
+						value = null;
+					}
+					else
+					{
+						value = rs.getDouble(3);
+					}
 					
 					iData.setCountry(countryCode, countryName, pCountryCodeFirst);
 					iData.setCountryCode(countryCode);
@@ -420,7 +427,14 @@ public class QuantitativeDataAccess {
 					split = rs.getString(1);
 					countryCode = rs.getString(2);
 					countryName = rs.getString(3);
-					value = rs.getDouble(4);
+					if (rs.getObject(4) == null)
+					{
+						value = null;
+					}
+					else
+					{
+						value = rs.getDouble(4);
+					}
 					
 					iData.setSplit(split);
 					iData.setCountry(countryCode, countryName, pCountryCodeFirst);
@@ -433,7 +447,14 @@ public class QuantitativeDataAccess {
 					split = rs.getString(1);
 					countryCode = rs.getString(2);
 					countryName = rs.getString(3);
-					value = rs.getDouble(4);
+					if (rs.getObject(4) == null)
+					{
+						value = null;
+					}
+					else
+					{
+						value = rs.getDouble(4);
+					}
 					auxSplit = rs.getString(5);
 					
 					iData.setSplit(split);

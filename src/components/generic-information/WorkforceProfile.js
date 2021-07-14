@@ -25,8 +25,8 @@ class WorkforceProfile extends Component
 			visible: true,
 			select:"Median age of population",
 			countries:[],
-			countryCode:"AT",
-			countryName: "Austria",
+			countryCode:"",
+			countryName: "",
 			flag: '',
 			data: {
 				employment:"",
@@ -53,6 +53,10 @@ class WorkforceProfile extends Component
 	}
 
 	handleSearch = (country) => {
+		if (country == 'Czech Republic')
+		{
+			country = 'Czechia';
+		}
 		this.setState({countryName: country})
 		this.setState({visible: false})
 	}
@@ -76,28 +80,34 @@ class WorkforceProfile extends Component
 				const option = res.resultset.find((element) => element.countryName == countryName && element.countryName != 'EU27_2020')
 				const data = option.data
 				const euData = res.resultset.find((element) => element.countryName == 'EU27_2020').data;
-				this.setState({
-					countries: res.resultset,
-					countryName: option.countryName,
-					countryCode: option.countryCode,
-					flag: option.countryCode.toLowerCase(),
-					data:{
-						employment: data['Ageing workers (55 to 64) employment rate'],
-						mediaAge: data['Median age of population'],
-						unemployment: data['Unemployment rate'],
-						female: data['Total, male and female employment rate - Female'],
-						male: data['Total, male and female employment rate - Male'],
-						total: data['Total, male and female employment rate - Total']
-					},
-					euData:{
-						employment: euData['Ageing workers (55 to 64) employment rate'],
-						mediaAge: euData['Median age of population'],
-						unemployment: euData['Unemployment rate'],
-						female: euData['Total, male and female employment rate - Female'],
-						male: euData['Total, male and female employment rate - Male'],
-						total: euData['Total, male and female employment rate - Total']
-					}
-				})
+				try {
+					this.setState({
+						countries: res.resultset,
+						countryName: option.countryName,
+						countryCode: option.countryCode,
+						flag: option.countryCode.toLowerCase(),
+						data:{
+							employment: data['Ageing workers (55 to 64) employment rate'],
+							mediaAge: data['Median age of population'],
+							unemployment: data['Unemployment rate'],
+							female: data['Total, male and female employment rate - Female'],
+							male: data['Total, male and female employment rate - Male'],
+							total: data['Total, male and female employment rate - Total']
+						},
+						euData:{
+							employment: euData['Ageing workers (55 to 64) employment rate'],
+							mediaAge: euData['Median age of population'],
+							unemployment: euData['Unemployment rate'],
+							female: euData['Total, male and female employment rate - Female'],
+							male: euData['Total, male and female employment rate - Male'],
+							total: euData['Total, male and female employment rate - Total']
+						}
+					})
+				} catch (err) {
+					console.log('Error: ', err)
+				}
+				
+				
 			})
 	}
 
@@ -194,13 +204,26 @@ class WorkforceProfile extends Component
 	}
 
 	refresh = ()=>{
-		
 		this.setState({
 			visible:!this.state.visible, 
-			unselect: !this.state.unselect})
+			unselect: !this.state.unselect,
+			countryCode:"",
+			countryName: "",
+			flag: '',
+			data: {
+				employment:"",
+				mediaAge:"",
+				unemployment:"",
+				female:"",
+				male:"",
+				total:""
+			}
+		})
 	}
 
 	callbackSelect = (option)=>{
+		this.refresh();
+		
 		
 		this.setState({select: option})
 		switch(option){
@@ -306,13 +329,13 @@ class WorkforceProfile extends Component
 								
 							</div>
 							<div className="legend--block">
-								{ this.state.visible ? <div> <p className="help-text container"><strong>Click on a country to compare</strong> the data <span className="exclamation" aria-hidden="true">
-								</span></p> </div> : false}
-											{ this.state.visible ? false :
-											<div className="map--legend--block map--countries--legend container">
+								{ this.state.visible ? 
+									(<div>
+										<p className="help-text container"><strong>Click on a country to compare</strong> the data <span className="exclamation" aria-hidden="true"></span></p> 
+									</div>) : (
+										<div className="map--legend--block map--countries--legend container">
 											<div className="matrix--header--elements">
 												<img className="flags--wrapper" src={images[this.state.flag]} />
-												
 												<h2 className="country title-section main-color">{this.state.countryName}</h2>
 											</div>
 											<ul className="matrix--elements--data">
@@ -342,7 +365,9 @@ class WorkforceProfile extends Component
 												</li>
 											</ul>
 											<span className="close-legend" onClick={this.refresh}><i className="fa fa-times" ></i></span>
-											</div>	}
+										</div>
+									)}
+											
 
 							</div>
 						</div>

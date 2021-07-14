@@ -116,7 +116,7 @@ class MentalRisk extends Component
 													callbackLegend={this.callbackChartLegend}
 													callbackSelectedSurvey={this.callbackSelectedSurvey}
 													exportingEnabled={true}
-													showSelect={true}
+													showSelect={this.state.selectedTab.chartType.length > 1 ? true : false}
 												/>
 											</div>
 										{/*})

@@ -33,6 +33,10 @@
       {
         "staticPath": "src/pdf/country-report",
         "staticOutDir": "country-report"
+      },
+      {
+        "staticPath": "src/model",
+        "staticOutDir": "model"
       }
     ],
     "watcherGlob": "**"
