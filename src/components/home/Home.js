@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
-import { setLockedCountry } from '../../actions/';
+import { setCountry2, setLockedCountry } from '../../actions/';
 
 const Home = props => {
 	// Global States
-	const { lockedCountry, isCookie, selectedByUser } = useSelector((state) => state.selectCountries);
+	const { lockedCountry, isCookie, selectedByUser, selectCountry2 } = useSelector((state) => state.selectCountries);
 	// Cookies
 	const { cookies } = props;
 
@@ -147,7 +147,12 @@ const Home = props => {
 			setSelectDisabled(!selectDisabled);
 
 			if (!selectDisabled) {
-				dispatch(setLockedCountry(countrySelected, true, true))
+				if (countrySelected == selectCountry2) {
+					dispatch(setCountry2(''));
+					dispatch(setLockedCountry(countrySelected, true, true))
+				} else {
+					dispatch(setLockedCountry(countrySelected, true, true))
+				}
 	
 				if (cookies.get('disclaimerCookie') == 'true') {
 					cookies.set("selectedCountry", countrySelected);
