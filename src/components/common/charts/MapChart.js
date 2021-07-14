@@ -82,7 +82,7 @@ class MapChart extends Component {
 				},
 				colorAxis: {
 					//min: 1,
-					type: 'logarithmic',
+					type: 'linear',
 					// minColor: 'rgb(82 159 162 / 10%)',
 					// maxColor: 'rgb(82 159 162 / 100%)',
 					// stops: [
