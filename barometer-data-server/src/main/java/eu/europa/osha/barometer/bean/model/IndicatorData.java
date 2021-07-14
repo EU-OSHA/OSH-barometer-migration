@@ -9,7 +9,7 @@ public class IndicatorData {
 	private String auxSplit;
 	private String splitName;
 	
-	private double value;
+	private Double value;
 	
 	
 	public String getCountry() {
@@ -56,12 +56,19 @@ public class IndicatorData {
 	public void setAuxSplit(String auxSplit) {
 		this.auxSplit = auxSplit;
 	}
-	public double getValue() {
+	public Double getValue() {
 		return value;
 	}
-	public void setValue(double value) {
-		double auxVal = Math.round(value*10);
-		
-		this.value = auxVal/10;
+	public void setValue(Double value) {
+		if (value != null)
+		{
+			double auxVal = Math.round(value*10);
+			
+			this.value = auxVal/10;
+		}
+		else
+		{
+			this.value = null;
+		}		
 	}
 }
