@@ -372,26 +372,10 @@ class MentalRiskCharts extends Component {
 
                     const reversedArray = [...series].reverse();
                     if (series.length == 2) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {...this.state.chartConfig.xAxis, plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}] ,categories} }})                        
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 1.1', categories.length)
-                        // }
-                        
-                        // if (categories.length > 30) {
-                        //     console.log('trigger 1.2', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 27.5}] ,categories} }})                        
-                        // }
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(1,3), legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {...this.state.chartConfig.xAxis, plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}] ,categories} }})
                         
                     } else if (series.length == 1) {
-                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {...this.state.chartConfig.xAxis,plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})  
-                        // if (categories.length < 31) {
-                        //     console.log('trigger 2.1', categories.length)
-                        // }
-
-                        // if (categories.length > 30) {
-                        //     console.log('trigger 2.1', categories.length)
-                        //     this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5}, {width: '2', color: 'black', value: 29.5}], categories} }})  
-                        // }
+                        this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors.slice(2,3), legend: {...this.state.chartConfig.legend, enabled: false}, xAxis: {...this.state.chartConfig.xAxis,plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], categories} }})
                     }else{
                         this.setState({ chartConfig: {...this.state.chartConfig, series: reversedArray, colors: this.props.colors, legend: {...this.state.chartConfig.legend, enabled: true}, xAxis: {plotLines: [{width: '2', color: 'black', value: 0.5, zIndex:1}, {width: '2', color: 'black', value: 27.5, zIndex:1}], labels: { style: {fontFamily: 'OpenSans-bold', fontWeight: 'normal', fontSize:this.props.fullCountryReport ? '10px' : '12px', color:xAxisColor}}, categories} }})
                     }
@@ -499,13 +483,13 @@ class MentalRiskCharts extends Component {
         }
 
         if (prevProps.chartType != this.props.chartType || prevProps.country != this.props.country)
-        {            
+        {
             this.getLoadData(this.props.chartType);
             this.updateDimension();
         }
 
         if (prevProps.type != this.props.type) {
-            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} }})
+            this.setState({ chartConfig: {...this.state.chartConfig, chart: {...this.state.chartConfig.chart, type: this.props.type} } })
         }
     }
 
@@ -517,12 +501,13 @@ class MentalRiskCharts extends Component {
 
         let selectDiv;
 		if(this.props.showSelect){
+            let selectOptions = this.props.chartType.map((chart) => chart.type);
             selectDiv = (
                 <div className="select-filter-chart-wrapper">
-                    {this.state.typeCharts.length > 1 && (
+                    {selectOptions.length > 1 && (
                         <div className="select-filter-chart">
                             <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                                {this.state.typeCharts.map((type) => {
+                                {selectOptions.map((type) => {
                                     return <option key={type} value={type} > {type.toUpperCase()} </option>
                                 })}
                             </select>
@@ -534,20 +519,7 @@ class MentalRiskCharts extends Component {
 
         return (
             <React.Fragment>
-                    {this.state.selectedTypeChart && (
-                        selectDiv
-                        // <div className="select-filter-chart-wrapper">
-                        //     {this.state.typeCharts.length > 1 && (
-                        //         <div className="select-filter-chart">
-                        //             <select onChange={this.onChangeSelect} value={this.state.selectedTypeChart} >
-                        //                 {this.state.typeCharts.map((type) => {
-                        //                     return <option key={type} value={type} > {type.toUpperCase()} </option>
-                        //                 })}
-                        //             </select>
-                        //         </div>
-                        //     )}
-                        // </div>
-                    )}
+                    {selectDiv}
                     {!this.state.isLoading && (
                         <div className='chart-container'>
                             <HighchartsReact
