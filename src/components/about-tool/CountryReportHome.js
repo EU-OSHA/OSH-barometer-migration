@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
+import { setMethodology } from '../../actions';
 import { getIndicatorCountries } from '../../api';
 import images from '../../style/img/flag/images';
 import AdviceSection from '../common/AdviceSection';
@@ -81,6 +82,9 @@ class CountryReportHome extends Component
 		// Update the title of the page
 		document.title = this.props.literals.L22019 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 
+		// set Methodology to generic information - OSH Authorities
+		this.props.setMethodology('generic-information', 'OSH authorities', 27);
+
 		try {
 			this.setState({ ...this.state, isFetching: true })
 			getIndicatorCountries()
@@ -144,5 +148,11 @@ class CountryReportHome extends Component
 	}
 }
 
+function mapDispatchToProps(dispatch) {
+	return {
+		setMethodology: (section, subSection, indicator) => dispatch(setMethodology(section, subSection, indicator))
+	}
+}
+
 CountryReportHome.displayName = 'CountryReportHome';
-export default CountryReportHome;
+export default connect(null, mapDispatchToProps)(CountryReportHome);

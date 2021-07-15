@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
-import { setCountry2, setLockedCountry } from '../../actions/';
+import { setCountry2, setLockedCountry, setMethodology } from '../../actions/';
 
 const Home = props => {
 	// Global States
@@ -21,6 +21,10 @@ const Home = props => {
 	
 	//Component did mount
 	useEffect(() => {
+
+		// set Methodology
+		dispatch(setMethodology('generic-information', 'OSH authorities', 27));
+
 		// Update the title of the page
 		document.title = 'OSH Barometer | Home';
       
