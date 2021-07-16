@@ -119,7 +119,7 @@ class NationalStrategies extends Component
 						}
 
 						<li className="reset-item">
-							<Link onClick={this.resetFilter} className="btn-default btn-main-color btn-reset">{this.props.literals.L20628}</Link>
+							<button onClick={this.resetFilter} className="btn-default btn-main-color btn-reset">{this.props.literals.L20628}</button>	
 						</li>
 					</ul>
 				</section>
