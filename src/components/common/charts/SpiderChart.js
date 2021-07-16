@@ -500,6 +500,10 @@ class SpiderChart extends Component{
         }
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimension);
+	}
+
 	render()
 	{
 		let selectDiv;
