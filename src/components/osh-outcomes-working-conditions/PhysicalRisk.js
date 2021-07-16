@@ -9,6 +9,7 @@ import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { physicalRiskTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
+import ReactHtmlParser from 'react-html-parser';
 import { setCountry1, setCountry2 } from '../../actions/';
 
 class PhysicalRisk extends Component{
@@ -245,7 +246,7 @@ class PhysicalRisk extends Component{
 						}
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}						
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}						
 					</div>
 				</div>
 

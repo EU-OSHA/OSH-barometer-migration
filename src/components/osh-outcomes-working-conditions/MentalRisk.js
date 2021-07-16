@@ -4,6 +4,7 @@ import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
+import ReactHtmlParser from 'react-html-parser';
 import { mentalRisk } from '../../model/subMenuTabs';
 
 class MentalRisk extends Component
@@ -126,7 +127,7 @@ class MentalRisk extends Component
 						</div>
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 				</div>
 				

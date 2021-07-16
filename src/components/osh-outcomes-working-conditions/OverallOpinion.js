@@ -9,6 +9,7 @@ import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountry1, setCountry2, setLockedCountry } from '../../actions/';
+import ReactHtmlParser from 'react-html-parser';
 
 const OverallOpinion = (props) => {
 	let selected = '';
@@ -156,7 +157,7 @@ const OverallOpinion = (props) => {
 									</div>
 								</div>
 								<div className="chart-legend">
-									{props.literals.L20580}
+									{ReactHtmlParser(props.literals.L20580)}
 								</div>
 							</div>
 						</div>
@@ -197,7 +198,7 @@ const OverallOpinion = (props) => {
 									</div>
 								</div>
 								<div className="chart-legend">
-									{legend2}
+									{ReactHtmlParser(legend2)}
 								</div>
 							</div>
 						</div>

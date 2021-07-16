@@ -5,6 +5,7 @@ import Related from '../common/Related.js';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import HealthAwareness from '../common/charts/HealthAwareness';
 import { oshCulture } from '../../model/subMenuTabs';
+import ReactHtmlParser from 'react-html-parser';
 
 const literals = require('../../model/Literals.json');
 class OSHCulture extends Component
@@ -87,7 +88,7 @@ class OSHCulture extends Component
 				</div>
 
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 	
 				</div>
