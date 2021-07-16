@@ -62,7 +62,18 @@ class MentalRisk extends Component
 		{
 			if (callback == this.state.indicatorTabs[i].url)
 			{
-				this.setState({ selectedTab: this.state.indicatorTabs[i] });
+				let methodologyIndicator;
+				if (this.state.indicatorTabs[i].chartType.length == 1)
+				{
+					// The indicator is the only one defined for the current tab
+					methodologyIndicator = this.state.indicatorTabs[i].chartType[0].chartIndicator;
+				}
+				else
+				{
+					// Select the indicator for the selected dataset
+					methodologyIndicator = this.state.indicatorTabs[i].chartType.find((element) => element.type == this.state.selectedSurvey).chartIndicator;
+				}
+				this.setState({ selectedTab: this.state.indicatorTabs[i], methodologyIndicator: methodologyIndicator });
 			}
 		}
 	}
