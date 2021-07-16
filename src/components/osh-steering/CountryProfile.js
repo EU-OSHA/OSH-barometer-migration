@@ -51,7 +51,6 @@ class CountryProfile extends Component
 		document.title = this.props.literals.L22007 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
 
 		this.retrieveCountryProfileData();
-		console.log(this.state.country1)
 	}
 
 	componentDidUpdate(prevProps, prevState){

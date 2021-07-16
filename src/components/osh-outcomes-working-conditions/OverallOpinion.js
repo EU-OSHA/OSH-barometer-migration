@@ -32,7 +32,6 @@ const OverallOpinion = (props) => {
 	const [legend, setLegend] = useState('')
 	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
 	const [selectedTab, setSelectedTab] = useState(selected);
-	console.log("selectedTab",selectedTab);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
@@ -173,7 +172,7 @@ const OverallOpinion = (props) => {
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
-							<div class="line background-main-light"></div>
+							<div className="line background-main-light"></div>
 							<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 								<div className="card--block--chart">
 									<div className="chart--block">

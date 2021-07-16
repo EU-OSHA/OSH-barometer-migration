@@ -198,7 +198,7 @@ class OSHAuthorities extends Component
 							</div>
 							<div className="modal-body text-center"><img src="/img/img-not-available.png" alt="Image not available" /></div>
 						</div>
-					</div>-
+					</div>
 				</div>
 				</section>
 
