@@ -8,8 +8,6 @@ import SelectFilters from '../common/select-filters/SelectFilters';
 import Cards from '../common/cards/Cards';
 import Pagination from '../common/pagination/Pagination';
 
-const literals = require('../../model/Literals.json');
-
 class EUChallengesResponse extends Component
 {
 	constructor(props) {
@@ -136,7 +134,7 @@ class EUChallengesResponse extends Component
 
 				<SelectFilters 
 						selectCountries={this.state.countries} 
-						literals={literals} 
+						literals={this.props.literals} 
 						onClickCountry={this.handleCallbackCountry}
 						onClickInstitution={this.handleCallbackCategory}
 						onSearchbarClick={this.handleCallbackSearch}
@@ -170,7 +168,7 @@ class EUChallengesResponse extends Component
 											key={id} 
 											idCard={id}
 											countryData={data} 
-											literals={literals} 
+											literals={this.props.literals} 
 											cardType={'challenges'} 
 										/>
 							})

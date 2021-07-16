@@ -9,8 +9,6 @@ import { getOSHCountries, getOSHData } from '../../api';
 
 import { connect } from 'react-redux';
 
-const literals = require('../../model/Literals.json');
-
 class OSHStatistics extends Component
 {
 	constructor(props) {
@@ -159,7 +157,7 @@ class OSHStatistics extends Component
 
 					<SelectFilters 
 						selectCountries={this.state.countries} 
-						literals={literals} 
+						literals={this.props.literals} 
 						onClickCountry={this.handleCallbackCountry}
 						onClickInstitution={this.handleCallbackCategory}
 						onSearchbarClick={this.handleCallbackSearch}
@@ -189,7 +187,7 @@ class OSHStatistics extends Component
 							this.state.pageOfItems.map((data, index) => {
 								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
 								const id = `${index}-${data.country.code}-${position}`
-								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'statistics'} />
+								return <Cards key={id} idCard={id} countryData={data} literals={this.props.literals} cardType={'statistics'} />
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>

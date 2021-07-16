@@ -7,7 +7,6 @@ import HealthAwareness from '../common/charts/HealthAwareness';
 import { oshCulture } from '../../model/subMenuTabs';
 import ReactHtmlParser from 'react-html-parser';
 
-const literals = require('../../model/Literals.json');
 class OSHCulture extends Component
 {
 	constructor(props) {
@@ -92,9 +91,9 @@ class OSHCulture extends Component
 					</div>
 	
 				</div>
-				<Methodology literals={literals} section={'OSH culture and health awareness'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
+				<Methodology literals={this.props.literals} section={'OSH culture and health awareness'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
 
-				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab.url]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab.url]} />
 			</div>
 		)
 	}

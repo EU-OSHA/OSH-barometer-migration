@@ -8,7 +8,6 @@ import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
 import { connect } from 'react-redux';
 
-const literals = require('../../model/Literals.json');
 class OSHAuthorities extends Component
 {
 	constructor(props) {
@@ -148,7 +147,7 @@ class OSHAuthorities extends Component
 				
 				<SelectFilters 
 					selectCountries={this.state.countries} 
-					literals={literals} 
+					literals={this.props.literals} 
 					onClickCountry={this.handleCallbackCountry}
 					onClickInstitution={this.handleCallbackInstitution}
 					onSearchbarClick={this.handleCallbackSearch}
@@ -179,7 +178,7 @@ class OSHAuthorities extends Component
 								const position = this.state.matrixPageData.findIndex((matrixData) => matrixData == data);
 								const id = `${index}-${data.country.code}-${position}`
 
-								return <Cards key={id} idCard={id} countryData={data} literals={literals} cardType={'institution'}/>
+								return <Cards key={id} idCard={id} countryData={data} literals={this.props.literals} cardType={'institution'}/>
 							})
 						) : (<span>{this.props.literals.L20706}</span>)}
 					</div>
