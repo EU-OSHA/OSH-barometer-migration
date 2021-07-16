@@ -9,7 +9,6 @@ import SpiderChart from '../common/charts/SpiderChart';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { physicalRiskTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
-import ReactHtmlParser from 'react-html-parser';
 import { setCountry1, setCountry2 } from '../../actions/';
 
 class PhysicalRisk extends Component{
