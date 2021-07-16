@@ -295,6 +295,9 @@ class MentalRiskCharts extends Component {
             this.setState({ selectedTypeChart: null });
         }
 
+        // Load the texts for the credits in the image when maximising or exporting the chart
+        this.getCredits(chart.chart);
+
         if(this.props.callbackLegend != undefined){
             this.props.callbackLegend(chart.legend);
         }
@@ -456,7 +459,6 @@ class MentalRiskCharts extends Component {
 
     componentDidMount() {
         this.getLoadData(this.props.chartType);
-        this.getCredits(this.props.chartType[0].chart);
         if (this.props.chartType.length > 1) {
             this.setState({ typeCharts: this.props.chartType.map((chart) => chart.type) });
         }
