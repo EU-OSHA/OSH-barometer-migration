@@ -27,6 +27,7 @@
 110-https://www.sm.ee/sites/default/files/content-editors/eesmargid_ja_tegevused/Tervis/2012_rta_pohitekst_ok_5.pdf 
 110-http://www.sm.ee/sites/default/files/content-editors/eesmargid_ja_tegevused/Tervis/Aruanded/rta_2009-2020_2012_eng.pdf
 113-http://www.sm.ee/sites/default/files/content-editors/eesmargid_ja_tegevused/Tervis/taiendatud_rta_2013-2016_rakendusplaan_eng_8.04.15.pdf 
+118-https://julkaisut.valtioneuvosto.fi/handle/10024/161451
 118-http://urn.fi/URN:ISBN:978-952-00-3175-6
 118-http://urn.fi/URN:ISBN:978-952-00-3175-6
 118-http://urn.fi/URN:ISBN:978-952-00-3136-7
@@ -104,6 +105,7 @@
 198-http://www.ciop.pl/CIOPPortalWAR/appmanager/ciop/pl?_nfpb=true&amp;_pageLabel=P26800385591408696399667&amp;html_tresc_root_id=21639&amp;html_tresc_id=21642&amp;html_klucz=21639&amp;html_klucz_spis=
 198-https://www.ciop.pl/CIOPPortalWAR/appmanager/ciop/en?_nfpb=true&amp;_pageLabel=P26400121511406886174136
 198-https://www.ciop.pl/CIOPPortalWAR/appmanager/ciop/en?_nfpb=true&amp;_pageLabel=P26400121511406886174136
+198-https://www.ciop.pl/CIOPPortalWAR/appmanager/ciop/en?_nfpb=true&amp;_pageLabel=P55000260041603446668810&amp;html_tresc_root_id=300011815&amp;html_tresc_id=300011808&amp;html_klucz=111111&amp;html_klucz_spis=
 206-http://www.act.gov.pt/%28pt-PT%29/Itens/Noticias/Documents/ENSST%202015-20120.pdf
 214-http://www.rokovania.sk/Rokovanie.aspx/BodRokovaniaDetail?idMaterial=25987
 214-http://www.rokovania.sk/Rokovanie.aspx/BodRokovaniaDetail?idMaterial=22602
@@ -127,12 +129,12 @@
 241-http://www.hse.gov.uk/strategy/supporting-small-employers.htm
 241-http://www.hse.gov.uk/strategy/keeping-pace-with-change.htm
 241-http://www.hse.gov.uk/strategy/sharing-our-success.htm
-400-https://www.mlsp.government.bg/ckfinder/userfiles/files/dokumenti/strategii/NPBZR1820.doc
+400-https://www.strategy.bg/FileHandler.ashx?fileId=17623
 400-https://www.mlsp.government.bg/ckfinder/userfiles/files/TPOOUT/EN_TPOOUT%3DNORMATIVE%20DOCUMENTS/NPBZR1820EN.pdf
 400-http://ncphp.government.bg/index.php?option=com_content&amp;view=article&amp;id=265&amp;catid=127&amp;Itemid=527&amp;lang=bg
 400-http://www.strategy.bg/StrategicDocuments/View.aspx?lang=bg-BG&amp;Id=457
 400-http://www.strategy.bg/strategicdocuments/View.aspx?lang=bg-BG&amp;Id=901
-400-http://www.strategy.bg/StrategicDocuments/View.aspx?lang=bg-BG&amp;Id=859
+400-https://www.mlsp.government.bg/uploads/1/npbzr1820en.pdf
 401-http://www.et.gr/idocs-nph/search/pdfViewerForm.html?args=5C7QrtC22wEsrjP0JAlxBXdtvSoClrL8bReVM9NqpX_3U4LPcASlceJInJ48_97uHrMts-zFzeyCiBSQOpYnTy36MacmUFCx2ppFvBej56Mmc8Qdb8ZfRJqZnsIAdk8Lv_e6czmhEembNmZCMxLMteg4qiK6queFJfXza5ZKd11w0E97FM7_RXZ_zBXpQd1c
 401-http://www.et.gr/idocs-nph/search/pdfViewerForm.html?args=5C7QrtC22wEsrjP0JAlxBXdtvSoClrL8bReVM9NqpX_3U4LPcASlceJInJ48_97uHrMts-zFzeyCiBSQOpYnTy36MacmUFCx2ppFvBej56Mmc8Qdb8ZfRJqZnsIAdk8Lv_e6czmhEembNmZCMxLMteg4qiK6queFJfXza5ZKd11w0E97FM7_RXZ_zBXpQd1c
 402-http://www.pisrs.si/Pis.web/pregledPredpisa?id=RESO26
@@ -146,7 +148,7 @@
 2201-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria
 2204-https://www.auva.at/
 2204-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria 
-2207-https://www.sozialversicherung.at/cdscontent/?contentid=10007.821628&portal=svportal
+2207-https://www.bvaeb.at/cdscontent/?contentid=10007.852277&amp;portal=bvaebbportal
 2207-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria 
 2210-https://www.vaeb.at
 2210-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria 
@@ -191,7 +193,7 @@
 2270-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Bulgaria
 2273-http://www.mrms.hr 
 2273-https://oshwiki.eu/wiki/OSH_system_at_National_Level_-_Croatia 
-2276-http://www.inspektorat.hr/
+2276-https://mrosp.gov.hr/about/directorate-general-for-labour-and-safety-at-work-7149/7149
 2276-https://oshwiki.eu/wiki/OSH_system_at_National_Level_-_Croatia 
 2279-http://www.hzzo-net.hr/
 2279-https://oshwiki.eu/wiki/OSH_system_at_National_Level_-_Croatia 
@@ -494,19 +496,17 @@
 2735-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Slovenia
 2738-http://www.aenor.es/aenor/inicio/home/home.asp
 2738-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
-2741-http://www.funprl.es/
+2741-https://prevencion-riesgoslaborales.com/
 2741-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
 2744-http://www.istas.net/
 2744-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
-2747-http://www.insht.es/
+2747-https://www.insst.es/
 2747-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
 2750-http://www.amat.es/
 2750-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
-2751-http://www.amat.es/cifras_y_datos.3php
-2751-http://www.amat.es/
-2753-http://www.meyss.es/itss/web/index.html
+2753-https://www.mites.gob.es/itss/web/index.html
 2753-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
-2756-http://www.mitramiss.gob.es/
+2756-https://www.mites.gob.es/
 2756-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Spain
 2759-http://www.standardiseringsforbundet.se/ 
 2759-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Sweden
@@ -652,7 +652,8 @@
 3019-http://www.rivm.nl/Onderwerpen/L/Leefstijlmonitor
 3021-http://www.rivm.nl/Onderwerpen/L/Leefstijlmonitor
 3023-http://www.beroepsziekten.nl
-3025-http://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/5476/4/8/1/wypadki_przy_pracy_w_2014.pdf
+3025-https://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/
+3025-http://stat.gov.pl/obszary-tematyczne/rynek-pracy/warunki-pracy-wypadki-przy-pracy/
 3027-http://www.krus.gov.pl/fileadmin/moje_dokumenty/obrazki/broszury_prewencja/2015/Wypadki_przy_pracy_2015_vp4.pdf
 3031-http://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/5476/2/2/7/pw_wypadki_przy_pracy_i_problemy_zdrow_zwiazane_z_praca.pdf
 3033-http://www.gep.mtsss.gov.pt/estatistica
@@ -671,11 +672,11 @@
 3061-http://www.zpiz.si
 3063-http://www.stat.si
 3065-http://www.id.gov.si/en/introduction/
-3067-http://www.empleo.gob.es/estadisticas/eat/welcome.htm
+3067-https://www.mites.gob.es/estadisticas/eat/welcome.htm
 3069-http://encuestasnacionales.oect.es/
-3071-http://www.ine.es/jaxi/menu.do?type=pcaxis&amp;path=/t15/p419&amp;file=inebase&amp;L=0
+3071-http://ww.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&amp;cid=1254736176783&amp;menu=resultados&amp;idp=1254735573175
 3073-http://www.ine.es/jaxi/menu.do?type=pcaxis&amp;path=/t15/p420/p01&amp;file=inebase&amp;L=0%20
-3075-http://www.seg-social.es/Internet_1/Estadistica/Est/Observatorio_de_las_Enfermedades_Profesionales/cepross2k11/index.htm%20%20
+3075-http://www.seg-social.es/wps/portal/wss/internet/EstadisticasPresupuestosEstudios/Estadisticas
 3077-http://www.seg-social.es/Internet_1/Estadistica/Est/Observatorio_de_las_Enfermedades_Profesionales/index.htm
 3079-https://www.av.se/globalassets/filer/statistik/arbetsmiljostatistik-arbetsskador-2014-rapport-2015-01.pdf
 3081-https://www.afaforsakring.se/forebyggande/analys-och-statistik/arbetsskaderapporten/
@@ -693,7 +694,6 @@
 3147-http://www.monitorarbeid.tno.nl/english/our-surveys/stream%20
 3149-http://www.monitorarbeid.tno.nl/english/our-surveys/codi%20
 3151-https://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/working-conditions-in-2016,1,11.html
-3153-http://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/accidents-at-work-and-work-related-health-problems,2,3.html
 3181-http://trauma.lbg.ac.at/%20
 3181-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria
 3183-http://www.aamp.at
@@ -986,4 +986,6 @@
 4498-https://visualisation.osha.europa.eu/esener#!/en
 4498-https://www.eurofound.europa.eu/data/european-working-conditions-survey
 4511-https://visualisation.osha.europa.eu/esener#!/en
+4612-https://sawee.se/
+4612-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Sweden
 
