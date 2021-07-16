@@ -19,12 +19,19 @@ class MentalRisk extends Component
 			if (mentalRisk[i].url == props.indicator)
 			{
 				selected = mentalRisk[i];
-				for (let j = 0; j < selected.chartType.length; j++)
+				if (selected.chartType.length > 1)
 				{
-					if (props.dataset == selected.chartType[j].type)
+					for (let j = 0; j < selected.chartType.length; j++)
 					{
-						indicator = selected.chartType[j].chartIndicator;
+						if (props.dataset == selected.chartType[j].type)
+						{
+							indicator = selected.chartType[j].chartIndicator;
+						}
 					}
+				}
+				else
+				{
+					indicator = selected.chartType[0].chartIndicator;
 				}
 			}
 		}
