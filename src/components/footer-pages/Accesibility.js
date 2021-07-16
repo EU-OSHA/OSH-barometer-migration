@@ -24,18 +24,18 @@ class Accesibility extends Component
 	{
 		return(
 			<div  className="mainBody">
-				<h1 class="title-section second-color ng-binding text-center">
+				<h1 className="title-section second-color ng-binding text-center">
 				{this.props.literals.L694}
 				</h1>
-				<div class="container legal--notice--block">
-					<h2 class="title-section main-color">{this.state.footerPages.accessKeys}</h2>
-					<div data-ng-bind-html="i18n.accessKeysText1">{ReactHtmlParser(this.state.footerPages.accessKeysText1)}</div>
+				<div className="container legal--notice--block">
+					<h2 className="title-section main-color">{this.state.footerPages.accessKeys}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.accessKeysText1)}</div>
 					
-					<h3 class="title--card second-color">{ReactHtmlParser(this.state.footerPages.availableAccessKeys)}</h3>
-					<div data-ng-bind-html="i18n.availableAccessKeysList" class="list--tag--block">{ReactHtmlParser(this.state.footerPages.availableAccessKeysList)}</div>
+					<h3 className="title--card second-color">{ReactHtmlParser(this.state.footerPages.availableAccessKeys)}</h3>
+					<div className="list--tag--block">{ReactHtmlParser(this.state.footerPages.availableAccessKeysList)}</div>
 					
-					<h3 class="title--card second-color">{ReactHtmlParser(this.state.footerPages.differentWebBrowsers)}</h3>
-					<div class="tableAccesibility">{ReactHtmlParser(this.state.footerPages.table)}</div>
+					<h3 className="title--card second-color">{ReactHtmlParser(this.state.footerPages.differentWebBrowsers)}</h3>
+					<div className="tableAccesibility">{ReactHtmlParser(this.state.footerPages.table)}</div>
 				</div>
 			</div>
 		)

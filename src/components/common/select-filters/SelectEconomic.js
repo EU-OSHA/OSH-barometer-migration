@@ -141,7 +141,7 @@ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selecte
     return (
       <div className="compare--block container">
         {/* FILTERS */}
-        <form className="compare--block--form">
+
           <ul className="compare--list">
             {/* 1ST COUNTRY FILTER */}
             <li>
@@ -168,7 +168,7 @@ const SelectEconomic = ({ handleSearch, handleSearch2, selectedCountry1, selecte
               />          
             </li>
           </ul>
-        </form>
+
       </div>
     );
   }

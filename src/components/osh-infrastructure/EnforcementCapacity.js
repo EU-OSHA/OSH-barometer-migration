@@ -185,7 +185,7 @@ class EnforcementCapacity extends Component {
 						/>
 				</div>
 
-				<div class="line background-main-light"></div>
+				<div className="line background-main-light"></div>
 
 				<div>
 					<SelectEconomic 
@@ -197,7 +197,7 @@ class EnforcementCapacity extends Component {
 						/>
 				</div>
 
-				<div class="line background-main-light"></div>
+				<div className="line background-main-light"></div>
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1">
 					{this.state.indicatorSubTabs.map((element) => {

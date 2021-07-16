@@ -33,12 +33,12 @@ class Related extends Component
 
         if (replacedText.length > 80) {
             if (pText.match(/<[^>]+>/)) {
-                return (`${pText.substring(0, 80).split(" ").slice(0, -1).join(" ")}<span className='dots'>...</span>`);
+                return (`${pText.substring(0, 80).split(" ").slice(0, -1).join(" ")}<span class='dots'>...</span>`);
             } else {
-                return (`<p className="text-related-item">${pText.substring(0, 80).split(" ").slice(0, -1).join(" ")}<span className='dots'>...</span></p>`);
+                return (`<p class="text-related-item">${pText.substring(0, 80).split(" ").slice(0, -1).join(" ")}<span class='dots'>...</span></p>`);
             }
         }
-        return (`<p className="text-related-item">${pText}</p>`);
+        return (`<p class="text-related-item">${pText}</p>`);
     }
 
     componentDidUpdate(prevProps) {

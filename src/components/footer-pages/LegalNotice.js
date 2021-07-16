@@ -24,15 +24,15 @@ class LegalNotice extends Component
 	{
 		return(
 			<div className="mainBody">
-				<h1 class="title-section second-color ng-binding text-center">
+				<h1 className="title-section second-color ng-binding text-center">
 					{this.props.literals.L360}
 				</h1>
-				<div class="container legal--notice--block">
+				<div className="container legal--notice--block">
 					
-					<h2 class="title-section main-color">{ReactHtmlParser(this.state.footerPages.disclaimer)}</h2>
-					<div data-ng-bind-html="i18n.disclaimerText">{ReactHtmlParser(this.state.footerPages.disclaimerText)}</div>
+					<h2 className="title-section main-color">{ReactHtmlParser(this.state.footerPages.disclaimer)}</h2>
+					<div>{ReactHtmlParser(this.state.footerPages.disclaimerText)}</div>
 
-					<h3 class="title-section main-color" >{ReactHtmlParser(this.state.footerPages.copyrightNotice)}</h3>
+					<h3 className="title-section main-color" >{ReactHtmlParser(this.state.footerPages.copyrightNotice)}</h3>
 					<div >{ReactHtmlParser(this.state.footerPages.copyrightNoticeText)}</div>
 				</div>
 			</div>

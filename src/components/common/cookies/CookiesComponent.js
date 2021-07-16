@@ -65,7 +65,9 @@ const CookiesComponent = (props) => {
         // console.log("cookieLife",cookieLife);
         setCookie("disclaimerCookie", true, {
             path: "/",
-            expires: cookieLife
+            expires: cookieLife,
+            secure: true,
+            sameSite: 'none',
         });
     }
 

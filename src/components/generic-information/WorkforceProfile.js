@@ -78,22 +78,10 @@ class WorkforceProfile extends Component
 		getCountryDataMap(countryName, country)
 			.then((res) => {
 				const option = res.resultset.find((element) => element.countryName == countryName && element.countryName != 'EU27_2020')
-				const data = option.data
 				const euData = res.resultset.find((element) => element.countryName == 'EU27_2020').data;
 				try {
 					this.setState({
 						countries: res.resultset,
-						countryName: option.countryName,
-						countryCode: option.countryCode,
-						flag: option.countryCode.toLowerCase(),
-						data:{
-							employment: data['Ageing workers (55 to 64) employment rate'],
-							mediaAge: data['Median age of population'],
-							unemployment: data['Unemployment rate'],
-							female: data['Total, male and female employment rate - Female'],
-							male: data['Total, male and female employment rate - Male'],
-							total: data['Total, male and female employment rate - Total']
-						},
 						euData:{
 							employment: euData['Ageing workers (55 to 64) employment rate'],
 							mediaAge: euData['Median age of population'],
@@ -103,6 +91,23 @@ class WorkforceProfile extends Component
 							total: euData['Total, male and female employment rate - Total']
 						}
 					})
+
+					if (option != undefined) {
+						const data = option.data
+						this.setState({
+							countryName: option.countryName,
+							countryCode: option.countryCode,
+							flag: option.countryCode.toLowerCase(),
+							data:{
+								employment: data['Ageing workers (55 to 64) employment rate'],
+								mediaAge: data['Median age of population'],
+								unemployment: data['Unemployment rate'],
+								female: data['Total, male and female employment rate - Female'],
+								male: data['Total, male and female employment rate - Male'],
+								total: data['Total, male and female employment rate - Total']
+							},
+						})
+					}
 				} catch (err) {
 					console.log('Error: ', err)
 				}

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { useHistory } from 'react-router';
-import ReactHtmlParser from 'react-html-parser';
 import Methodology from '../common/Methodology';
 import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
@@ -9,29 +7,7 @@ import SpiderChart from '../common/charts/SpiderChart';
 import { workerInvolvementTabs } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
 import { setCountry1, setCountry2 } from '../../actions/';
-
-// This component will take care of updating the URL for the current page if necessary
-const ChangeDataset = props => {
-	const history = useHistory();
-	const url ='/osh-outcomes-working-conditions/worker-involvement/';
-
-	const loadUrl = () => {
-		let newUrl = props.country2 ? `${url}${props.dataset}/${props.country1}/${props.country2}` : `${url}${props.dataset}/${props.country1}`;
-		// Check if the URL needs to be changed
-		if (history.location.pathname != newUrl)
-		{
-			history.push({
-				pathname: `${newUrl}`
-			})
-		}
-	}
-
-	loadUrl();
-	return (
-		null
-	)
-}
-
+import UrlChanger from '../common/urlChanger/UrlChanger';
 class WorkerInvolvement extends Component {
 	constructor(props){
 		super(props);
@@ -40,7 +16,8 @@ class WorkerInvolvement extends Component {
 			lockedCountry: this.props.lockedCountry,
 			indicatorTabs: workerInvolvementTabs[0],
 			chartLegend: '',
-			dataset: props.split ? props.split : 'esener'
+			dataset: props.split ? props.split : 'esener',
+			currentPath: '/osh-outcomes-working-conditions/worker-involvement/'
 		}
 	}
 
@@ -76,10 +53,6 @@ class WorkerInvolvement extends Component {
 		}
 	}
 
-	// componentDidUpdate(prevProps){
-	// 	// TODO: Control of locked country 1
-	// }
-
 	render()
 	{
 		return(
@@ -89,12 +62,9 @@ class WorkerInvolvement extends Component {
 				<form className="compare--block--form">
 
 					<div>
-					{/* <div className="line background-main-light" /> */}
 						<SelectEconomic 
 							handleSearch={this.handleSearch} 
 							handleSearch2={this.handleSearch2} 
-							//charts={['20022']}
-							//indicator={'53'}
 							literals={this.props.literals}
 							selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 							selectedCountry2={this.props.selectCountry2}
@@ -109,7 +79,11 @@ class WorkerInvolvement extends Component {
 
 						 	<div className="chart--block">
 								<div className="chart--wrapper" >
-									<ChangeDataset dataset={this.state.dataset} country1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry} country2={this.props.selectCountry2} />
+									<UrlChanger  
+										currentLocation={this.state.currentPath}
+										currentSplit={this.state.dataset}
+										lockedCountry={this.state.lockedCountry}
+									/>
 									<SpiderChart
 										literals={this.props.literals}
 										tabIndicator={this.state.indicatorTabs.literalTab}

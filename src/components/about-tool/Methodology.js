@@ -66,7 +66,7 @@ class Methodology extends Component {
 			return (
 				<Fragment>
 					<h3>{this.props.literals[headerLiteralID]}</h3>
-					<p>{ReactHtmlParser(this.props.literals[dataLiteralID])}</p>
+					{ReactHtmlParser(this.props.literals[dataLiteralID])}
 				</Fragment>
 			)
 		}
@@ -272,7 +272,7 @@ class Methodology extends Component {
 								{this.methodologySection('L20732',`L${this.state.methodology.additionalComments}`)}
 							</section>
 						) : (
-							<section className="methodology--grid--wrapper" data-ng-className="this.indicatorIcons(pSubsection)">
+							<section className="methodology--grid--wrapper">
 
 							</section>
 						)

@@ -58,7 +58,7 @@ const Home = props => {
    
 		function createCarousel(screenWidth){      
 			if( screenWidth >= 1919){
-				var numItems = 6;				
+				var numItems = 6;	
 			}
 			else if( screenWidth >= 1600 && screenWidth < 1919 ){
 				var numItems =5;
@@ -179,7 +179,7 @@ const Home = props => {
 							<span className="subtitle">{props.literals.L22107}</span>
 						</p>
 						<div className="">							
-						{ReactHtmlParser(props.literals.L22108)}
+							{ReactHtmlParser(props.literals.L22108)}
 						</div>
 						<p className="btn--block-full left-text">
 							<a data-to="about-tool" className="btn-default btn-main-color ng-binding" href="about-the-system">{props.literals.L22110}</a>
@@ -274,7 +274,7 @@ const Home = props => {
 									{props.literals.L22003}
 									</Link>
 								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22028,100))}</p>
+								{ReactHtmlParser(truncateText(props.literals.L22028,100))}
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
