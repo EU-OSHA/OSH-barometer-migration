@@ -22,7 +22,7 @@ class EUCountryCard extends Component{
             this.setState({
                 socialDialogueLink: 
                 <p className="download-report" >
-                    <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
+                    <a href={"/osh-barometer/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
                         {ReactHtmlParser(this.props.literals.L20637)}
                     </a>
                 </p>
@@ -41,7 +41,7 @@ class EUCountryCard extends Component{
                         fourthPercentage: Math.round(this.props.euData.data.E3Q350_3),
                         socialDialogueLink: 
                         <p className="download-report" >
-                            <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
+                            <a href={"/osh-barometer/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
                                 {ReactHtmlParser(this.props.literals.L20637)}
                             </a>
                         </p>
