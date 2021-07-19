@@ -18,6 +18,7 @@ class EUCountryCard extends Component{
 
     componentDidMount() {
         if (this.props.page == 'socialDialogue') {
+            console.log("this.props.euData",this.props.euData);
             this.setState({
                 socialDialogueLink: 
                 <p className="download-report" >
@@ -38,6 +39,12 @@ class EUCountryCard extends Component{
                         secondPercentage: Math.round(this.props.euData.data.E3Q350_2),
                         thirdPercentage: Math.round(this.props.euData.data.E3Q350_4),
                         fourthPercentage: Math.round(this.props.euData.data.E3Q350_3),
+                        socialDialogueLink: 
+                        <p className="download-report" >
+                            <a href={"/osh-steering/social-dialogue/Social_Dialogue_"+this.props.euData.countryCode+".pdf"} className="download-pdf" target="_blank">
+                                {ReactHtmlParser(this.props.literals.L20637)}
+                            </a>
+                        </p>
                      })
                 } else {
                     this.setState({
