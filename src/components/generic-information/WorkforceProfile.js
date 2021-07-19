@@ -77,20 +77,24 @@ class WorkforceProfile extends Component
 
 		getCountryDataMap(countryName, country)
 			.then((res) => {
-				const option = res.resultset.find((element) => element.countryName == countryName && element.countryName != 'EU27_2020')
-				const euData = res.resultset.find((element) => element.countryName == 'EU27_2020').data;
+				const option = res.resultset.find((element) => element.countryName == countryName && element.countryName != 'EU27_2020');
+				const euOption = res.resultset.find((element) => element.countryName == 'EU27_2020');
 				try {
-					this.setState({
-						countries: res.resultset,
-						euData:{
-							employment: euData['Ageing workers (55 to 64) employment rate'],
-							mediaAge: euData['Median age of population'],
-							unemployment: euData['Unemployment rate'],
-							female: euData['Total, male and female employment rate - Female'],
-							male: euData['Total, male and female employment rate - Male'],
-							total: euData['Total, male and female employment rate - Total']
-						}
-					})
+					if (euOption != undefined)
+					{
+						const euData = euOption.data;
+						this.setState({
+							countries: res.resultset,
+							euData:{
+								employment: euData['Ageing workers (55 to 64) employment rate'],
+								mediaAge: euData['Median age of population'],
+								unemployment: euData['Unemployment rate'],
+								female: euData['Total, male and female employment rate - Female'],
+								male: euData['Total, male and female employment rate - Male'],
+								total: euData['Total, male and female employment rate - Total']
+							}
+						})
+					}
 
 					if (option != undefined) {
 						const data = option.data
@@ -210,7 +214,7 @@ class WorkforceProfile extends Component
 
 	refresh = ()=>{
 		this.setState({
-			visible:!this.state.visible, 
+			visible: true, 
 			unselect: !this.state.unselect,
 			countryCode:"",
 			countryName: "",
@@ -228,7 +232,6 @@ class WorkforceProfile extends Component
 
 	callbackSelect = (option)=>{
 		this.refresh();
-		
 		
 		this.setState({select: option})
 		switch(option){
@@ -283,14 +286,14 @@ class WorkforceProfile extends Component
 				
 				<div className="filter--indicator--block container">
 					<SelectForceProfile 
-					selectCountries={this.state.countries}
-					callbackSelect={this.callbackSelect}
-					locationPath={this.state.currentPath}
-					literals={this.props.literals}
-					indicator={this.props.indicator}
-					secondIndicator={this.props.subIndicator}
-					filters={this.state.filters}
-					onCallbackCountry={this.handleCallbackCountry}
+						selectCountries={this.state.countries}
+						callbackSelect={this.callbackSelect}
+						locationPath={this.state.currentPath}
+						literals={this.props.literals}
+						indicator={this.props.indicator}
+						secondIndicator={this.props.subIndicator}
+						filters={this.state.filters}
+						onCallbackCountry={this.handleCallbackCountry}
 					/>
 				</div>
 				<div className="line background-main-light"></div>
@@ -371,9 +374,8 @@ class WorkforceProfile extends Component
 											</ul>
 											<span className="close-legend" onClick={this.refresh}><i className="fa fa-times" ></i></span>
 										</div>
-									)}
-											
-
+									)
+								}
 							</div>
 						</div>
 						<div className="map--block center-text container">
