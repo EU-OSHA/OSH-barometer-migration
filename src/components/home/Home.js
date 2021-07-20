@@ -314,11 +314,11 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})"> */}
-								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents">
+								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
 								</Link>
 								<h3 className="title--card">
 									{/* <Link to="work-accidents ({pCountry1:pCountry1})"> */}
-									<Link to="/osh-outcomes-working-conditions/work-accidents">
+									<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
 									{props.literals.L22010}
 									</Link>
 								</h3>
@@ -326,7 +326,7 @@ const Home = props => {
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="work-accidents ({pCountry1:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to="/osh-outcomes-working-conditions/work-accidents" className="btn-default btn-main-color btn-full">
+								<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents" className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
