@@ -68,6 +68,8 @@ class WorkerInvolvement extends Component {
 							literals={this.props.literals}
 							selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 							selectedCountry2={this.props.selectCountry2}
+							charts={[this.state.indicatorTabs.chartType.find((element) => element.type == this.state.dataset).chart]}
+							indicator={this.state.indicatorTabs.chartType.find((element) => element.type == this.state.dataset).chartIndicator}
 						/>
 
 					</div>

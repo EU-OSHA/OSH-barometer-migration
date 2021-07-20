@@ -214,8 +214,8 @@ export const workerInvolvementTabs = [
     { 
         literalTab: "22015", 
         chartType: [
-            {type: "esener", chart:"20106", title: "22015", chartIndicator: null, sector: null, answers: null, legend: null},
-            {type: "ewcs", chart:"20069", title: "22015", chartIndicator: null, sector: null, answers: null, legend: null}
+            {type: "esener", chart:"20106", title: "22015", chartIndicator: '353', sector: null, answers: null, legend: null},
+            {type: "ewcs", chart:"20069", title: "22015", chartIndicator: '75', sector: null, answers: null, legend: null}
         ]
     }
 ]
