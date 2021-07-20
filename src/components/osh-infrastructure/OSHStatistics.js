@@ -95,7 +95,8 @@ class OSHStatistics extends Component
 					this.setState({ countries: res.resultset })
 				});
 			
-			if (!this.props.lockedCountry) {
+			if (!this.props.lockedCountry || (this.props.lockedCountry == "CH" || this.props.lockedCountry == "IS" 
+				|| this.props.lockedCountry == "LU" || this.props.lockedCountry == "NO")) {
 				getOSHData('MATRIX_STATISTICS')
 					.then((res) => {
 						this.setState({ matrixPageData: res.resultset })
@@ -131,18 +132,22 @@ class OSHStatistics extends Component
 
 		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.lockedCountry != ""){
 			const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
-			this.setState({
-				defaultTags: true,
-				filters: {...this.state.filters, countries: [countryDefault]}
-			});
+			if(this.props.lockedCountry != "CH" && this.props.lockedCountry != "IS" && this.props.lockedCountry != "LU"
+				&& this.props.lockedCountry != "NO"){
+					this.setState({
+						defaultTags: true,
+						filters: {...this.state.filters, countries: [countryDefault]}
+					});
+			}
 		}
 
 		if(prevProps.lockedCountry != this.props.lockedCountry && this.props.selectedByUser){
 			let countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
-			if(countryDefault != undefined){
-				this.setState({
-					filters: {...this.state.filters, countries: [countryDefault]}
-				});
+			if(this.props.lockedCountry != "CH" && this.props.lockedCountry != "IS" && this.props.lockedCountry != "LU"
+				&& this.props.lockedCountry != "NO"){
+					this.setState({
+						filters: {...this.state.filters, countries: [countryDefault]}
+					});
 			}
 		}
 	}
