@@ -195,7 +195,9 @@ class EnforcementCapacity extends Component {
 						literals={this.props.literals}
 						selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 						selectedCountry2={this.props.selectCountry2}
-						/>
+						charts={[this.state.indicatorSubTabs[0].chartType[0].chart]}
+						indicator={[this.state.indicatorSubTabs[0].chartType[0].chartIndicator]}
+					/>
 				</div>
 
 				<div className="line background-main-light"></div>
