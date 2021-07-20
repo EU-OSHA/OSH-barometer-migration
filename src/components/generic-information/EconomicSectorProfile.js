@@ -127,7 +127,7 @@ const EconomicSectorProfile = (props) => {
 								literals={props.literals}
 								selectedCountry1={selectedByUser ? countryLocked : selectCountry}
 								selectedCountry2={selectCountry2}	
-								/>
+							/>
 						</ul>
 					</form>
 					
