@@ -12,6 +12,9 @@
           .highcharts-credits {
             display: none
           }
+          .highcharts-title{
+            transform: translateX(-10px);
+          }
         }
         &.full-screen{
           .highcharts-credits {
@@ -33,7 +36,9 @@
           width: 79%;
         }
         @media screen and (max-width:768px) {
-          width: calc(100% - 7rem);
+          width: 98%;
+          right: 0;
+          margin-left: auto;
         }
       }
       .select-filter-chart{
@@ -76,7 +81,11 @@
           font-family: "Oswald", sans-serif !important;
           font-size: 1.8rem;
           text-align-last: right;
-          text-align:right; 
+          text-align:right;
+          @media screen and (max-width:768px) {
+            margin: 0 0 1rem 0;
+            font-size: 1.6rem;
+          } 
           &:focus{
             outline:0 !important;
             border:0 !important;
