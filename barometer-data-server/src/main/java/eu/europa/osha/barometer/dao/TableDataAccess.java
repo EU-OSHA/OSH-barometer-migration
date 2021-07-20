@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import eu.europa.osha.barometer.bean.model.QueryFilter;
 import eu.europa.osha.barometer.bean.model.TableRow;
+import eu.europa.osha.barometer.conf.BarometerConf;
 
 public class TableDataAccess {
 
@@ -28,7 +29,7 @@ public class TableDataAccess {
 	static{
 		try {
 			ctx = (Context) new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/osha_dvt");
+			ds = (DataSource) ctx.lookup(BarometerConf.getBarometerConf("eu.europa.osha.barometer.jdbc"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

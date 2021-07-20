@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import eu.europa.osha.barometer.bean.model.Indicator;
 import eu.europa.osha.barometer.bean.model.MatrixPageData;
 import eu.europa.osha.barometer.bean.model.QualitativeFilter;
+import eu.europa.osha.barometer.conf.BarometerConf;
 
 public class QualitativeDataAccess {
 	
@@ -31,7 +32,7 @@ public class QualitativeDataAccess {
 	static{
 		try {
 			ctx = (Context) new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/osha_dvt");
+			ds = (DataSource) ctx.lookup(BarometerConf.getBarometerConf("eu.europa.osha.barometer.jdbc"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
