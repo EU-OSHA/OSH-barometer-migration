@@ -318,14 +318,24 @@ class WorkAccidentsChart extends Component {
                     this.setState({ ...this.state, isLoading: false })
                 }
 
+                
                 if (this.props.type == 'line') {
+                    let newArray;
                     for (let serie in auxSeries) {
-                        if (serie == 'EU27_2020') {
-                            series.push( {name: serie, data: auxSeries[serie], color: '#003399'} )
+                        series.push( {name: serie, data: auxSeries[serie]} )
+                    }
+                    // when theres two countries, the second country was getting the same color as EU
+                    newArray = series;
+
+                    for (let i = 0; i < newArray.length; i++) {
+                        if (newArray[i].name == 'EU27_2020') {
+                            newArray[i] = {...newArray[i], color: '#003399'}
                         } else {
-                            series.push( {name: serie, data: auxSeries[serie]} )
+                            newArray[0] = {...newArray[0], color: this.props.colors[0]}
+                            newArray[1] = {...newArray[1], color: this.props.colors[1]}
                         }
                     }
+
                     this.setState({ 
                         chartConfig: {...this.state.chartConfig, 
                             // tooltip: {
@@ -354,7 +364,7 @@ class WorkAccidentsChart extends Component {
                                     },
                                 pointStart: 2010}
                             }, 
-                            series
+                            series: newArray
                         } 
                     })
                 }  
