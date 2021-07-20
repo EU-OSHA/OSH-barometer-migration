@@ -205,7 +205,7 @@ class Header extends Component
 		{
 			return [
 				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
-					<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>,
+					<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>
 					<i className='fa fa-angle-right' aria-hidden='true'></i>
 				</Fragment>
 			]
@@ -214,7 +214,7 @@ class Header extends Component
 		{
 			return [
 				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
-					<span> {pBreadcrumbElement.text} </span>,
+					<span> {pBreadcrumbElement.text} </span>
 					<i className='fa fa-angle-right' aria-hidden='true'></i>
 				</Fragment>
 			]
