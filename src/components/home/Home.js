@@ -266,11 +266,11 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})"> */}
-								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"+lockedCountry}>
+								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"}>
 								</Link>
 								<h3 className="title--card">
 									{/*<Link to="economic-sector-profile ({pCountry:pCountry1})">*/}
-									<Link to={"/generic-information/economic-sector-profile/"+lockedCountry}>
+									<Link to={"/generic-information/economic-sector-profile/"}>
 									{props.literals.L22003}
 									</Link>
 								</h3>
@@ -278,7 +278,7 @@ const Home = props => {
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to={"/generic-information/economic-sector-profile/"+lockedCountry} className="btn-default btn-main-color btn-full">
+								<Link to={"/generic-information/economic-sector-profile/"} className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
@@ -382,17 +382,17 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card people-group-icon" to="workforce-profile"> */}
-								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile">
+								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile/median-age/ageing-workers">
 								</Link>
 								<h3 className="title--card">
-									<Link to="/generic-information/workforce-profile" >
+									<Link to="/generic-information/workforce-profile/median-age/ageing-workers" >
 									{props.literals.L22004}
 									</Link>
 								</h3>
 								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22030,100))}</p>
 							</div>
 							<p className="btn--card--carousel">
-								<Link to="/generic-information/workforce-profile" className="btn-default btn-main-color btn-full">
+								<Link to="/generic-information/workforce-profile/median-age/ageing-workers" className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
