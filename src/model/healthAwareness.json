@@ -1,0 +1,44 @@
+[
+    { 
+        "literalTab": "20664",
+        "chartType": [
+            {"title": "22129", "chart": "20091", "chartIndicator": "358", "sector": ["14"], "answers": ["97", "98", "99"], "legend": "20570"}
+        ]
+    },
+    { 
+        "literalTab": "20665",
+        "chartType": [
+            {"title": "457", "chart": "20092", "chartIndicator": "328", "sector": ["14"], "answers": ["1", "2"], "legend": "20571"}
+        ]
+    },
+    { 
+        "literalTab": "20666",
+        "chartType": [
+            {"title": "458", "chart": "20093", "chartIndicator": "329", "sector": ["14"], "answers": ["1", "2"], "legend": "20572"}
+        ]
+    },
+    { 
+        "literalTab": "20667",
+        "chartType": [
+            {"title": "22132", "chart": "20094", "chartIndicator": "330", "sector": ["14"], "answers": ["1", "2"], "legend": "20573"}
+        ]
+    },
+    { 
+        "literalTab": "20668",
+        "chartType": [
+            {"title": "22133", "chart": "20095", "chartIndicator": "331", "sector": ["14"], "answers": ["1", "2"], "legend": "20574"}
+        ]
+    },
+    { 
+        "literalTab": "320",
+        "chartType": [
+            {"title": "22126", "chart": "20038", "chartIndicator": "63", "sector": ["14"], "answers": ["6", "7", "32"], "legend": "20575"}
+        ]
+    },
+    { 
+        "literalTab": "321",
+        "chartType": [
+            {"title": "22127", "chart": "20039", "chartIndicator": "64", "sector": ["14"], "answers": ["8", "9"], "legend": "20576"}
+        ]
+    }
+]

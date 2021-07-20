@@ -1,7 +1,16 @@
 # npm
 .cache/*
 .vscode/*
+.env
 node_modules/**/*
 dist/*
+
+#web-service
+barometer-data-server/.classpath
+barometer-data-server/.project
+barometer-data-server/.settings/*
+barometer-data-server/target/*
+barometer-data-server/WebContent/META-INF/*
+
 
 package-lock.json

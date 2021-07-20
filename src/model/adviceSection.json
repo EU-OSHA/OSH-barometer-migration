@@ -1,0 +1,212 @@
+{
+    "generic-information":{
+        "economic-sector-profile":[
+            {
+                "title": "L22003",
+                "text": "L22028",
+                "source":"L20696",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "economic-chart-icon"
+            }
+        ],
+        "osh-authorities":[
+            {
+                "title": "L22002",
+                "text": "L22025",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "forum-icon"
+            }
+        ],
+        "workforce-profile":[
+            {
+                "title": "L22004",
+                "text": "L22030",
+                "source":"L20696",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "people-group-icon"
+            }
+        ]
+    },
+    "osh-steering":{
+        "regulation":[
+            {
+                "title": "L22105",
+                "text": "L22106",
+                "source":"",
+                "further": "",
+                "link": "/about-the-system/methodology",
+                "icon": "regulation-icon"
+            }
+        ],
+        "national-strategies":[
+            {
+                "title": "L22007",
+                "text": "L22038",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "national-icon"
+            }
+        ],
+        "country-profile":[
+            {
+                "title": "L20378",
+                "text": "L22038",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "national-icon"
+            }
+        ],
+        "eu-challenges-response":[
+            {
+                "title": "L20379",
+                "text": "L20382",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "national-icon"
+            }
+        ],
+        "social-dialogue":[
+            {
+                "title": "L22008",
+                "text": "L22041",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "dialogue-icon"
+            }
+        ]
+    },
+    "osh-outcomes-working-conditions":{
+        "work-accidents":[
+            {
+                "title": "L22010",
+                "text": "L22050",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "physical-risk-icon"
+            }
+        ],
+        "health-perception-of-workers":[
+            {
+                "title": "L22011",
+                "text": "L22052",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "health-icon"
+            }
+        ],
+        "osh-culture":[
+            {
+                "title": "L22012",
+                "text": "L22054",
+                "source":"L20700",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "culture-icon"
+            }
+        ],
+        "working-conditions":[
+            {
+                "title": "L22013",
+                "text": "L22056",
+                "source":"L20700",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "working-conditons-icon"
+            }
+        ],
+        "overall-opinion":[
+            {
+                "title": "L20709",
+                "text": "L20577",
+                "source":"L20701",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "overall-opinion-icon"
+            }   
+        ],
+        "mental-risk":[
+            {
+                "title": "L20710",
+                "text": "L20578",
+                "source":"L20700",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "mental-risk-icon"
+            }   
+        ],
+        "physical-risk":[
+            {
+                "title": "L20711",
+                "text": "L20579",
+                "source":"L20700",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "physical-risk-icon"
+            }   
+        ],
+        "prevention-companies":[
+            {
+                "title": "L22014",
+                "text": "L22058",
+                "source":"L20702",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "prevention-icon"
+            }
+        ],
+        "worker-involvement":[
+            {
+                "title": "L22015",
+                "text": "L22060",
+                "source":"L20700",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "workers-icon"
+            }
+        ]
+    },
+    "osh-infrastructure":{
+        "enforcement-capacity":[
+            {
+                "title": "L22017",
+                "text": "L22063",
+                "source":"L20699",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "enforcement-icon"
+            }
+        ],
+        "osh-statistics":[
+            {
+                "title": "L22018",
+                "text": "L22065",
+                "source":"",
+                "further": "L20704",
+                "link": "/about-the-system/methodology",
+                "icon": "statistics-icon"
+            }
+        ]
+    },
+    "about-tool":{
+        "country-report":[
+            {
+                "title": "L22190",
+                "text": "L22193",
+                "source":"",
+                "further": "",
+                "link": "/about-the-system/methodology",
+                "icon": "country-report-icon"
+            }
+        ]
+    }
+}

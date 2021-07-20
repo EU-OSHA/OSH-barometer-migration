@@ -1,0 +1,136 @@
+{
+    "Home":{
+        "text":"Home",
+        "link":"/"
+    },
+    "generic-information":{
+        "text":"Generic information",
+        "tree":["Home"]
+    },
+    "EconomicSectorProfile":{
+        "text":"Economic and sector profile",
+        "tree":["Home", "generic-information"]
+    },
+    "OSHAuthorities":{
+        "text":"OSH authorities",
+        "tree":["Home", "generic-information"]
+    },
+    "WorkforceProfile":{
+        "text":"Workforce profile",
+        "tree":["Home", "generic-information"]
+    },
+    "osh-steering":{
+        "text":"Steering of OSH",
+        "tree":["Home"]
+    },
+    "Regulation":{
+        "text":"Regulation",
+        "tree":["Home", "osh-steering"]
+    },
+    "NationalStrategies":{
+        "text":"National strategies",
+        "link":"/osh-steering/national-strategies",
+        "tree":["Home", "osh-steering"]
+    },
+    "CountryProfile":{
+        "text":"Structure of each National strategy",
+        "tree":["Home", "osh-steering", "NationalStrategies"]
+    },
+    "EUChallengesResponse":{
+        "text":"Response of National strategies to EU Challenges",
+        "tree":["Home", "osh-steering", "NationalStrategies"]
+    },
+    "SocialDialogue":{
+        "text":"Social dialogue",
+        "tree":["Home", "osh-steering"]
+    },
+    "osh-outcomes-working-conditions":{
+        "text":"OSH outcomes and working conditions",
+        "tree":["Home"]
+    },
+    "WorkAccidents":{
+        "text":"Work accidents",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "HealthPerception":{
+        "text":"Health perception of the workers",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "OSHCulture":{
+        "text":"OSH culture and health awareness",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "WorkingConditions":{
+        "text":"Working conditions",
+        "link":"/osh-outcomes-working-conditions/working-conditions",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "OverallOpinion":{
+        "text":"Overall opinion",
+        "tree":["Home","osh-outcomes-working-conditions","WorkingConditions"]
+    },
+    "MentalRisk":{
+        "text":"Mental risk",
+        "tree":["Home","osh-outcomes-working-conditions","WorkingConditions"]
+    },
+    "PhysicalRisk":{
+        "text":"Physical risk",
+        "tree":["Home","osh-outcomes-working-conditions","WorkingConditions"]
+    },
+    "PreventionCompanies":{
+        "text":"Prevention companies",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "WorkerInvolvement":{
+        "text":"Worker involvement",
+        "tree":["Home","osh-outcomes-working-conditions"]
+    },
+    "osh-infrastructure":{
+        "text":"OSH infrastructure",
+        "tree":["Home"]
+    },
+    "EnforcementCapacity":{
+        "text":"Enforcement capacity",
+        "tree":["Home","osh-infrastructure"]
+    },
+    "OSHStatistics":{
+        "text":"OSH statistics, surveys and research",
+        "tree":["Home","osh-infrastructure"]
+    },
+    "about-tool":{
+        "text":"About the system",
+        "tree":["Home"]
+    },
+    "GeneralInformation":{
+        "text":"General information",
+        "tree":["Home","about-tool"]
+    },
+    "Methodology":{
+        "text":"Methodology",
+        "tree":["Home","about-tool"]
+    },
+    "CountryReportHome":{
+        "text":"Country Report",
+        "tree":["Home","about-tool"]
+    },
+    "Sitemap":{
+        "text":"Site map",
+        "tree":["Home"]
+    },
+    "Accesibility":{
+        "text":"Accessibility info",
+        "tree":["Home"]
+    },
+    "PrivacyPolicy":{
+        "text":"Privacy notice",
+        "tree":["Home"]
+    },
+    "LegalNotice":{
+        "text":"Legal notice",
+        "tree":["Home"]
+    },
+    "404":{
+        "text":"Page not found",
+        "tree":["Home"]
+    }
+}
