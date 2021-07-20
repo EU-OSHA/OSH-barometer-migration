@@ -167,7 +167,7 @@ const OverallOpinion = (props) => {
 									handleSearch2={handleSearch2} 
 									charts={['20041']}
 									literals={props.literals}
-									selectedCountry1={selectedByUser ? countryLocked : selectCountry}
+									selectedCountry1={selectedByUser ? lockedCountry : selectCountry}
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
@@ -182,7 +182,7 @@ const OverallOpinion = (props) => {
 											tick={20}
 											percentage={true}
 											type={dimension}
-											selectCountry1={selectedByUser ? countryLocked : selectCountry}
+											selectCountry1={selectedByUser ? lockedCountry : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={'20041'}
 											indicator={'66'}
