@@ -25,7 +25,8 @@ class EnforcementCapacity extends Component {
 		}
 
 		this.state={
-			lockedCountry: this.props.lockedCountry,
+			lockedCountry: (this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'HR' && this.props.lockedCountry != 'IS'
+				&& this.props.lockedCountry != 'LU'  && this.props.lockedCountry != 'NO'  && this.props.lockedCountry != 'RO') ? this.props.lockedCountry : 'AT',
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
