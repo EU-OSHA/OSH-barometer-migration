@@ -164,6 +164,8 @@ class PhysicalRisk extends Component{
 
 	render()
 	{
+		let currentChart = this.state.selectedTab.chartType.length == 1 ? this.state.selectedTab.chartType[0].chart : this.state.selectedTab.chartType.find((element) => element.type == this.state.dataset).chart;
+		let currentIndicator = this.state.selectedTab.chartType.length == 1 ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.chartType.find((element) => element.type == this.state.dataset).chartIndicator;
 		return(
 			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Physical risk', indicator: 67}} />
@@ -192,8 +194,8 @@ class PhysicalRisk extends Component{
 						/> : <SelectEconomic 
 							handleSearch={this.handleSearch} 
 							handleSearch2={this.handleSearch2} 
-							//charts={['20022']}
-							//indicator={'53'}
+							charts={[currentChart]}
+							indicator={currentIndicator}
 							literals={this.props.literals}
 							selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 							selectedCountry2={this.props.selectCountry2}
