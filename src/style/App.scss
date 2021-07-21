@@ -321,8 +321,8 @@ $print-page-size:  a4 !default;
             //margin-top: auto;
           }
         }
-      }
-    }
+      }      
+    }   
   }
 }
 .carousel-showmanymoveone .cloneditem-1,
@@ -615,11 +615,11 @@ all and (min-width: 1200px) and (-webkit-transform-3d) {
 @media all and (min-width: 1600px) {
   .carousel-showmanymoveone .carousel-inner > .active.carousel-item-left,
   .carousel-showmanymoveone .carousel-inner > .carousel-item-prev {
-     left: -20%;
+     left: -16.66%;
   }
   .carousel-showmanymoveone .carousel-inner > .active.carousel-item-right,
   .carousel-showmanymoveone .carousel-inner > .carousel-item-next {
-     left: 20%;
+     left: 16.66%;
   }
   .carousel-showmanymoveone .carousel-inner > .carousel-item-left,
   .carousel-showmanymoveone .carousel-inner > .carousel-item-prev.carousel-item-right,
@@ -628,21 +628,21 @@ all and (min-width: 1200px) and (-webkit-transform-3d) {
   }
   .carousel-showmanymoveone .carousel-inner .cloneditem-2,
   .carousel-showmanymoveone .carousel-inner .cloneditem-3 {
-     display: block;
+    //  display: block;
   }
 }
 @media all and (min-width: 1600) and (transform-3d),
 all and (min-width: 1600px) and (-webkit-transform-3d) {
   .carousel-showmanymoveone .carousel-inner > .carousel-item.active.carousel-item-right,
   .carousel-showmanymoveone .carousel-inner > .carousel-item.carousel-item-next {
-     -webkit-transform: translate3d(20%, 0, 0);
-     transform: translate3d(20%, 0, 0);
+     -webkit-transform: translate3d(16.66%, 0, 0);
+     transform: translate3d(16.66%, 0, 0);
      left: 0;
   }
   .carousel-showmanymoveone .carousel-inner > .carousel-item.active.carousel-item-left,
   .carousel-showmanymoveone .carousel-inner > .carousel-item.carousel-item-prev {
-     -webkit-transform: translate3d(-20%, 0, 0);
-     transform: translate3d(-20%, 0, 0);
+     -webkit-transform: translate3d(-16.66%, 0, 0);
+     transform: translate3d(-16.66%, 0, 0);
      left: 0;
   }
   .carousel-showmanymoveone .carousel-inner > .carousel-item.carousel-item-left,

@@ -33,100 +33,134 @@ const Home = props => {
 	}, []);
 
 	useEffect(() => {
-		// function getWidth(){
-		// 	if (typeof window.innerWidth != 'undefined') {
-		// 		return window.innerWidth;
-		// 	}
-		// 	else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
-		// 		return document.documentElement.clientWidth;
-		// 	}
-		// 	else {
-		// 		return document.getElementsByTagName('body')[0].clientWidth;
-		// 	}
-		// }
+		function getWidth(){
+			if (typeof window.innerWidth != 'undefined') {
+				return window.innerWidth;
+			}
+			else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+				return document.documentElement.clientWidth;
+			}
+			else {
+				return document.getElementsByTagName('body')[0].clientWidth;
+			}
+		}
    
-		// const screenWidth = getWidth();
-		// createCarousel(screenWidth);
+		const screenWidth = getWidth();
+		createCarousel(screenWidth);
    
-		// $(window).on("resize",function(e){
-		// 	const screenWidth = getWidth();		  
-		// 	createCarousel(screenWidth);
-		// }); 	
+		$(window).on("resize",function(e){
+			const screenWidth = getWidth();		  
+			createCarousel(screenWidth);
+		}); 	
 
 		function hideControls(items){
 			if(items == 6){
-				$(".carousel-control-group").css('visibility','visible');
+				$(".carousel-control-group").css('visibility','hidden');
 			} else {
 				$(".carousel-control-group").css('visibility','visible');
 			}
 		}
+
+		$('.carousel-showmanymoveone .carousel-item').each(function(index){
+			
+			for (let i=0;i<$(this).children().length;i++) {
+				$(this).children(':nth-child('+(i+1)+')').addClass('cloneditem-'+i);				
+			}
+			switch(index+1) {					
+				case 1:
+					break;
+				case 2:
+					$(this).children(':nth-child(1)').appendTo( $(this) ).text();
+				break;
+				case 3:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+
+				break;
+				case 4:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					break;
+				case 5:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					$('.cloneditem-3',this).appendTo( $(this) );
+					break;
+				case 6:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					$('.cloneditem-3',this).appendTo( $(this) );
+					$('.cloneditem-4',this).appendTo( $(this) );
+					break;
+				default:
+				// code block
+			}
+		});
+
+		$(".carousel").on("touchstart", function(event){
+			if( numItems != 6){				   
+			   	var xClick = event.originalEvent.touches[2].pageX;
+
+			   	$(this).one("touchmove", function(event){
+					// console.log('start');
+					var xMove = event.originalEvent.touches[2].pageX;
+					if( Math.floor(xClick - xMove) > 5 ){
+						$(this).carousel('next');
+					}
+					else if( Math.floor(xClick - xMove) < -5 ){
+						$(this).carousel('prev');
+					}
+			   	});
+
+				$(".carousel").on("touchend", function(){
+					$(this).off("touchmove");
+				});
+			}
+		});
    
-		// function createCarousel(screenWidth){  
-			// let numItems;    
-			// if( screenWidth >= 1919){
-			// 	numItems = 6;	
-			// }
-			// else if( screenWidth >= 1600 && screenWidth < 1919 ){
-			// 	numItems =5;
-			// }
-			// else if( screenWidth >= 1200 && screenWidth < 1600 ){
-			// 	numItems =4;
-			// }
-			// else if( screenWidth >= 992 && screenWidth < 1200  ){
-			// 	numItems = 3;
-			// }
-			// else if(  screenWidth >= 768 && screenWidth < 992 ){
-			// 	numItems = 2;
-			// }
-			// else if( screenWidth < 768 && screenWidth > 420){
-			// 	numItems = 1;
-			// } else {
-			// 	numItems = 1;
-			// }
+		function createCarousel(screenWidth){  
+			let numItems;    
+			if( screenWidth >= 1919){
+				numItems = 6;	
+			}
+			else if( screenWidth >= 1600 && screenWidth < 1919 ){
+				numItems =5;
+			}
+			else if( screenWidth >= 1200 && screenWidth < 1600 ){
+				numItems =4;
+			}
+			else if( screenWidth >= 992 && screenWidth < 1200  ){
+				numItems = 3;
+			}
+			else if(  screenWidth >= 768 && screenWidth < 992 ){
+				numItems = 2;
+			}
+			else if( screenWidth < 768 && screenWidth > 420){
+				numItems = 1;
+			} else {
+				numItems = 1;
+			}
 			
 			$("#carousel .carousel-control-next,#carousel .carousel-control-prev").wrapAll('<div class="carousel-control-group"></div>');
 			$( "#carousel .carousel-control-group").appendTo( $( ".discover--charts--section" ) );
-			hideControls(carouselDataCard.length);
+			hideControls(numItems);
 
-		// 	$('.carousel-showmanymoveone .carousel-item').each(function(){
+			$('.carousel-showmanymoveone .carousel-item').each(function(index){	
 
-		// 		// let itemToClone = $(this);	
-		// 		// $('>div.cloned',this).remove();					
+				for (let i=0;i<$(this).children().length;i++) {					
+					if(i < numItems){
+						$(this).children(':nth-child('+(i+1)+')').css('display','');
+					}else {
+						$(this).children(':nth-child('+(i+1)+')').css('display','none');
+					}
+				}
 
-		// 		// for (let i=1;i<numItems;i++) {
-		// 		// 	console.log(itemToClone);
+			});
+		}
 
-		// 		// 	itemToClone = itemToClone.next();
-		// 		// 	// wrap around if at end of item collection
-		// 		// 	if (!itemToClone.length) {
-		// 		// 		itemToClone = $(this).siblings(':first');	        
-		// 		// 	}
-		// 		// 	// grab item, clone, add marker class, add to collection
-		// 		// 	itemToClone.children(':first-child').clone().addClass("cloned").addClass("cloneditem-"+(i)).appendTo($(this));	    
-		// 		// }
-		// 	});
-		// }
-
-		// $(".carousel").on("touchstart", function(event){
-		// 	if( numItems != 6){				   
-		// 	   	var xClick = event.originalEvent.touches[2].pageX;
-
-		// 	   	$(this).one("touchmove", function(event){
-		// 			// console.log('start');
-		// 			var xMove = event.originalEvent.touches[2].pageX;
-		// 			if( Math.floor(xClick - xMove) > 5 ){
-		// 				$(this).carousel('next');
-		// 			}
-		// 			else if( Math.floor(xClick - xMove) < -5 ){
-		// 				$(this).carousel('prev');
-		// 			}
-		// 	   	});
-
-		// 		$(".carousel").on("touchend", function(){
-		// 			$(this).off("touchmove");
-		// 		});
-		// 	}
-		// });
 	}, [])
 
 	//Update when defaultCountrySelected (redux) changes

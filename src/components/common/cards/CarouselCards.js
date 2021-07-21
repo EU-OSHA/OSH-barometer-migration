@@ -13,19 +13,20 @@ const CarouselCards = (props) => {
     }
 
     return (
-        <div className={`col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2 cloned cloneditem-${props.pos}`}>
+        <div className={`col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2 cloned`}>
 				<div className="content">
 					<Link 
                         className={`icon--card ${props.cardItem.icon}`} 
                         to={props.cardItem.url} 
                     />
-					<h3 className="title--card">
-					
+					<h3 className="title--card">					
                         <Link to={props.cardItem.url}>
                             {props.literals[`L${props.cardItem.titleLiteral}`]}
                         </Link>
 					</h3>
-					{ReactHtmlParser(truncateText(props.literals[`L${props.cardItem.bodyLiteral}`], 100))}
+					<p class="content-text">
+                        {ReactHtmlParser(truncateText(props.literals[`L${props.cardItem.bodyLiteral}`], 100))}
+                    </p>
 				</div>
 			<p className="btn--card--carousel">
 				<Link 
