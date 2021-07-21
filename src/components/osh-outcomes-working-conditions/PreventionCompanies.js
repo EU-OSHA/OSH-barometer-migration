@@ -132,8 +132,8 @@ class PreventionCompanies extends Component {
 					<SelectEconomic 
 						handleSearch={this.handleSearch} 
 						handleSearch2={this.handleSearch2} 
-						//charts={['20022']}
-						//indicator={'53'}
+						charts={[this.state.selectedTab.chartType[0].chart]}
+						indicator={this.state.selectedTab.chartType[0].chartIndicator}
 						literals={this.props.literals}
 						selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 						selectedCountry2={this.props.selectCountry2}
@@ -234,7 +234,7 @@ class PreventionCompanies extends Component {
 				{this.state.selectedTab.url != 'evaluated-aspects-in-risk-assessments' && (
 					<Methodology literals={this.props.literals} section={'Prevention in companies'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
 				)}
-				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies","risk-assessment"]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","prevention-companies",this.state.selectedTab.url]} />
 			</div>
 		)
 	}

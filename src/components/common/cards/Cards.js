@@ -68,7 +68,7 @@ class Cards extends Component {
 					</h3>				
 					{cardType == 'institution' && (
 						<React.Fragment>
-							<p className="institution-name">{literals[`L${countryData.text1 && countryData.text1}`]}</p>
+							<p className="institution-name">{ReactHtmlParser(literals[`L${countryData.text1 && countryData.text1}`])}</p>
 							{countryData.text2 && ReactHtmlParser(literals[`L${countryData.text2}`])}
 							<div className="partial-text" >
 								{this.state.selectedId == idCard ? (

@@ -98,7 +98,7 @@ class Methodology extends Component
 			return (
 				<Fragment>
 					{(numberOfIndicators == 1) ? (<h3>{this.props.literals[headerLiteralID]}</h3>) : (<h4>{this.props.literals[headerLiteralID]}</h4>)}
-					<p>{ReactHtmlParser(this.props.literals[dataLiteralID])}</p>
+					{ReactHtmlParser(this.props.literals[dataLiteralID])}
 				</Fragment>
 			)
 		}
@@ -115,8 +115,8 @@ class Methodology extends Component
 			{
 				methodology = (
 					<div>
-						{this.state.methodology.map((methodology) => (
-							<Accordion>
+						{this.state.methodology.map((methodology, index) => (
+							<Accordion key={`${index}-${methodology.dataset}`} >
 								<h3 className="accordion-title">{this.props.literals[`L${methodology.diagram}`]}</h3>
 								<div className="accordion-content">
 								{this.methodologySection(this.state.methodology.length,'L20720',`L${this.state.methodology[0].diagram}`)}

@@ -4,6 +4,7 @@ import AdviceSection from '../common/AdviceSection';
 import Related from '../common/Related';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
+import ReactHtmlParser from 'react-html-parser';
 import { mentalRisk } from '../../model/subMenuTabs';
 
 class MentalRisk extends Component
@@ -18,12 +19,19 @@ class MentalRisk extends Component
 			if (mentalRisk[i].url == props.indicator)
 			{
 				selected = mentalRisk[i];
-				for (let j = 0; j < selected.chartType.length; j++)
+				if (selected.chartType.length > 1)
 				{
-					if (props.dataset == selected.chartType[j].type)
+					for (let j = 0; j < selected.chartType.length; j++)
 					{
-						indicator = selected.chartType[j].chartIndicator;
+						if (props.dataset == selected.chartType[j].type)
+						{
+							indicator = selected.chartType[j].chartIndicator;
+						}
 					}
+				}
+				else
+				{
+					indicator = selected.chartType[0].chartIndicator;
 				}
 			}
 		}
@@ -61,7 +69,18 @@ class MentalRisk extends Component
 		{
 			if (callback == this.state.indicatorTabs[i].url)
 			{
-				this.setState({ selectedTab: this.state.indicatorTabs[i] });
+				let methodologyIndicator;
+				if (this.state.indicatorTabs[i].chartType.length == 1)
+				{
+					// The indicator is the only one defined for the current tab
+					methodologyIndicator = this.state.indicatorTabs[i].chartType[0].chartIndicator;
+				}
+				else
+				{
+					// Select the indicator for the selected dataset
+					methodologyIndicator = this.state.indicatorTabs[i].chartType.find((element) => element.type == this.state.selectedSurvey).chartIndicator;
+				}
+				this.setState({ selectedTab: this.state.indicatorTabs[i], methodologyIndicator: methodologyIndicator });
 			}
 		}
 	}
@@ -126,7 +145,7 @@ class MentalRisk extends Component
 						</div>
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 				</div>
 				

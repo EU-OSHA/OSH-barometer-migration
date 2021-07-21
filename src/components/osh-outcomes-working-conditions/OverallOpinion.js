@@ -9,6 +9,7 @@ import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountry1, setCountry2, setLockedCountry } from '../../actions/';
+import ReactHtmlParser from 'react-html-parser';
 
 const OverallOpinion = (props) => {
 	let selected = '';
@@ -31,7 +32,6 @@ const OverallOpinion = (props) => {
 	const [legend, setLegend] = useState('')
 	const [subMenuTabs, setSubMenuTabs] = useState(overallOpinion)
 	const [selectedTab, setSelectedTab] = useState(selected);
-	console.log("selectedTab",selectedTab);
 	const [currentPath,setCurrentPath]=useState('/osh-outcomes-working-conditions/overall-opinion/');
 	const [sector, setSector]= useState('sector')
 	const [legend2,setLegend2]=useState(props.literals.L20582)
@@ -101,12 +101,11 @@ const OverallOpinion = (props) => {
 	}
 
 	const handleSearch = (selectCountry1) => {
-		setSelectCountry1(selectCountry1);
-		// if (selectedByUser) {
-		// }
-		//  else {
-		// 	setCountryLocked(selectCountry1)
-		// }
+		if (selectedByUser) {
+			setCountryLocked(selectCountry1)
+		} else {
+			dispatch(setCountry1(selectCountry1))
+		}
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
@@ -156,7 +155,7 @@ const OverallOpinion = (props) => {
 									</div>
 								</div>
 								<div className="chart-legend">
-									{props.literals.L20580}
+									{ReactHtmlParser(props.literals.L20580)}
 								</div>
 							</div>
 						</div>
@@ -166,13 +165,13 @@ const OverallOpinion = (props) => {
 								<SelectEconomic 
 									handleSearch={handleSearch} 
 									handleSearch2={handleSearch2} 
-									charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+									charts={['20041']}
 									literals={props.literals}
-									selectedCountry1={selectCountry1}
+									selectedCountry1={selectedByUser ? lockedCountry : selectCountry}
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
-							<div class="line background-main-light"></div>
+							<div className="line background-main-light"></div>
 							<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 								<div className="card--block--chart">
 									<div className="chart--block">
@@ -183,7 +182,7 @@ const OverallOpinion = (props) => {
 											tick={20}
 											percentage={true}
 											type={dimension}
-											selectCountry1={selectCountry1}
+											selectCountry1={selectedByUser ? lockedCountry : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={'20041'}
 											indicator={'66'}
@@ -197,7 +196,7 @@ const OverallOpinion = (props) => {
 									</div>
 								</div>
 								<div className="chart-legend">
-									{legend2}
+									{ReactHtmlParser(legend2)}
 								</div>
 							</div>
 						</div>

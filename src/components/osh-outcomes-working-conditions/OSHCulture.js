@@ -5,8 +5,8 @@ import Related from '../common/Related.js';
 import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import HealthAwareness from '../common/charts/HealthAwareness';
 import { oshCulture } from '../../model/subMenuTabs';
+import ReactHtmlParser from 'react-html-parser';
 
-const literals = require('../../model/Literals.json');
 class OSHCulture extends Component
 {
 	constructor(props) {
@@ -47,7 +47,23 @@ class OSHCulture extends Component
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
 
+	componentDidUpdate(){
+		// console.log(this.state, this.props.indicator);
+
+		if(this.props.indicator != this.state.selectedTab.url){
+			for (let i = 0; i < oshCulture.length; i++)
+			{
+				if (this.props.indicator == oshCulture[i].url)
+				{
+					this.setState({
+						selectedTab: oshCulture[i]
+					})
+					
+				}
+			}
+		}
 	}
 	
 	render()
@@ -87,13 +103,13 @@ class OSHCulture extends Component
 				</div>
 
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}
 					</div>
 	
 				</div>
-				<Methodology literals={literals} section={'OSH culture and health awareness'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
+				<Methodology literals={this.props.literals} section={'OSH culture and health awareness'} indicator={this.state.selectedTab.chartType[0].chartIndicator} />
 
-				<Related literals={literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab.url]} />
+				<Related literals={this.props.literals} section={["osh-outcomes-working-conditions","osh-culture", this.state.selectedTab.url]} />
 			</div>
 		)
 	}

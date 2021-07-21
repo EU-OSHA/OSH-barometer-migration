@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const SeeMore = props => {
-    // console.log(props);
-    const {text} = props;
+    const {text, toggleSeeMore, onCallbackToggle} = props;
+    const [seeMore, setSeeMore] = useState(toggleSeeMore);
 
-    var html = "";
-
-    function toggleText (event){
-        props.toggleText(event)();
+    const toggleText = () => {
+        setSeeMore(!seeMore)
+        onCallbackToggle(!seeMore)
     }
 
-    if(text != undefined && text != ""){
-        if(text.length > props.maxCharacters){
-            html = (
-                <p className="see-more">
-                    <Link onClick={toggleText} className="see-more">{props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
-                    <Link onClick={toggleText} className="see-less" style={{display:'none'}}>{props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
-                </p>
-            )
-        }
-    }
+    useEffect(() => {
+        setSeeMore(false);
+        onCallbackToggle(false)
+    }, [props.tabName])
 
     return (
-        <div>
-            {html}
-        </div>
+        <Fragment>
+            {text != undefined && text != '' && (
+                text.length > props.maxCharacters && (
+                    <p className="see-more">
+                        {!seeMore ? (
+                            <Link to={'#'} onClick={toggleText} className="see-more">{props.literals.L480}<i className="fa fa-angle-down" aria-hidden="true"></i></Link> 
+                        ) : (
+                            <Link to={'#'} onClick={toggleText} className="see-less" >{props.literals.L481}<i className="fa fa-angle-up" aria-hidden="true"></i></Link>
+                        )}
+                    </p>
+                )
+            )}
+        </Fragment>
     )
 }
 

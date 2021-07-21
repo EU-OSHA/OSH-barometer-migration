@@ -365,7 +365,7 @@
 		  }
 		  .download-report,
 		  .partial-text {
-			display: none;
+			display: none !important;
 		  }
 		  .partial-text-profile {
 			  display: block;

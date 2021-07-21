@@ -4,6 +4,7 @@ import {FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIc
 import $ from "jquery";
 import ReactHtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
+import { Fragment } from 'react';
 
 const menu = require('../../model/menu.json');
 const breadcrumb = require('../../model/breadcrumb.json');
@@ -184,18 +185,12 @@ class Header extends Component
 		return (
 			<ul className="dropdown-menu">
 				{pLevels.filter(level=>level.link!=undefined).map(level=>
-					<li>
+					<li key={level.id} >
 						{
-							(level.id != "economic-sector-profile") ? 
-							<Link to={level.link} id={level.id} accessKey={level.accesskey}>
-								<span>{this.props.literals[level.name]}</span>
-							</Link> 
-							:
-							<Link to={`${level.link}${this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry}/${this.props.selectCountry2}`} id={level.id} accessKey={level.accesskey}>
+							<Link  to={level.link} id={level.id} accessKey={level.accesskey}>
 								<span>{this.props.literals[level.name]}</span>
 							</Link>
-						}
-						
+						}						
 					</li>
 				)}
 			</ul>
@@ -209,15 +204,19 @@ class Header extends Component
 		if (pBreadcrumbElement.link)
 		{
 			return [
-				<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>,
-				<i className='fa fa-angle-right' aria-hidden='true'></i>
+				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
+					<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>
+					<i className='fa fa-angle-right' aria-hidden='true'></i>
+				</Fragment>
 			]
 		}
 		else
 		{
 			return [
-				<span> {pBreadcrumbElement.text} </span>,
-				<i className='fa fa-angle-right' aria-hidden='true'></i>
+				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
+					<span> {pBreadcrumbElement.text} </span>
+					<i className='fa fa-angle-right' aria-hidden='true'></i>
+				</Fragment>
 			]
 		}
 	}
@@ -299,7 +298,7 @@ class Header extends Component
 								<ul className="nav navbar-nav">
 									{/* MENU ITEMS */}
 									{this.state.menu.map(element =>
-										<li className={"dropdown "+this.isCurrent(element.id)}>
+										<li key={element.id} className={"dropdown "+this.isCurrent(element.id)}>
 											{this.firstLevelMenuElement(element)}
 											{this.secondLevelMenuElement(element.levels)}
 										</li>

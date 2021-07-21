@@ -39,9 +39,15 @@ const SubMenuTabs = props => {
                     })
                 }                
             } else {
-                history.push({
-                    pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
-                })
+                if(props.selectCountry1){
+                    history.push({
+                        pathname: `${props.locationPath}${props.selectedTab}/${props.selectCountry1}/${props.selectCountry2}`
+                    })
+                }else{
+                    history.push({
+                        pathname: `${props.locationPath}${props.selectedTab}`
+                    })
+                }                
             }
         }
         else if (props.locationPath.indexOf('exposure-to-dangerous-substances') > -1) {

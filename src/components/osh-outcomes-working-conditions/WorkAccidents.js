@@ -9,7 +9,7 @@ import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import { largeSize, mediumSize } from '../common/utils/chartConfig';
 import { workAccidents } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
-import { setCountry2 } from '../../actions/';
+import { setCountry1, setCountry2 } from '../../actions/';
 
 class WorkAccidents extends Component {
 	constructor(props) {
@@ -25,7 +25,7 @@ class WorkAccidents extends Component {
 		}
 
 		this.state = {
-			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry,
+			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry == 'IS' ? 'AT' : this.props.selectCountry,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
 			currentPath: '/osh-outcomes-working-conditions/work-accidents/',
@@ -63,6 +63,19 @@ class WorkAccidents extends Component {
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22010 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+
+		if (this.props.selectedByUser != true) {
+			if (this.props.country1 != undefined && this.props.country1 != '') {
+				this.setState({
+					selectCountry1: this.props.country1
+				});
+				this.props.setCountry1(this.props.country1);
+			}
+		}
+
+		if (this.props.country2 != undefined && this.props.country2 != '') {
+			this.props.setCountry2(this.props.country2)
+		}
 
 		window.addEventListener('resize', this.updateDimension);
 	}
@@ -139,7 +152,7 @@ class WorkAccidents extends Component {
 					</div>
 
 					<div className="chart-legend">
-						<p>{ this.state.selectedTab.url == 'non-fatal-work-accidents' ? this.props.literals.L20565 : ReactHtmlParser(this.props.literals.L20566) }</p>
+						{ this.state.selectedTab.url == 'non-fatal-work-accidents' ? this.props.literals.L20565 : ReactHtmlParser(this.props.literals.L20566) }
 					</div>
 				</div>
 
@@ -160,6 +173,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
 	return {
+		setCountry1: (country1) => dispatch(setCountry1(country1)),
 		setCountry2: (country2) => dispatch(setCountry2(country2))
 	}
 }

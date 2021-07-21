@@ -138,7 +138,7 @@ export const physicalRiskTabs = [
         literalTab: "20654",
         url: "vibrations-loud-noise-and-temperature",
         chartType: [
-            {type: "esener", chart:"20049", title: "20654", chartIndicator: null, sector: null, answers: null, legend: null}
+            {type: "esener", chart:"20049", title: "20654", chartIndicator: '67', sector: null, answers: null, legend: null}
         ]
     },
     { 
@@ -170,8 +170,8 @@ export const physicalRiskTabs = [
         literalTab: "20656",
         url: "ergonomic-risks",
         chartType: [
-            {type: "esener", chart:"20101", title: "20656", chartIndicator: null, sector: null, answers: null, legend: null},
-            {type: "ewcs", chart:"20080", title: "20656", chartIndicator: null, sector: null, answers: null, legend: null}
+            {type: "esener", chart:"20101", title: "20656", chartIndicator: '291', sector: null, answers: null, legend: null},
+            {type: "ewcs", chart:"20080", title: "20656", chartIndicator: '90', sector: null, answers: null, legend: null}
         ]
     }
 ]
@@ -214,8 +214,8 @@ export const workerInvolvementTabs = [
     { 
         literalTab: "22015", 
         chartType: [
-            {type: "esener", chart:"20106", title: "22015", chartIndicator: null, sector: null, answers: null, legend: null},
-            {type: "ewcs", chart:"20069", title: "22015", chartIndicator: null, sector: null, answers: null, legend: null}
+            {type: "esener", chart:"20106", title: "22015", chartIndicator: '353', sector: null, answers: null, legend: null},
+            {type: "ewcs", chart:"20069", title: "22015", chartIndicator: '75', sector: null, answers: null, legend: null}
         ]
     }
 ]

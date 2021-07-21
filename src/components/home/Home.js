@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
-import { setLockedCountry } from '../../actions/';
+import { setCountry1, setCountry2, setLockedCountry, setMethodology } from '../../actions/';
 
 const Home = props => {
 	// Global States
-	const { lockedCountry, isCookie, selectedByUser } = useSelector((state) => state.selectCountries);
+	const { lockedCountry, isCookie, selectedByUser, selectCountry2 } = useSelector((state) => state.selectCountries);
 	// Cookies
 	const { cookies } = props;
 
@@ -21,6 +21,10 @@ const Home = props => {
 	
 	//Component did mount
 	useEffect(() => {
+
+		// set Methodology
+		dispatch(setMethodology('generic-information', 'OSH authorities', 27));
+
 		// Update the title of the page
 		document.title = 'OSH Barometer | Home';
       
@@ -54,7 +58,7 @@ const Home = props => {
    
 		function createCarousel(screenWidth){      
 			if( screenWidth >= 1919){
-				var numItems = 6;				
+				var numItems = 6;	
 			}
 			else if( screenWidth >= 1600 && screenWidth < 1919 ){
 				var numItems =5;
@@ -147,7 +151,14 @@ const Home = props => {
 			setSelectDisabled(!selectDisabled);
 
 			if (!selectDisabled) {
-				dispatch(setLockedCountry(countrySelected, true, true))
+				if (countrySelected == selectCountry2) {
+					dispatch(setCountry2(''));
+					dispatch(setLockedCountry(countrySelected, true, true));
+					dispatch(setCountry1(countrySelected));
+				} else {
+					dispatch(setLockedCountry(countrySelected, true, true))
+					dispatch(setCountry1(countrySelected));
+				}
 	
 				if (cookies.get('disclaimerCookie') == 'true') {
 					cookies.set("selectedCountry", countrySelected);
@@ -155,6 +166,11 @@ const Home = props => {
 			} else {
 				setCountrySelected('0')
 				dispatch(setLockedCountry('', false, false))
+				dispatch(setCountry1('AT'));
+				if (selectCountry2 == 'AT')
+				{
+					dispatch(setCountry2(''));
+				}
 			}
 		}
 	}
@@ -170,7 +186,7 @@ const Home = props => {
 							<span className="subtitle">{props.literals.L22107}</span>
 						</p>
 						<div className="">							
-						{ReactHtmlParser(props.literals.L22108)}
+							{ReactHtmlParser(props.literals.L22108)}
 						</div>
 						<p className="btn--block-full left-text">
 							<a data-to="about-tool" className="btn-default btn-main-color ng-binding" href="about-the-system">{props.literals.L22110}</a>
@@ -257,19 +273,19 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})"> */}
-								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"+lockedCountry}>
+								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"}>
 								</Link>
 								<h3 className="title--card">
 									{/*<Link to="economic-sector-profile ({pCountry:pCountry1})">*/}
-									<Link to={"/generic-information/economic-sector-profile/"+lockedCountry}>
+									<Link to={"/generic-information/economic-sector-profile/"}>
 									{props.literals.L22003}
 									</Link>
 								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22028,100))}</p>
+								{ReactHtmlParser(truncateText(props.literals.L22028,100))}
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to={"/generic-information/economic-sector-profile/"+lockedCountry} className="btn-default btn-main-color btn-full">
+								<Link to={"/generic-information/economic-sector-profile/"} className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
@@ -305,11 +321,11 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})"> */}
-								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents">
+								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
 								</Link>
 								<h3 className="title--card">
 									{/* <Link to="work-accidents ({pCountry1:pCountry1})"> */}
-									<Link to="/osh-outcomes-working-conditions/work-accidents">
+									<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
 									{props.literals.L22010}
 									</Link>
 								</h3>
@@ -317,7 +333,7 @@ const Home = props => {
 							</div>
 							<p className="btn--card--carousel">
 								{/* <Link to="work-accidents ({pCountry1:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to="/osh-outcomes-working-conditions/work-accidents" className="btn-default btn-main-color btn-full">
+								<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents" className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>
@@ -373,17 +389,17 @@ const Home = props => {
 						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
 							<div className="content">
 								{/* <Link className="icon--card people-group-icon" to="workforce-profile"> */}
-								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile">
+								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile/median-age/ageing-workers">
 								</Link>
 								<h3 className="title--card">
-									<Link to="/generic-information/workforce-profile" >
+									<Link to="/generic-information/workforce-profile/median-age/ageing-workers" >
 									{props.literals.L22004}
 									</Link>
 								</h3>
 								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22030,100))}</p>
 							</div>
 							<p className="btn--card--carousel">
-								<Link to="/generic-information/workforce-profile" className="btn-default btn-main-color btn-full">
+								<Link to="/generic-information/workforce-profile/median-age/ageing-workers" className="btn-default btn-main-color btn-full">
 								{props.literals.L22026}
 								</Link>
 							</p>

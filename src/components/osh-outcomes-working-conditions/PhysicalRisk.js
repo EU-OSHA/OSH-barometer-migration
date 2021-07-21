@@ -164,11 +164,41 @@ class PhysicalRisk extends Component{
 
 	render()
 	{
+		let submenu = '';
+		// If the current tab has another menu inside, it will display the menu
+		if (this.state.showSecondLevel)
+		{
+			submenu = <SubMenuTabs 
+				literals={this.props.literals}
+				selectedTab={this.state.secondLevelSelectedTab.url}
+				selectedSurvey={this.state.selectedSurvey} 
+				callbackSelectedTab={this.callbackSelectedIndicator}
+				locationPath={`${this.state.currentPath}exposure-to-dangerous-substances/`}
+				subMenuTabs={this.state.secondLevelTabs} 
+			/>
+		}
+		// If not, it will display the select with the countries for the selected chart and indicators
+		else
+		{
+			let currentChart = this.state.selectedTab.chartType.length == 1 ? this.state.selectedTab.chartType[0].chart : this.state.selectedTab.chartType.find((element) => element.type == this.state.dataset).chart;
+			let currentIndicator = this.state.selectedTab.chartType.length == 1 ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.chartType.find((element) => element.type == this.state.dataset).chartIndicator;
+
+			submenu = <SelectEconomic 
+				handleSearch={this.handleSearch} 
+				handleSearch2={this.handleSearch2} 
+				charts={[currentChart]}
+				indicator={currentIndicator}
+				literals={this.props.literals}
+				selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+				selectedCountry2={this.props.selectCountry2}
+			/> 
+		}
+
 		return(
 			<div className="physical-risk">
 				<AdviceSection literals={this.props.literals} section={["osh-outcomes-working-conditions","physical-risk"]} methodologyData={{section: 'osh-outcomes-working-conditions', subsection: 'Working conditions - Physical risk', indicator: 67}} />
 				<div>
-					{<SubMenuTabs 
+					<SubMenuTabs 
 						literals={this.props.literals}
 						selectedTab={this.state.selectedTab.url}
 						callbackSelectedTab={this.callbackSelectedTab}
@@ -177,40 +207,22 @@ class PhysicalRisk extends Component{
 						selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 						selectCountry2={this.props.selectCountry2}
 						selectedSurvey={this.state.dataset}
-					/>}
+					/>
 				</div>
 				<div>
 					<div className="line background-main-light" />
-					{/* If the current tab has another menu inside, display the menu. If not, show the Country Selects for Comparison*/}			
-					{ this.state.showSecondLevel ? <SubMenuTabs 
-							literals={this.props.literals}
-							selectedTab={this.state.secondLevelSelectedTab.url}
-							selectedSurvey={this.state.selectedSurvey} 
-							callbackSelectedTab={this.callbackSelectedIndicator}
-							locationPath={`${this.state.currentPath}exposure-to-dangerous-substances/`}
-							subMenuTabs={this.state.secondLevelTabs} 
-						/> : <SelectEconomic 
-							handleSearch={this.handleSearch} 
-							handleSearch2={this.handleSearch2} 
-							//charts={['20022']}
-							//indicator={'53'}
-							literals={this.props.literals}
-							selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
-							selectedCountry2={this.props.selectCountry2}
-						/> 
-					}
+					{ submenu }
 				</div>
 
 				<div className="line background-main-light" />
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1 center-text">
 					<div className="card--block--chart with-filters">
-
-						{ this.state.showSecondLevel ? <div className="chart--block">
-						
+						{ this.state.showSecondLevel ? 
+							<div className="chart--block">						
 								<div className="card--block--chart--wrapper" >
 									<div className="chart--wrapper" >
-										{<MentalRiskCharts
+										<MentalRiskCharts
 											literals={this.props.literals}
 											tabIndicator={this.state.secondLevelSelectedTab.literalTab}
 											chartType={this.state.secondLevelSelectedTab.chartType}
@@ -221,31 +233,33 @@ class PhysicalRisk extends Component{
 											callbackSelectedSurvey={this.callbackSelectedSurvey}
 											exportingEnabled={true}
 											showSelect={true}
-										/>}
+										/>
 									</div>
 								</div>							
-							</div> : <div className="chart--wrapper" >
-									{<SpiderChart
-										literals={this.props.literals}
-										tabIndicator={this.state.selectedTab.literalTab}
-										selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
-										selectCountry2={this.props.selectCountry2}
-										showDataLabel={true}
-										colors={['#f6a400','#003399','#cbe2e3']}
-										selectedTab={this.state.selectedTab.url}
-										indicatorTabs={this.state.indicatorTabs}
-										chartType={this.state.selectedTab.chartType}
-										//callbackLegend={this.callbackChartLegend}
-										callbackSelectedSurvey={this.callbackSelectedSurvey}
-										dataset={this.state.dataset}
-										exportingEnabled={true}
-										showSelect={this.state.selectedTab.chartType.length > 1}
-									/>}
-								</div>
+							</div> 
+						: 
+							<div className="chart--wrapper" >
+								<SpiderChart
+									literals={this.props.literals}
+									tabIndicator={this.state.selectedTab.literalTab}
+									selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
+									selectCountry2={this.props.selectCountry2}
+									showDataLabel={true}
+									colors={['#f6a400','#003399','#cbe2e3']}
+									selectedTab={this.state.selectedTab.url}
+									indicatorTabs={this.state.indicatorTabs}
+									chartType={this.state.selectedTab.chartType}
+									//callbackLegend={this.callbackChartLegend}
+									callbackSelectedSurvey={this.callbackSelectedSurvey}
+									dataset={this.state.dataset}
+									exportingEnabled={true}
+									showSelect={this.state.selectedTab.chartType.length > 1}
+								/>
+							</div>
 						}
 					</div>
 					<div className="chart-legend">
-						{this.props.literals[`L${this.state.chartLegend}`]}						
+						{ReactHtmlParser(this.props.literals[`L${this.state.chartLegend}`])}						
 					</div>
 				</div>
 

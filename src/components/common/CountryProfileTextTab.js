@@ -11,12 +11,11 @@ class CountryProfileTextTab extends Component
         this.state = {
             maxCharacters: this.props.maxCharacters ? this.props.maxCharacters : 200,
 			country1: this.props.country1 != undefined ? this.props.country1 : { code: 'AT', name: 'Austria' },
-			country2: this.props.country2 != undefined ? this.props.country2 : { code: 'BE', name: 'Belgium' }
+			country2: this.props.country2 != undefined ? this.props.country2 : { code: 'BE', name: 'Belgium' },
+			toggleSeeMore: false,
+			toggleSeeMore2: false
         }
     }
-
-	// const country1 = this.props.country1 != undefined ? this.props.country1 : { code: "AT", name: "Austria" };
-		// const country2 = this.props.country2 != undefined ? this.props.country2 : { code: "BE", name: "Belgium" };
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.country1 != this.props.country1) {
@@ -25,6 +24,13 @@ class CountryProfileTextTab extends Component
 
 		if (prevProps.country2 != this.props.country2) {
 			this.setState({ country2: this.props.country2 })
+		}
+
+		if (prevProps.tabName != this.props.tabName) {
+			this.setState({
+				toggleSeeMore: false,
+				toggleSeeMore2: false
+			})
 		}
 	}
 
@@ -72,44 +78,16 @@ class CountryProfileTextTab extends Component
 		}
 	}
 
-    toggleText = event => () => {
-		// console.log('event.target.nodeName',event.target.nodeName);
+	toggleText = (callback) => {
+		this.setState({
+			toggleSeeMore: callback
+		})
+	}
 
-		var completeText = "";
-		var partialText = "";
-		var seeMore = "";
-		var seeLess = "";
-
-		if(event.target.nodeName === "A"){
-			completeText = event.target.parentNode.parentNode.previousSibling;
-			partialText = event.target.parentNode.parentNode.previousSibling.previousSibling;
-			seeMore = event.target.previousSibling !== null ? event.target.previousSibling: event.target;
-			seeLess = event.target.nextSibling !== null ? event.target.nextSibling: event.target;
-
-			// seeLess.style.display === "none" ? seeLess.style.display = "block" : seeLess.style.display = "none" ;
-			// (completeText.style.display === "block" || completeText.style.display === "") ? completeText.style.display = "none": completeText.style.display = "block";
-			// (partialText.style.display === "block" || partialText.style.display === "") ? partialText.style.display = "none": partialText.style.display = "block";
-		} 
-		else if(event.target.nodeName === "FONT")
-		{
-			completeText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling;
-			partialText = event.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling;
-			seeMore = event.target.parentNode.parentNode.previousSibling !== null ? event.target.parentNode.parentNode.previousSibling: event.target.parentNode.parentNode;
-			seeLess = event.target.parentNode.parentNode.nextSibling !== null ? event.target.parentNode.parentNode.nextSibling: event.target.parentNode.parentNode;
-		}
-		else if(event.target.nodeName === "I")
-		{
-			completeText = event.target.parentNode.parentNode.parentNode.previousSibling;
-			partialText = event.target.parentNode.parentNode.parentNode.previousSibling.previousSibling;
-			seeMore = event.target.parentNode.previousSibling !== null ? event.target.parentNode.previousSibling: event.target.parentNode;
-			seeLess = event.target.parentNode.nextSibling !== null ? event.target.parentNode.nextSibling: event.target.parentNode;
-		}
-
-		completeText.classList.toggle("complete-text");
-		partialText.classList.toggle("hide");
-		
-		seeMore.classList.toggle("hide");
-		seeLess.style.display === "none" ? seeLess.style.display = "inline" : seeLess.style.display = "none" ;
+	toggleText2 = (callback) => {
+		this.setState({
+			toggleSeeMore2: callback
+		})
 	}
 
     render () {
@@ -134,13 +112,19 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a> 
 								)}
 							</p>
-							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element) => <div className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
-							<div className="partial-text">{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>
-							<div className="complete-text" data-ng-bind-html="i18nLiterals['L'+country2Data.text1]">
+							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
+							<div className="complete-text" style={{ display: this.state.toggleSeeMore2 ? 'block' : 'none' }} >
 								{ReactHtmlParser(this.props.literals['L'+this.props.country2Text])}
 							</div>
-							<SeeMore text={this.props.literals['L'+this.props.country2Text]} maxCharacters={this.state.maxCharacters} 
-								literals={this.props.literals} toggleText={this.toggleText} />
+							<div className="partial-text" style={{ display: this.state.toggleSeeMore2 ? 'none' : 'block' }}>{this.trimText(this.props.literals['L'+this.props.country2Text])}</div>	
+							<SeeMore 
+								text={this.props.literals['L'+this.props.country2Text]} 
+								maxCharacters={this.state.maxCharacters} 
+								toggleSeeMore={this.state.toggleSeeMore2} 
+								onCallbackToggle={this.toggleText2} 
+								tabName={this.props.tabName}
+								literals={this.props.literals} 
+								/>
 						</div>
 					</div>
 				)
@@ -162,11 +146,17 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         	</p>
 						)}
-						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element) => <div className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
-                        <div className="partial-text" >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
-                        <div className="complete-text" >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
-                        <SeeMore text={this.props.literals['L'+this.props.country1Text]} maxCharacters={this.state.maxCharacters} 
-                            literals={this.props.literals} toggleText={this.toggleText} />
+						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
+                        <div className="partial-text" style={{ display: !this.state.toggleSeeMore ? 'block' : 'none' }} >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
+                        <div className="complete-text" style={{ display: this.state.toggleSeeMore ? 'block' : 'none' }} >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
+                        <SeeMore 
+							text={this.props.literals['L'+this.props.country1Text]} 
+							maxCharacters={this.state.maxCharacters}
+							toggleSeeMore={this.state.toggleSeeMore}
+							onCallbackToggle={this.toggleText}
+							tabName={this.props.tabName}
+                            literals={this.props.literals}
+							/>
                     </div>
                 </div>
                 {secondCountryContainer}

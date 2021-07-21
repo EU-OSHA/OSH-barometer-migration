@@ -25,7 +25,8 @@ class EnforcementCapacity extends Component {
 		}
 
 		this.state={
-			lockedCountry: this.props.lockedCountry,
+			lockedCountry: (this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'HR' && this.props.lockedCountry != 'IS'
+				&& this.props.lockedCountry != 'LU'  && this.props.lockedCountry != 'NO'  && this.props.lockedCountry != 'RO') ? this.props.lockedCountry : 'AT',
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
@@ -185,7 +186,7 @@ class EnforcementCapacity extends Component {
 						/>
 				</div>
 
-				<div class="line background-main-light"></div>
+				<div className="line background-main-light"></div>
 
 				<div>
 					<SelectEconomic 
@@ -194,10 +195,12 @@ class EnforcementCapacity extends Component {
 						literals={this.props.literals}
 						selectedCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 						selectedCountry2={this.props.selectCountry2}
-						/>
+						charts={[this.state.indicatorSubTabs[0].chartType[0].chart]}
+						indicator={[this.state.indicatorSubTabs[0].chartType[0].chartIndicator]}
+					/>
 				</div>
 
-				<div class="line background-main-light"></div>
+				<div className="line background-main-light"></div>
 
 				<div className="container section--page card--grid xxs-w1 xs-w1 w1">
 					{this.state.indicatorSubTabs.map((element) => {
