@@ -47,7 +47,23 @@ class OSHCulture extends Component
 	componentDidMount() {
 		// Update the title of the page
 		document.title = this.props.literals.L22012 +  " - " + this.props.literals.L22020 + " - " + this.props.literals.L363;
+	}
 
+	componentDidUpdate(){
+		// console.log(this.state, this.props.indicator);
+
+		if(this.props.indicator != this.state.selectedTab.url){
+			for (let i = 0; i < oshCulture.length; i++)
+			{
+				if (this.props.indicator == oshCulture[i].url)
+				{
+					this.setState({
+						selectedTab: oshCulture[i]
+					})
+					
+				}
+			}
+		}
 	}
 	
 	render()

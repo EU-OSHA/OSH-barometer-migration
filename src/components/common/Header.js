@@ -187,16 +187,10 @@ class Header extends Component
 				{pLevels.filter(level=>level.link!=undefined).map(level=>
 					<li key={level.id} >
 						{
-							(level.id != "economic-sector-profile") ? 
 							<Link  to={level.link} id={level.id} accessKey={level.accesskey}>
 								<span>{this.props.literals[level.name]}</span>
-							</Link> 
-							:
-							<Link to={`${level.link}${this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry}/${this.props.selectCountry2}`} id={level.id} accessKey={level.accesskey}>
-								<span>{this.props.literals[level.name]}</span>
 							</Link>
-						}
-						
+						}						
 					</li>
 				)}
 			</ul>
@@ -211,7 +205,7 @@ class Header extends Component
 		{
 			return [
 				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
-					<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>,
+					<Link to={pBreadcrumbElement.link}>{pBreadcrumbElement.text}</Link>
 					<i className='fa fa-angle-right' aria-hidden='true'></i>
 				</Fragment>
 			]
@@ -220,7 +214,7 @@ class Header extends Component
 		{
 			return [
 				<Fragment key={`${pIndex}-${pBreadcrumbElement.text}`} >
-					<span> {pBreadcrumbElement.text} </span>,
+					<span> {pBreadcrumbElement.text} </span>
 					<i className='fa fa-angle-right' aria-hidden='true'></i>
 				</Fragment>
 			]

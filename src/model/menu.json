@@ -23,7 +23,7 @@
             },{
                 "id":"economic-sector-profile",
                 "name":"L22003",
-                "link":"/generic-information/economic-sector-profile/",
+                "link":"/generic-information/economic-sector-profile",
                 "tabindex":"4",
                 "accesskey":"",
                 "database_name":"Economic and sector profile",

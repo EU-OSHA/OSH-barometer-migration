@@ -31,7 +31,9 @@ const EconomicSectorProfile = (props) => {
 		if (selectedByUser) {
 			return null
 		} else {
-			dispatch(setCountry1(props.country1))
+			if (props.country1 != undefined && props.country1 != '') {
+				dispatch(setCountry1(props.country1))
+			}
 		}
 
 		if (props.country2 == '' || props.country2 == undefined) {
@@ -125,7 +127,7 @@ const EconomicSectorProfile = (props) => {
 								literals={props.literals}
 								selectedCountry1={selectedByUser ? countryLocked : selectCountry}
 								selectedCountry2={selectCountry2}	
-								/>
+							/>
 						</ul>
 					</form>
 					

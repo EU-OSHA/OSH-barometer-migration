@@ -101,12 +101,11 @@ const OverallOpinion = (props) => {
 	}
 
 	const handleSearch = (selectCountry1) => {
-		setSelectCountry1(selectCountry1);
-		// if (selectedByUser) {
-		// }
-		//  else {
-		// 	setCountryLocked(selectCountry1)
-		// }
+		if (selectedByUser) {
+			setCountryLocked(selectCountry1)
+		} else {
+			dispatch(setCountry1(selectCountry1))
+		}
 	}
 
 	const handleSearch2 = (selectCountry2)=>{
@@ -166,9 +165,9 @@ const OverallOpinion = (props) => {
 								<SelectEconomic 
 									handleSearch={handleSearch} 
 									handleSearch2={handleSearch2} 
-									charts={['20089', '20010', '20011', '20013', '20087', '20014' , '20088']}
+									charts={['20041']}
 									literals={props.literals}
-									selectedCountry1={selectCountry1}
+									selectedCountry1={selectedByUser ? lockedCountry : selectCountry}
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
@@ -183,7 +182,7 @@ const OverallOpinion = (props) => {
 											tick={20}
 											percentage={true}
 											type={dimension}
-											selectCountry1={selectCountry1}
+											selectCountry1={selectedByUser ? lockedCountry : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={'20041'}
 											indicator={'66'}
