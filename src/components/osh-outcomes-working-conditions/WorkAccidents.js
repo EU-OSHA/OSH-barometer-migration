@@ -25,7 +25,7 @@ class WorkAccidents extends Component {
 		}
 
 		this.state = {
-			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry : this.props.selectCountry == 'IS' ? 'AT' : this.props.selectCountry,
+			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry != 'IS'? this.props.lockedCountry : 'AT' : this.props.selectCountry == 'IS' ? 'AT' : this.props.selectCountry,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
 			currentPath: '/osh-outcomes-working-conditions/work-accidents/',
