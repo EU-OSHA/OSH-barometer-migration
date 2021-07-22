@@ -70,7 +70,7 @@ const Home = props => {
 				case 1:
 					break;
 				case 2:
-					$(this).children(':nth-child(1)').appendTo( $(this) ).text();
+					$(this).children(':nth-child(1)').appendTo( $(this) );
 				break;
 				case 3:
 					$('.cloneditem-0',this).appendTo( $(this) );
@@ -99,28 +99,7 @@ const Home = props => {
 				// code block
 			}
 		});
-
-		$(".carousel").on("touchstart", function(event){
-			if( numItems != 6){				   
-			   	var xClick = event.originalEvent.touches[2].pageX;
-
-			   	$(this).one("touchmove", function(event){
-					// console.log('start');
-					var xMove = event.originalEvent.touches[2].pageX;
-					if( Math.floor(xClick - xMove) > 5 ){
-						$(this).carousel('next');
-					}
-					else if( Math.floor(xClick - xMove) < -5 ){
-						$(this).carousel('prev');
-					}
-			   	});
-
-				$(".carousel").on("touchend", function(){
-					$(this).off("touchmove");
-				});
-			}
-		});
-   
+  
 		function createCarousel(screenWidth){  
 			let numItems;    
 			if( screenWidth >= 1919){
