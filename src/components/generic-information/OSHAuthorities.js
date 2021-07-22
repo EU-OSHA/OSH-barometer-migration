@@ -30,11 +30,11 @@ class OSHAuthorities extends Component
 
 	handleCallbackCountry = (countryCallback) => {
 		const countryFilter = this.state.filters.countries;
-		const countryCode = this.state.filters.countries.find((country) => country.code == countryCallback.code)
+		const countryCode = this.state.filters.countries.find((country) => country?.code == countryCallback.code)
 		if (countryCallback.code != countryCode?.code) {
 			this.setState({ filters: {...this.state.filters, countries: [...countryFilter, countryCallback]} })
 		} else {
-			const index = this.state.filters.countries.findIndex((country) => country.code == countryCallback.code);
+			const index = this.state.filters.countries.findIndex((country) => country?.code == countryCallback.code);
 			const newCountryFilters = this.state.filters.countries;
 			newCountryFilters.splice(index, 1);
 			this.setState({ filters: {...this.state.filters, countries: newCountryFilters} });
@@ -100,10 +100,17 @@ class OSHAuthorities extends Component
 					this.setState({ matrixPageData: res.resultset })
 				})
 			} else {
-				getOSHData('MATRIX_AUTHORITY', {countries: [this.props.lockedCountry]})
-					.then((res) => {
-						this.setState({ matrixPageData: res.resultset })
-					});
+				if (this.props.lockedCountry != 'IS' && this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'NO') {
+					getOSHData('MATRIX_AUTHORITY', {countries: [this.props.lockedCountry]})
+						.then((res) => {
+							this.setState({ matrixPageData: res.resultset })
+						});
+				} else {
+					getOSHData('MATRIX_AUTHORITY')
+						.then((res) => {
+							this.setState({ matrixPageData: res.resultset })
+						});
+				}
 			}
 		} catch (error) {
 			console.log('Error fetching selector countries:', error)
@@ -117,10 +124,12 @@ class OSHAuthorities extends Component
 		if (prevState.filters != this.state.filters) {
 			this.setState({ ...this.state, isFetching: true })
 			try {
-				getOSHData('MATRIX_AUTHORITY', this.state.filters)
-					.then((res) => {
-						this.setState({ matrixPageData: res.resultset })
-					})
+				if (this.state.filters.countries[0]?.code != 'IS' && this.state.filters.countries[0]?.code != 'CH' && this.state.filters.countries[0]?.code != 'NO') {
+					getOSHData('MATRIX_AUTHORITY', this.state.filters)
+						.then((res) => {
+							this.setState({ matrixPageData: res.resultset })
+						})
+				}
 			} catch (error) {
 				console.log('Error fetching data', error)
 			} finally {
@@ -129,11 +138,13 @@ class OSHAuthorities extends Component
 		}
 
 		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.lockedCountry != ''){
-			const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
-			this.setState({
-				defaultTags: true,
-				filters: {...this.state.filters, countries: [countryDefault]}
-			});
+			if (this.props.lockedCountry != 'IS' && this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'NO') {
+				const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
+				this.setState({
+					defaultTags: true,
+					filters: {...this.state.filters, countries: [countryDefault]}
+				});
+			}			
 		}	
 	 }
 
@@ -160,7 +171,7 @@ class OSHAuthorities extends Component
 						{this.state.filters && (
 							<div>
 								{this.state.filters.countries.map((country) => (
-									<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>
+									country && (<span key={country.code} className="selected-tag" onClick={this.onSelectCountryTag(country.code)}>{country.code == 'EU28' ? '' : `(${country.code})`} {country.name}</span>)
 								))}
 								{this.state.filters.checks.map((array) => {
 									if (array.check) {
