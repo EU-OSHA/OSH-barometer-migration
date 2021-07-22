@@ -33,6 +33,7 @@ const Home = props => {
 	}, []);
 
 	useEffect(() => {
+
 		function getWidth(){
 			if (typeof window.innerWidth != 'undefined') {
 				return window.innerWidth;
@@ -44,14 +45,6 @@ const Home = props => {
 				return document.getElementsByTagName('body')[0].clientWidth;
 			}
 		}
-   
-		const screenWidth = getWidth();
-		createCarousel(screenWidth);
-   
-		$(window).on("resize",function(e){
-			const screenWidth = getWidth();		  
-			createCarousel(screenWidth);
-		}); 	
 
 		function hideControls(items){
 			if(items == 6){
@@ -99,7 +92,15 @@ const Home = props => {
 				// code block
 			}
 		});
-  
+
+		const screenWidth = getWidth();
+		createCarousel(screenWidth);
+   
+		$(window).on("resize",function(e){
+			const screenWidth = getWidth();		  
+			createCarousel(screenWidth);
+		}); 	
+   
 		function createCarousel(screenWidth){  
 			let numItems;    
 			if( screenWidth >= 1919){

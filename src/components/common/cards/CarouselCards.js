@@ -24,9 +24,9 @@ const CarouselCards = (props) => {
                             {props.literals[`L${props.cardItem.titleLiteral}`]}
                         </Link>
 					</h3>
-					<p class="content-text">
+					<div className="content-text">
                         {ReactHtmlParser(truncateText(props.literals[`L${props.cardItem.bodyLiteral}`], 100))}
-                    </p>
+                    </div>
 				</div>
 			<p className="btn--card--carousel">
 				<Link 
