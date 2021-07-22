@@ -182,7 +182,7 @@
             },{
                 "title": "L20674",
                 "text": "L20578",
-                "link": "/osh-outcomes-working-conditions/working-hours/time-pressure/esener",
+                "link": "/osh-outcomes-working-conditions/mental-risk/working-hours/esener",
                 "icon": "mental-risk"
             }],
             "use-of-personal-protective-equipment":[{
@@ -223,7 +223,7 @@
             "health-at-risk":[{
                 "title": "L22011",
                 "text": "L22052",
-                "link": "/osh-outcomes-working-conditions/health-perception-of-workers",
+                "link": "/osh-outcomes-working-conditions/health-perception",
                 "icon": "health"
             },{
                 "title": "L22008",
@@ -259,7 +259,7 @@
             "influence":[{
                 "title": "L22015",
                 "text":"L22060",
-                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/ewcs",
+                "link": "/osh-outcomes-working-conditions/worker-involvement/ewcs",
                 "icon": "workers"
             },{
                 "title": "L322",
@@ -368,12 +368,12 @@
             "employees-participation-in-prevention":[{
                 "title": "L22015",
                 "text":"L22060",
-                "link": "/osh-outcomes-working-conditionsosh-steering/worker-involvement/esener",
+                "link": "/osh-outcomes-working-conditions/worker-involvement/esener",
                 "icon": "workers"
             },{
                 "title": "L22011",
                 "text":"L22052",
-                "link": "/osh-outcomes-working-conditions/health-perception-of-workers",
+                "link": "/osh-outcomes-working-conditions/health-perception",
                 "icon": "enforcement"
             }]
         },
