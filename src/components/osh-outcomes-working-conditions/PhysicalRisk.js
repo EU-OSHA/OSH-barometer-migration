@@ -39,7 +39,7 @@ class PhysicalRisk extends Component{
 		}
 
 		this.state= {
-			lockedCountry: this.props.lockedCountry,
+			lockedCountry: this.props.lockedCountry != 'IS' ? this.props.lockedCountry : 'AT',
 			chart:'20049',
 			firstLevelTabs: physicalRiskTabs,
 			secondLevelTabs: secondLevelTabs,

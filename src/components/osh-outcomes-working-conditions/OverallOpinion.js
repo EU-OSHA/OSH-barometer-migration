@@ -24,7 +24,7 @@ const OverallOpinion = (props) => {
 	// state from redux
 	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = useSelector((state) => state.selectCountries);
 
-	const [selectCountry1, setSelectCountry1] = useState(selectedByUser ? lockedCountry : selectCountry);
+	const [selectCountry1, setSelectCountry1] = useState(selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry);
 	// const [countryLocked, setCountryLocked] = useState(lockedCountry);
 	const [dimension, setDimension] = useState(window.innerWidth > 768 ? 'column' : 'bar');
 	const [change, setChange]=useState(true)
@@ -167,7 +167,7 @@ const OverallOpinion = (props) => {
 									handleSearch2={handleSearch2} 
 									charts={['20041']}
 									literals={props.literals}
-									selectedCountry1={selectedByUser ? lockedCountry : selectCountry}
+									selectedCountry1={selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry}
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
@@ -182,7 +182,7 @@ const OverallOpinion = (props) => {
 											tick={20}
 											percentage={true}
 											type={dimension}
-											selectCountry1={selectedByUser ? lockedCountry : selectCountry}
+											selectCountry1={selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry}
 											selectCountry2={selectCountry2}
 											chart={'20041'}
 											indicator={'66'}
