@@ -10,12 +10,14 @@ import { setCountry2 } from './actions';
 
 const App = (props) => 
 {
-	const { selectCountry, selectCountry2 } = useSelector((state) => state.selectCountries);
+	const { selectCountry, selectCountry2, lockedCountry } = useSelector((state) => state.selectCountries);
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if (selectCountry == selectCountry2) {
-			dispatch(setCountry2(''))
+		if (!lockedCountry) {
+			if (selectCountry == selectCountry2) {
+				dispatch(setCountry2(''))
+			}
 		}
 	}, [selectCountry, selectCountry2])
 
