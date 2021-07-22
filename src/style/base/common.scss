@@ -851,6 +851,7 @@ a{
     li{
       width: 50%;
       position: relative;
+      z-index: 10000;
       display: flex;
       margin-bottom: 1rem;
       margin-top: 0.8rem;
