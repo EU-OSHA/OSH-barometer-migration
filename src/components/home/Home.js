@@ -154,10 +154,8 @@ const Home = props => {
 				if (countrySelected == selectCountry2) {
 					dispatch(setCountry2(''));
 					dispatch(setLockedCountry(countrySelected, true, true));
-					dispatch(setCountry1(countrySelected));
 				} else {
 					dispatch(setLockedCountry(countrySelected, true, true))
-					dispatch(setCountry1(countrySelected));
 				}
 	
 				if (cookies.get('disclaimerCookie') == 'true') {
@@ -166,11 +164,6 @@ const Home = props => {
 			} else {
 				setCountrySelected('0')
 				dispatch(setLockedCountry('', false, false))
-				dispatch(setCountry1('AT'));
-				if (selectCountry2 == 'AT')
-				{
-					dispatch(setCountry2(''));
-				}
 			}
 		}
 	}
