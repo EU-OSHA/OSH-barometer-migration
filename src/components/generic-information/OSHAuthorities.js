@@ -106,7 +106,7 @@ class OSHAuthorities extends Component
 							this.setState({ matrixPageData: res.resultset })
 						});
 				} else {
-					getOSHData('MATRIX_AUTHORITY')
+					getOSHData('MATRIX_AUTHORITY', {countries: {code: 'AT'}})
 						.then((res) => {
 							this.setState({ matrixPageData: res.resultset })
 						});
@@ -129,6 +129,11 @@ class OSHAuthorities extends Component
 						.then((res) => {
 							this.setState({ matrixPageData: res.resultset })
 						})
+				} else {
+					getOSHData('MATRIX_AUTHORITY', {countries: {code: 'AT'}})
+						.then((res) => {
+							this.setState({ matrixPageData: res.resultset })
+						});
 				}
 			} catch (error) {
 				console.log('Error fetching data', error)
@@ -144,7 +149,13 @@ class OSHAuthorities extends Component
 					defaultTags: true,
 					filters: {...this.state.filters, countries: [countryDefault]}
 				});
-			}			
+			} else {
+				const countryDefault = this.state.countries.find((country) => country.code == 'AT');
+				this.setState({
+					defaultTags: true,
+					filters: {...this.state.filters, countries: [countryDefault]}
+				});
+			}		
 		}	
 	 }
 
