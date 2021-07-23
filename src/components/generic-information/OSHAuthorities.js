@@ -8,6 +8,9 @@ import SelectFilters from '../common/select-filters/SelectFilters';
 import { getOSHCountries, getOSHData } from '../../api';
 import { connect } from 'react-redux';
 
+// Countries Exceptions
+import { oshAuthoritiesExceptions } from '../../model/countriesExceptions';
+
 class OSHAuthorities extends Component
 {
 	constructor(props) {
@@ -100,13 +103,9 @@ class OSHAuthorities extends Component
 					this.setState({ matrixPageData: res.resultset })
 				})
 			} else {
-				if (this.props.lockedCountry != 'IS' && this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'NO') {
+				const exceptions = oshAuthoritiesExceptions.find((element) => this.props.lockedCountry == element.code);
+				if (!exceptions) {
 					getOSHData('MATRIX_AUTHORITY', {countries: [this.props.lockedCountry]})
-						.then((res) => {
-							this.setState({ matrixPageData: res.resultset })
-						});
-				} else {
-					getOSHData('MATRIX_AUTHORITY', {countries: {code: 'AT'}})
 						.then((res) => {
 							this.setState({ matrixPageData: res.resultset })
 						});
@@ -124,17 +123,10 @@ class OSHAuthorities extends Component
 		if (prevState.filters != this.state.filters) {
 			this.setState({ ...this.state, isFetching: true })
 			try {
-				if (this.state.filters.countries[0]?.code != 'IS' && this.state.filters.countries[0]?.code != 'CH' && this.state.filters.countries[0]?.code != 'NO') {
-					getOSHData('MATRIX_AUTHORITY', this.state.filters)
-						.then((res) => {
-							this.setState({ matrixPageData: res.resultset })
-						})
-				} else {
-					getOSHData('MATRIX_AUTHORITY', {countries: {code: 'AT'}})
-						.then((res) => {
-							this.setState({ matrixPageData: res.resultset })
-						});
-				}
+				getOSHData('MATRIX_AUTHORITY', this.state.filters)
+					.then((res) => {
+						this.setState({ matrixPageData: res.resultset })
+					})
 			} catch (error) {
 				console.log('Error fetching data', error)
 			} finally {
@@ -143,7 +135,8 @@ class OSHAuthorities extends Component
 		}
 
 		if(!this.state.defaultTags && this.state.countries.length != 0 && this.props.lockedCountry != ''){
-			if (this.props.lockedCountry != 'IS' && this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'NO') {
+			const exceptions = oshAuthoritiesExceptions.find((element) => this.props.lockedCountry == element.code);
+			if (!exceptions) {
 				const countryDefault = this.state.countries.find((country) => country.code == this.props.lockedCountry);
 				this.setState({
 					defaultTags: true,
