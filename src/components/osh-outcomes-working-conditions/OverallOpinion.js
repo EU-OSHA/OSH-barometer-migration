@@ -8,8 +8,11 @@ import SubMenuTabs from '../common/subMenuTabs/SubMenuTabs';
 import MentalRiskCharts from '../common/charts/MentalRiskCharts';
 import { overallOpinion } from '../../model/subMenuTabs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCountry1, setCountry2, setLockedCountry } from '../../actions/';
+import { setCountry1, setCountry2 } from '../../actions/';
 import ReactHtmlParser from 'react-html-parser';
+
+// Countries Exceptions
+import { overallOpinionExceptions } from '../../model/countriesExceptions';
 
 const OverallOpinion = (props) => {
 	let selected = '';
@@ -20,12 +23,11 @@ const OverallOpinion = (props) => {
 			selected = overallOpinion[i];
 		}
 	}
-
+	
 	// state from redux
 	const { selectCountry, selectCountry2, selectedByUser, lockedCountry } = useSelector((state) => state.selectCountries);
 
-	const [selectCountry1, setSelectCountry1] = useState(selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry);
-	// const [countryLocked, setCountryLocked] = useState(lockedCountry);
+	const [selectCountry1, setSelectCountry1] = useState(selectedByUser ? lockedCountry : props.country1 != undefined ? props.country1 : selectCountry);
 	const [dimension, setDimension] = useState(window.innerWidth > 768 ? 'column' : 'bar');
 	const [change, setChange]=useState(true)
 	const [title, setTitle] = useState('')
@@ -45,18 +47,61 @@ const OverallOpinion = (props) => {
 	}, [window.innerWidth])
 
 	useEffect(() => {
-		// if (props.country1) {
-		// 	dispatch(setCountry1(props.country1))
-		// }
-		
-
-		if (props.country2) {
-			dispatch(setCountry2(props.country2))
-		}
-		
 		// Update the title of the page
 		document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
-	},[props.country1, props.country2])
+	},[])
+
+	useEffect(() => {
+		const exceptions = overallOpinionExceptions.find((element) => {
+			if (selectedByUser) {
+				return element.code == lockedCountry
+			} else if (!selectedByUser) {
+				return element.code == selectCountry
+			} else {
+				return element.code == props.country1
+			}
+		})
+
+		if (exceptions) {
+			if (selectedByUser) {
+				if ( lockedCountry != exceptions.code ) {
+				} else {
+					setSelectCountry1('AT');
+					if ((selectCountry1 == selectCountry2) || (selectCountry == selectCountry2)) {
+						dispatch(setCountry2(''))
+					}
+				}
+			} else {
+				if (( props.country1 != undefined && props.country1 != exceptions.code) || (selectCountry != exceptions.code) ) {
+					setSelectCountry1(props.country1)
+				} else {
+					setSelectCountry1('AT');
+					if (selectCountry1 == selectCountry2) {
+						dispatch(setCountry2(''))
+					}
+				}
+			}
+		}
+		
+	}, [selectedByUser, selectCountry]);
+
+	useEffect(() => {
+		if (!selectedByUser && props.country1 != undefined) {
+			if (selectCountry != props.country1) {
+				dispatch(setCountry1(props.country1))
+			}
+		}
+
+		if (props.country2 != undefined) {
+			dispatch(setCountry2(props.country2))
+		}
+
+		if (selectedByUser) {
+			if (selectCountry2 == lockedCountry) {
+				dispatch(setCountry2(''));
+			}
+		}
+	}, [])
 
  
 	const updateDimension = () =>{
@@ -101,8 +146,9 @@ const OverallOpinion = (props) => {
 
 	const handleSearch = (selectCountry1) => {
 		if (selectedByUser) {
-			setCountryLocked(selectCountry1)
+			setSelectCountry1(selectCountry1)
 		} else {
+			setSelectCountry1(selectCountry1)
 			dispatch(setCountry1(selectCountry1))
 		}
 	}
@@ -166,7 +212,8 @@ const OverallOpinion = (props) => {
 									handleSearch2={handleSearch2} 
 									charts={['20041']}
 									literals={props.literals}
-									selectedCountry1={selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry}
+									// selectedCountry1={selectCountry1}
+									selectedCountry1={selectCountry1}
 									selectedCountry2={selectCountry2}
 								/>
 							</div>
@@ -181,7 +228,8 @@ const OverallOpinion = (props) => {
 											tick={20}
 											percentage={true}
 											type={dimension}
-											selectCountry1={selectedByUser ? lockedCountry != 'IS' ? lockedCountry : 'AT' : selectCountry}
+											// selectCountry1={selectCountry1}
+											selectCountry1={selectCountry1}
 											selectCountry2={selectCountry2}
 											chart={'20041'}
 											indicator={'66'}
