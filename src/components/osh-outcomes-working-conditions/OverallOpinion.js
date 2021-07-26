@@ -45,11 +45,10 @@ const OverallOpinion = (props) => {
 	}, [window.innerWidth])
 
 	useEffect(() => {
-		if (selectedByUser && props.country1) {
-			dispatch(setLockedCountry(props.country1))
-		} else if (!selectedByUser && props.country1) {
-			dispatch(setCountry1(props.country1))
-		}
+		// if (props.country1) {
+		// 	dispatch(setCountry1(props.country1))
+		// }
+		
 
 		if (props.country2) {
 			dispatch(setCountry2(props.country2))
@@ -57,7 +56,7 @@ const OverallOpinion = (props) => {
 		
 		// Update the title of the page
 		document.title = props.literals.L22013 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
-	},[])
+	},[props.country1, props.country2])
 
  
 	const updateDimension = () =>{
