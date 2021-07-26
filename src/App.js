@@ -6,12 +6,18 @@ import Footer from './components/common/Footer';
 import './style/App.scss';
 import CookiesComponent from './components/common/cookies/CookiesComponent';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMatomo } from '@datapunt/matomo-tracker-react'
+
 import { setCountry2 } from './actions';
 
 const App = (props) => 
 {
 	const { selectCountry, selectCountry2, lockedCountry } = useSelector((state) => state.selectCountries);
+	const { trackPageView, enableLinkTracking } = useMatomo();
 	const dispatch = useDispatch()
+
+	// Run enableLinkTracking to track with Matomo the different pages visited by the user
+	enableLinkTracking();
 
 	useEffect(() => {
 		if (!lockedCountry) {
@@ -19,6 +25,8 @@ const App = (props) =>
 				dispatch(setCountry2(''))
 			}
 		}
+		// Track with Matomo the current page
+		trackPageView();
 	}, [selectCountry, selectCountry2, lockedCountry])
 
 	// props.children.type.displayName will contain the name of the component that will be painted between the Header and the Footer
