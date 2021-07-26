@@ -12,3 +12,19 @@ export const oshAuthoritiesExceptions = [
         code: 'NO'
     }
 ]
+
+// Work Accidents Components
+
+export const workAccidentsExceptions = [
+    {
+        code: 'IS'
+    }
+]
+
+// Overall Opinion
+export const overallOpinionExceptions = [
+    {
+        code: 'IS'
+    }
+]
+
