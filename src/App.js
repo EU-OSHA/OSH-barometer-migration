@@ -25,9 +25,12 @@ const App = (props) =>
 				dispatch(setCountry2(''))
 			}
 		}
-		// Track with Matomo the current page
-		trackPageView();
 	}, [selectCountry, selectCountry2, lockedCountry])
+
+	// Track with Matomo the current page
+	useEffect(() => {
+		trackPageView();
+	}, [])
 
 	// props.children.type.displayName will contain the name of the component that will be painted between the Header and the Footer
 	let child = props.children.type.displayName;
