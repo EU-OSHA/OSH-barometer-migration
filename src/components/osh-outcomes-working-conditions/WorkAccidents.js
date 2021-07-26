@@ -11,11 +11,16 @@ import { workAccidents } from '../../model/subMenuTabs';
 import { connect } from 'react-redux';
 import { setCountry1, setCountry2 } from '../../actions/';
 
+// Contries Exceptions
+import { workAccidentsExceptions } from '../../model/countriesExceptions';
+
 class WorkAccidents extends Component {
 	constructor(props) {
 		super(props)
 
 		let selectedTab = '';
+		const lockedExceptions = workAccidentsExceptions.find((element) => this.props.lockedCountry == element.code);
+		const localExceptions = workAccidentsExceptions.find((element) => this.props.selectCountry == element.code);
 		for (let i = 0; i < workAccidents.length; i++)
 		{
 			if (workAccidents[i].url == props.indicator)
@@ -25,7 +30,7 @@ class WorkAccidents extends Component {
 		}
 
 		this.state = {
-			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry != 'IS'? this.props.lockedCountry : 'AT' : this.props.selectCountry == 'IS' ? 'AT' : this.props.selectCountry,
+			selectCountry1: this.props.selectedByUser ? this.props.lockedCountry != lockedExceptions?.code ? this.props.lockedCountry : 'AT' : this.props.selectCountry == localExceptions?.code ? 'AT' : this.props.selectCountry,
 			indicatorTabs: workAccidents,
 			selectedTab: selectedTab,
 			currentPath: '/osh-outcomes-working-conditions/work-accidents/',
@@ -74,7 +79,11 @@ class WorkAccidents extends Component {
 		}
 
 		if (this.props.country2 != undefined && this.props.country2 != '') {
-			this.props.setCountry2(this.props.country2)
+			if (this.props.selectCountry2 != this.props.selectCountry1) {
+				this.props.setCountry2(this.props.country2)
+			} else {
+				this.props.setCountry2('');
+			}
 		}
 
 		window.addEventListener('resize', this.updateDimension);
@@ -83,6 +92,10 @@ class WorkAccidents extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.selectCountry1 != this.state.selectCountry1) {
 			this.setState({ selectCountry1: this.state.selectCountry1 })
+		}
+
+		if (prevProps.selectCountry2 == this.state.selectCountry1) {
+			this.props.setCountry2('');
 		}
 	}
 
