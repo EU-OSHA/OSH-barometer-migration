@@ -52,10 +52,10 @@ public class DataServerImpl {
 		{
 			countryToExclude.add("AL");
 			countryToExclude.add("ME");
-			countryToExclude.add("MK");
-			countryToExclude.add("RS");
 			countryToExclude.add("TR");
-		}		
+		}
+		countryToExclude.add("MK");
+		countryToExclude.add("RS");
 		countryToExclude.add("UK");
 		countryToExclude.add("EU28");
 		countryToExclude.add("EU27_2020");		
