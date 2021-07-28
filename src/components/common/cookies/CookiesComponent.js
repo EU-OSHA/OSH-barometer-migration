@@ -22,7 +22,9 @@ const CookiesComponent = (props) => {
         }
 
         if(cookies.selectedCountry != undefined && cookies.selectedCountry != '0'){
-            dispatch(setCountry1(cookies.selectedCountry))
+            if (cookies.disclaimerCookie == true) {
+                dispatch(setCountry1(cookies.selectedCountry))
+            }
         }else{
                 if(navigator.geolocation){
                     navigator.geolocation.getCurrentPosition(function(position){

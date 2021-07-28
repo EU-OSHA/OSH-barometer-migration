@@ -103,6 +103,9 @@ class Chart extends Component {
 						stacking: this.props.stackingColumn,
 						dataLabels: {
 							enabled: this.props.showDataLabel === true ? true : false,
+							overflow: 'none',
+                            crop: false,
+                            allowOverlap: true,
 							style: {
 								textOutline: 0,
 								textShadow: false,

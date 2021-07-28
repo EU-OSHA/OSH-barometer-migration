@@ -25,8 +25,7 @@ class EnforcementCapacity extends Component {
 		}
 
 		this.state={
-			lockedCountry: (this.props.lockedCountry != 'CH' && this.props.lockedCountry != 'HR' && this.props.lockedCountry != 'IS'
-				&& this.props.lockedCountry != 'LU'  && this.props.lockedCountry != 'NO'  && this.props.lockedCountry != 'RO') ? this.props.lockedCountry : 'AT',
+			lockedCountry: this.props.lockedCountry,
 			indicatorSubTabs: enforcementCapacityTabs,
 			selectedTab: selected,
 			currentPath: '/osh-infrastructure/enforcement-capacity/',
@@ -262,7 +261,7 @@ class EnforcementCapacity extends Component {
 				</div>
 
 				<Methodology literals={this.props.literals} section={'Enforcement capacity'} indicator={this.state.selectedTab.chartType != undefined ? this.state.selectedTab.chartType[0].chartIndicator : this.state.selectedTab.indicator }/>
-				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity","establishments-inspected"]} country1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry} country2={this.props.selectCountry2} />
+				<Related literals={this.props.literals} section={["osh-infrastructure","enforcement-capacity",this.state.selectedTab.url]} country1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry} country2={this.props.selectCountry2} />
 			</div>
 		)
 	}

@@ -36,11 +36,10 @@ const EconomicSectorProfile = (props) => {
 			}
 		}
 
-		if (props.country2 == '' || props.country2 == undefined) {
-			dispatch(setCountry2(''));
-		} else {
+		if (props.country2 != undefined && props.country2 != '') {
 			dispatch(setCountry2(props.country2))
 		}
+		
 	},[])
 	
 	useEffect(() => {

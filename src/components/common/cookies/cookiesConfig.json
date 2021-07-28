@@ -12,11 +12,11 @@
                 "port": ""
             },
             "staging": {
-                "domain": "//test-visualisation.osha.europa.eu",
+                "domain": "//test-visualisation.osha.europa.eu/osh-barometer",
                 "port": ""
             },
             "prod": {
-                "domain": "//visualisation.osha.europa.eu",
+                "domain": "//visualisation.osha.europa.eu/osh-barometer",
                 "port": ""
             }
         },

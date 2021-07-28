@@ -109,10 +109,10 @@ class EconomicSectorReport extends Component {
                                 countryDisplay={'before'}
                             />
                         </div>
-                        {/* GDP per Capita */}
+                        {/* GDP per Capita EURO */}
                         <div className="box-rounded" >
                             <div className="card--block--chart--wrapper" >
-                                <h2 className="title--card" >{this.props.literals.L22195}</h2>
+                                <h2 className="title--card" >{this.props.literals.L22195} - {this.props.literals.L20742}</h2>
                                 <ChartHuman
                                     colors={['#ffae00','#529FA2','#003399']}
                                     showDataLabel={true}
@@ -136,10 +136,10 @@ class EconomicSectorReport extends Component {
                                 countryDisplay={'before'}
                             />
                         </div>
-                        {/* GDP per Capita EURO */}
+                        {/* GDP per Capita PPS */}
                         <div className="box-rounded" >
                             <div className="card--block--chart--wrapper">
-                                <h2 className="title--card" >{this.props.literals.L22195}</h2>
+                                <h2 className="title--card" >{this.props.literals.L22195} - {this.props.literals.L20743}</h2>
                                 <ChartHuman
                                     colors={['#ffae00','#529FA2','#003399']}
                                     showDataLabel={true}
@@ -163,10 +163,10 @@ class EconomicSectorReport extends Component {
                                 countryDisplay={'before'}
                             />
                         </div>
-                        {/* Income per Capita */}
+                        {/* Income per Capita EURO */}
                         <div className="box-rounded" >
                             <div className="card--block--chart--wrapper">
-                                <h2 className="title--card" >{this.props.literals.L293}</h2>
+                                <h2 className="title--card" >{this.props.literals.L293} - {this.props.literals.L20742}</h2>
                                 <IncomerPercapital
                                     colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
                                     showDataLabel={true}
@@ -191,10 +191,10 @@ class EconomicSectorReport extends Component {
                                 countryDisplay={'before'}
                             />
                         </div>
-                        {/* Income per Capita EURO */}
+                        {/* Income per Capita PPS */}
                         <div className="box-rounded" >
                             <div className="card--block--chart--wrapper" >
-                                <h2 className="title--card" >{this.props.literals.L293}</h2>
+                                <h2 className="title--card" >{this.props.literals.L293} - {this.props.literals.L20743}</h2>
                                 <IncomerPercapital
                                     colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
                                     showDataLabel={true}

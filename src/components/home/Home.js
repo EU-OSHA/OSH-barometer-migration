@@ -6,6 +6,9 @@ import { withCookies } from 'react-cookie';
 import $ from "jquery";
 import Carousel from 'react-bootstrap/Carousel';
 import { setCountry1, setCountry2, setLockedCountry, setMethodology } from '../../actions/';
+import CarouselCards from '../common/cards/CarouselCards';
+
+import { carouselDataCard } from '../../model/carouselItemData';
 
 const Home = props => {
 	// Global States
@@ -27,7 +30,10 @@ const Home = props => {
 
 		// Update the title of the page
 		document.title = 'OSH Barometer | Home';
-      
+	}, []);
+
+	useEffect(() => {
+
 		function getWidth(){
 			if (typeof window.innerWidth != 'undefined') {
 				return window.innerWidth;
@@ -39,14 +45,6 @@ const Home = props => {
 				return document.getElementsByTagName('body')[0].clientWidth;
 			}
 		}
-   
-		var screenWidth = getWidth();
-		createCarousel(screenWidth);
-   
-		$(window).on("resize",function(e){
-			var screenWidth = getWidth();		  
-			createCarousel(screenWidth);
-		}); 	
 
 		function hideControls(items){
 			if(items == 6){
@@ -55,70 +53,95 @@ const Home = props => {
 				$(".carousel-control-group").css('visibility','visible');
 			}
 		}
+
+		$('.carousel-showmanymoveone .carousel-item').each(function(index){
+			
+			for (let i=0;i<$(this).children().length;i++) {
+				$(this).children(':nth-child('+(i+1)+')').addClass('cloneditem-'+i);				
+			}
+			switch(index+1) {					
+				case 1:
+					break;
+				case 2:
+					$(this).children(':nth-child(1)').appendTo( $(this) );
+				break;
+				case 3:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+
+				break;
+				case 4:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					break;
+				case 5:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					$('.cloneditem-3',this).appendTo( $(this) );
+					break;
+				case 6:
+					$('.cloneditem-0',this).appendTo( $(this) );
+					$('.cloneditem-1',this).appendTo( $(this) );
+					$('.cloneditem-2',this).appendTo( $(this) );
+					$('.cloneditem-3',this).appendTo( $(this) );
+					$('.cloneditem-4',this).appendTo( $(this) );
+					break;
+				default:
+				// code block
+			}
+		});
+
+		const screenWidth = getWidth();
+		createCarousel(screenWidth);
    
-		function createCarousel(screenWidth){      
+		$(window).on("resize",function(e){
+			const screenWidth = getWidth();		  
+			createCarousel(screenWidth);
+		}); 	
+   
+		function createCarousel(screenWidth){  
+			let numItems;    
 			if( screenWidth >= 1919){
-				var numItems = 6;	
+				numItems = 6;	
 			}
 			else if( screenWidth >= 1600 && screenWidth < 1919 ){
-				var numItems =5;
+				numItems =5;
 			}
 			else if( screenWidth >= 1200 && screenWidth < 1600 ){
-				var numItems =4;
+				numItems =4;
 			}
 			else if( screenWidth >= 992 && screenWidth < 1200  ){
-				var numItems = 3;
+				numItems = 3;
 			}
 			else if(  screenWidth >= 768 && screenWidth < 992 ){
-				var numItems = 2;
+				numItems = 2;
 			}
 			else if( screenWidth < 768 && screenWidth > 420){
-				var numItems = 1;
+				numItems = 1;
 			} else {
-				var numItems = 1;
+				numItems = 1;
 			}
 			
 			$("#carousel .carousel-control-next,#carousel .carousel-control-prev").wrapAll('<div class="carousel-control-group"></div>');
 			$( "#carousel .carousel-control-group").appendTo( $( ".discover--charts--section" ) );
 			hideControls(numItems);
 
-			$('.carousel-showmanymoveone .carousel-item').each(function(){      
-				var itemToClone = $(this);	
-				$('>div.cloned',this).remove();					
+			$('.carousel-showmanymoveone .carousel-item').each(function(index){	
 
-				for (var i=1;i<numItems;i++) {				  	
-					itemToClone = itemToClone.next();
-					// wrap around if at end of item collection
-					if (!itemToClone.length) {
-						itemToClone = $(this).siblings(':first');	        
+				for (let i=0;i<$(this).children().length;i++) {					
+					if(i < numItems){
+						$(this).children(':nth-child('+(i+1)+')').css('display','');
+					}else {
+						$(this).children(':nth-child('+(i+1)+')').css('display','none');
 					}
-					// grab item, clone, add marker class, add to collection
-					itemToClone.children(':first-child').clone().addClass("cloned").addClass("cloneditem-"+(i)).appendTo($(this));	    
 				}
+
 			});
 		}
 
-		$(".carousel").on("touchstart", function(event){
-			if( numItems != 6){				   
-			   	var xClick = event.originalEvent.touches[0].pageX;
-
-			   	$(this).one("touchmove", function(event){
-					// console.log('start');
-					var xMove = event.originalEvent.touches[0].pageX;
-					if( Math.floor(xClick - xMove) > 5 ){
-						$(this).carousel('next');
-					}
-					else if( Math.floor(xClick - xMove) < -5 ){
-						$(this).carousel('prev');
-					}
-			   	});
-
-				$(".carousel").on("touchend", function(){
-					$(this).off("touchmove");
-				});
-			}
-		});
-	}, []);
+	}, [])
 
 	//Update when defaultCountrySelected (redux) changes
 	useEffect(() => {
@@ -154,10 +177,8 @@ const Home = props => {
 				if (countrySelected == selectCountry2) {
 					dispatch(setCountry2(''));
 					dispatch(setLockedCountry(countrySelected, true, true));
-					dispatch(setCountry1(countrySelected));
 				} else {
 					dispatch(setLockedCountry(countrySelected, true, true))
-					dispatch(setCountry1(countrySelected));
 				}
 	
 				if (cookies.get('disclaimerCookie') == 'true') {
@@ -166,11 +187,6 @@ const Home = props => {
 			} else {
 				setCountrySelected('0')
 				dispatch(setLockedCountry('', false, false))
-				dispatch(setCountry1('AT'));
-				if (selectCountry2 == 'AT')
-				{
-					dispatch(setCountry2(''));
-				}
 			}
 		}
 	}
@@ -267,144 +283,31 @@ const Home = props => {
 				<div className="container discover--charts--section">
 					<h2 className="title-section main-color">{props.literals.L22119}</h2>
 				</div>
-				<Carousel slide className="carousel-showmanymoveone" id="carousel" interval={null}>					
+
+				<Carousel slide className="carousel-showmanymoveone" id="carousel" interval={null}>
 				{/* <Carousel slide> */}
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card economic-chart-icon" to="economic-sector-profile ({pCountry:pCountry1})"> */}
-								<Link className="icon--card economic-chart-icon" to={"/generic-information/economic-sector-profile/"}>
-								</Link>
-								<h3 className="title--card">
-									{/*<Link to="economic-sector-profile ({pCountry:pCountry1})">*/}
-									<Link to={"/generic-information/economic-sector-profile/"}>
-									{props.literals.L22003}
-									</Link>
-								</h3>
-								{ReactHtmlParser(truncateText(props.literals.L22028,100))}
-							</div>
-							<p className="btn--card--carousel">
-								{/* <Link to="economic-sector-profile ({pCountry:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to={"/generic-information/economic-sector-profile/"} className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-							</p>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card national-icon" to="national-strategies"> */}
-								<Link className="icon--card national-icon" to="/osh-steering/national-strategies">
-								</Link>
-								<h3 className="title--card">
-									<Link to="/osh-steering/national-strategies">
-									{props.literals.L22007}
-									</Link>
-								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22038,100))}</p>
-							</div>
-							<p className="btn--card--carousel">
-								{/*<Link ng-if="strategyCountrySelected != '0'" to="country-profile({pIndicator: 'basic-information', pCountry1: strategyCountrySelected, pCountry2: 0})" className="btn-default btn-main-color btn-full">*/}
-								<Link to="/osh-steering/national-strategies" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-								{/*
-								<Link ng-if="strategyCountrySelected == '0'" to="national-strategies" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-								*/}
-							</p>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card work-accidents-icon" to="work-accidents ({pCountry1:pCountry1})"> */}
-								<Link className="icon--card work-accidents-icon" to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
-								</Link>
-								<h3 className="title--card">
-									{/* <Link to="work-accidents ({pCountry1:pCountry1})"> */}
-									<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents">
-									{props.literals.L22010}
-									</Link>
-								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22050,100))}</p>
-							</div>
-							<p className="btn--card--carousel">
-								{/* <Link to="work-accidents ({pCountry1:pCountry1})" className="btn-default btn-main-color btn-full"> */}
-								<Link to="/osh-outcomes-working-conditions/work-accidents/non-fatal-work-accidents" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-							</p>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card statistics-icon" to="osh-statistics"> */}
-								<Link className="icon--card statistics-icon" to="/osh-infrastructure/osh-statistics/">
-								</Link>
-								<h3 className="title--card">
-									<Link to="/osh-infrastructure/osh-statistics/">
-									{props.literals.L22018}
-									</Link>
-								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22065,100))}</p>
-							</div>
-							<p className="btn--card--carousel">
-								{/* <Link ng-if="statisticsCountrySelected != '0'" to="osh-statistics({pCountry: statisticsCountrySelected})" className="btn-default btn-main-color btn-full"> */}
-								<Link to="/osh-infrastructure/osh-statistics/" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-								{/*
-								<Link ng-if="statisticsCountrySelected == '0'" to="osh-statistics" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-								*/}
-							</p>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card working-conditons-icon" to="working-conditions"> */}
-								<Link className="icon--card working-conditons-icon" to="/osh-outcomes-working-conditions/working-conditions">
-								</Link>
-								<h3 className="title--card">
-									<Link to="/osh-outcomes-working-conditions/working-conditions">
-									{props.literals.L22013}
-									</Link>
-								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22054,100))}</p>
-							</div>
-							<p className="btn--card--carousel">
-								<Link to="/osh-outcomes-working-conditions/working-conditions" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-							</p>
-						</div>
-					</Carousel.Item>
-					<Carousel.Item className="carousel-item">
-						<div className="col-xs-12 col-sm-6 col-md-4 col-ml-3 col-lg-2">
-							<div className="content">
-								{/* <Link className="icon--card people-group-icon" to="workforce-profile"> */}
-								<Link className="icon--card people-group-icon" to="/generic-information/workforce-profile/median-age/ageing-workers">
-								</Link>
-								<h3 className="title--card">
-									<Link to="/generic-information/workforce-profile/median-age/ageing-workers" >
-									{props.literals.L22004}
-									</Link>
-								</h3>
-								<p className="content-text">{ReactHtmlParser(truncateText(props.literals.L22030,100))}</p>
-							</div>
-							<p className="btn--card--carousel">
-								<Link to="/generic-information/workforce-profile/median-age/ageing-workers" className="btn-default btn-main-color btn-full">
-								{props.literals.L22026}
-								</Link>
-							</p>
-						</div>
-					</Carousel.Item>
+				{/** Start if Items */}
+				{carouselDataCard.map((cardItem, index) => (
+						<Carousel.Item className={`carousel-item`} key={index} >
+							{carouselDataCard.map((itemData) => {
+								return (
+									<CarouselCards
+										pos={index}
+										literals={props.literals} 
+										cardItem={itemData}  
+									/>
+								)
+							})}
+							{/**
+							{carouselDataCard.map((itemData) => (
+								<CarouselCards
+								pos={index}
+								literals={props.literals} 
+								cardItem={cardItem}  
+								/>
+							))} */}
+						</Carousel.Item>
+						))}
 				</Carousel>
 
 			</section>

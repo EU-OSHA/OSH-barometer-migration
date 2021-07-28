@@ -60,6 +60,19 @@ const middlewares = composeWithDevTools(
 	applyMiddleware(),
 )
 
+if (window.location.href.indexOf('#!') > -1)
+{
+	// Check if the #! is between / symbols
+	if (window.location.href.indexOf('/#!/') > -1)
+	{
+		window.location.href = window.location.href.replace('#!/', '');
+	}
+	else
+	{
+		window.location.href = window.location.href.replace('#!', '');
+	}	
+}
+
 const store = createStore(reducer, middlewares);
 let literals = require('./model/Literals.json');
 fetch(`${process.env.PUBLIC_URL}/model/Literals.json`)
