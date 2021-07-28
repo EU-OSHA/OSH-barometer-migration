@@ -20,7 +20,7 @@
 95-http://www.mpsv.cz/files/clanky/5599/narodni_politika_CR.pdf
 102-http://bm.dk/~/media/BEM/Files/Dokumenter/Pressemeddelelser/2011/Aftaletekst.ashx 
 102-https://amid.dk/media/2953/strategy-working-environment-efforts-2020.pdf
-102-http://www.ftf.dk/fileadmin/Bruger_filbibliotek/Uddannelse_og_ledelse/Uddannelse/Aftaletekst_arbejdsmiljoe_pdf.pdf
+102-https://at.dk/media/3108/aftaletekst-arbejdsmiljoe-2015.pdf
 108-https://at.dk/om-os/formaal-strategi-organisation/om-strategi-for-arbejdsmiljoeindsatsen-frem-til-2020/
 110-https://www.sm.ee/et/heaolu-arengukava-2016-2023
 110-https://www.sm.ee/sites/default/files/content-editors/eesmargid_ja_tegevused/Sotsiaalse_turvalisuse_kaasatuse_ja_vordsete_voimaluste_arengukava_2016_2023/wdp.pdf
@@ -131,11 +131,9 @@
 241-http://www.hse.gov.uk/strategy/keeping-pace-with-change.htm
 241-http://www.hse.gov.uk/strategy/sharing-our-success.htm
 400-https://www.strategy.bg/FileHandler.ashx?fileId=17623
-400-https://www.mlsp.government.bg/ckfinder/userfiles/files/TPOOUT/EN_TPOOUT%3DNORMATIVE%20DOCUMENTS/NPBZR1820EN.pdf
-400-http://ncphp.government.bg/index.php?option=com_content&amp;view=article&amp;id=265&amp;catid=127&amp;Itemid=527&amp;lang=bg
+400-https://www.mlsp.government.bg/uploads/1/npbzr1820en.pdf
 400-http://www.strategy.bg/StrategicDocuments/View.aspx?lang=bg-BG&amp;Id=457
 400-http://www.strategy.bg/strategicdocuments/View.aspx?lang=bg-BG&amp;Id=901
-400-https://www.mlsp.government.bg/uploads/1/npbzr1820en.pdf
 401-http://www.et.gr/idocs-nph/search/pdfViewerForm.html?args=5C7QrtC22wEsrjP0JAlxBXdtvSoClrL8bReVM9NqpX_3U4LPcASlceJInJ48_97uHrMts-zFzeyCiBSQOpYnTy36MacmUFCx2ppFvBej56Mmc8Qdb8ZfRJqZnsIAdk8Lv_e6czmhEembNmZCMxLMteg4qiK6queFJfXza5ZKd11w0E97FM7_RXZ_zBXpQd1c
 401-http://www.et.gr/idocs-nph/search/pdfViewerForm.html?args=5C7QrtC22wEsrjP0JAlxBXdtvSoClrL8bReVM9NqpX_3U4LPcASlceJInJ48_97uHrMts-zFzeyCiBSQOpYnTy36MacmUFCx2ppFvBej56Mmc8Qdb8ZfRJqZnsIAdk8Lv_e6czmhEembNmZCMxLMteg4qiK6queFJfXza5ZKd11w0E97FM7_RXZ_zBXpQd1c
 402-http://www.pisrs.si/Pis.web/pregledPredpisa?id=RESO26
@@ -329,8 +327,7 @@
 2477-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Greece
 2480-http://www.ypakp.gr/
 2480-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Greece
-2483-http://www.ika.gr/en/home.cfm
-2483-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Greece
+2483-https://www.efka.gov.gr/el
 2486-http://www.efka.gov.gr/
 2486-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Greece
 2489-http://www.elot.gr/default_en.aspx
@@ -583,6 +580,7 @@
 2867-http://www.riziv.fgov.be/nl/publicaties/Paginas/stijging-invaliden-werknemers-zelfstandigen-2004-2013.aspx#.Vsc57bn2ZHg
 2869-http://www.riziv.fgov.be/nl/publicaties/Paginas/ziekteverzuim-primaire-arbeidsongeschiktheid.aspx#.Vsc9tbn2ZHg
 2871-https://www.fedris.be/nl/publicaties
+2873-https://www.noi.bg/en/
 2875-http://www.nsi.bg/sites/default/files/files/pages/Classifics/SSTZ_2014.pdf
 2877-http://www.nssi.bg/aboutbg/st/statistic/305-tzpb/infoprob
 2879-http://www.nsi.bg/sites/default/files/files/pages/Classific/SSPB_2014.pdf
@@ -634,8 +632,8 @@
 2961-https://www.gov.uk/industrial-injuries-disablement-benefit
 2963-http://www.hse.gov.uk/statistics/causdis/mesothelioma/mesothelioma-mortality-by-occupation-2002-2015.pdf
 2965-http://webarchive.nationalarchives.gov.uk/20140404084345/http://iiac.independent.gov.uk/reports/index.shtml
-2967-http://www.ika.gr/gr/infopages/stats/stat_reports/EA_2012_TRANS_FULL.pdf
-2969-http://www.ika.gr/gr/infopages/stats/stat_reports/EODSFINALDOC09.pdf
+2967-https://www.efka.gov.gr/el/menoy/genika-gia-ton-ephka/statistika-stoicheia
+2969-https://www.efka.gov.gr/el/menoy/genika-gia-ton-ephka/statistika-stoicheia
 2971-http://www.ypakp.gr
 2973-https://www.oaee.gr
 2975-http://www.oga.gr/
@@ -663,7 +661,8 @@
 3023-http://www.beroepsziekten.nl
 3025-https://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/
 3025-http://stat.gov.pl/obszary-tematyczne/rynek-pracy/warunki-pracy-wypadki-przy-pracy/
-3027-http://www.krus.gov.pl/fileadmin/moje_dokumenty/obrazki/broszury_prewencja/2015/Wypadki_przy_pracy_2015_vp4.pdf
+3027-https://www.krus.gov.pl/fileadmin/moje_dokumenty/dokumenty/prewencja/statystyki/2019/Wypadki_przy_pracy_2019_www.pdf
+3029-http://www.imp.lodz.pl/
 3031-http://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/5476/2/2/7/pw_wypadki_przy_pracy_i_problemy_zdrow_zwiazane_z_praca.pdf
 3033-http://www.gep.mtsss.gov.pt/estatistica
 3035-https://www.sns.gov.pt/entidades-de-saude/administracao-central-do-sistema-de-saude/
@@ -704,11 +703,14 @@
 3106-https://www.baua.de/DE/Angebote/Publikationen/Berichte/F2384.html
 3107-http://www.baua.de
 3107-http://www.iab.de
+3108-https://www.rki.de/DE/Content/Gesundheitsmonitoring/Studien/Geda/Geda_node.html
+3109-https://www.rki.de/DE/Home/homepage_node.html
 3110-https://www.destatis.de/DE/Methoden/Qualitaet/Qualitaetsberichte/Bevoelkerung/mikrozensus-2019.pdf?__blob=publicationFile
 3112-https://visualisation.osha.europa.eu/osh-barometer#!/osh-infrastructure/osh-statistics/
 3113-https://en.dgb.de/
 3114-https://www.dza.de/forschung/deas
 3115-https://www.dza.de
+3116-https://www.rki.de/DE/Content/Gesundheitsmonitoring/Studien/Degs/degs_node.html
 3117-https://www.rki.de/DE/Home/homepage_node.html
 3118-https://www.gda-portal.de/DE/Downloads/pdf/GDA-Dachevaluation_Abschlussbericht.pdf?__blob=publicationFile
 3119-https://www.baua.de/DE/Aufgaben/Geschaeftsstellen/GDA.html
@@ -726,7 +728,7 @@
 3145-http://www.monitorarbeid.tno.nl/english/our-surveys/zea%20
 3147-http://www.monitorarbeid.tno.nl/english/our-surveys/stream%20
 3149-http://www.monitorarbeid.tno.nl/english/our-surveys/codi%20
-3151-https://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/working-conditions-in-2016,1,11.html
+3151-https://stat.gov.pl/en/topics/labour-market/working-conditions-accidents-at-work/working-conditions-in-2019,1,14.html
 3181-http://trauma.lbg.ac.at/%20
 3181-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Austria
 3183-http://www.aamp.at
@@ -752,6 +754,7 @@
 3201-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Czech_Republic%20
 3203-http://www.arbejdsmiljoforskning.dk/da
 3203-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Denmark%20
+3205-https://at.dk/en/about-us/research-fund/
 3205-https://amid.dk/en/about-us/research-fund/%20
 3205-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Denmark%20
 3207-http://www.tai.ee/en/
@@ -817,7 +820,8 @@
 3267-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Poland%20
 3269-http://www.imp.sosnowiec.pl/
 3269-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Poland%20
-3271-http://www.imp.sosnowiec.pl/
+3271-http://www.gig.eu/en
+3271-https://gig.eu/pl
 3271-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Poland%20
 3273-http://www.imw.lublin.pl/
 3273-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Poland%20
@@ -846,6 +850,7 @@
 3297-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Slovakia%20
 3299-http://www.upjs.sk/lekarska-fakulta/klinika/pracovne-lekarstvo/
 3299-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Slovakia%20
+3301-https://www.kclj.si/index.php?dir=/divisions__departments/independent_units/institute_of_occupational_traffic_and_sports_medicine
 3301-https://www.kclj.si/index.php?dir=/divisions__%20departments/independent_units/institute_of_occupational%20_traffic_and_sports_medicine%20
 3301-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Slovenia
 3303-http://www.insht.es/
@@ -1019,4 +1024,6 @@
 4498-https://visualisation.osha.europa.eu/esener#!/en
 4498-https://www.eurofound.europa.eu/data/european-working-conditions-survey
 4511-https://visualisation.osha.europa.eu/esener#!/en
+4612-https://sawee.se/
+4612-https://oshwiki.eu/wiki/OSH_system_at_national_level_-_Sweden
 
