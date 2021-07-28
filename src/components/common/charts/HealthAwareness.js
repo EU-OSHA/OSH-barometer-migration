@@ -370,6 +370,16 @@ class HealthAwareness extends Component {
         window.addEventListener('resize', this.updateDimension);
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.country != this.props.country)
+        {
+            console.log('Update dimension');
+            this.getLoadData(this.props.chartType);
+            this.updateDimension();
+        }
+    }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateDimension);
     }

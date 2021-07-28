@@ -45,6 +45,7 @@ class PreventionChart extends Component {
                     height: window.innerWidth > 768 ? props.fullCountryReport == true ? 250 : 450 : 770,
                     type: this.props.type,
                     backgroundColor: '#F0F0F0',
+                    marginTop: props.fullCountryReport == true ? 20 : undefined,
                     events: {
                         render: function() {
                               var chart = this;
