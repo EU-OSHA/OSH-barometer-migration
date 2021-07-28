@@ -26,7 +26,7 @@ class ChartHuman extends Component {
 					//useHTML: true,
 					text: "<h2 class='title--card'>"+props.title+"</h2>",
 					align: 'left',
-					widthAdjust:  window.innerWidth > 768 ? 20 : 0,
+					widthAdjust:  window.innerWidth > 768 ? -5 : -15,
 					y:20,
 					style: {
 						zIndex: 1,

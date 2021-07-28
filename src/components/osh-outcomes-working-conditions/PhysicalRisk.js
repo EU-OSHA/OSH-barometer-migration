@@ -39,7 +39,7 @@ class PhysicalRisk extends Component{
 		}
 
 		this.state= {
-			lockedCountry: this.props.lockedCountry,
+			lockedCountry: this.props.lockedCountry != 'IS' ? this.props.lockedCountry : 'AT',
 			chart:'20049',
 			firstLevelTabs: physicalRiskTabs,
 			secondLevelTabs: secondLevelTabs,
@@ -52,7 +52,8 @@ class PhysicalRisk extends Component{
 			chartDimension: window.innerWidth > 768 ? 'column' : 'bar',
 			showSecondLevel: secondLevelTabs == '' ? false : true,
 			dataset: props.dataset,
-			secondLevelIndicator: props.indicator ? props.indicator : 'vapours'
+			secondLevelIndicator: props.indicator ? props.indicator : 'vapours',
+			fullyLoaded: true
 		}
 	}
 
@@ -130,9 +131,33 @@ class PhysicalRisk extends Component{
 	}
 
 	componentDidMount() {
-		if (this.props.country1 != undefined && this.props.country2 != undefined) {
-			this.props.setCountry1(this.props.country1)
+		this.setState({
+			fullyLoaded: true
+		})
+		try {
+			if (!this.props.selectedByUser) {
+				if (this.props.country1 != undefined && this.props.country1 != 'IS') {
+					this.props.setCountry1(this.props.country1)
+				} else {
+					this.props.setCountry1('AT');
+				}
+			}
+		} catch (err) {
+			console.log('error', err.message)
+		} finally {
+			this.setState({
+				fullyLoaded: false
+			})
+		}
+
+		if (this.props.country2 != undefined) {
 			this.props.setCountry2(this.props.country2)
+		}
+
+		if (this.props.selectedByUser) {
+			if (this.props.selectCountry2 == this.state.lockedCountry) {
+				this.props.setCountry2('')
+			}
 		}
 
 		// Update the title of the page
@@ -146,16 +171,17 @@ class PhysicalRisk extends Component{
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		// console.log('Previous', prevState.dataset);
-		// console.log('Current', this.state.dataset);
+		if (prevProps.selectCountry2 != this.props.selectCountry2) {
+			this.props.setCountry2(this.props.selectCountry2)
+		}
 
-		// if(prevProps.defaultCountry.code != this.props.defaultCountry.code && !this.props.country1){
-		// 	this.setState({ selectCountry1: this.props.defaultCountry.code });
-		// }
-
-		// if(prevProps.defaultCountry2.code != this.props.defaultCountry2.code && !this.props.country2){
-		// 	this.setState({ selectCountry2: this.props.defaultCountry2.code });
-		// }
+		if (prevProps.selectCountry != this.props.selectCountry) {
+			if (!this.props.selectedByUser) {
+				if (this.props.selectCountry == 'IS') {
+					this.props.setCountry1('AT');
+				}
+			}
+		}
 	}
 
 	componentWillUnmount(){
