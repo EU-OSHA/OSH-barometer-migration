@@ -642,7 +642,7 @@
 					}
 				}
 			}
-			&.DE{
+			&.DE, &.EL{
 				.box-rounded{
 					&.actors{
 						page-break-inside: avoid !important;
@@ -665,7 +665,8 @@
 			}
 			&.EE{
 				.box-rounded{
-					&.characteristics{
+					&.characteristics, 
+					&.box2{
 						page-break-inside: avoid !important;
 					}
 				}
@@ -731,6 +732,9 @@
 			}
 			&.BG{
 				page-break-before: always !important;	
+			}
+			&.EL{
+				page-break-before: initial !important;
 			}
 			&.CY, &.EE{
 				page-break-before: initial !important;
@@ -1024,12 +1028,19 @@
 			.content{
 				page-break-inside: initial !important;
 			}
-			&.BE{
+			&.BE, &.DK{
 				.osh-statistics-items{
 					&.osh-statistics-items-4{
 						page-break-inside: avoid  !important;
 					}
 				}
+			}
+			&.EE{
+				.osh-statistics-items{
+					&.osh-statistics-items-8{
+						page-break-inside: avoid  !important;
+					}
+				}	
 			}
 			&.CZ{
 				.osh-statistics-items{
