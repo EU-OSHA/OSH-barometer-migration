@@ -278,6 +278,7 @@ class MentalRiskCharts extends Component {
     
     getLoadData = (chartType) => {
         //console.log('getLoadData');
+
         let categories = [];
         let auxSeries = [];
         let series = [];
@@ -340,13 +341,14 @@ class MentalRiskCharts extends Component {
                         series.push({ name: serie, data: auxSeries[serie] });
                     }
 
-                    if (this.props.country && currentCountry != null)
+                    // if (this.props.country && currentCountry != null)
+                    if(this.props.country)
                     {
                         const selectedCountryColors = ['#F6A400','#F3C564'];
                         // Change the colour for the current country
                         for (let i = 0; i < series[0].data.length; i++)
-                        {
-                            if (series[0].data[i].name == currentCountry)
+                        {   
+                            if (series[0].data[i].name.includes("("+this.props.country+")"))
                             {
                                 series[0].data[i] = {...series[0].data[i], color: selectedCountryColors[0]}
                                 if (series[1])
