@@ -112,7 +112,7 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a> 
 								)}
 							</p>
-							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
+							{this.props.page == 'enforcement' && this.props.noInfoMsg2 && (this.props.noInfoMsg2.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {ReactHtmlParser(this.props.literals[`L${element}`])} </div>))}
 							<div className="complete-text" style={{ display: this.state.toggleSeeMore2 ? 'block' : 'none' }} >
 								{ReactHtmlParser(this.props.literals['L'+this.props.country2Text])}
 							</div>
@@ -146,7 +146,7 @@ class CountryProfileTextTab extends Component
 									className="download-pdf" target="_blank">{this.props.literals.L20640}</a>
                         	</p>
 						)}
-						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {this.props.literals[`L${element}`]} </div>))}
+						{this.props.page == 'enforcement' && this.props.noInfoMsg1 && (this.props.noInfoMsg1.map((element, index) => <div key={`${index}-${element}`} className="partial-text-profile"> {ReactHtmlParser(this.props.literals[`L${element}`])} </div>))}
                         <div className="partial-text" style={{ display: !this.state.toggleSeeMore ? 'block' : 'none' }} >{this.trimText(this.props.literals['L'+this.props.country1Text])}</div>
                         <div className="complete-text" style={{ display: this.state.toggleSeeMore ? 'block' : 'none' }} >{ReactHtmlParser(this.props.literals['L'+this.props.country1Text])}</div>
                         <SeeMore 
