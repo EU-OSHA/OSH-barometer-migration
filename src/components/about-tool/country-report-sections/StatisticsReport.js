@@ -61,7 +61,7 @@ class StatisticsReport extends Component
                 }
                 {
                     this.state.matrixPageData.map((data, index) => (
-                        <div className="clearfix osh-statistics-items" key={index}>
+                        <div className={"clearfix osh-statistics-items osh-statistics-items-"+index} key={index}>
                             {
                                 (index == 0) ? (
                                     <div>
