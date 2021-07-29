@@ -335,14 +335,24 @@ class SpiderChart extends Component{
 					}
 			});
 
-			for (let serie in auxSeries){
-				series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie]})
-				//console.log(auxSeries[serie])
+			for (let serie in auxSeries) {
+				if (serie == 'EU27_2020' || serie == 'EU28')
+				{
+					series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie], color: '#003399' });
+				}
+				else if (serie.indexOf(`(${this.props.selectCountry1})`) > -1)
+				{
+					series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie], color: this.props.colors[0] });
+				}
+				else if (serie.indexOf(`(${this.props.selectCountry2})`) > -1)
+				{
+					series.push({ name: serie, pointPlacement: 'on', data: auxSeries[serie], color: this.props.colors[1] });
+				}
 			}
 			if (series.length == 3){
-				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']  }})
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series }})
 			}else{
-				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}})
+				this.setState({ chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series }})
 			}
 			
 		})

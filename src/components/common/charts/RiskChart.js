@@ -195,15 +195,23 @@ class Chart extends Component {
 					 
 				});
 					
-		for (let serie in auxSeries) {
-			series.push({ name: serie , data: auxSeries[serie] })
-		}
+			for (let serie in auxSeries) {
+				series.push({ name: serie , data: auxSeries[serie] })
+			}
 			
 			if(series.length == 3){
 				this.setState({
 					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']}
 				})
-			}else{
+			}
+			else if (series.length == 1 && (series[0].name == 'EU27_2020' || series[0].name == 'EU28'))
+			{
+				// Only EU will be painted
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#003399']}
+				})
+			}
+			else{
 				this.setState({
 					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
 				})
