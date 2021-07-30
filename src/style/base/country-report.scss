@@ -48,14 +48,6 @@
 	   		}
 	   	}
 	   } 
-	   tfoot {
-	   	display: table-footer-group;
-	   	tr{
-	   		td{
-	   			height:10mm;
-	   		}
-	   	}
-	   }
 	   tbody {
 	   	tr{
 	   		td{
@@ -63,12 +55,32 @@
 	   	}
 	   }	
 		.page-header-space {
-		  height:20mm;
-		  background-color: #FFF !important;
+			height:20mm;
+			background-color: #FFF !important;
 		}
-		.page-footer-space {
-		  height:10mm;
-		  background-color: #FFF !important;
+
+		tfoot {
+			display: table-footer-group;
+			tr{
+				td{
+					height:10mm;
+					.page-footer-space {
+						height:10mm;
+						background-color: transparent !important;
+					  }
+				}
+			}
+		 &.FI, &.HU, &.IS, &.SK{
+			 tr{
+				 td{
+					 height:1mm;
+					 .page-footer-space {
+						height:1mm;
+						background-color: transparent !important;
+					  }
+				 }
+			 }
+		 }
 		}
 	}
 
@@ -196,6 +208,7 @@
 		font-size: 9px;
 		text-align: center;
 		margin: 0;
+		padding-top: 14px !important;
 		a{
 		}
 		a[target="_blank"]:before, a[target="blank"]:before, 
@@ -495,9 +508,9 @@
 						background: $gray-lighter !important;
 						color: $eu !important;
 						font-size: 2.2rem !important;
-		    		font-weight: bold;
-		    		padding: 1rem 1rem;
-		    		margin:1rem 0 0;
+						font-weight: bold;
+						padding: 1rem 1rem;
+						margin:1rem 0 0;
 					}
 					.institution-name{
 						//font-weight: bold;
@@ -642,6 +655,16 @@
 					}
 				}
 			}
+			&.ES{
+				.box-rounded{
+					&.actors{
+						page-break-inside: avoid !important;
+					}
+					&.box0{
+						page-break-inside: avoid !important;
+					}
+				}	
+			}
 			&.DE, &.EL{
 				.box-rounded{
 					&.actors{
@@ -667,6 +690,44 @@
 				.box-rounded{
 					&.characteristics, 
 					&.box2{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.FI{
+				.box-rounded{
+					&.characteristics, 
+					&.actors, 
+					&.details, 
+					&.evaluation{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.LT{
+				.box-rounded{
+					&.box0{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.LV{
+				.box-rounded{
+					&.details{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.SI{
+				.box-rounded{
+					&.resources{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.SK{
+				.box-rounded{
+					&.details, &.evaluation, &.box0{
 						page-break-inside: avoid !important;
 					}
 				}
@@ -730,7 +791,7 @@
 						}
 				}
 			}
-			&.BG{
+			&.BG, &.ES{
 				page-break-before: always !important;	
 			}
 			&.EL{
@@ -1028,9 +1089,23 @@
 			.content{
 				page-break-inside: initial !important;
 			}
-			&.BE, &.DK{
+			&.BE, &.DK, &.ES{
 				.osh-statistics-items{
 					&.osh-statistics-items-4{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.FI, &.LT{
+				.osh-statistics-items{
+					&.osh-statistics-items-5{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.FR{
+				.osh-statistics-items{
+					&.osh-statistics-items-8{
 						page-break-inside: avoid  !important;
 					}
 				}
@@ -1049,10 +1124,44 @@
 					}
 				}
 			}
-			&.CY, &.LV, &.BG{
+			&.CY, &.BG{
 				.content{
 					&.inspectorpowers{
-					  page-break-before: always !important;
+						page-break-inside: avoid!important;
+					}
+				}
+			}
+			&.LV{
+				.content{
+					&.inspectorpowers{
+						page-break-inside: avoid!important;
+					}
+				}
+				.osh-statistics-items{
+					&.osh-statistics-items-3{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.SI{
+				.osh-statistics-items{
+					&.osh-statistics-items-4{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.SK{
+				.osh-statistics-items{
+					&.osh-statistics-items-4, 
+					&.osh-statistics-items-5, 
+					&.osh-statistics-items-6, 
+					&.osh-statistics-items-7, 
+					&.osh-statistics-items-8, 
+					&.osh-statistics-items-9, 
+					&.osh-statistics-items-10, 
+					&.osh-statistics-items-11, 
+					&.osh-statistics-items-12{
+						page-break-inside: avoid  !important;
 					}
 				}
 			}

@@ -1082,7 +1082,7 @@ class CountryReport extends Component
 							</td>
 						</tr>
 					</tbody>
-					<tfoot>
+					<tfoot className={this.state.selectedCountryCode}>
 						<tr>
 							<td>
 								<div className="page-footer-space" />
