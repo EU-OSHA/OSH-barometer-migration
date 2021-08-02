@@ -119,19 +119,19 @@ class Methodology extends Component
 							<Accordion key={`${index}-${methodology.dataset}`} >
 								<h3 className="accordion-title">{this.props.literals[`L${methodology.diagram}`]}</h3>
 								<div className="accordion-content">
-								{this.methodologySection(this.state.methodology.length,'L20720',`L${this.state.methodology[0].diagram}`)}
-								{this.methodologySection(this.state.methodology.length,'L20721',`L${this.state.methodology[0].description}`)}
-								{this.methodologySection(this.state.methodology.length,'L20722',`L${this.state.methodology[0].datasource}`)}
-								{this.methodologySection(this.state.methodology.length,'L20723',`L${this.state.methodology[0].specificTable}`)}
-								{this.methodologySection(this.state.methodology.length,'L20724',`L${this.state.methodology[0].url}`)}
-								{this.methodologySection(this.state.methodology.length,'L20728',`L${this.state.methodology[0].options_applied}`)}
-								{this.methodologySection(this.state.methodology.length,'L20725',`L${this.state.methodology[0].referenceYear}`)}
-								{this.methodologySection(this.state.methodology.length,'L20726',`L${this.state.methodology[0].lastUpdate}`)}
-								{this.methodologySection(this.state.methodology.length,'L20727',`L${this.state.methodology[0].coverage}`)}
-								{this.methodologySection(this.state.methodology.length,'L20730',`L${this.state.methodology[0].unitMeasure}`)}
-								{this.methodologySection(this.state.methodology.length,'L20729',`L${this.state.methodology[0].calculations}`)}
-								{this.methodologySection(this.state.methodology.length,'L20731',`L${this.state.methodology[0].visualisation}`)}
-								{this.methodologySection(this.state.methodology.length,'L20732',`L${this.state.methodology[0].additionalComments}`)}
+								{this.methodologySection(this.state.methodology.length,'L20720',`L${this.state.methodology[index].diagram}`)}
+								{this.methodologySection(this.state.methodology.length,'L20721',`L${this.state.methodology[index].description}`)}
+								{this.methodologySection(this.state.methodology.length,'L20722',`L${this.state.methodology[index].datasource}`)}
+								{this.methodologySection(this.state.methodology.length,'L20723',`L${this.state.methodology[index].specificTable}`)}
+								{this.methodologySection(this.state.methodology.length,'L20724',`L${this.state.methodology[index].url}`)}
+								{this.methodologySection(this.state.methodology.length,'L20728',`L${this.state.methodology[index].options_applied}`)}
+								{this.methodologySection(this.state.methodology.length,'L20725',`L${this.state.methodology[index].referenceYear}`)}
+								{this.methodologySection(this.state.methodology.length,'L20726',`L${this.state.methodology[index].lastUpdate}`)}
+								{this.methodologySection(this.state.methodology.length,'L20727',`L${this.state.methodology[index].coverage}`)}
+								{this.methodologySection(this.state.methodology.length,'L20730',`L${this.state.methodology[index].unitMeasure}`)}
+								{this.methodologySection(this.state.methodology.length,'L20729',`L${this.state.methodology[index].calculations}`)}
+								{this.methodologySection(this.state.methodology.length,'L20731',`L${this.state.methodology[index].visualisation}`)}
+								{this.methodologySection(this.state.methodology.length,'L20732',`L${this.state.methodology[index].additionalComments}`)}
 								</div>
 							</Accordion>
 						))}
