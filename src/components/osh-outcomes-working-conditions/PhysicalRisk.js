@@ -271,7 +271,7 @@ class PhysicalRisk extends Component{
 									selectCountry1={this.props.selectedByUser ? this.state.lockedCountry : this.props.selectCountry}
 									selectCountry2={this.props.selectCountry2}
 									showDataLabel={true}
-									colors={['#f6a400','#003399','#cbe2e3']}
+									colors={['#f6a400','#529FA2','#003399']}
 									selectedTab={this.state.selectedTab.url}
 									indicatorTabs={this.state.indicatorTabs}
 									chartType={this.state.selectedTab.chartType}

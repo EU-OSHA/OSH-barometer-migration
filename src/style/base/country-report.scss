@@ -48,14 +48,6 @@
 	   		}
 	   	}
 	   } 
-	   tfoot {
-	   	display: table-footer-group;
-	   	tr{
-	   		td{
-	   			height:10mm;
-	   		}
-	   	}
-	   }
 	   tbody {
 	   	tr{
 	   		td{
@@ -63,12 +55,32 @@
 	   	}
 	   }	
 		.page-header-space {
-		  height:20mm;
-		  background-color: #FFF !important;
+			height:20mm;
+			background-color: #FFF !important;
 		}
-		.page-footer-space {
-		  height:10mm;
-		  background-color: #FFF !important;
+
+		tfoot {
+			display: table-footer-group;
+			tr{
+				td{
+					height:10mm;
+					.page-footer-space {
+						height:10mm;
+						background-color: transparent !important;
+					  }
+				}
+			}
+		 &.FI, &.HU, &.IS, &.SK, &.NO, &.LV, &.MT, &.NL{
+			 tr{
+				 td{
+					 height:1mm;
+					 .page-footer-space {
+						height:1mm;
+						background-color: transparent !important;
+					  }
+				 }
+			 }
+		 }
 		}
 	}
 
@@ -196,6 +208,7 @@
 		font-size: 9px;
 		text-align: center;
 		margin: 0;
+		padding-top: 14px !important;
 		a{
 		}
 		a[target="_blank"]:before, a[target="blank"]:before, 
@@ -495,9 +508,9 @@
 						background: $gray-lighter !important;
 						color: $eu !important;
 						font-size: 2.2rem !important;
-		    		font-weight: bold;
-		    		padding: 1rem 1rem;
-		    		margin:1rem 0 0;
+						font-weight: bold;
+						padding: 1rem 1rem;
+						margin:1rem 0 0;
 					}
 					.institution-name{
 						//font-weight: bold;
@@ -605,18 +618,21 @@
 				background: $gray-lighter !important;
 				color: $eu !important;
 				font-size: 2.2rem !important;
-    		font-weight: bold;
-    		padding: 1rem 1rem;
-    		margin: 0;
+				font-weight: bold;
+				padding: 1rem 1rem;
+				margin: 0;
 			}
 			h5{
 				font-weight: bold;
 				font-size: 1.8rem !important;
-    		margin-top: 0;
+    			margin-top: 0;
 			}
 			.box-rounded{
-		    margin:1rem 0;
-		    page-break-inside: initial !important;
+		    	margin:1rem 0;
+		    	page-break-inside: initial !important;
+				&.relation{
+					page-break-inside: avoid !important;
+				}
 			}
 			&.IT, &.NL, &.EL {
 				.box-rounded{
@@ -625,12 +641,31 @@
 					}
 				}
 			}
-			&.CY, &.BG{
-				.box-rounded.box2{
-					page-break-inside: avoid !important;
+			&.BE{
+				.box-rounded {
+					&.box0{
+						page-break-inside: avoid !important;
+					}
 				}
 			}
-			&.DE{
+			&.CY, &.BG{
+				.box-rounded {
+					&.box2{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.ES{
+				.box-rounded{
+					&.actors{
+						page-break-inside: avoid !important;
+					}
+					&.box0{
+						page-break-inside: avoid !important;
+					}
+				}	
+			}
+			&.DE, &.EL{
 				.box-rounded{
 					&.actors{
 						page-break-inside: avoid !important;
@@ -653,7 +688,46 @@
 			}
 			&.EE{
 				.box-rounded{
-					&.characteristics{
+					&.characteristics, 
+					&.box2{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.FI{
+				.box-rounded{
+					&.characteristics, 
+					&.actors, 
+					&.details, 
+					&.evaluation{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.LT{
+				.box-rounded{
+					&.box0{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.LV{
+				.box-rounded{
+					&.details{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.SI{
+				.box-rounded{
+					&.resources{
+						page-break-inside: avoid !important;
+					}
+				}
+			}
+			&.SK{
+				.box-rounded{
+					&.details, &.evaluation, &.box0{
 						page-break-inside: avoid !important;
 					}
 				}
@@ -668,13 +742,7 @@
 		}
 		section.social-dialogue{
 			min-height: initial !important;
-			&.CY, &.DE, &.CZ, &.DK, &.BG, &.EE{
-				page-break-before: initial !important;
-			}
-			&.HU, &.LT{
-				page-break-before: initial !important;
-				page-break-inside: avoid !important;
-			}
+			// page-break-before: initial !important;
 			header{
 				display: flex;
 				padding: 1rem 4rem 1rem 4rem;
@@ -692,36 +760,58 @@
 			.content-page{
 				display: flex;
 					.box-rounded{
-				    margin: 0 2%;
-				    min-height: 20rem;
-				    width: 46%;
-				    ul{
-				    	list-style-type: none;
-				    	display: flex;
-							flex-wrap: wrap;
-							padding: 0;
-				    	li{
-								width: 50%;
-								text-align: center;						    
-				        padding: 0 1rem;
-				        &:nth-child(2n+1){
-									border-right: 1px solid $gray;
-				        }
-								span{
-									font-size: 2.8rem;
-									display: inline-block;
-									font-weight: bold;
-								}
-								label{
-									display: inline-block;
-									max-width: 100%;
-									margin-bottom: 5px;
-									font-weight: normal;
-									text-align: center;
-								}
-				    	}
-				    }
+						margin: 0 2%;
+						min-height: 20rem;
+						width: 46%;
+						ul{
+							list-style-type: none;
+							display: flex;
+								flex-wrap: wrap;
+								padding: 0;
+							li{
+									width: 50%;
+									text-align: center;						    
+							padding: 0 1rem;
+							&:nth-child(2n+1){
+										border-right: 1px solid $gray;
+							}
+									span{
+										font-size: 2.8rem;
+										display: inline-block;
+										font-weight: bold;
+									}
+									label{
+										display: inline-block;
+										max-width: 100%;
+										margin-bottom: 5px;
+										font-weight: normal;
+										text-align: center;
+									}
+							}
+						}
+				}
+			}
+			&.BG, &.ES{
+				page-break-before: always !important;	
+			}
+			&.EL{
+				page-break-before: initial !important;
+			}
+			&.CY, &.EE{
+				page-break-before: initial !important;
+				margin-top: 20mm;
+				.box-rounded{
+					&:last-child{
+						page-break-inside: initial !important;	
 					}
+				}
+			}
+			&.DE, &.CZ, &.DK{
+				page-break-before: initial !important;
+			}
+			&.HU, &.LT{
+				page-break-before: initial !important;
+				page-break-inside: avoid !important;
 			}		
 		}
 		section.work-accidents{
@@ -946,6 +1036,11 @@
 						padding: 1rem 3rem;
 						margin:1rem 0;
 						page-break-inside: initial !important;
+						p{
+							span{
+								font-size: 14px !important;
+							}
+						}
 					}
 				}
 			}
@@ -970,6 +1065,11 @@
 							margin: 0rem 0 0 1rem;
 						}
 					}
+					p{
+						span{
+							font-size: 14px !important;
+						}
+					}
 				}
 			}
 			.header4{
@@ -989,10 +1089,79 @@
 			.content{
 				page-break-inside: initial !important;
 			}
-			&.CY, &.LV, &.BG{
+			&.BE, &.DK, &.ES{
+				.osh-statistics-items{
+					&.osh-statistics-items-4{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.FI, &.LT{
+				.osh-statistics-items{
+					&.osh-statistics-items-5{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.FR{
+				.osh-statistics-items{
+					&.osh-statistics-items-8{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.EE{
+				.osh-statistics-items{
+					&.osh-statistics-items-8{
+						page-break-inside: avoid  !important;
+					}
+				}	
+			}
+			&.CZ{
+				.osh-statistics-items{
+					&.osh-statistics-items-3{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.CY, &.BG{
 				.content{
 					&.inspectorpowers{
-					  page-break-before: always !important;
+						page-break-inside: avoid!important;
+					}
+				}
+			}
+			&.LV{
+				.content{
+					&.inspectorpowers{
+						page-break-inside: avoid!important;
+					}
+				}
+				.osh-statistics-items{
+					&.osh-statistics-items-3{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.SI{
+				.osh-statistics-items{
+					&.osh-statistics-items-4{
+						page-break-inside: avoid  !important;
+					}
+				}
+			}
+			&.SK{
+				.osh-statistics-items{
+					&.osh-statistics-items-4, 
+					&.osh-statistics-items-5, 
+					&.osh-statistics-items-6, 
+					&.osh-statistics-items-7, 
+					&.osh-statistics-items-8, 
+					&.osh-statistics-items-9, 
+					&.osh-statistics-items-10, 
+					&.osh-statistics-items-11, 
+					&.osh-statistics-items-12{
+						page-break-inside: avoid  !important;
 					}
 				}
 			}

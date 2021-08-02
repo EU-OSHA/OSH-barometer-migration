@@ -64,7 +64,7 @@ class AuthoritiesReport extends Component
                 }
                 {
                     this.state.matrixPageData.map((data, index) => (
-                        <div className={`clearfix osh-authorities-items ${(data.check2 === true && index === 3 && this.props.country === "AT") ? "page-break-before" : ""}`}
+                        <div className={`clearfix osh-authorities-items item-`+index}
                             key={index}>
                             {
                                 (index == 0) ? (
@@ -79,7 +79,7 @@ class AuthoritiesReport extends Component
                             
                             <div className="matrix--content--elements">
                                 { this.getAuthorityTitle(data, index) }
-                                <div className={`box-rounded ${(data.check2 === true && index === 3 && this.props.country === "AT") ? "page-break-before" : ""}`}>
+                                <div className="box-rounded">
                                     <p className="institution-name">
                                         {ReactHtmlParser(this.props.literals["L"+data.text1])}
                                     </p>

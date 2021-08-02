@@ -195,15 +195,23 @@ class Chart extends Component {
 					 
 				});
 					
-		for (let serie in auxSeries) {
-			series.push({ name: serie , data: auxSeries[serie] })
-		}
+			for (let serie in auxSeries) {
+				series.push({ name: serie , data: auxSeries[serie] })
+			}
 			
 			if(series.length == 3){
 				this.setState({
 					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#f6a400','#529FA2','#003399']}
 				})
-			}else{
+			}
+			else if (series.length == 1 && (series[0].name == 'EU27_2020' || series[0].name == 'EU28'))
+			{
+				// Only EU will be painted
+				this.setState({
+					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series, colors:['#003399']}
+				})
+			}
+			else{
 				this.setState({
 					chartConfig: {...this.state.chartConfig, xAxis: {...this.state.chartConfig.xAxis, categories}, series}
 				})
@@ -240,7 +248,8 @@ class Chart extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState ) {
-
+		if (!this.props.fullCountryReport)
+		{
 			if (prevState.select != this.state.select){
 				if (this.state.select == 'sector'){
 				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, this.props.sector)	
@@ -251,9 +260,8 @@ class Chart extends Component {
 				if (this.state.select == 'age'){
 				this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, null, null,this.props.age);
 				}
-			}
-			
-
+			}			
+	
 			if (this.state.select == 'sector'){
 				if (prevProps.selectCountry1 != this.props.selectCountry1) {
 					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,this.props.sector)
@@ -262,7 +270,7 @@ class Chart extends Component {
 					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,this.props.sector)
 				}
 			}
-
+	
 			if (this.state.select == 'gender'){
 				if (prevProps.selectCountry1 != this.props.selectCountry1) {
 					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,this.props.gender)
@@ -271,8 +279,7 @@ class Chart extends Component {
 					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,null,this.props.gender)
 				}
 			}
-
-		
+			
 			if (this.state.select == 'age'){
 				if (prevProps.selectCountry1 != this.props.selectCountry1) {
 					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,null,this.props.age)
@@ -281,19 +288,23 @@ class Chart extends Component {
 					this.getLoadDataRisk(this.props.chart,this.props.indicator,this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
 				}
 			}
-
-			
-
-		// if (prevProps.selectCountry1 != this.props.selectCountry1) {
-		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2,null,null,this.props.age)
-		// }
-		// if (prevProps.selectCountry2 != this.props.selectCountry2) {
-		// 	this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1,this.props.selectCountry2,null,null,this.props.age)
-		// }		
-
+		}
+		else
+		{
+			if (this.props.selectCountry1 != prevProps.selectCountry1)
+			{
+				if (this.props.selectedIndicator == 'sector'){
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, this.props.sector)	
+				}
+				if (this.props.selectedIndicator == 'gender'){
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, null, this.props.gender);
+				}
+				if (this.props.selectedIndicator == 'age'){
+					this.getLoadDataRisk(this.props.chart, this.props.indicator, this.props.selectCountry1, this.props.selectCountry2, null, null,this.props.age);
+				}
+			}
+		}
 	}
-
-
 
 	render() {
 		let selectDiv;

@@ -257,7 +257,7 @@ const EconomicSectorProfile = (props) => {
 									<div className="chart--wrapper">
 										<IncomerPercapital
 											title={props.literals.L293}
-											colors={['#ffae00','#003399','#529FA2','#fcf230','#6ab8ba','#fcd986','#4ab265']}
+											colors={['#f6a400','#529FA2','#003399']}
 											showDataLabel={true}
 											tick={5000}
 											percentage='€'
