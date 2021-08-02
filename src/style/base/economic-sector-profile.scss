@@ -30,20 +30,28 @@
         position: relative;
         z-index: 2;
         @media screen and (max-width:1199px) {
-          width: 71%;
+          width: 100%;
+          right: 0;
         }
         @media screen and (max-width:990px) {
-          width: 79%;
+          width:100%;
+          right: 1.2rem;
         }
         @media screen and (max-width:768px) {
-          width: 98%;
-          right: 0;
-          margin-left: auto;
+          width:100%;
+          right: 1.2rem;
+          margin-left: 0;
+        }
+        @media screen and (max-width:350px) {
+          width:100%;
+          right: 0rem;
+          margin-left: 0;
         }
       }
       .select-filter-chart{
         position: relative;
         top: 0rem;
+        text-align: right;
         /*
         position: absolute;
         right: 9rem;
@@ -67,7 +75,7 @@
           pointer-events: none;
         }
         select{
-          width: 100%;
+          width:100%;
           margin: 0;
           padding: 0 0 0 0;
           border: 0px;
@@ -97,7 +105,7 @@
             font-family: OpenSans;
             color: black !important;
             text-align:right; 
-            direction: rtl;
+            // direction: rtl;
             &:checked {            
               display: none;
             }
