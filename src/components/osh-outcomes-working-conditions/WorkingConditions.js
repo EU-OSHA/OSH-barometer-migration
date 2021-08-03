@@ -34,7 +34,7 @@ class WorkingConditions extends Component {
 									// ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})"
 								>{this.props.literals.L20709}</Link>
 							</h3>
-							<p>{this.props.literals.L20577}</p>
+							<p>{ReactHtmlParser(this.props.literals.L20577)}</p>
 							<p className="btn--card--block">
 								<Link to={"/osh-outcomes-working-conditions/overall-opinion/job-satisfaction/"}
 									// ui-sref="overall-opinion({pIndicator:'job-satisfaction', pSplit:'sector', pCountry1:country1,pCountry2:country2})" 
@@ -52,7 +52,7 @@ class WorkingConditions extends Component {
 									// ui-sref="mental-risk"
 								>{this.props.literals.L20710}</Link>
 								</h3>
-							<p>{this.props.literals.L20578}</p>
+							<p>{ReactHtmlParser(this.props.literals.L20578)}</p>
 							<p className="btn--card--block">
 								<Link to={"/osh-outcomes-working-conditions/mental-risk/time-pressure/esener"}
 									// ui-sref="mental-risk" 
@@ -71,7 +71,7 @@ class WorkingConditions extends Component {
 								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature"}
 									// ui-sref="physical-risk-vibrations-loud-noise-and-temperature({pIndicator: 'vibrations-loud-noise-and-temperature', pCountry1:country1, pCountry2: country2})"
 								>{this.props.literals.L20711}</Link></h3>
-							<p>{this.props.literals.L20579}</p>
+							<p>{ReactHtmlParser(this.props.literals.L20579)}</p>
 							<p className="btn--card--block">
 								<Link to={"/osh-outcomes-working-conditions/physical-risk/vibrations-loud-noise-and-temperature"}
 									// ui-sref="physical-risk-vibrations-loud-noise-and-temperature({pIndicator: 'vibrations-loud-noise-and-temperature', pCountry1:country1, pCountry2: country2})" 

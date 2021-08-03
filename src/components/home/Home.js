@@ -209,7 +209,7 @@ const Home = props => {
 						</p>
 					</div>
 					<div className="column--item valign eu-background">
-						<p className="lead-title ng-binding">{props.literals.L22109}</p>
+						<p className="lead-title ng-binding">{ReactHtmlParser(props.literals.L22109)}</p>
 					</div>
 				</div>
 			</section>
@@ -335,7 +335,7 @@ const Home = props => {
 				<div className="content-methodology">
 					<h2 className="">{props.literals.L22114}</h2>
 					<h3 className="">{props.literals.L22115}</h3>
-					<p className="">{props.literals.L22116}</p>
+					<p className="">{ReactHtmlParser(props.literals.L22116)}</p>
 					<p className="btn--wrapper btn--block-arrow">
 						<Link className="btn-default btn-main-color text-center ng-binding" to="/about-the-system/methodology">{props.literals.L22117}</Link>
 					</p>
