@@ -42,10 +42,11 @@
           right: 1.2rem;
           margin-left: 0;
         }
-        @media screen and (max-width:350px) {
-          width:100%;
-          right: 0rem;
+        @media screen and (max-width:385px) {
+          width: 96%;
+          right: 3px;
           margin-left: 0;
+          margin-top: 1.2rem;
         }
       }
       .select-filter-chart{
