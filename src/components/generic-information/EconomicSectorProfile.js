@@ -24,6 +24,11 @@ const EconomicSectorProfile = (props) => {
 	// Hook for the dispatchs
 	const dispatch = useDispatch();
 
+	// Only for Safari browser
+	var is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)+"_safari";
+	// test in chrome
+	// var is_safari = !!window.chrome +"_safari";
+
 	useEffect(() => {
 		// Update the title of the page
 		document.title = props.literals.L22003 +  " - " + props.literals.L22020 + " - " + props.literals.L363;
@@ -214,7 +219,7 @@ const EconomicSectorProfile = (props) => {
 						</div>
 						{/* GDP PER CAPITA IN RELATION TO EU27_2020 AVERAGE */}
 						<div className="card--block--chart">
-							<div className="select-filter-chart-wrapper">
+							<div className={"select-filter-chart-wrapper "+is_safari}>
 								<div className="select-filter-chart">
 									<select  className="ng-pristine ng-untouched " onChange={selectEuro2}>
 										<option value="35">{props.literals.L20743}</option>
@@ -244,7 +249,7 @@ const EconomicSectorProfile = (props) => {
 
 						{/* INCOME PER CAPITA */}
 						<div className="card--block--chart">
-							<div className="select-filter-chart-wrapper">
+							<div className={"select-filter-chart-wrapper "+is_safari}>
 								<div className="select-filter-chart" >
 									<select className="ng-pristine ng-untouched " onChange={selectEuro}>
 										<option value="36">{props.literals.L20743}</option>
