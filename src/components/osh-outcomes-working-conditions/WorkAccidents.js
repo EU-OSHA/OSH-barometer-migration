@@ -165,7 +165,7 @@ class WorkAccidents extends Component {
 					</div>
 
 					<div className="chart-legend">
-						{ this.state.selectedTab.url == 'non-fatal-work-accidents' ? this.props.literals.L20565 : ReactHtmlParser(this.props.literals.L20566) }
+						{ this.state.selectedTab.url == 'non-fatal-work-accidents' ? ReactHtmlParser(this.props.literals.L20565) : ReactHtmlParser(this.props.literals.L20566) }
 					</div>
 				</div>
 

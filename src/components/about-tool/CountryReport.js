@@ -210,7 +210,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22002}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22025}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22025)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
@@ -260,7 +260,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22007}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22038}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22038)}</p>
 										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
@@ -274,7 +274,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22008}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22041}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22041)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
@@ -287,7 +287,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22010}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22050}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22050)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
@@ -359,7 +359,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22011}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22052}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22052)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
@@ -392,7 +392,7 @@ class CountryReport extends Component
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
 									<h4 className="header3">{this.props.literals.L20709}</h4>
-									<p>{this.props.literals.L20577}</p>
+									<p>{ReactHtmlParser(this.props.literals.L20577)}</p>
 									<span>{this.props.literals.L20704} </span>
 									<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									{/* <!-- Job satisfaction --> */}
@@ -411,7 +411,7 @@ class CountryReport extends Component
 											country={this.state.selectedCountryCode}
 											fullCountryReport={true}
 										/>
-										<div className="chart-legend">{this.props.literals.L20580}</div>
+										<div className="chart-legend">{ReactHtmlParser(this.props.literals.L20580)}</div>
 										<ChartDataTable
 											className='chart-data'
 											literals={this.props.literals}
@@ -448,7 +448,7 @@ class CountryReport extends Component
 											// handleSector={handleSector}
 											fullCountryReport={true}
 										/>
-										<div className="chart-legend">{this.props.literals.L20582}</div>
+										<div className="chart-legend">{ReactHtmlParser(this.props.literals.L20582)}</div>
 										<ChartDataTable
 											className='chart-data'
 											literals={this.props.literals}
@@ -485,7 +485,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 											// handleSector={handleSector}
 										/>
-										<div className="chart-legend">{this.props.literals.L20582}</div>
+										<div className="chart-legend">{ReactHtmlParser(this.props.literals.L20582)}</div>
 										<ChartDataTable
 											className='chart-data'
 											literals={this.props.literals}
@@ -522,7 +522,7 @@ class CountryReport extends Component
 											fullCountryReport={true}
 											// handleSector={handleSector}
 										/>
-										<div className="chart-legend">{this.props.literals.L20582}</div>
+										<div className="chart-legend">{ReactHtmlParser(this.props.literals.L20582)}</div>
 										<ChartDataTable
 											className='chart-data'
 											literals={this.props.literals}
@@ -539,7 +539,7 @@ class CountryReport extends Component
 								{/* -- WORKING CONDITIONS - MENTAL RISK */}
 								<section className={"working-conditions mental-risk "+this.state.selectedCountryCode}>
 									<h4 className="header3">{this.props.literals.L20710}</h4>
-									<p>{this.props.literals.L20578}</p>
+									<p>{ReactHtmlParser(this.props.literals.L20578)}</p>
 									<p>
 										<span>{this.props.literals.L20700} </span>
 										<span>{this.props.literals.L20704} </span>
@@ -599,7 +599,7 @@ class CountryReport extends Component
 								<section className={"working-conditions physical-risk "+this.state.selectedCountryCode}>
 									<div className="intro-page">
 										<h4 className="header3">{this.props.literals.L20711}</h4>
-										<p>{this.props.literals.L20579}</p>
+										<p>{ReactHtmlParser(this.props.literals.L20579)}</p>
 										<p>
 											<span>{this.props.literals.L20700} </span>
 											<span>{this.props.literals.L20704} </span>
@@ -753,7 +753,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22014}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22058}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22058)}</p>
 										<span>{this.props.literals.L20702} </span>
 										<span>{this.props.literals.L20704} </span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
@@ -989,7 +989,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22015}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22060}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22060)}</p>
 										<span>{this.props.literals.L20700}</span>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
@@ -1057,7 +1057,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22017}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22063}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22063)}</p>
 										<p>{ReactHtmlParser(this.props.literals.L20699)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
@@ -1071,7 +1071,7 @@ class CountryReport extends Component
 										<h3>{this.props.literals.L22018}</h3>
 									</div>
 									<div className="intro-page">
-										<p>{this.props.literals.L22065}</p>
+										<p>{ReactHtmlParser(this.props.literals.L22065)}</p>
 										<span>{this.props.literals.L20704}</span>
 										<span><Link to="about-the-system/methodology"> {this.props.literals.L20705}</Link></span>
 									</div>
